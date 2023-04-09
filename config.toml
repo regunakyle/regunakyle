@@ -17,8 +17,9 @@ description = "Eric Leung's personal website"
 keywords = "blog,developer,personal"
 avatarurl = "images/avatar.jpg"
 
-favicon_32 = "images/favicon-32x32.png"
-favicon_16 = "images/favicon-16x16.png"
+favicon_32 = "favicon-32x32.png"
+favicon_16 = "favicon-16x16.png"
+touchIcon = "apple-touch-icon.png"
 
 since = 2023
 
