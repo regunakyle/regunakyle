@@ -27,18 +27,20 @@ There are plans to add a self-hosted *LLaMA* chatbot model into it, but I need t
 
 ## In Development
 
-### DD-site clone
+### DD-site Clone
 
-A clone of [vtuber.hk](https://vtuber.hk/), the so-called "DD-site". Written with *React* and *Spring Boot*.
+A clone of [vtuber.hk](https://vtuber.hk/), the so-called *DD-site*. Written with *React* and *Spring Boot*.
 
-Personally I do not watch VTubers, but I found the idea interesting enough for me to create a clone of it.
+The idea did not come from me: someone wanted to create their own *DD-site* because she thought the site was hostile to new VTubers, and her friend asked me for help.
+
+Personally I do not watch VTubers, but I found the idea interesting enough for me to work on it. I will create a basic clone of *DD-site* first (with all of its functionality), then add more features like recommendations when I have time.
 
 ## Planned
 
-### Banking Web App
+### Finance One-Stop App
 
-A web app that uses *Open Banking API* from various Hong Kong banks (e.g. [HSBC](https://developer.hsbc.com.hk/), [HSB](https://developer.hangseng.com)) and also API from securities brokers like [IBKR](https://www.interactivebrokers.com.hk/en/trading/ib-api.php).
+A web app that utilizes *Open Banking API* from various Hong Kong banks (e.g. [HSBC](https://developer.hsbc.com.hk/), [HSB](https://developer.hangseng.com)) and also API from securities brokers like [IBKR](https://www.interactivebrokers.com.hk/en/trading/ib-api.php).
 
-The ultimate goal is to create an one-stop app where I can monitor all my income and spendings, and send reports/alerts to me periodically.
+The ultimate goal is to create a one-stop app where I can monitor all my income and spending and receive reports/alerts periodically. Ideally it can also aggregate the financial data of my whole family.
 
-However, the API of Hong Kong banks are not available for individual developers. Technically I can register a business just for this but it takes more time than I have right now.
+However, the API of major Hong Kong banks is not available for individual developers. Technically I can register a business just for this but it takes more time than I have right now.
