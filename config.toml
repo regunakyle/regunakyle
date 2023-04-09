@@ -1,0 +1,68 @@
+title = "Reguna"
+theme = "hugo-coder"
+languagecode = "en"
+defaultcontentlanguage = "en"
+
+enableRobotsTXT = true
+
+paginate = 20
+
+[markup.highlight]
+style = "github-dark"
+
+[params]
+author = "Eric Leung"
+info = "Aspiring Full Stack Developer"
+description = "Eric Leung's personal website"
+keywords = "blog,developer,personal"
+avatarurl = "images/avatar.jpg"
+
+favicon_32 = "images/favicon-32x32.png"
+favicon_16 = "images/favicon-16x16.png"
+
+since = 2023
+
+colorScheme = "dark"
+hidecolorschemetoggle = true
+
+[taxonomies]
+category = "categories"
+series = "series"
+tag = "tags"
+author = "authors"
+
+# Social links
+[[params.social]]
+name = "Github"
+icon = "fa fa-2x fa-github"
+weight = 10
+url = "https://github.com/regunakyle"
+[[params.social]]
+name = "Discord"
+icon = "fa fa-2x fa-discord"
+weight = 20
+url = "https://discordapp.com/users/263243377821089792"
+[[params.social]]
+name = "Telegram"
+icon = "fa fa-2x fa-telegram"
+weight = 30
+url = "https://t.me/regunakyle"
+[[params.social]]
+name = "LinkedIn"
+icon = "fa fa-2x fa-linkedin"
+weight = 40
+url = "https://www.linkedin.com/in/regunakyle"
+
+# Menu links
+[[menu.main]]
+name = "About"
+weight = 10
+url = "about"
+[[menu.main]]
+name = "Blog"
+weight = 20
+url = "blog/"
+[[menu.main]]
+name = "Projects"
+weight = 30
+url = "projects"
