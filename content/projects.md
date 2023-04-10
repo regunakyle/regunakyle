@@ -37,7 +37,7 @@ Personally I do not watch VTubers, but I found the idea interesting enough for m
 
 ## Planned
 
-### Finance One-Stop App
+### Finance One-Stop Monitor
 
 A web app that utilizes *Open Banking API* from various Hong Kong banks (e.g. [HSBC](https://developer.hsbc.com.hk/), [HSB](https://developer.hangseng.com)) and also API from securities brokers like [IBKR](https://www.interactivebrokers.com.hk/en/trading/ib-api.php).
 

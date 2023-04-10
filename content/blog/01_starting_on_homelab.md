@@ -24,10 +24,10 @@ I learnt more about self-hosting during that time. Things like [AdGuard Home](ht
 {{< figure src="/images/blog/01/Synology.jpg" caption="Synology DS220+ (with 16GB of extra RAM)" >}}
 
 The Synology NAS has much more capable than the mini PC.
-The OS (Synology DSM) is really user-friendly, they did a excellent job of abstracting complex networking infrastructure away from users, and given the relative popularity of Synology there are a lot of guides for it online.
-If I were to buy a prebuilt NAS again, I would definitely choose one from Synology.
+The OS (DiskStation Manager) is really user-friendly, they did a excellent job of abstracting complex networking infrastructure away from users. Given the relative popularity of Synology, it's easy to find guides for their products online.
+If I were to recommend a prebuilt server to a new homelabber, Synology would be my number one choice.
 
-Running raw binaries in the Synology NAS is generally not feasible because of various compatibility issues (missing some libraries, outdated kernel, etc.). Luckily my DS220+ supports Docker, which is great because almost all these self-hostable services package their software as Docker images.
+Running raw binaries in the Synology NAS is generally not feasible because of various compatibility issues (missing some libraries, outdated kernel, etc.). Luckily my DS220+ supports Docker, which is great because almost all the self-hostable services package their software as Docker images.
 I spent some time reading Docker documentations and experimenting, learning a lot in the process. I even managed to package my Discord bot into a [Docker image](https://hub.docker.com/r/regunakyle/my-discord-bot). Before I knew it, I had a bunch of containerized services running on the NAS.
 
 {{< figure src="/images/blog/01/Portainer.png" caption="My hosted services" >}}
@@ -37,6 +37,6 @@ So I bought him some *shiny new hardware™* and used his old parts to build my 
 
 {{< figure src="/images/blog/01/Server.jpg" caption="Self built NAS" >}}
 
-The homelab scales, so does my need for complex networking infrastructure. I don't expose my network to the public, but for some services it is unavoidable (e.g. [Umami](https://github.com/umami-software/umami), [Synapse](https://github.com/matrix-org/synapse)). Following the old wisdom of network isolation, I bought some used enterprise networking gears (Firewall, Switch and AP) and designed my network layout. Ideally only an isolated Debian VM is exposed to the public, it cannot touch other machines in my network (except some services like database). I can only access the other machines via VPN outside my home network.
+The homelab scales, so does my need for complex networking infrastructure. I don't expose my network to the public, but for some services it is unavoidable (e.g. [Umami](https://github.com/umami-software/umami), [Synapse](https://github.com/matrix-org/synapse)). Following the old wisdom of network isolation, I bought some used enterprise networking gears (Firewall, Switch and AP) and designed my network layout. Ideally only one isolated Debian VM is exposed to the public, it cannot touch other machines in my network (except some services like database). I can only access the other machines via VPN outside my home network.
 
 This is where I am stuck right now, as I have limited knowledge on setting up a network. But I am working on it! My ultimate goal is to replace online services with self-hosted alternatives, as many as I can.

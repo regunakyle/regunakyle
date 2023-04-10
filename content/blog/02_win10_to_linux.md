@@ -2,7 +2,7 @@
 title = "從Windows10過渡至Linux的心路歷程"
 author = "Eric Leung"
 description = ""
-date = "2023-04-09"
+date = "2024-04-09"
 +++
 
 （本文最後更新時間：2023年4月9日）
