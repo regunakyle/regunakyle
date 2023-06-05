@@ -27,7 +27,7 @@ The Synology NAS is much more capable than the mini PC.
 The OS (DiskStation Manager) is really user-friendly, they did a excellent job of abstracting complex networking infrastructure away from users. Given the relative popularity of Synology, it's easy to find guides for their products online.
 If I were to recommend a prebuilt server to a new homelabber, Synology would be my number one choice.
 
-Running raw binaries in the Synology NAS is generally not feasible because of various compatibility issues (missing dependencies, outdated kernel, etc.). Luckily my DS220+ supports Docker, which is great because almost all the self-hostable services package their software as Docker images.
+Running softwares directly in the Synology NAS is generally not feasible because of various compatibility issues (missing dependencies, outdated kernel, etc.). Luckily my DS220+ supports Docker, which is great because almost all the self-hostable services package their software as Docker images.
 I spent some time reading Docker documentations and experimenting, learning a lot in the process. I even managed to package my Discord bot into a [Docker image](https://hub.docker.com/r/regunakyle/my-discord-bot). Before I knew it, I had a bunch of containerized services running on the NAS.
 
 {{< figure src="/images/blog/01/Portainer.png" caption="My hosted services" >}}
