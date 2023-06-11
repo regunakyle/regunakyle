@@ -2,7 +2,7 @@
 title = "從Windows到Linux: VFIO及Looking Glass介紹"
 author = "Eric Leung"
 description = "Better than dual boot, really"
-date = "2023-06-04"
+date = "2023-06-11"
 +++
 
 （本文最後更新時間：2023年6月4日）
@@ -31,11 +31,11 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 \
 我看完後禁不住嘆﹕**VFIO**實在是太厲害了！在Linux上用Windows虛擬機玩遊戲，而且還有接近原生Windows的硬件表現？
-這不是對我這種人來說的完美解決方案嗎？自然我馬上開始研究，前前後後花了一個月時間，總算把我的理想PC組出來了。
+這不是對我想要的完美解決方案嗎？自然我馬上開始研究，前前後後花了一個月時間，總算把我的理想PC組出來了。
 
 到現在已用了半年，這段時間我*沒有直接啟動過Windows*。遊戲在虛擬機上運行順暢，沒有明顯輸入延遲，實在令我非常滿意。
 
-{{< figure src="/images/blog/02/VFIO.jpg" caption="左邊是Windows（**Looking Glass**），右邊是Linux" >}}
+{{< figure src="/images/blog/02/Setup.jpg" caption="左邊是Windows（**Looking Glass**），右邊是Linux" >}}
 
 ## 解決方案
 
@@ -54,7 +54,7 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 我個人是純單機遊戲玩家，所以不用考慮這問題。但如果你喜歡玩線上遊戲，進入這個坑之前還是先做好功課。
 
-先簡單講解一下本文的兩個主角：**VFIO**和**Looking Glass**﹕
+以下簡單介紹**VFIO**及**Looking Glass**：
 
 ### VFIO
 
@@ -64,66 +64,43 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 要注意的是當GPU被用作VFIO後便不能在Linux上用了， 所以需要另一張GPU（CPU內顯或另一張獨立GPU）讓Linux能顯示畫面， 否則Linux只能顯示純命令行。
 
+{{< figure src="/images/blog/02/BareMetal.png" caption="實機Windows下的3DMark跑分" >}}
+
+\
+{{< figure src="/images/blog/02/VFIO.png" caption="VFIO下的3DMark跑分，可見與實機表現十分接近" >}}
+
 ### Looking Glass
 
-[Looking Glass](https://looking-glass.io/) 則是**VFIO**的延伸。
+[Looking Glass](https://looking-glass.io/) 是**VFIO**的延伸。
 
 **VFIO**因為把你指定的GPU送給了Windows虛擬機，用家需要另外連接這GPU和螢幕，然後切換螢幕的輸入源 （Input Source） 才能看到虛擬機的畫面。如果你只有一個螢幕，那麼同一時間就只能看到Linux和Windows虛擬機其一的畫面。
 
-**Looking Glass**能解決這個問題： 它將Windows虛擬機的原生未壓縮影像低延遲地投射到Linux上。 這樣做就無需切換輸入源， 可以一鍵切換操作Linux及Windows虛擬機。 此外還有其他功能， 例如將Linux的麥克風輸入送至虛擬機內， 或是將Linux及虛擬機的剪貼簿同步等。 要注意的是**Looking Glass**對硬件的要求比**VFIO**更高（**必須要有兩張獨立GPU才能順暢使用**）。
+**Looking Glass**能解決這個問題： 它將Windows虛擬機的原生未壓縮影像低延遲地投射到Linux上。 這樣做就無需切換輸入源， 可以一鍵切換操作Linux及Windows虛擬機。 此外還有其他功能， 例如將Linux的麥克風輸入送至虛擬機內， 或是將Linux及虛擬機的剪貼簿同步等等。 另外也有官方OBS插件，讓**Looking Glass**的影像直接輸出至OBS上，這樣就能同時實況Linux和Windows虛擬機的畫面。
+
+要注意的是， **Looking Glass**對硬件的要求比**VFIO**更高，必須要有兩張獨立GPU和預留CPU至少兩核給Linux才能順暢使用。 此外，**Looking Glass**亦會對GPU會產生一定負荷，所以**GPU的表現會有一定程度下降**（我GPU跑分低了10％）。 我會選擇用**Looking Glass**是因為我經常在使用Windows虛擬機時快速切換至Linux去做其他事情， 沒有它的話我就要不斷手動切換螢幕的輸入源了。
+
+{{< figure src="/images/blog/02/LookingGlass.png" caption="Looking Glass下的跑分" >}}
+
+#### Looking Glass的替代方案
 
 另外說一下， **Looking Glass**並非是將Windows虛擬機畫面投射到Linux的唯一方法：
 
 最近我看到一種做法是在虛擬機安裝[Sunshine](https://github.com/LizardByte/Sunshine)， 然後在Linux上用[Moonlight](https://github.com/moonlight-stream/moonlight-qt)進行即時畫面實況及互動。 這兩個軟件是雲端遊戲的DIY版， 剛好可以用來取代**Looking Glass**的功能。[Parsec](https://parsec.app/)是另一個的即時畫面實況解決方案， 同樣在Linux及虛擬機安裝即可， 但這軟件是閉源的。
 
-即時畫面實況的好處是不需第二張獨立GPU（CPU內顯就夠用了）， 但延遲會比**Looking Glass**高， 畫面質素可能較差（畢竟是實況；**Looking Glass**沒有做任何壓縮）。
+即時畫面實況的好處是不需第二張獨立GPU（CPU內顯就夠用了）， 但延遲會比**Looking Glass**高， 畫面質素可能較差（畢竟是實況；**Looking Glass**則沒有做任何壓縮）。
 
-## 如何實現
+## 結語
 
-以下開始講講如何實現這些技術：
+不得不說我在實現**VFIO**的過程中有很多得著，比如說如何選擇電腦硬件，或是在Linux用指令行、如何用KVM設定虛擬機等，這些對我工作及家用伺服器這興趣都有很多幫助。
 
-### 硬件選擇
+雖然這些技術聽起來很厲害，但我不會特意向朋友做推薦。這是因為入門門檻不低：可能要為它特意買/換硬件，而且要學習的東西也不少。最重要的是很多人已經習慣了Windows，不會滿意Linux「半桶水」的桌面使用體驗。
 
-**VFIO**最看重的是主機板的IOMMU grouping
+但如果你和我一樣喜歡折騰，對Linux感興趣，又有自學能力和耐心的話，不妨研究一下**VFIO**：它可能就是讓你脫離Windows的最佳方案。
 
-1. IOMMU grouping主機板 (ACS Override Patch), X570 known to work
-2. 雙GPU, VFIO iGPU+dGPU, Looking Glass 雙dGPU (-> ATX), Looking Glass Nvidia+Intel
-3. 顯示屏
-4. 雙卡Laptop
-5. 雙SSD
+如有時間，我會另外寫一篇文章說明如何實現**VFIO**及**Looking Glass**。
 
-<https://pcpartpicker.com/list/j6jqv3>
+## 延伸閱讀
 
-Distro選擇
-
-1. Fedora (建議)
-2. Arch Linux
-
-我setup的簡單步驟如下：
-
-1. 安裝Fedora及所需package （建議安裝有用package
-2. Setup IOMMU, VFIO-PCI driver
-3. (KDE) SDDM問題
-4. Setup Windows VM (hint dynamic hook for machine learning), CPU pinning, AMD topoext, RESET gotcha
-5. 於Windows安裝VirtIO-Guest-Tools
-
-以上是VFIO,以下是Looking Glass
-
-1. 安裝dependency及build Looking Glass Client, 可選用toolbox/distrobox
-2. （可選）安裝OBS Module，放至OBS指定directory
-3. （可選）安裝KVMFR, selinux audit
-4. 於Windows安裝Looking Glass Host
-5. （可選）於Windows安裝Nvidia-Patch並啟用NvFBC
-
-如此安裝完成後，我也能玩Windows遊戲。強烈推薦！
-
-如果你也對VFIO或Looking Glass感興趣的話，可以看看以下連結：
-
-VFIO
-<https://vfio.blogspot.com/2015/05/vfio-gpu-how-to-series-part-1-hardware.html>
-<https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF>
-[VFIO Discord]()
-
-Looking Glass
-<https://looking-glass.io/docs/B6/>
-[Looking Glass Discord]()
+- [Fedora實現VFIO教學](https://vfio.blogspot.com/2015/05/vfio-gpu-how-to-series-part-1-hardware.html)
+- [Arch Wiki上的VFIO教學](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)
+- [VFIO Reddit](https://www.reddit.com/r/VFIO/)
