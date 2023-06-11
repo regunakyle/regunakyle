@@ -16,5 +16,3 @@ I excel at Python (+Django) and SQL, have good experience in Java (+Spring Boot)
 As of now I am self-studying system design, AWS management and networking. Ideally I would see myself become a tech lead in a major company in the future.
 
 You can contact me via [Discord](https://discordapp.com/users/263243377821089792), [Telegram](https://t.me/regunakyle) and [LinkedIn](https://www.linkedin.com/in/regunakyle).
-
-Download my resume [here]().

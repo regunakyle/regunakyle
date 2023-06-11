@@ -5,7 +5,7 @@ description = "Better than dual boot, really"
 date = "2023-06-11"
 +++
 
-（本文最後更新時間：2023年6月4日）
+（本文最後更新時間：2023年6月11日）
 
 ## 前言
 
