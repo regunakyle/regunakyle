@@ -7,3 +7,5 @@
 [Telegram](https://t.me/regunakyle)
 
 [LinkedIn](https://www.linkedin.com/in/regunakyle)
+
+[Résumé](https://github.com/regunakyle/resume/releases/latest/download/resume.pdf)
