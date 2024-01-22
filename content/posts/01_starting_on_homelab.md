@@ -5,8 +5,6 @@ description = "Documenting my homelab journey"
 date = "2023-04-05"
 +++
 
-(Last Updated: April 9, 2023)
-
 My journey of homelabbing started on July 2021.
 
 I just finished writing my [Discord bot](https://github.com/regunakyle/my-discord-bot/) prototype and was looking for a place to host it. I first looked for free cloud services.

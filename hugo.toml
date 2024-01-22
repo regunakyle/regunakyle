@@ -9,6 +9,8 @@ paginate = 20
 
 enableEmoji = true
 
+pluralizelisttitles = false
+
 [markup.highlight]
 style = "github-dark"
 
@@ -59,8 +61,8 @@ url = "about"
 [[menu.main]]
 name = "Blog"
 weight = 20
-url = "blog/"
+url = "posts/"
 [[menu.main]]
 name = "Projects"
-weight = 30
+weight = 40
 url = "projects"

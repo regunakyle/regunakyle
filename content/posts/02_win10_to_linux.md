@@ -1,20 +1,20 @@
 +++
-title = "從Windows到Linux: VFIO及Looking Glass介紹"
+title = "從Windows到Linux：VFIO及Looking Glass介紹"
 author = "Eric Leung"
 description = "Better than dual boot, really"
 date = "2023-06-11"
 +++
 
-（本文最後更新時間：2023年6月11日）
-
 ## 前言
 
 作為一個IT從業員，工作上必然會多多少少接觸到Linux：無論是作為伺服器OS或是Docker容器的輕量載體，Linux都比其他主流OS做得更出色。
+
 可是Linux在個人電腦中的使用率卻遠比其他兩大對手（Windows／MacOS）低。個人覺得主要是因為Linux對各類桌面用硬件和軟件的支持都不及其他OS。
+
 我一直都有興趣轉用Linux，**遊戲是我留在Windows的唯一原因**：Linux對遊戲的支援遠遠不及Windows。
 
 近年Steam母公司Valve努力研發Proton（[WINE](https://www.winehq.org/)的遊戲用分支），目標是令只能在Windows運行的遊戲能在Linux上高效能及低延遲地運行。
- 為此更推出了震撼遊戲界的[Steam Deck](https://www.steamdeck.com/)遊戲掌機 ，上面運行的是Valve基於Arch Linux研發的SteamOS，專為Proton運行遊戲而設。
+為此更推出了震撼遊戲界的[Steam Deck](https://www.steamdeck.com/)遊戲掌機 ，上面運行的是Valve基於Arch Linux研發的SteamOS，專為Proton運行遊戲而設。
 
 Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可惜的是**它不能保證對新遊戲的支持**，而且還可能有各種Bug或輸入延遲問題。
 老實說工作已經消耗我很多精力了，回家後還是希望遊戲能即開即玩。
@@ -31,9 +31,9 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 \
 我看完後禁不住嘆﹕**VFIO**實在是太厲害了！在Linux上用Windows虛擬機玩遊戲，而且還有接近原生Windows的硬件表現？
-這不是對我想要的完美解決方案嗎？自然我馬上開始研究，前前後後花了一個月時間，總算把我的理想PC組出來了。
+這不就是我想要的完美解決方案嗎？
 
-到現在已用了半年，這段時間我*沒有直接啟動過Windows*。遊戲在虛擬機上運行順暢，沒有明顯輸入延遲，實在令我非常滿意。
+自然我馬上開始研究，前前後後花了一個月時間，總算把我的理想PC組出來了。到現在有半年時間，這段時間內我*沒有直接啟動過Windows*。遊戲在虛擬機上運行順暢，沒有明顯輸入延遲，實在令我非常滿意。
 
 {{< figure src="/images/blog/02/Setup.jpg" caption="左邊是Windows（**Looking Glass**），右邊是Linux" >}}
 
