@@ -6,15 +6,13 @@ categories = ["連登Homelab系列"]
 date = "2024-01-20"
 +++
 
-## [返回主目錄](/categories/連登homelab系列/)
+## [返回主目錄](../../categories/連登homelab系列/)
 
 （本文最後更新時間：2024年1月22日）
 
-註：本文其實係[連登硬件台](https://lihkg.com/category/22)Homelab post既內容。（我係樓主）
+註：本文其實係[連登硬件台](https://lihkg.com/category/22)Homelab post既內容。（我係樓主:raising_hand:）
 
-因為愈寫愈多，我決定抽出黎放係自己個Blog到，順便加D圖/Formatting咁。
-
-（連登個Editor唔Support自訂超連結，好難Format得靚）
+因為愈寫愈多，我決定抽出黎放係自己個Blog到，順便加D圖/Formatting咁。~~幫我個Blog加D流量~~
 
 ## 買邊個牌子好？
 
@@ -25,9 +23,9 @@ date = "2024-01-20"
 - 最多人買，社群大，有問題都易搵答案
 - 相對其他大牌子（如QNAP）冇咁多Security問題
 
-Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps）。
+Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
-如果識野/想學野既話，可以考慮自組。
+如果識野/想學野既話，可以考慮自組。[（後方討論）](../005_lihkg_homelab/)
 
 [Synology NAS選擇器](https://www.synology.com/zh-tw/support/nas_selector)
 
@@ -35,25 +33,27 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps）。
 
 **唔係**。 如果你部機唔放出街既話，其實部部機都差唔多咁安全。
 
-想要保障自己數據既話，做好以下既野：
+咩牌子NAS都好，想要保障自己數據既話，做好以下既野：
 
-- **重要數據做好備份**（3-2-1法則：3份數據，2種儲存媒介，1份存於異地）。可以先從雲端存儲或外置HDD入手
+- **重要數據做好備份**（3-2-1備份：3份數據，2種儲存媒介，1份存於異地）。可以先從雲端存儲或外置HDD入手
 - Router取消UPnP
 - Router取消任何Port Forwarding（通訊埠轉發/「放Port」）
 - NAS取消Quickconnect/MyQnapCloud
 - 如NAS支持，定期為數據做唯讀既快照（Snapshot）
 
+**做左備份仲要定時檢查備份work唔work**，例如試下Restore去其他地方睇下讀唔讀到D資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。:sob:
+
 **注意RAID並非備份，且不能取代備份。重要數據一定要做好備份。**
 
-[延伸閱讀 (Why is raid not a backup?)](https://serverfault.com/questions/2888/why-is-raid-not-a-backup)
+[延伸閱讀 (Why is RAID not a backup?)](https://serverfault.com/questions/2888/why-is-raid-not-a-backup)
 
 ## 點樣係街外存取屋企部NAS？
 
 最常見方法有以下：
 
-- **VPN（推薦）**
+### VPN（推薦）:thumbsup:
 
-[Tailscale](Tailscale)最簡單，無需做Port Forwarding，亦唔需要Public IP，[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)亦有Package，對新手黎講係最好選擇。
+[Tailscale](Tailscale)最簡單，無需做Port Forwarding，亦唔需要Public IP，亦有大牌子NAS setup教學（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)），對新手黎講係最好選擇。
 
 識玩既可以自己setup [Wireguard](https://www.wireguard.com/)（易Setup+極低overhead）。
 
@@ -61,7 +61,19 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps）。
 
 注意： Synology DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wireguard上去用](https://github.com/runfalk/synology-wireguard)。（風險自負）
 
-- **[Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)**
+### Port Forwarding
+
+要係Router到做，詳情請參閱你部Router既說明書。
+
+### [QuickConnect](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_quickconnect)/[MyQnapCloud](https://www.qnap.com/zh-hk/software/myqnapcloud)
+
+（呢到只講QuickConnect，因為我冇QNAP）
+
+無需做port forwarding，靠Synology Server做Hole punching，或（如失敗）用Synology Relay Server做中間人連結部NAS同你部client device。[（QuickConnect白皮書）](https://kb.synology.com/zh-tw/WP/Synology_QuickConnect_White_Paper/4)
+
+注意用QuickConnect只能掂到DSM及部分Synology App，冇辦法透過佢開NAS上既Plex/Jellyfin等等你自己裝既App。
+
+### [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) （進階）
 
 經Cloudflare放Service出街，無需做port forwarding。
 
@@ -71,26 +83,20 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps）。
 
 注意：你要信Cloudflare，呢個算係[Man-in-the-middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你D流量既所有內容。
 
-- Port Forwarding
-
-要係Router到做，詳情請參閱你部Router既說明書。
-
-- [QuickConnect](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_quickconnect)/[MyQnapCloud](https://www.qnap.com/zh-hk/software/myqnapcloud)
-
-注意：正常咩都唔做既話外人係冇辦法主動去掂你屋企網絡中既機器（除非你屋企有部機中左毒）
-
 ## 放部NAS出街時，要點保障自己？
 
-- **用VPN並確保VPN版本更新，並只放VPN一個service出街**。除非真係要放比街外人用,否則盡可能VPN.
+- **用VPN並確保VPN版本更新**。除非真係要放比街外人用，否則盡可能VPN
 - 開個權限唔多既User account比自己平時用，非必要唔用Admin/Root account
 - **重要數據做好備份**
 - Firewall/NAS封鎖Inbound中國及俄羅斯IP，或直接Block香港以外所有IP
 - 唔好用常見既Port（如22/80/443/445/3389），用D怪數字
-- 如有VLAN-aware既Switch及勁少少既Firewall（如pfSense）： 鎅個VLAN做DMZ, 將需要放出街既Service全部放入去, 並嚴格限制其對其他VLAN既存取權
+- 如有VLAN-aware既Switch及勁少少既Firewall（如pfSense）： 鎅個VLAN做DMZ，將需要放出街既Service全部放入去， 並嚴格限制其對其他VLAN既存取權
 
-小知識：Port Forwarding本身並無任何風險，所有風險都係來至你Forward出去既Service本身既安全性強弱
+注意：正常咩都唔做既話外人係冇辦法主動去掂你屋企網絡中既機器（除非你屋企有部機中左毒）
 
-{{< figure src="/images/blog/003/security.png" caption="唔注意安全既後果" >}}
+:man_student:小知識：Port Forwarding本身並無任何風險，所有風險都係來至你Forward出去既Service本身既安全性強弱
+
+{{< figure src="/images/blog/003/security.png" caption="唔注意安全既後果:laughing:" >}}
 
 ## （2024年1月）Synology Plus系列買咩Model好？
 
@@ -112,7 +118,7 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加左1
 
 買之前最好上網Google下其他人買左咩型號咩Size既RAM，起碼成功率大D。
 
-如果肯定要佢Work，咁要買返Synology既RAM，但性價比超級低。
+如果肯定要佢Work，咁要買返Synology既RAM，但性價比超級低:money_with_wings:。
 
 ## HDD買邊隻？
 
@@ -136,7 +142,7 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加左1
 
 但如果格式不合，有兩個選項：
 
-### NAS轉碼
+### NAS轉碼:film_strip:
 
 你部NAS要將條片先轉碼做合適既格式，再餵比播放器。咁樣會燒部NAS隻CPU。
 
@@ -146,9 +152,9 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加左1
 
 咁樣NAS既CPU既負荷（相比冇encoder+decoder既情況）會大大降低，唔會因為播片而卡死部NAS。（而且通常可以同時間轉碼多過一條片）
 
-小知識：將片轉做唔同畫質（例如4K轉去1080p）都係轉碼既一種，如果想係街到用流量睇屋企4K片既話有用
+:man_student:小知識：將片轉做唔同畫質（例如4K轉去1080p）都係轉碼既一種，如果想係街到用流量睇屋企4K片既話有用
 
-### 換媒體播放器
+### 換媒體播放器:tv:
 
 例如買隻機頂盒插上電視轉輸入源，等隻機頂盒做播放器。機頂盒通常支持更多檔案格式。
 
@@ -156,6 +162,6 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加左1
 
 另外：如果你用緊PC/手機瀏覽器睇片唔work既話，可以試下用[VLC](https://www.videolan.org/)或Plex/Jellyfin既App。
 
-## [按我進入下一章](/posts/004_lihkg_docker/)
+## [按我進入下一章](../004_lihkg_docker/)
 
-## [返回主目錄](/categories/連登homelab系列/)
+## [返回主目錄](../../categories/連登homelab系列/)
