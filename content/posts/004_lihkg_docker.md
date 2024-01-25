@@ -1,5 +1,5 @@
 +++
-title = "連登Homelab系列：Docker常見問題"
+title = "連登Homelab系列（二）：Docker常見問題"
 author = "Eric Leung"
 description = "LIHKG Homelab Post series: FAQ for Docker"
 categories = ["連登Homelab系列"]
@@ -18,122 +18,145 @@ date = "2024-01-21"
 
 Docker可以將唔同既程式連埋所需既野一次過打包做一舊，然後你禁幾粒掣or行幾條Script就可以用佢，可以當係App Store既App咁。
 
-冇Docker之前同一部機想行唔同程式可能遇到相容性問題（例如兩個程式要用同一款但又唔同版本既Library，又或者Synology DSM個library version太舊）。Docker完美解決左呢個問題，成件打包用就得。
+冇Docker之前同一部機想行唔同程式可能遇到相容性問題（例如兩個程式要用同一款但又唔同版本既Library，又或者S牌DSM個library version太舊）。Docker完美解決左呢個問題，成件打包用就得。
 
-注意其實Docker做到既野VM都做到，不過VM比Docker燒CPU/RAM。
+注意其實Docker做到既野虛擬機都做到，不過虛擬機比Docker燒CPU/RAM。
 
 **另外要玩Docker的話強烈建議加RAM**。
 
 ## 咩機支持Docker?
 
-Synology既話Plus系列或較新既Non Plus機種都有支持。[呢到](https://www.synology.com/zh-tw/dsm/packages/ContainerManager)睇適用機種。
+Synology既話Plus系列或較新既非Plus機種都有支持。[呢到](https://www.synology.com/zh-tw/dsm/packages/ContainerManager)睇適用機種。
 
-注意只有Plus系列先有得加RAM。此外Non Plus機種用ARM CPU未必支持到全部Docker Image。
+注意只有Plus系列先有得加RAM。此外非Plus機種用ARM CPU未必支持到全部Docker Image。
 
 其他牌子請自己Google:stuck_out_tongue:
 
-## 用Docker要注意D咩?
+## 用Docker要注意啲咩？
 
-盡量避免用Root行Docker.
+**盡量避免以Root身份行Docker**。
 
-By default Docker係以Root身份行container. 咁既話出現container escape時隻container就可以對你部機為所欲為.
+Docker預設係以Root身份行。咁既話出現Container escape時隻Container就可以對你部機為所欲為。
 
-最好起一個user專用黎行Docker野, 並起個folder比呢個user用, 其他野有需要先比佢掂,
+**最好起一個user專用黎行Docker野**，並起個Folder比呢個User用，其他野有需要先比佢掂。
 
-然後Docker --user flag選擇呢個user既userid:groupid去行.
-
-小知識: Red Hat有個Default non-root既Docker代替品叫Podman, 有興趣可以睇下.
+然後[Docker --user flag選擇呢個user既UID：GID去行](https://docs.docker.com/engine/reference/run/#user)。
 
 ## Docker有咩好玩?
 
-### 自製Netflix
+### 自製Netflix :thumbsup:
 
-(Plex/Jellyfin/Emby, Sonarr/Radarr/Prowlarr, Qbittorrent/Deluge/Transmission, Overseer/Jellyseer)
+軟件：
+
+- 影音管理/播放器：[Plex](https://hub.docker.com/r/plexinc/pms-docker/)/[Jellyfin](https://hub.docker.com/r/jellyfin/jellyfin)
+- 影音搜索/下載管理：[Sonarr](https://hotio.dev/containers/sonarr/)/[Radarr](https://hotio.dev/containers/radarr/)
+- 種子來源整合器：[Prowlarr](https://hotio.dev/containers/prowlarr/)
+- 下載器：[（BitTorrent）Qbittorrent](https://hotio.dev/containers/qbittorrent/)/[（Usenet）Sabnzbd](https://hub.docker.com/r/linuxserver/sabnzbd/)
+- 字幕下載器：[ChineseSubFinder](https://hub.docker.com/r/allanpk716/chinesesubfinder)/[Bazarr](https://hotio.dev/containers/bazarr/)
 
 Selfhost圈子入面最熱門既內容。
 
-用家先係Sonarr/Radarr/Overseer/Jellyseer指定想睇咩片，佢地去唔同網站撈seed，
+用家先係Sonarr/Radarr指定想睇咩劇集/電影，然後Sonarr/Radarr去唔同網站撈Seed（Prowlarr提供source list），再叫Qbittorrent去下載，下載完就可以係Plex/Jellyfin到睇。
 
-然後Qbittorrent/Deluge/Transmission收到就去download。Download完就可以係Plex/Jellyfin/Emby睇。
+[Synology Docker Media Server Setup教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)
 
-Synology Docker Media Server Setup教學
-<https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/>
+[延伸閱讀：想討論PT (Private tracker)](https://lih.kg/2447243)
 
-### 全家Adblock (AdguardHome/PiHole)
+### 全家Adblock :thumbsup:
 
-DNS level過濾廣告，同時亦可做Parental control (Block你指定既網頁).
+軟件：[AdGuardHome](https://hub.docker.com/r/adguard/adguardhome)/[PiHole](https://github.com/pi-hole/docker-pi-hole)
 
-只要係Router到set個DNS server做佢, 咁成個home network所有devices都會過濾到廣告.
+DNS level過濾廣告，同時亦可做家長監控（即是封鎖你指定既網頁）。
 
-另外可以考慮setup埋DNS-over-HTTPS或DNS-over-TLS,，咁你既網絡供應商就睇唔到同改唔到你既DNS query.
+Setup後再係Router到設定個DNS server做佢，咁成個屋企網絡既機器都會過濾到廣告。
 
-### Game Server
+有興趣既話可以研究埋[Unbound](https://unbound.docs.nlnetlabs.nl/en/latest/)（Recursive DNS）或者DNS-over-HTTPS/DNS-over-TLS。前者可以[增強私隱](https://docs.pi-hole.net/guides/dns/unbound/#what-does-this-guide-provide)，後者可保證你寬頻供應商無法更改你既DNS query。
 
-<https://github.com/GameServerManagers/docker-gameserver>
+[檢查你DNS有冇被騎劫](https://www.dnsleaktest.com)
 
-唔洗點介紹啦,想同Friend圍內打機既話可以研究下.
+### Server儀表板 :thumbsup:
 
-如果玩家人數太多, 你部NAS可能Handle唔到, 咁可以開始考慮自組server了.
+軟件：[Homepage](https://github.com/gethomepage/homepage)/[Dashy](https://github.com/Lissy93/dashy)/[Heimdall](https://github.com/linuxserver/Heimdall)/[Homer](https://github.com/bastienwirtz/homer)
 
-可以host既game有: Minecraft, L4D2, ARK, Barotrauma, CS:GO, Factorio, Terraria等等, 大量不能盡錄.
+當你自己Host一堆Service時，好難記得曬每個Service既IP:Port係咩。
+
+用呢啲儀表板可以將自己Service bookmark曬，以後唔記得Link既時候入去Click就得。
+
+非常適合諗住將啲Service分享比屋企人/朋友用既人。
+
+### 自製筆記App
+
+軟件：[Joplin](https://github.com/laurent22/joplin)/[Trilium](https://github.com/zadam/trilium)/[Logseq](https://github.com/logseq/logseq)/[Memos](https://github.com/usememos/memos)
+
+各類筆記App，可以逐個逐個裝黎試下，睇下邊款岩用。
+
+Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/feature/note_station)。
+
+如果你用[Obsidian](https://obsidian.md/)既話，可以[自己Host個CouchDB做live sync](https://github.com/vrtmrz/obsidian-livesync/tree/main)。
+
+### 將得USB連接既Printer/Scanner變成屋企網絡可用
+
+軟件：[（Print）CUPS](https://openprinting.github.io/cups/)/[（Scan）Scanservjs](https://github.com/sbs20/scanservjs)
+
+如果你同我一樣有部得USB既陳年All-in-one printer，又或者係一定要裝垃圾軟件先用到既Printer，呢兩個App可以幫到你。
+
+只要USB插住Host呢兩個App既機，成個屋企網絡既機都可以透過呢兩個App用隻Printer/Scanner，唔洗裝任何其他App。
+
+不過視乎你部Printer型號，有可能需要你自己上網下載Driver去Build個Docker image，最差情況係用都用唔到。
 
 ### ChatGPT/Midjourney翻版
 
-有兩款: Gen圖AI同文字AI(即LLM: Large Language Model).
+軟件：[（Gen圖）stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)/[（Gen字）text-generation-webui](https://github.com/oobabooga/text-generation-webui)
 
-自己Host既原因: 無Censorship (可以任Gen色圖; LLM既話問佢點整炸彈都照答你) 、唔洗VPN、保障私隱.
+有兩款：Gen圖AI同Gen字AI。要多謝[Stability AI](https://stability.ai/)同[Facebook](https://ai.meta.com/)令我地有免費AI玩。
 
-行AI你先要下載個Model,再host個行AI model既software:
+自己Host既原因：無Censorship（LLM既話問佢點整炸彈都照答你）、唔洗買VPN、保障私隱。
 
-Gen圖用： <https://github.com/AUTOMATIC1111/stable-diffusion-webui>
+行AI你先要下載個Model，再係對應既Web UI到Load就可以用：
 
-LLM用： <https://github.com/oobabooga/text-generation-webui>
+[CivitAI（Gen圖Model下載）](https://civitai.com/)
 
-LLM既話唔洗GPU都行到, 只要RAM夠既話純CPU都得(關鍵字: llama.cpp).
+[Huggingface：TheBloke（Gen字Model下載）](https://huggingface.co/TheBloke)
 
-不過唔洗旨意你隻NAS行到AI, 老老實實自組Server先玩到.
+呢兩個Web UI都有API，識寫程式既話可以睇下。
 
-有用網站
+你部品牌NAS行AI應該有困難。如果有興趣既話，可以考慮下自組Server行。
 
-<https://github.com/ggerganov/llama.cpp>
+[Reddit：Gen字AI討論區](https://www.reddit.com/r/LocalLLaMA/)
 
-<https://civitai.com/> (AI Gen圖Model下載)
+### 其他有趣Software
 
-<https://www.reddit.com/r/LocalLLaMA/> (Self host LLM討論區)
+:thumbsup: 一個介面控制屋企智能家具（[Home Assistant](https://www.home-assistant.io/)）
 
-<https://huggingface.co/TheBloke> (LLM Model下載)
+:thumbsup: Airdrop cross-platform翻版（[PairDrop](https://github.com/schlagmichdoch/PairDrop)）
 
-其他有趣Software:
+:thumbsup: 電子書下載及管理（[LazyLibrarian](https://lazylibrarian.gitlab.io/)，[Calibre](https://docs.linuxserver.io/images/docker-calibre/)，[Calibre-web](https://github.com/janeczku/calibre-web)）
 
-Smart Home (HomeAssistant)
+翻牆工具（[V2Ray](https://www.v2ray.com/)/[XRay](https://xtls.github.io/)）
 
-將得USB連接既Printer/Scanner變成Wifi可用 (CUPS/Scanservjs)
+自製Cloud/Sync（[Nextcloud](https://nextcloud.com/athome/)/[Syncthing](https://github.com/syncthing/syncthing)）
 
-電子書下載及管理 (LazyLibrarian/Readarr, Calibre, Calibre-web)
+Google Photo翻版（[Immich](https://github.com/immich-app/immich)/[Photoprism](https://github.com/photoprism/photoprism)）
 
-Airdrop翻版 (PairDrop)
+自製記帳App（[Firefly III](https://github.com/firefly-iii/firefly-iii)/[Actual Budget](https://github.com/actualbudget/actual)）
 
-Google Photo翻版(Immich/Photoprism)
+偵測特定網頁更新（[Changedetection.io](https://github.com/dgtlmoon/changedetection.io)）
 
-翻牆工具 (V2Ray/XRay)
+[Game Server](https://github.com/GameServerManagers/docker-gameserver)（ARK/Barotrauma/CS2/Factorio/Minecraft/Palworld/Terraria/TF2等等，太多不能盡錄）
 
-偵測特定網頁更新 (Changedetection.io)
+各類Discord/Telegram Bot （例如[Discord播歌Bot](https://github.com/SudhanPlayz/Discord-MusicBot)/[Telegram加密貨幣交易Bot](https://github.com/freqtrade/freqtrade)）
 
-自製記帳app (FireflyIII/ActualBudget)
+自動Steam掛卡（[Archisteamfarm](https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Docker)）
 
-自製筆記app (Joplin/Trilium/Logseq)
+Grammarly翻版（[Languagetool](https://github.com/languagetool-org/languagetool)）
 
-自製Cloud/Sync (Nextcloud/Syncthing)
+## 有用網站
 
-各類Discord/Telegram Bot
+[Github：Awesome Selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted)
 
-自動Steam掛卡(Archisteamfarm)
+[Reddit：r/selfhosted](https://www.reddit.com/r/selfhosted/)
 
-Grammarly翻版(Languagetool)
-
-延伸閱讀 (Github selfhosted software list)
-
-<https://github.com/awesome-selfhosted/awesome-selfhosted>
+[This Week in Self-Hosted](https://selfh.st/)
 
 ## [按我進入下一章](../005_lihkg_homelab/)
 
