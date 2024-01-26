@@ -1,0 +1,6 @@
+{{/* Note: Reference by relative path to /static */}}
+{{- .Scratch.Set "path" (.Get 0) -}}
+{{- if hasPrefix (.Scratch.Get "path") "/" -}}
+  {{- .Scratch.Set "path" (slicestr (.Scratch.Get "path") 1) -}}
+{{- end -}}
+<link href="{{- .Scratch.Get "path" | absLangURL -}}" rel="stylesheet" />

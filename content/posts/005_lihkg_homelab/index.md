@@ -6,13 +6,15 @@ categories = ["連登Homelab系列"]
 date = "2024-01-22"
 +++
 
+{{< css "/css/chinese.css" >}}
+
 ## [按我返回上一章](../004_lihkg_docker/)
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
 （本文最後更新時間：2024年1月22日）
 
-{{< figure src="/images/blog/005/LackRack.jpg" caption="土炮IKEA枱做Server Rack" >}}
+{{< figure src="./LackRack.jpg" caption="IKEA LACK土炮Server Rack" >}}
 
 ## 點解要自組？自組有咩好/壞處？
 
@@ -36,7 +38,7 @@ date = "2024-01-22"
 
 NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-design.com/products/cases/node/)，[Antec P101](https://www.antec.com/product/case/p101-silent)），不過通常偏大部/貴，想要細部或平啲就要淘寶。
 
-[SFF PC Master List](https://docs.google.com/spreadsheets/d/1AddRvGWJ_f4B6UC7_IftDiVudVc8CJ8sxLUqlxVsCz4/)
+[Small Form Factor PC Master List](https://docs.google.com/spreadsheets/d/1AddRvGWJ_f4B6UC7_IftDiVudVc8CJ8sxLUqlxVsCz4/)
 
 ## 買硬件有咩要注意？
 
@@ -50,7 +52,7 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 另外：Intel T字尾CPU Idle時同普通版差唔多。普通版CPU係BIOS set功耗牆之後理論上可以做到類似T字尾CPU既效果。
 
-[T vs non-T i5-8500 power draw](https://www.reddit.com/r/homelab/comments/189vkss/intel_t_processors_power_consumption_tests/)
+[Intel T processors power consumption tests](https://www.reddit.com/r/homelab/comments/189vkss/intel_t_processors_power_consumption_tests/)
 
 ### 主機板IOMMU grouping
 
@@ -78,9 +80,13 @@ Intel CPU既iGPU可以用SR-IOV(12代或以後)或GVT-G(5至10代CPU)方法令Ho
 
 ## 用咩OS？
 
+{{< figure src="./Proxmox.png" caption="Proxmox VE介面" >}}
+
 ### VM Hypervisor
 
 **[Proxmox VE](https://www.proxmox.com/en/proxmox-virtual-environment/overview)** :thumbsup:，[VMWare ESXi](https://www.vmware.com/hk/products/esxi-and-esx.html)，[Windows Server + Hyper-V](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/hyper-v-on-windows-server)，[XCP-NG](https://xcp-ng.org/)
+
+[Hyper-V Server 2019（免費）](https://www.microsoft.com/en-us/evalcenter/evaluate-hyper-v-server-2019)
 
 ### NAS OS
 
@@ -96,7 +102,7 @@ Intel CPU既iGPU可以用SR-IOV(12代或以後)或GVT-G(5至10代CPU)方法令Ho
 
 ## 咩係VM Hypervisor？點解要用佢？
 
-Hypervisor即專用黎行虛擬機既OS。上一點提及既Hypervisor全部都係Type 1，有接近原生既Performance。
+Hypervisor即專用黎行虛擬機既軟件。上一點提及既Hypervisor全部都係Type 1，有接近原生既Performance。
 用Hypervisor既好處：
 
 - 虛擬機Snapshot/Rollback（極有用）
@@ -131,6 +137,8 @@ Intel有個類似solution叫**VPro**，好多商用Intel機都有支持，配合
 
 想平啲既話可以去淘寶搵翻版（[Blicube](https://www.blicube.com/blikvm-products/)/[Geekworm](https://geekworm.com/collections/pikvm)）。PiKVM甚至可以配合[特定](https://docs.pikvm.org/multiport/#list-of-tested-kvms)[KVM switch](https://docs.google.com/document/d/1wgBZHxwpbJWkJBD3I8ZkZxSDxt0DdNDDYRNtVoL_vK4/)一下控制多部機。
 
+{{< figure src="./PiKVM.jpg" caption="PiKVM遠端控制Server BIOS" >}}
+
 ## 用咩硬件去加HDD port數？
 
 [Recommended Controller for Unraid](https://forums.unraid.net/topic/102010-recommended-controllers-for-unraid/)
@@ -153,9 +161,9 @@ Intel Arc系列:thumbsup: 1000蚊樓下買到既平價Transcode神卡，又有AV
 
 ### 轉碼知多啲
 
-你啲片既格式（MP4/MKV/WebM等）其實係Container格式黎 ，佢地入面裝住左Video/Audio/Subtitle，三者分別有自己獨特既格式。
+你啲片既格式（MP4/MKV/WebM等）其實係Container格式黎，佢地入面裝住左Video/Audio/Subtitle，三者分別有自己獨特既格式。
 
-轉碼其實就係將你條原片既Video/Audio/Subtitle**Decode（解碼）**去Raw，再**Encode（編碼）**去你媒體播放器播放到既format，最後再將成品經網絡餵比個媒體播放器。
+轉碼其實就係將你條原片既Video/Audio/Subtitle **Decode（解碼）** 去Raw，再**Encode（編碼）** 去你媒體播放器播放到既format，最後再將成品經網絡餵比個媒體播放器。
 
 所以你NAS/轉碼器要有你**原片Audio/Video格式既Decoder**及**媒體播放器可播放格式既Encoder**。
 

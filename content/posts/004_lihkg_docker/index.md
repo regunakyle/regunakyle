@@ -6,6 +6,8 @@ categories = ["連登Homelab系列"]
 date = "2024-01-21"
 +++
 
+{{< css "/css/chinese.css" >}}
+
 ## [按我返回上一章](../003_lihkg_consumer_nas/)
 
 ## [返回主目錄](../../categories/連登homelab系列/)
@@ -14,7 +16,7 @@ date = "2024-01-21"
 
 ## Docker係咩黎？有咩咁勁？
 
-{{< svg "static/images/blog/004/docker.svg" >}}
+{{< svg "Docker.svg" >}}
 
 Docker可以將唔同既程式連埋所需既野一次過打包做一舊，然後你禁幾粒掣or行幾條Script就可以用佢，可以當係App Store既App咁。
 
@@ -46,6 +48,8 @@ Docker預設係以Root身份行。咁既話出現Container escape時隻Container
 
 ### 自製Netflix :thumbsup:
 
+{{< figure src="./Jellyfin.png" caption="Jellyfin介面" >}}
+
 軟件：
 
 - 影音管理/播放器：[Plex](https://hub.docker.com/r/plexinc/pms-docker/)/[Jellyfin](https://hub.docker.com/r/jellyfin/jellyfin)
@@ -64,6 +68,8 @@ Selfhost圈子入面最熱門既內容。
 
 ### 全家Adblock :thumbsup:
 
+{{< figure src="./AdguardHome.gif" caption="AdguardHome介面" >}}
+
 軟件：[AdGuardHome](https://hub.docker.com/r/adguard/adguardhome)/[PiHole](https://github.com/pi-hole/docker-pi-hole)
 
 DNS level過濾廣告，同時亦可做家長監控（即是封鎖你指定既網頁）。
@@ -76,6 +82,8 @@ Setup後再係Router到設定個DNS server做佢，咁成個屋企網絡既機�
 
 ### Server儀表板 :thumbsup:
 
+{{< figure src="./Dashy.png" caption="Dashy介面" >}}
+
 軟件：[Homepage](https://github.com/gethomepage/homepage)/[Dashy](https://github.com/Lissy93/dashy)/[Heimdall](https://github.com/linuxserver/Heimdall)/[Homer](https://github.com/bastienwirtz/homer)
 
 當你自己Host一堆Service時，好難記得曬每個Service既IP:Port係咩。
@@ -85,6 +93,8 @@ Setup後再係Router到設定個DNS server做佢，咁成個屋企網絡既機�
 非常適合諗住將啲Service分享比屋企人/朋友用既人。
 
 ### 自製筆記App
+
+{{< figure src="./Joplin.png" caption="Joplin介面" >}}
 
 軟件：[Joplin](https://github.com/laurent22/joplin)/[Trilium](https://github.com/zadam/trilium)/[Logseq](https://github.com/logseq/logseq)/[Memos](https://github.com/usememos/memos)
 
@@ -96,6 +106,8 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 ### 將得USB連接既Printer/Scanner變成屋企網絡可用
 
+{{< figure src="./Scanservjs.jpg" caption="Scanservjs介面" >}}
+
 軟件：[（Print）CUPS](https://openprinting.github.io/cups/)/[（Scan）Scanservjs](https://github.com/sbs20/scanservjs)
 
 如果你同我一樣有部得USB既陳年All-in-one printer，又或者係一定要裝垃圾軟件先用到既Printer，呢兩個App可以幫到你。
@@ -105,6 +117,8 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 不過視乎你部Printer型號，有可能需要你自己上網下載Driver去Build個Docker image，最差情況係用都用唔到。
 
 ### ChatGPT/Midjourney翻版
+
+{{< figure src="./Oobabooga.png" caption="Text-generation-webui介面" >}}
 
 軟件：[（Gen圖）stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)/[（Gen字）text-generation-webui](https://github.com/oobabooga/text-generation-webui)
 
@@ -122,7 +136,9 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 你部品牌NAS行AI應該有困難。如果有興趣既話，可以考慮下自組Server行。
 
-[Reddit：Gen字AI討論區](https://www.reddit.com/r/LocalLLaMA/)
+[Reddit：r/StableDiffusion](https://www.reddit.com/r/StableDiffusion/)
+
+[Reddit：r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/)
 
 ### 其他有趣Software
 
@@ -144,7 +160,7 @@ Google Photo翻版（[Immich](https://github.com/immich-app/immich)/[Photoprism]
 
 [Game Server](https://github.com/GameServerManagers/docker-gameserver)（ARK/Barotrauma/CS2/Factorio/Minecraft/Palworld/Terraria/TF2等等，太多不能盡錄）
 
-各類Discord/Telegram Bot （例如[Discord播歌Bot](https://github.com/SudhanPlayz/Discord-MusicBot)/[Telegram加密貨幣交易Bot](https://github.com/freqtrade/freqtrade)）
+各類Discord/Telegram Bot（例如[Discord播歌Bot](https://github.com/SudhanPlayz/Discord-MusicBot)/[Telegram加密貨幣交易Bot](https://github.com/freqtrade/freqtrade)）
 
 自動Steam掛卡（[Archisteamfarm](https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Docker)）
 

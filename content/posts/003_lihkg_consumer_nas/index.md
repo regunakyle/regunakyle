@@ -6,9 +6,13 @@ categories = ["連登Homelab系列"]
 date = "2024-01-20"
 +++
 
+{{< css "/css/chinese.css" >}}
+
 ## [返回主目錄](../../categories/連登homelab系列/)
 
 （本文最後更新時間：2024年1月22日）
+
+{{< figure src="./Cover.png" caption="圖片來源：Synology官網" >}}
 
 註：本文其實係[連登硬件台](https://lihkg.com/category/22)Homelab post既內容。（我係樓主:raising_hand:）
 
@@ -44,6 +48,8 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 **做左備份仲要定時檢查備份Work唔Work**，例如試下Restore去其他地方睇下讀唔讀到啲資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。:sob:
 
 **注意RAID並非備份，且不能取代備份。重要數據一定要做好備份。**
+
+:man_student:小知識：正常咩都唔做既話外人係冇辦法主動去掂你屋企網絡中既機器（除非你屋企有部機中左毒）
 
 [延伸閱讀：Why is RAID not a backup？](https://serverfault.com/questions/2888/why-is-raid-not-a-backup)
 
@@ -85,18 +91,20 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 ## 放部NAS出街時，要點保障自己？
 
-- **用VPN並確保VPN版本更新**。除非真係要放比街外人用，否則盡可能VPN
+- **用VPN並確保VPN版本更新**。除非真係要放比街外人用，否則只放VPN出街
 - 開個權限唔多既User account比自己平時用，非必要唔用Admin/Root account
 - **重要數據做好備份**
 - Firewall/NAS封鎖Inbound中國及俄羅斯IP，或直接Block香港以外所有IP
-- 唔好用常見既Port（如22/80/443/445/3389），用啲怪數字
+- Port Forwarding唔好用常見既Port（如22/80/443/445/3389），用啲怪數字
 - 如有VLAN-aware既Switch及勁少少既Firewall（如pfSense）： 鎅個VLAN做DMZ，將需要放出街既Service全部放入去， 並嚴格限制其對其他VLAN既存取權
 
-注意：正常咩都唔做既話外人係冇辦法主動去掂你屋企網絡中既機器（除非你屋企有部機中左毒）
+只放VPN出街既好處（相比起個個Service都放出街）係你將黑客可以攻擊你既地方減至最少（得VPN可以攻擊），而VPN本身非常講究安全性，一有漏洞通常好快就有修復（所以要保持VPN更新）。
+
+好多Service假設左你將佢放係可信任既網絡入面，佢地冇咁著重安全性，你放佢出公海就會提高自己被黑客攻破既風險。
 
 :man_student:小知識：Port Forwarding本身並無任何風險，所有風險都係來至你Forward出去既Service本身既安全性強弱
 
-{{< figure src="/images/blog/003/security.png" caption="唔注意安全既後果:laughing:" >}}
+{{< figure src="./Security.png" caption="唔注意安全既後果:laughing:" >}}
 
 ## （2024年1月）Synology Plus系列買咩Model好？
 
@@ -164,7 +172,9 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加左1
 
 機頂盒有Apple TV/Chromecast/Roku/Firestick/Nvidia Shield等，買邊隻請自行做Research或呢到討論。
 
-另外：如果你用緊PC/手機瀏覽器睇片唔work既話，可以試下用[VLC](https://www.videolan.org/)或Plex/Jellyfin既App。
+另外：如果你用緊PC/手機瀏覽器睇片唔Work既話，可以試下用[VLC](https://www.videolan.org/)或Plex/Jellyfin既App。
+
+[轉碼知多啲](../005_lihkg_homelab/#轉碼知多啲)
 
 ## 有用網站
 

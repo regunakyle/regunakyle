@@ -5,6 +5,8 @@ description = "Guide for setting up VFIO and Looking Glass"
 date = "2099-06-04"
 +++
 
+{{< css "/css/chinese.css" >}}
+
 ## 如何實現
 
 以下開始講講如何實現這些技術：

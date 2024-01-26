@@ -5,6 +5,8 @@ description = "Better than dual boot, really"
 date = "2023-06-11"
 +++
 
+{{< css "/css/chinese.css" >}}
+
 ## 前言
 
 作為一個IT從業員:technologist:，工作上必然會多多少少接觸到Linux。
@@ -15,7 +17,7 @@ date = "2023-06-11"
 
 Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可惜的是**它不能保證對新遊戲的支持**，而且還可能有各種Bug。老實說工作已經消耗我很多精力了，回家後還是希望遊戲能即開即玩。
 
-{{< figure src="/images/blog/002/SteamDeck.jpg" caption="借同事的Steam Deck試玩，體驗相當不錯:thumbsup:" >}}
+{{< figure src="./SteamDeck.jpg" caption="借同事的Steam Deck試玩，體驗相當不錯:thumbsup:" >}}
 
 ## 轉用Linux的契機
 
@@ -33,23 +35,23 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 遊戲在虛擬機上運行順暢，沒有明顯輸入延遲，實在令我非常滿意。
 
-{{< figure src="/images/blog/002/Setup.jpg" caption="左邊是Windows（**Looking Glass**），右邊是Linux" >}}
+{{< figure src="./Setup.jpg" caption="左邊是Windows（**Looking Glass**），右邊是Linux" >}}
 
 ## 解決方案
 
 **VFIO**這解決方案基本上可以理解為雙系統（Dual Boot）的完美替代。
 
-它用途不止於遊戲，也適用於只能在Windows上用的生產力軟件 （比如各類Adobe軟件及MS Office），
+它用途不止於遊戲，也適用於只能在Windows上用的生產力軟件（比如各類Adobe軟件及MS Office），
 不過要注意的是這方案對你的電腦硬件有特別需求（很有可能要換硬件），也要求你有一定Linux知識。
 
-此外，有些線上遊戲的反作弊系統會禁止遊戲於虛擬機上運行， 只能透過Dual Boot解決（或嘗試欺騙反作弊系統，但有風險，本文亦不提供教學）。萬幸的是Dual Boot和VFIO並不衝突。
+此外，有些線上遊戲的反作弊系統會禁止遊戲於虛擬機上運行，只能透過Dual Boot解決（或嘗試欺騙反作弊系統，但有風險，本文亦不提供教學）。萬幸的是Dual Boot和VFIO並不衝突。
 
 以下列出一些已知反虛擬機的遊戲﹕
 
-- 特戰英豪 （Valorant）
-- 虹彩六號：圍攻行動 （Tom Clancy's Rainbow Six Siege）
-- 逃離塔科夫 （Escape from Tarkov）
-- 原神 （Genshin Impact）
+- 特戰英豪（Valorant）
+- 虹彩六號：圍攻行動（Tom Clancy's Rainbow Six Siege）
+- 逃離塔科夫（Escape from Tarkov）
+- 原神（Genshin Impact）
 
 我個人是純單機遊戲玩家，所以不用考慮這問題。但如果你喜歡玩線上遊戲，進入這個坑之前還是先做好功課。
 
@@ -57,40 +59,40 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 ### VFIO
 
-[VFIO](https://docs.kernel.org/driver-api/vfio.html)（Virtual Function I/O）容許使用者空間進程及虛擬機能直接存取電腦硬件， 讓虛擬機也能享有接近原生的硬件表現。
+[VFIO](https://docs.kernel.org/driver-api/vfio.html)（Virtual Function I/O）容許使用者空間進程及虛擬機能直接存取電腦硬件，讓虛擬機也能享有接近原生的硬件表現。
 
 很多虛擬機的GPU都是模擬出來的（畢竟虛擬機能顯示畫面就足夠了），**VFIO**則是把整個物理GPU送給虛擬機。除了GPU外，還能把網卡、USB控制器、SSD、SATA控制器（自組NAS福音）及CPU內顯等等都送進去，由虛擬機直接控制這些硬件，並能獲得硬件的最佳性能。
 
 要注意的是當GPU被用作VFIO後便不能在Linux上用了，所以需要另一張GPU（CPU內顯或另一張獨立GPU）讓Linux能顯示畫面，否則Linux只能顯示純命令行。
 
-{{< figure src="/images/blog/002/BareMetal.png" caption="實機Windows下的3DMark跑分" >}}
+{{< figure src="./BareMetal.png" caption="實機Windows下的3DMark跑分" >}}
 
 \
-{{< figure src="/images/blog/002/VFIO.png" caption="VFIO下的3DMark跑分，可見與實機表現十分接近" >}}
+{{< figure src="./VFIO.png" caption="VFIO下的3DMark跑分，可見與實機表現十分接近" >}}
 
 ### Looking Glass
 
-[Looking Glass](https://looking-glass.io/) 是**VFIO**的延伸。
+[Looking Glass](https://looking-glass.io/)是**VFIO**的延伸。
 
 **VFIO**因為把你指定的GPU送給了Windows虛擬機，用家需要另外連接這GPU和螢幕，然後切換螢幕的輸入源才能看到虛擬機的畫面。如果你只有一個螢幕，那麼同一時間就只能看到Linux和Windows虛擬機其一的畫面。
 
-**Looking Glass**能解決這個問題： 它將Windows虛擬機的原生未壓縮影像極低延遲地投射到Linux上。 這樣就無需切換輸入源， 可以一鍵切換操作Linux及Windows虛擬機。
+**Looking Glass**能解決這個問題：它將Windows虛擬機的原生未壓縮影像極低延遲地投射到Linux上。這樣就無需切換輸入源，可以一鍵切換操作Linux及Windows虛擬機。
 
-此外還有其他功能， 例如將Linux的:studio_microphone:麥克風輸入送至虛擬機內， 或是將Linux及虛擬機的:clipboard:剪貼簿同步等等。 另外也有官方OBS插件， 讓**Looking Glass**的影像直接輸出至OBS上 ，這樣就能同時實況Linux和Windows虛擬機的畫面。
+此外還有其他功能，例如將Linux的:studio_microphone:麥克風輸入送至虛擬機內，或是將Linux及虛擬機的:clipboard:剪貼簿同步等等。另外也有官方OBS插件，讓**Looking Glass**的影像直接輸出至OBS上，這樣就能同時實況Linux和Windows虛擬機的畫面。
 
-要注意的是， **Looking Glass**對硬件的要求比**VFIO**更高 ，必須**要有兩張獨立GPU**和預留CPU至少兩核（四線程）給Linux才能順暢使用。此外， **Looking Glass**亦會對送入虛擬機的GPU會產生一定負荷 ，所以**GPU的表現會有一定程度下降**（我GPU跑分低了10％）。
+要注意的是，**Looking Glass**對硬件的要求比**VFIO**更高，必須**要有兩張獨立GPU**和預留CPU至少兩核（四線程）給Linux才能順暢使用。此外，**Looking Glass**亦會對送入虛擬機的GPU會產生一定負荷，所以**GPU的表現會有一定程度下降**（我GPU跑分低了10％）。
 
-我會選擇用**Looking Glass**是因為我經常在使用Windows虛擬機時快速切換至Linux去做其他事情， 沒有它的話我就要不斷手動切換螢幕的輸入源了。
+我會選擇用**Looking Glass**是因為我經常在使用Windows虛擬機時快速切換至Linux去做其他事情，沒有它的話我就要不斷手動切換螢幕的輸入源了。
 
-{{< figure src="/images/blog/002/LookingGlass.png" caption="Looking Glass下的跑分" >}}
+{{< figure src="./LookingGlass.png" caption="Looking Glass下的跑分" >}}
 
 #### Looking Glass的替代方案
 
-另外說一下， **Looking Glass**並非是將Windows虛擬機畫面投射到Linux的唯一方法：
+另外說一下，**Looking Glass**並非是將Windows虛擬機畫面投射到Linux的唯一方法：
 
-最近我看到一種做法是在虛擬機安裝[Sunshine](https://github.com/LizardByte/Sunshine)， 然後在Linux上用[Moonlight](https://github.com/moonlight-stream/moonlight-qt)進行即時畫面實況及互動。 這兩個軟件是雲端遊戲的DIY版， 剛好可以用來取代**Looking Glass**的功能。
+最近我看到一種做法是在虛擬機安裝[Sunshine](https://github.com/LizardByte/Sunshine)，然後在Linux上用[Moonlight](https://github.com/moonlight-stream/moonlight-qt)進行即時畫面實況及互動。這兩個軟件是雲端遊戲的DIY版，剛好可以用來取代**Looking Glass**的功能。
 
-[Parsec](https://parsec.app/)是另一個的即時畫面實況解決方案， 同樣在Linux及虛擬機安裝即可， 但這軟件是閉源的。
+[Parsec](https://parsec.app/)是另一個的即時畫面實況解決方案，同樣在Linux及虛擬機安裝即可，但這軟件是閉源的。
 
 即時畫面實況的好處是不需第二張獨立GPU（CPU內顯就夠用了），但畫面質素可能較差（畢竟是實況，必須做壓縮；**Looking Glass**沒有做任何壓縮）。
 
