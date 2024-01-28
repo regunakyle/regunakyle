@@ -55,21 +55,29 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 ## 點樣係街外存取屋企部NAS？
 
-最常見方法有以下：
-
 ### VPN（推薦）:thumbsup:
 
-[Tailscale](Tailscale)最簡單，無需做Port Forwarding，亦唔需要Public IP，亦有大牌子NAS setup教學（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)），對新手黎講係最好選擇。
+[Tailscale](Tailscale)最簡單，**無需做Port Forwarding，亦唔需要Public IP**，亦有大牌子NAS setup教學（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)），對新手黎講係最好選擇。
 
 識玩既可以自己Setup [Wireguard](https://www.wireguard.com/)（易Setup+極低overhead）。
 
 再唔係就OpenVPN，好多家用Router都有支持。
+
+如果選擇用Wireguard/OpenVPN，**我強烈建議你只放VPN一個Port出街，屋企其他Service全部只能透過VPN使用**。
 
 注意： S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wireguard上去用](https://github.com/runfalk/synology-wireguard)。（風險自負）
 
 ### Port Forwarding
 
 要係Router到做，詳情請參閱你部Router既說明書。
+
+例如你個Service個IP:Port係`192.168.1.100:5001`，你去Router到設定Port 1234 -> 192.168.1.100（Port 5001），
+
+咁你係街上用瀏覽器打你`屋企IP:1234`就可以掂到呢個Service。
+
+如果唔想記屋企IP，可以考慮買個域名，或者用免費DDNS服務（[DuckDNS](https://www.duckdns.org/)/Synology自己有）。
+
+注意：你要有Public IP先放到Port出街。如果你隻Router顯示既WAN/Public IP同[呢到](https://www.whatismyip.com/)顯示既唔一樣既話，咁你就冇Public IP（CGNAT/Double NAT），做唔到Port Forwarding。
 
 ### [QuickConnect](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_quickconnect)/[MyQnapCloud](https://www.qnap.com/zh-hk/software/myqnapcloud)
 
@@ -81,7 +89,7 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 ### [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) （進階）
 
-經Cloudflare放Service出街，無需做Port forwarding。
+經Cloudflare放Service出街，**無需做Port forwarding，亦唔需要Public IP**。
 
 唔洗比錢都用到，但你要有一個Nameserver係Cloudflare既域名先得。
 
@@ -118,6 +126,8 @@ DS224+及DS423+冇得升10G，但用Intel CPU，有Hardware encode/decoder，比
 
 ## 有冇得加RAM？要買邊條？
 
+[RAM選擇教學](https://nascompares.com/guide/synology-unofficial-memory-upgrades-2022-updated/)
+
 睇返你想買個隻Model個Spec，正常有寫有冇得加。
 
 Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加左16GB）
@@ -127,8 +137,6 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加左1
 買之前最好上網Google下其他人買左咩型號咩Size既RAM，起碼成功率大啲。
 
 如果肯定要佢Work，咁要買返Synology既RAM，但性價比超級低:money_with_wings:。
-
-[RAM選擇教學](https://nascompares.com/guide/synology-unofficial-memory-upgrades-2022-updated/)
 
 ## HDD買邊隻？
 
@@ -144,7 +152,7 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加左1
 
 **HDD遲早會壞，做好備份先係最實際。**
 
-[BackBlaze HDD stat](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
+[BackBlaze企業用HDD損壞率調查](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
 
 ## 咩係轉碼（Transcoding）？
 
