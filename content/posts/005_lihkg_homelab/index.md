@@ -68,6 +68,10 @@ Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passth
 
 [Script for checking IOMMU group](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Ensuring_that_the_groups_are_valid)
 
+### ECC（Error Correction Code） RAM
+
+ECC
+
 ### Intel CPU虛擬機共享iGPU
 
 Intel CPU既iGPU可以用SR-IOV(12代或以後)或GVT-G(5至10代CPU)方法令Host同虛擬機都用到同一隻iGPU，唔洗額外買隻獨立GPU。
