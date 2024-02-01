@@ -7,3 +7,5 @@ Other ways to contact me:
 [Discord](https://discordapp.com/users/263243377821089792)
 
 [Telegram](https://t.me/regunakyle)
+
+Email me at `yatkinleung [at] hotmail [dot] com`.

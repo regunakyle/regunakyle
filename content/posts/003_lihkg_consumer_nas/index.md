@@ -10,7 +10,7 @@ date = "2024-01-20"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年1月22日）
+（本文最後更新時間：2024年2月2日）
 
 {{< figure src="./Cover.png" caption="圖片來源：Synology官網" >}}
 
@@ -45,11 +45,9 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 - NAS取消Quickconnect/MyQnapCloud
 - 如NAS支持，定期為數據做唯讀既快照（Snapshot）
 
-**做左備份仲要定時檢查備份Work唔Work**，例如試下Restore去其他地方睇下讀唔讀到啲資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。:sob:
+**做咗備份仲要定時檢查備份Work唔Work**，例如試下Restore去其他地方睇下讀唔讀到啲資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。:sob:
 
 **注意RAID並非備份，且不能取代備份。重要數據一定要做好備份。**
-
-:man_student:小知識：正常咩都唔做既話外人係冇辦法主動去掂你屋企網絡中既機器（除非你屋企有部機中左毒）
 
 [延伸閱讀：Why is RAID not a backup？](https://serverfault.com/questions/2888/why-is-raid-not-a-backup)
 
@@ -65,7 +63,7 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 如果選擇用Wireguard/OpenVPN，**我強烈建議你只放VPN一個Port出街，屋企其他Service全部只能透過VPN使用**。
 
-注意： S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wireguard上去用](https://github.com/runfalk/synology-wireguard)。（風險自負）
+{{< notice warning "注意" >}} S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wireguard上去用](https://github.com/runfalk/synology-wireguard)（風險自負） {{< /notice >}}
 
 ### Port Forwarding
 
@@ -73,11 +71,17 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 例如你個Service個IP:Port係`192.168.1.100:5001`，你去Router到設定Port 1234 -> 192.168.1.100（Port 5001），
 
-咁你係街上用瀏覽器打你`屋企IP:1234`就可以掂到呢個Service。
+咁你係街上用瀏覽器打你`<屋企IP>:1234`就可以掂到呢個Service。
 
-如果唔想記屋企IP，可以考慮買個域名，或者用免費DDNS服務（[DuckDNS](https://www.duckdns.org/)/Synology自己有）。
+{{< notice info "必須有 Public IP" >}}
+你要有Public IP先可以係街外掂到屋企部Router，如果冇既話放Port都冇用。
 
-注意：你要有Public IP先放到Port出街。如果你隻Router顯示既WAN/Public IP同[呢到](https://www.whatismyip.com/)顯示既唔一樣既話，咁你就冇Public IP（CGNAT/Double NAT），做唔到Port Forwarding。
+香港唔少寬頻供應商都會派Public IP，但好可能係浮動（即自己會轉；一啲係熄光纖盒先會轉）。
+
+如果唔想記屋企IP或避免IP浮動產生問題，可以買個域名及設定DDNS，或者用免費DDNS服務（[DuckDNS](https://www.duckdns.org/)/[Synology DDNS](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_ddns)）。
+
+如果你隻Router顯示既WAN/Public IP同[呢到](https://www.whatismyip.com/)顯示既唔一樣既話，咁你就冇Public IP（CGNAT/Double NAT）。
+{{< /notice >}}
 
 ### [QuickConnect](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_quickconnect)/[MyQnapCloud](https://www.qnap.com/zh-hk/software/myqnapcloud)
 
@@ -93,9 +97,11 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 唔洗比錢都用到，但你要有一個Nameserver係Cloudflare既域名先得。
 
-支持用第三方授權：例如用Google，咁可以指定某啲特定Gmail既持有人先存取到到你啲野。
+可以享受Cloudflare既DDOS保護；此外亦支持用第三方授權：例如用Google，咁可以指定某啲特定Gmail既持有人先存取到到你啲野。
 
-注意：你要信Cloudflare，呢個算係[Man-in-the-middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容。
+{{< notice warning "注意" >}}
+你要信Cloudflare，呢個算係[Man-in-the-middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容
+{{< /notice >}}
 
 ## 放部NAS出街時，要點保障自己？
 
@@ -108,15 +114,13 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 只放VPN出街既好處（相比起個個Service都放出街）係你將黑客可以攻擊你既地方減至最少（得VPN可以攻擊），而VPN本身非常講究安全性，一有漏洞通常好快就有修復（所以要保持VPN更新）。
 
-好多Service假設左你將佢放係可信任既網絡入面，佢地冇咁著重安全性，你放佢出公海就會提高自己被黑客攻破既風險。
-
-:man_student:小知識：Port Forwarding本身並無任何風險，所有風險都係來至你Forward出去既Service本身既安全性強弱
+好多Service假設咗你將佢放係可信任既網絡入面，佢地冇咁著重安全性，你放佢出公海就會提高自己被黑客攻破既風險。
 
 {{< figure src="./Security.png" caption="唔注意安全既後果:laughing:" >}}
 
 ## （2024年1月）Synology Plus系列買咩Model好？
 
-現時最新出左[DS224+](https://www.synology.com/zh-tw/products/DS224+)，[DS423+](https://www.synology.com/zh-tw/products/DS423+)，[DS723+](https://www.synology.com/zh-tw/products/DS723+)，[DS923+](https://www.synology.com/zh-tw/products/DS923+)。
+現時最新出咗[DS224+](https://www.synology.com/zh-tw/products/DS224+)，[DS423+](https://www.synology.com/zh-tw/products/DS423+)，[DS723+](https://www.synology.com/zh-tw/products/DS723+)，[DS923+](https://www.synology.com/zh-tw/products/DS923+)。
 
 DS723+及DS923+冇Hardware encode/decoder，但可以加購10G卡，配合NVMe SSD使用可以做到高速大量傳輸。（另外呢兩部Support ECC RAM）
 
@@ -130,11 +134,11 @@ DS224+及DS423+冇得升10G，但用Intel CPU，有Hardware encode/decoder，比
 
 睇返你想買個隻Model個Spec，正常有寫有冇得加。
 
-Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加左16GB）
+Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗16GB）
 
 至於RAM選擇係玄學，可以有兩個人用同一部NAS同一型號RAM，但一個加完Boot唔到，另一個Boot到咁既情況。
 
-買之前最好上網Google下其他人買左咩型號咩Size既RAM，起碼成功率大啲。
+買之前最好上網Google下其他人買咗咩型號咩Size既RAM，起碼成功率大啲。
 
 如果肯定要佢Work，咁要買返Synology既RAM，但性價比超級低:money_with_wings:。
 
@@ -172,7 +176,7 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加左1
 
 咁樣NAS既CPU既負荷（相比冇encoder+decoder既情況）會大大降低，唔會因為播片而卡死部NAS。（而且通常可以同時間轉碼多過一條片）
 
-:man_student:小知識：將片轉做唔同畫質（例如4K轉去1080p）都係轉碼既一種，如果想係街到用流量睇屋企4K片既話有用
+{{< notice info "轉換影片解析度" >}} 將片轉做唔同解析度（例如4K轉去1080p）都係轉碼既一種，如果想係街到用流量睇屋企4K片既話有用 {{< /notice >}}
 
 ### 換媒體播放器:tv:
 
@@ -182,7 +186,17 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加左1
 
 另外：如果你用緊PC/手機瀏覽器睇片唔Work既話，可以試下用[VLC](https://www.videolan.org/)或Plex/Jellyfin既App。
 
-[轉碼知多啲](../005_lihkg_homelab/#轉碼知多啲)
+{{< detail "轉碼知多啲" >}}
+你啲片既格式（MP4/MKV/WebM等）其實係Container格式黎，佢地入面裝住咗Video/Audio/Subtitle，三者分別有自己獨特既格式。
+
+轉碼其實就係將你條原片既Video/Audio/Subtitle **Decode（解碼）** 去Raw，再**Encode（編碼）** 去你媒體播放器播放到既format，最後再將成品經網絡餵比個媒體播放器。
+
+所以你NAS/轉碼器要有你**原片Audio/Video格式既Decoder**及**媒體播放器可播放格式既Encoder**。
+
+（當然如果Video/Audio/Subtitle某一Part唔需要轉碼既話，就唔需要對應既Encoder/Decoder）
+
+[Jellyfin Codec Support](https://jellyfin.org/docs/general/clients/codec-support/)
+{{< /detail >}}
 
 ## 有用網站
 

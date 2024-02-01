@@ -70,6 +70,10 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 \
 {{< figure src="./VFIO.png" caption="VFIO下的3DMark跑分，可見與實機表現十分接近" >}}
 
+{{< notice info "為甚麼 CPU 分數低了？" >}}
+因為Windows虛擬機比起實機少了1核（必須預留至少1核給Linux）。
+ {{< /notice >}}
+
 ### Looking Glass
 
 [Looking Glass](https://looking-glass.io/)是**VFIO**的延伸。

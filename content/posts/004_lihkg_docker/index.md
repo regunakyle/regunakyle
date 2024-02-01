@@ -12,7 +12,7 @@ date = "2024-01-21"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年1月23日）
+（本文最後更新時間：2024年2月2日）
 
 ## Docker係咩黎？有咩咁勁？
 
@@ -20,7 +20,7 @@ date = "2024-01-21"
 
 Docker可以將唔同既程式連埋所需既野一次過打包做一舊，然後你禁幾粒掣or行幾條Script就可以用佢，可以當係App Store既App咁。
 
-冇Docker之前同一部機想行唔同程式可能遇到相容性問題（例如兩個程式要用同一款但又唔同版本既Library，又或者S牌DSM個library version太舊）。Docker完美解決左呢個問題，成件打包用就得。
+冇Docker之前同一部機想行唔同程式可能遇到相容性問題（例如兩個程式要用同一款但又唔同版本既Library，又或者S牌DSM個library version太舊）。Docker完美解決咗呢個問題，成件打包用就得。
 
 注意其實Docker做到既野虛擬機都做到，不過虛擬機比Docker燒CPU/RAM。
 
@@ -30,7 +30,7 @@ Docker可以將唔同既程式連埋所需既野一次過打包做一舊，然�
 
 Synology既話Plus系列或較新既非Plus機種都有支持。[呢到](https://www.synology.com/zh-tw/dsm/packages/ContainerManager)睇適用機種。
 
-注意只有Plus系列先有得加RAM。此外非Plus機種用ARM CPU未必支持到全部Docker Image。
+注意只有Plus系列先有得加RAM；此外非Plus機種用ARM CPU未必支持到全部Docker Image。
 
 其他牌子請自己Google:stuck_out_tongue:
 
@@ -55,12 +55,12 @@ Docker預設係以Root身份行。咁既話出現Container escape時隻Container
 - 影音管理/播放器：[Plex](https://hub.docker.com/r/plexinc/pms-docker/)/[Jellyfin](https://hub.docker.com/r/jellyfin/jellyfin)
 - 影音搜索/下載管理：[Sonarr](https://hotio.dev/containers/sonarr/)/[Radarr](https://hotio.dev/containers/radarr/)
 - 種子來源整合器：[Prowlarr](https://hotio.dev/containers/prowlarr/)
-- 下載器：[（BitTorrent）Qbittorrent](https://hotio.dev/containers/qbittorrent/)/[（Usenet）Sabnzbd](https://hub.docker.com/r/linuxserver/sabnzbd/)
+- 下載器：[（BitTorrent）qBittorrent](https://hotio.dev/containers/qbittorrent/)/[（Usenet）Sabnzbd](https://hub.docker.com/r/linuxserver/sabnzbd/)
 - 字幕下載器：[ChineseSubFinder](https://hub.docker.com/r/allanpk716/chinesesubfinder)/[Bazarr](https://hotio.dev/containers/bazarr/)
 
 Selfhost圈子入面最熱門既內容。
 
-用家先係Sonarr/Radarr指定想睇咩劇集/電影，然後Sonarr/Radarr去唔同網站撈Seed（Prowlarr提供source list），再叫Qbittorrent去下載，下載完就可以係Plex/Jellyfin到睇。
+用家先係Sonarr/Radarr指定想睇咩劇集/電影，然後Sonarr/Radarr去唔同網站撈Seed（Prowlarr提供source list），再叫qBittorrent去下載，下載完就可以係Plex/Jellyfin到睇。
 
 [Synology Docker Media Server Setup教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)
 
@@ -78,7 +78,11 @@ Setup後再係Router到設定個DNS server做佢，咁成個屋企網絡既機�
 
 有興趣既話可以研究埋[Unbound](https://unbound.docs.nlnetlabs.nl/en/latest/)（Recursive DNS）或者DNS-over-HTTPS/DNS-over-TLS。前者可以[增強私隱](https://docs.pi-hole.net/guides/dns/unbound/#what-does-this-guide-provide)，後者可保證你寬頻供應商無法更改你既DNS query。
 
-[檢查你DNS有冇被騎劫](https://www.dnsleaktest.com)
+{{< notice info "檢查寬頻供應商有冇騎劫你DNS" >}}
+先設定Router DNS做[1.1.1.1](https://1.1.1.1/)，再去[呢到](https://www.dnsleaktest.com)做測試。
+
+如果佢顯示既ISP唔係Cloudflare既話，你就知道你既DNS比你個寬頻供應商騎劫咗。
+ {{< /notice >}}
 
 ### Server儀表板 :thumbsup:
 
@@ -86,9 +90,9 @@ Setup後再係Router到設定個DNS server做佢，咁成個屋企網絡既機�
 
 軟件：[Homepage](https://github.com/gethomepage/homepage)/[Dashy](https://github.com/Lissy93/dashy)/[Heimdall](https://github.com/linuxserver/Heimdall)/[Homer](https://github.com/bastienwirtz/homer)
 
-當你自己Host一堆Service時，好難記得曬每個Service既IP:Port係咩。
+當你自己Host一堆Service時，好難記得曬每個Service既`IP:Port`係咩。
 
-用呢啲儀表板可以將自己Service bookmark曬，以後唔記得Link既時候入去Click就得。
+用呢啲儀表板可以將自己Service既`IP:Port`放曬係同一個地方，以後忘記既話入去Click就得。
 
 非常適合諗住將啲Service分享比屋企人/朋友用既人。
 
@@ -114,7 +118,7 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 只要USB插住Host呢兩個App既機，成個屋企網絡既機都可以透過呢兩個App用隻Printer/Scanner，唔洗裝任何其他App。
 
-不過視乎你部Printer型號，有可能需要你自己上網下載Driver去Build個Docker image，最差情況係用都用唔到。
+不過視乎你部Printer型號，有可能要你自己上Printer個官網下載Driver安裝，之後呢兩個App先行到。
 
 ### ChatGPT/Midjourney翻版
 

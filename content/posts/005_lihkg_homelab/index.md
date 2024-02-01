@@ -12,7 +12,7 @@ date = "2024-01-22"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年1月22日）
+（本文最後更新時間：2024年2月2日）
 
 {{< figure src="./LackRack.jpg" caption="IKEA LACK土炮Server Rack" >}}
 
@@ -60,17 +60,13 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 因為如果你想將Host既硬件Passthrough入去虛擬機既話，就要將一個IOMMU group既所有硬件一次過送曬入去。
 
-例如你PCIe 1槽同SATA controller係同一IOMMU group，咁你想送個插左係PCIe 1槽既硬件(如GPU)入虛擬機，就要連隻SATA controller都送埋入去。
+例如你PCIe 1槽同SATA controller係同一IOMMU group，咁你想送個插咗係PCIe 1槽既硬件(如GPU)入虛擬機，就要連隻SATA controller都送埋入去。
 
 其實有方法呃個Kernel，令佢以為全部hardware都係自己一個IOMMU group（關鍵字：ACS patch）。
 
 Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passthrough#Verify_IOMMU_isolation)就可以用到呢個patch。注意用呢個Patch有[安全性風險](https://www.reddit.com/r/VFIO/comments/9jer5r/acs_patch_risk/)。
 
 [Script for checking IOMMU group](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Ensuring_that_the_groups_are_valid)
-
-### ECC（Error Correction Code） RAM
-
-ECC
 
 ### Intel CPU虛擬機共享iGPU
 
@@ -127,7 +123,7 @@ LXC同VM唔同既係LXC會同個Host共用Kernel（VM有自己Kernel），所以
 
 Docker同LXC唔同既係Docker通常一個Image淨係會行一隻Service，但LXC你可以係一隻上面裝十幾廿個Service同時行。
 
-Docker係Application level container：一隻App，一個Image。LXC係OS level container：佢提供左個OS，你要自己係上面裝野行。
+Docker係Application level container：一隻App，一個Image。LXC係OS level container：佢提供咗個OS，你要自己係上面裝野行。
 
 ## 咩係IPMI？有冇代替品？
 
@@ -163,23 +159,13 @@ Intel Arc系列:thumbsup: 1000蚊樓下買到既平價Transcode神卡，又有AV
 
 [Nvidia-patch（移除Nvidia GPU既同時間轉碼數上限）](https://github.com/keylase/nvidia-patch)
 
-### 轉碼知多啲
-
-你啲片既格式（MP4/MKV/WebM等）其實係Container格式黎，佢地入面裝住左Video/Audio/Subtitle，三者分別有自己獨特既格式。
-
-轉碼其實就係將你條原片既Video/Audio/Subtitle **Decode（解碼）** 去Raw，再**Encode（編碼）** 去你媒體播放器播放到既format，最後再將成品經網絡餵比個媒體播放器。
-
-所以你NAS/轉碼器要有你**原片Audio/Video格式既Decoder**及**媒體播放器可播放格式既Encoder**。
-
-（當然如果Video/Audio/Subtitle某一Part唔需要轉碼既話，就唔需要對應既Encoder/Decoder）
-
-[Jellyfin Codec Support](https://jellyfin.org/docs/general/clients/codec-support/)
-
 ## 更多討論區/資源
 
 [ServeTheHome（Homelab新聞/硬件review網頁）](https://www.servethehome.com/)
 
 [Chiphell論壇](https://www.chiphell.com/forum-146-1.html)
+
+[恩山無線論壇（OpenWrt討論）](https://www.right.com.cn/forum/forum-72-1.html)
 
 [Reddit：r/homelab](https://www.reddit.com/r/homelab/)
 
