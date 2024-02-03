@@ -81,7 +81,7 @@ Setup後再係Router到設定個DNS server做佢，咁成個屋企網絡既機�
 {{< notice info "檢查寬頻供應商有冇騎劫你DNS" >}}
 先設定Router DNS做[1.1.1.1](https://1.1.1.1/)，再去[呢到](https://www.dnsleaktest.com)做測試。
 
-如果佢顯示既ISP唔係Cloudflare既話，你就知道你既DNS比你個寬頻供應商騎劫咗。
+如顯示既ISP唔係Cloudflare，你就知道你既DNS比你個寬頻供應商騎劫咗。
  {{< /notice >}}
 
 ### Server儀表板 :thumbsup:
@@ -174,7 +174,7 @@ Grammarly翻版（[Languagetool](https://github.com/languagetool-org/languagetoo
 
 [Github：Awesome Selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted)
 
-[Reddit：r/selfhosted](https://www.reddit.com/r/selfhosted/)
+[Reddit：r/Selfhosted](https://www.reddit.com/r/selfhosted/)
 
 [This Week in Self-Hosted](https://selfh.st/)
 

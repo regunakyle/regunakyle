@@ -5,8 +5,6 @@ description = "Introducing my side projects"
 date = "2023-04-09"
 +++
 
-(Last Updated: April 9, 2023)
-
 ## Completed
 
 ### [LIHKG Gwent Guide](https://regunakyle.github.io/lihkg-gwent-guide/)

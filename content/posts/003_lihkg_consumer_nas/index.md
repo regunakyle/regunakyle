@@ -63,7 +63,11 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 如果選擇用Wireguard/OpenVPN，**我強烈建議你只放VPN一個Port出街，屋企其他Service全部只能透過VPN使用**。
 
-{{< notice warning "注意" >}} S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wireguard上去用](https://github.com/runfalk/synology-wireguard)（風險自負） {{< /notice >}}
+{{< notice warning "注意" >}}
+S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wireguard上去用](https://github.com/runfalk/synology-wireguard)（風險自負）；
+
+或者用Wireguard-go（例如[呢個qBittorrent Docker image](https://hotio.dev/containers/qbittorrent/)內置），但會比Kernel版慢。
+{{< /notice >}}
 
 ### Port Forwarding
 
@@ -97,10 +101,10 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 唔洗比錢都用到，但你要有一個Nameserver係Cloudflare既域名先得。
 
-可以享受Cloudflare既DDOS保護；此外亦支持用第三方授權：例如用Google，咁可以指定某啲特定Gmail既持有人先存取到到你啲野。
+用佢既好處係可以獲得Cloudflare既DDOS保護；此外亦支持用第三方授權：例如用Google，咁可以指定某啲特定Gmail既持有人先存取到到你啲野。
 
 {{< notice warning "注意" >}}
-你要信Cloudflare，呢個算係[Man-in-the-middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容
+你要信Cloudflare，呢個算係[Man-in-the-middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容。
 {{< /notice >}}
 
 ## 放部NAS出街時，要點保障自己？
@@ -176,13 +180,15 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗1
 
 咁樣NAS既CPU既負荷（相比冇encoder+decoder既情況）會大大降低，唔會因為播片而卡死部NAS。（而且通常可以同時間轉碼多過一條片）
 
-{{< notice info "轉換影片解析度" >}} 將片轉做唔同解析度（例如4K轉去1080p）都係轉碼既一種，如果想係街到用流量睇屋企4K片既話有用 {{< /notice >}}
+{{< notice info "轉換影片解析度" >}}
+將片轉做唔同解析度（例如4K轉去1080p）都係轉碼既一種，想係街用流量睇屋企4K片既話有用。
+{{< /notice >}}
 
 ### 換媒體播放器:tv:
 
 例如買隻機頂盒插上電視轉輸入源，等隻機頂盒做播放器。機頂盒通常支持更多檔案格式。
 
-機頂盒有Apple TV/Chromecast/Roku/Firestick/Nvidia Shield等，買邊隻請自行做Research或呢到討論。
+機頂盒有Apple TV/Chromecast/Roku/Nvidia Shield等等，買邊隻請自行做Research或去我地Post討論。
 
 另外：如果你用緊PC/手機瀏覽器睇片唔Work既話，可以試下用[VLC](https://www.videolan.org/)或Plex/Jellyfin既App。
 
@@ -202,9 +208,11 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗1
 
 [HKEPC（有NAS同Networking討論區）](https://www.hkepc.com/forum/)
 
-[Reddit：r/synology](https://www.reddit.com/r/synology/)
+[Reddit：r/Synology](https://www.reddit.com/r/synology/)
 
-[Reddit：r/qnap](https://www.reddit.com/r/qnap/)
+[Reddit：r/Qnap](https://www.reddit.com/r/qnap/)
+
+[Reddit：r/DataHoarder](https://www.reddit.com/r/DataHoarder/)
 
 ## [按我進入下一章](../004_lihkg_docker/)
 

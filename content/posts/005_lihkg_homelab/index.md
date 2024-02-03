@@ -26,7 +26,7 @@ date = "2024-01-22"
 
 缺點：
 
-- （通常）體積大，耗電大
+- 通常體積大，耗電大
 - 要學勁多野（唔係講笑），Setup麻煩，一定要識英文
 - 維護靠自己（不過通常係第一次Set完後就唔洗點理）
 
@@ -36,7 +36,7 @@ date = "2024-01-22"
 
 部分硬件只可能搵到淘寶/國產貨（或外國只有高價代替品），如各式軟路由工控機/細NAS機箱等。
 
-NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-design.com/products/cases/node/)，[Antec P101](https://www.antec.com/product/case/p101-silent)），不過通常偏大部/貴，想要細部或平啲就要淘寶。
+NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-design.com/products/cases/node/)），不過通常偏大部/貴，想要細部或平啲就要淘寶。
 
 [Small Form Factor PC Master List](https://docs.google.com/spreadsheets/d/1AddRvGWJ_f4B6UC7_IftDiVudVc8CJ8sxLUqlxVsCz4/)
 
@@ -46,13 +46,35 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 大部分人個Server**其實85%時間都係Idle**，咁樣既話你買CPU唔係睇Peak consumption而係Idle consumption。
 
-就我所知：Intel及AMD G系列CPU既Idle consumption相當低，而AMD非G系列就Idle耗電較高。
+就我所知：Intel及AMD G系列CPU既Idle consumption較低，而AMD非G系列就Idle耗電較高。
 
 但如果係常時都高負載既話，AMD非G系列既能耗比就相當高，值得考慮。
 
 另外：Intel T字尾CPU Idle時同普通版差唔多。普通版CPU係BIOS set功耗牆之後理論上可以做到類似T字尾CPU既效果。
 
 [Intel T processors power consumption tests](https://www.reddit.com/r/homelab/comments/189vkss/intel_t_processors_power_consumption_tests/)
+
+### ECC RAM
+
+ECC既用途係偵測RAM入面數據有否出現Bit flip並作出修正[（運作原理）](https://youtu.be/zzeuOecdgAI)。
+
+如果冇ECC，咁你RAM入面數據出現Bit flip時可能咩事都冇，可能令Server死機，最嚴重既情況係造成Data corruption。
+
+但Bit flip發生機率極低。除非玩到去Data Center級數（或者Server係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)），否則可能十年都遇唔到一次因Bit flip造成既Data corruption。（[測試數據](https://youtu.be/DAXVSNAj6GM)）
+
+問題係雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，消費級主機板Chipset全部唔支持ECC，要上到Workstation或Server級Chipset先有。
+
+AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](https://www.amd.com/en/products/apu/amd-ryzen-5-pro-5650g)，低能耗+多核+ECC，再配X570板）。另一個選擇係執二手Server件/洋垃圾（Xeon/Epyc之類），淘寶一堆平價野。
+
+我既諗法係，你要儲存既數據愈多/愈重要，用既RAM量愈大，就愈值得買ECC件。
+
+[延伸閱讀：Will ZFS and non-ECC RAM kill your data？](https://jrs-s.net/2015/02/03/will-zfs-and-non-ecc-ram-kill-your-data/)
+
+{{< notice info "注意事項" >}}
+
+1. ECC RAM有分RDIMM/LRDIMM/UDIMM，要睇清楚塊板支持邊款先至買。
+2. DDR5所謂既內置ECC並非真ECC，且不能取代真ECC。
+{{< /notice >}}
 
 ### 主機板IOMMU grouping
 
@@ -64,7 +86,7 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 其實有方法呃個Kernel，令佢以為全部hardware都係自己一個IOMMU group（關鍵字：ACS patch）。
 
-Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passthrough#Verify_IOMMU_isolation)就可以用到呢個patch。注意用呢個Patch有[安全性風險](https://www.reddit.com/r/VFIO/comments/9jer5r/acs_patch_risk/)。
+Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passthrough#Verify_IOMMU_isolation)就可以用到呢個Patch。注意用呢個Patch有[安全性風險](https://www.reddit.com/r/VFIO/comments/9jer5r/acs_patch_risk/)。
 
 [Script for checking IOMMU group](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Ensuring_that_the_groups_are_valid)
 
@@ -98,7 +120,7 @@ Intel CPU既iGPU可以用SR-IOV(12代或以後)或GVT-G(5至10代CPU)方法令Ho
 
 ### Router/Firewall OS
 
-[pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)，[OpenWrt](https://openwrt.org/) :thumbsup:（家用All-in-one router專用）
+[pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)（x86機推薦），[OpenWrt](https://openwrt.org/)（家用All-in-one router推薦）
 
 ## 咩係VM Hypervisor？點解要用佢？
 
@@ -137,9 +159,11 @@ Intel有個類似solution叫**VPro**，好多商用Intel機都有支持，配合
 
 想平啲既話可以去淘寶搵翻版（[Blicube](https://www.blicube.com/blikvm-products/)/[Geekworm](https://geekworm.com/collections/pikvm)）。PiKVM甚至可以配合[特定](https://docs.pikvm.org/multiport/#list-of-tested-kvms)[KVM switch](https://docs.google.com/document/d/1wgBZHxwpbJWkJBD3I8ZkZxSDxt0DdNDDYRNtVoL_vK4/)一下控制多部機。
 
-{{< figure src="./PiKVM.jpg" caption="PiKVM遠端控制Server BIOS" >}}
+{{< figure src="./PiKVM.jpg" caption="PiKVM遠端控制Asus主機板BIOS" >}}
 
 ## 用咩硬件去加HDD port數？
+
+請睇以下連結：
 
 [Recommended Controller for Unraid](https://forums.unraid.net/topic/102010-recommended-controllers-for-unraid/)
 
@@ -149,7 +173,7 @@ Intel有個類似solution叫**VPro**，好多商用Intel機都有支持，配合
 
 Intel Arc系列:thumbsup: 1000蚊樓下買到既平價Transcode神卡，又有AV1 encoding support。
 
-如果想買GPU做轉碼，可以睇下呢啲參考資料：
+想再平D既話可考慮二手Quadro或Intel DG1。建議睇下呢啲參考資料再買：
 
 [Media Capabilities Supported by Intel Hardware](https://www.intel.com/content/www/us/en/docs/onevpl/developer-reference-media-intel-hardware/)
 
@@ -161,17 +185,13 @@ Intel Arc系列:thumbsup: 1000蚊樓下買到既平價Transcode神卡，又有AV
 
 ## 更多討論區/資源
 
-[ServeTheHome（Homelab新聞/硬件review網頁）](https://www.servethehome.com/)
+[ServeTheHome（Homelab新聞/硬件Review網頁）](https://www.servethehome.com/)
 
 [Chiphell論壇](https://www.chiphell.com/forum-146-1.html)
 
 [恩山無線論壇（OpenWrt討論）](https://www.right.com.cn/forum/forum-72-1.html)
 
-[Reddit：r/homelab](https://www.reddit.com/r/homelab/)
-
-[Reddit：r/HomeNetworking](https://www.reddit.com/r/HomeNetworking/)
-
-[Reddit：r/DataHoarder](https://www.reddit.com/r/DataHoarder/)
+[Reddit：r/Homelab](https://www.reddit.com/r/homelab/)
 
 [Youtube：司波圖](https://www.youtube.com/@SpotoTsui)
 

@@ -5,8 +5,6 @@ description = "Introducing myself"
 date = "2023-06-11"
 +++
 
-(Last Updated: June 11, 2023)
-
 I am an aspiring fullstack developer in Hong Kong. I graduated from HKUST (*BSc* in Mathematics and Economics, minoring in IT) in 2020 :man_student:. Information Technology was not an industry I would see myself in, but after landing a job in a FinTech company I have fully embraced it. I enjoy the rapidly changing nature of this industry, being on the cutting edge of technology is awesome.
 
 While I am not at work, I enjoy tinkering with my homelab. Having alternatives to popular services hosted in my own house gives me senses of privacy and accomplishment, and I learned a lot in the process of setting these up. I also like playing video games, particularly the most challenging ARPGs (e.g. Dark Souls series, Monster Hunter series). Hit me up if you need a buddy in Monster Hunter games! :crossed_swords::dragon:
