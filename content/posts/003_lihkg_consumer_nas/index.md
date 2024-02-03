@@ -116,7 +116,9 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 - Port Forwarding唔好用常見既Port（如22/80/443/445/3389），用啲怪數字
 - 如有VLAN-aware既Switch及勁少少既Firewall（如pfSense）： 鎅個VLAN做DMZ，將需要放出街既Service全部放入去， 並嚴格限制其對其他VLAN既存取權
 
-只放VPN出街既好處（相比起個個Service都放出街）係你將黑客可以攻擊你既地方減至最少（得VPN可以攻擊），而VPN本身非常講究安全性，一有漏洞通常好快就有修復（所以要保持VPN更新）。
+只放VPN出街既好處（相比起個個Service都放出街）係你將黑客可以攻擊既地方減至最小（得VPN可以攻擊）。
+
+VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏洞都好快有修復（所以要保持VPN更新）。
 
 好多Service假設咗你將佢放係可信任既網絡入面，佢地冇咁著重安全性，你放佢出公海就會提高自己被黑客攻破既風險。
 
@@ -142,7 +144,7 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗1
 
 至於RAM選擇係玄學，可以有兩個人用同一部NAS同一型號RAM，但一個加完Boot唔到，另一個Boot到咁既情況。
 
-買之前最好上網Google下其他人買咗咩型號咩Size既RAM，起碼成功率大啲。
+買之前**最好上網Google下其他人買咗咩型號咩Size既RAM**，起碼成功率大啲。
 
 如果肯定要佢Work，咁要買返Synology既RAM，但性價比超級低:money_with_wings:。
 
