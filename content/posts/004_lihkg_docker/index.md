@@ -12,7 +12,7 @@ date = "2024-01-21"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月2日）
+（本文最後更新時間：2024年2月6日）
 
 ## Docker係咩黎？有咩咁勁？
 
@@ -20,7 +20,7 @@ date = "2024-01-21"
 
 Docker可以將唔同既程式連埋所需既野一次過打包做一舊，然後你禁幾粒掣or行幾條Script就可以用佢，可以當係App Store既App咁。
 
-冇Docker之前同一部機想行唔同程式可能遇到相容性問題（例如兩個程式要用同一款但又唔同版本既Library，又或者S牌DSM個library version太舊）。Docker完美解決咗呢個問題，成件打包用就得。
+冇Docker之前同一部機想行唔同程式可能遇到相容性問題（例如兩個程式要用同一款但又唔同版本既Library，又或者S牌DSM個Library版本太舊）。Docker完美解決咗呢個問題，成件打包用就得。
 
 注意其實Docker做到既野虛擬機都做到，不過虛擬機比Docker燒CPU/RAM。
 
@@ -40,7 +40,7 @@ Synology既話Plus系列或較新既非Plus機種都有支持。[呢到](https:/
 
 Docker預設係以Root身份行。咁既話出現Container escape時隻Container就可以對你部機為所欲為。
 
-**最好起一個user專用黎行Docker野**，並起個Folder比呢個User用，其他野有需要先比佢掂。
+**最好起一個User專用黎行Docker野**，並起個文件夾比呢個User專用，其他檔案有需要先比權限佢掂。
 
 然後[Docker --user flag選擇呢個user既UID：GID去行](https://docs.docker.com/engine/reference/run/#user)。
 
@@ -60,7 +60,7 @@ Docker預設係以Root身份行。咁既話出現Container escape時隻Container
 
 Selfhost圈子入面最熱門既內容。
 
-用家先係Sonarr/Radarr指定想睇咩劇集/電影，然後Sonarr/Radarr去唔同網站撈Seed（Prowlarr提供source list），再叫qBittorrent去下載，下載完就可以係Plex/Jellyfin到睇。
+用家先係Sonarr/Radarr指定想睇咩劇集/電影，然後Sonarr/Radarr去唔同網站撈Seed（Prowlarr提供Source），再叫qBittorrent去下載，下載完就可以係Plex/Jellyfin到睇。
 
 [Synology Docker Media Server Setup教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)
 
@@ -72,7 +72,7 @@ Selfhost圈子入面最熱門既內容。
 
 軟件：[AdGuardHome](https://hub.docker.com/r/adguard/adguardhome)/[PiHole](https://github.com/pi-hole/docker-pi-hole)
 
-DNS level過濾廣告，同時亦可做家長監控（即是封鎖你指定既網頁）。
+DNS層級過濾廣告，同時亦可做家長監控（即是封鎖你指定既網頁）。
 
 Setup後再係Router到設定個DNS server做佢，咁成個屋企網絡既機器都會過濾到廣告。
 
@@ -128,7 +128,7 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 有兩款：Gen圖AI同Gen字AI。要多謝[Stability AI](https://stability.ai/)同[Facebook](https://ai.meta.com/)令我地有免費AI玩。
 
-自己Host既原因：無Censorship（LLM既話問佢點整炸彈都照答你）、唔洗買VPN、保障私隱。
+自己Host既原因：無Censorship（問佢點整炸彈都照答）、唔洗買VPN都用到、保障私隱。
 
 行AI你先要下載個Model，再係對應既Web UI到Load就可以用：
 

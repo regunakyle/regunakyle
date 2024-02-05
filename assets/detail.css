@@ -1,0 +1,17 @@
+details summary {
+  cursor: pointer;
+  margin-bottom: -1rem;
+  transition: margin 150ms ease-out;
+}
+
+details[open] summary {
+  margin-bottom: 1rem;
+}
+
+summary::marker {
+  color: mediumaquamarine;
+}
+
+summary::-webkit-details-marker {
+  color: mediumaquamarine;
+}

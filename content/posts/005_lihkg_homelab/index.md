@@ -12,7 +12,7 @@ date = "2024-01-22"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月2日）
+（本文最後更新時間：2024年2月6日）
 
 {{< figure src="./LackRack.jpg" caption="IKEA LACK土炮Server Rack" >}}
 
@@ -68,6 +68,8 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 我既諗法係，你要儲存既數據愈多/愈重要，用既RAM量愈大，就愈值得買ECC件。
 
+注意：ECC唔係靈丹妙藥，如果條RAM本身係壞既話照樣會狂出Error。
+
 [延伸閱讀：Will ZFS and non-ECC RAM kill your data？](https://jrs-s.net/2015/02/03/will-zfs-and-non-ecc-ram-kill-your-data/)
 
 {{< notice info "注意事項" >}}
@@ -83,6 +85,8 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 因為如果你想將Host既硬件Passthrough入去虛擬機既話，就要將一個IOMMU group既所有硬件一次過送曬入去。
 
 例如你PCIe 1槽同SATA controller係同一IOMMU group，咁你想送個插咗係PCIe 1槽既硬件(如GPU)入虛擬機，就要連隻SATA controller都送埋入去。
+
+**個Host無法使用任何Passthrough咗入虛擬機既硬件**，可以想像係將個硬件完全地交咗比虛擬機管理。
 
 其實有方法呃個Kernel，令佢以為全部hardware都係自己一個IOMMU group（關鍵字：ACS patch）。
 
@@ -100,11 +104,31 @@ Intel CPU既iGPU可以用SR-IOV(12代或以後)或GVT-G(5至10代CPU)方法令Ho
 
 [12代或更新CPU之SR-IOV方法](https://github.com/strongtz/i915-sriov-dkms)
 
+{{< notice info "Container幫到你" >}}
+如果不幸地用緊11代Intel CPU，或唔想搞以上既野，可以轉用LXC或Docker。
+
+只需將`/dev/dri/<你個Device名>`或成個`/dev/dri`作為Volume mount入去，隻Container就可以用到個iGPU。
+
+注意：個Host要Load定Driver（i915），隻iGPU先會係`/dev/dri`出現。
+{{< /notice >}}
+
+## LXC係咩黎？同Docker有咩唔同？
+
+LXC雖然都係"Container"，**但佢概念上更接近虛擬機，係虛擬機既輕量級代替品。**
+
+同虛擬機相似，係LXC上面你可以手動裝十幾廿個Service同時行。另外兩者都支持Snapshot/Rollback及Backup/Restore。
+
+LXC同VM唔同既係LXC會同個Host共用Kernel（VM有自己Kernel），所以資源消耗較低，相對地安全性冇VM咁強。
+
+Docker同LXC唔同既係Docker通常一個Image淨係會行一隻Service，但LXC你可以係一隻上面裝十幾廿個Service同時行。
+
+Docker係Application層級Container：一個Image專行一隻App；LXC係OS層級Container：佢提供咗個OS比你，你要自己係上面裝野行。
+
 ## 用咩OS？
 
 {{< figure src="./Proxmox.png" caption="Proxmox VE介面" >}}
 
-### VM Hypervisor
+### Hypervisor OS
 
 **[Proxmox VE](https://www.proxmox.com/en/proxmox-virtual-environment/overview)** :thumbsup:，[VMWare ESXi](https://www.vmware.com/hk/products/esxi-and-esx.html)，[Windows Server + Hyper-V](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/hyper-v-on-windows-server)，[XCP-NG](https://xcp-ng.org/)
 
@@ -122,7 +146,7 @@ Intel CPU既iGPU可以用SR-IOV(12代或以後)或GVT-G(5至10代CPU)方法令Ho
 
 [pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)（x86機推薦），[OpenWrt](https://openwrt.org/)（家用All-in-one router推薦）
 
-## 咩係VM Hypervisor？點解要用佢？
+## 咩係Hypervisor？點解要用佢？
 
 Hypervisor即專用黎行虛擬機既軟件。上一點提及既Hypervisor全部都係Type 1，有接近原生既Performance。
 用Hypervisor既好處：
@@ -134,18 +158,6 @@ Hypervisor即專用黎行虛擬機既軟件。上一點提及既Hypervisor全部
 - 視乎你既硬件，Reboot虛擬機可能比Reboot實機快勁多
 
 咁多好處下，就算你只會用一個虛擬機，都可以考慮下用Hypervisor OS。
-
-## LXC係咩黎？同Docker有咩唔同？
-
-LXC雖然都係"Container"，**但佢概念上比較接近虛擬機，使用上同虛擬機冇大分別。係虛擬機既輕量級代替品。**
-
-同虛擬機相似，係LXC上面你可以手動裝十幾廿個Service同時行。另外兩者都支持Snapshot/Rollback及Backup/Restore。
-
-LXC同VM唔同既係LXC會同個Host共用Kernel（VM有自己Kernel），所以資源消耗較低，相對地安全性冇VM咁強。
-
-Docker同LXC唔同既係Docker通常一個Image淨係會行一隻Service，但LXC你可以係一隻上面裝十幾廿個Service同時行。
-
-Docker係Application level container：一隻App，一個Image。LXC係OS level container：佢提供咗個OS，你要自己係上面裝野行。
 
 ## 咩係IPMI？有冇代替品？
 

@@ -1,6 +1,17 @@
 {{ $title:= .Get 0 }}
 
-<details>
-  <summary><em>{{$title}}</em></summary>
-  <p>{{ .Inner | markdownify }}</p>
+<details style="color: mediumaquamarine">
+  <summary>
+    <em>{{$title}}</em>
+  </summary>
+  <div
+    style="
+      padding: 0 3rem;
+      margin: 2rem 0;
+      border: 0.3rem solid;
+      border-radius: 16px;
+    "
+  >
+    {{ .Inner | markdownify }}
+  </div>
 </details>

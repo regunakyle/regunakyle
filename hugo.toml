@@ -30,6 +30,8 @@ since = 2023
 colorScheme = "dark"
 hidecolorschemetoggle = true
 
+customCSS = ["detail.css"]
+
 [taxonomies]
 category = "categories"
 series = "series"

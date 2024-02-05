@@ -10,7 +10,7 @@ date = "2024-01-20"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月2日）
+（本文最後更新時間：2024年2月6日）
 
 {{< figure src="./Cover.png" caption="圖片來源：Synology官網" >}}
 
@@ -29,6 +29,8 @@ date = "2024-01-20"
 
 Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
+其他大牌子硬件全部跑贏Synology，但Synology軟件做得最好，可以話係買軟件送機。
+
 如果識野/想學野既話，可以考慮自組。[（後方討論）](../005_lihkg_homelab/)
 
 [Synology NAS選擇器](https://www.synology.com/zh-tw/support/nas_selector)
@@ -39,92 +41,24 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 咩牌子NAS都好，想要保障自己數據既話，做好以下既野：
 
-- **重要數據做好備份**（3-2-1備份：3份數據，2種儲存媒介，1份存於異地）。可以先從雲端存儲或外置HDD入手
+- **重要數據做好備份**
 - Router取消UPnP
 - Router取消任何Port Forwarding（通訊埠轉發/「放Port」）
 - NAS取消Quickconnect/MyQnapCloud
-- 如NAS支持，定期為數據做唯讀既快照（Snapshot）
 
-**做咗備份仲要定時檢查備份Work唔Work**，例如試下Restore去其他地方睇下讀唔讀到啲資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。:sob:
+**備份要有多版本**，例如每個月尾做一次備份，然後保留最多12份（一年），之後先從最舊開始剷。可以用*增量備份*方式減少備份所佔空間，例如[Synology Hyper Backup](https://www.synology.com/zh-hk/dsm/feature/hyper_backup)就係增量備份。[（三種備份方式簡介）](https://zhuanlan.zhihu.com/p/135242862)
+
+**做咗備份仲要定時檢查備份Work唔Work**，例如試下還原去其他地方睇下讀唔讀到啲資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。:sob:
+
+**3-2-1備份法則**：3份數據，2種儲存媒介，1份存於異地。可以先從雲端存儲或外置硬碟入手。
 
 **注意RAID並非備份，且不能取代備份。重要數據一定要做好備份。**
 
 [延伸閱讀：Why is RAID not a backup？](https://serverfault.com/questions/2888/why-is-raid-not-a-backup)
 
-## 點樣係街外存取屋企部NAS？
+## Synology Plus系列買咩Model好？
 
-### VPN（推薦）:thumbsup:
-
-[Tailscale](Tailscale)最簡單，**無需做Port Forwarding，亦唔需要Public IP**，亦有大牌子NAS setup教學（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)），對新手黎講係最好選擇。
-
-識玩既可以自己Setup [Wireguard](https://www.wireguard.com/)（易Setup+極低overhead）。
-
-再唔係就OpenVPN，好多家用Router都有支持。
-
-如果選擇用Wireguard/OpenVPN，**我強烈建議你只放VPN一個Port出街，屋企其他Service全部只能透過VPN使用**。
-
-{{< notice warning "注意" >}}
-S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wireguard上去用](https://github.com/runfalk/synology-wireguard)（風險自負）；
-
-或者用Wireguard-go（例如[呢個qBittorrent Docker image](https://hotio.dev/containers/qbittorrent/)內置），但會比Kernel版慢。
-{{< /notice >}}
-
-### Port Forwarding
-
-要係Router到做，詳情請參閱你部Router既說明書。
-
-例如你個Service個IP:Port係`192.168.1.100:5001`，你去Router到設定Port 1234 -> 192.168.1.100（Port 5001），
-
-咁你係街上用瀏覽器打你`<屋企IP>:1234`就可以掂到呢個Service。
-
-{{< notice info "必須有 Public IP" >}}
-你要有Public IP先可以係街外掂到屋企部Router，如果冇既話放Port都冇用。
-
-香港唔少寬頻供應商都會派Public IP，但好可能係浮動（即自己會轉；一啲係熄光纖盒先會轉）。
-
-如果唔想記屋企IP或避免IP浮動產生問題，可以買個域名及設定DDNS，或者用免費DDNS服務（[DuckDNS](https://www.duckdns.org/)/[Synology DDNS](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_ddns)）。
-
-如果你隻Router顯示既WAN/Public IP同[呢到](https://www.whatismyip.com/)顯示既唔一樣既話，咁你就冇Public IP（CGNAT/Double NAT）。
-{{< /notice >}}
-
-### [QuickConnect](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_quickconnect)/[MyQnapCloud](https://www.qnap.com/zh-hk/software/myqnapcloud)
-
-（呢到只講QuickConnect，因為我冇QNAP）
-
-無需做Port forwarding，靠Synology Server做Hole punching，或（如失敗）用Synology Relay Server做中間人連結部NAS同你部手機/電腦。[（QuickConnect白皮書）](https://kb.synology.com/zh-tw/WP/Synology_QuickConnect_White_Paper/4)
-
-注意用QuickConnect只能掂到DSM及部分Synology App，冇辦法透過佢開NAS上既Plex/Jellyfin等等你自己裝既App。
-
-### [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) （進階）
-
-經Cloudflare放Service出街，**無需做Port forwarding，亦唔需要Public IP**。
-
-唔洗比錢都用到，但你要有一個Nameserver係Cloudflare既域名先得。
-
-用佢既好處係可以獲得Cloudflare既DDOS保護；此外亦支持用第三方授權：例如用Google，咁可以指定某啲特定Gmail既持有人先存取到到你啲野。
-
-{{< notice warning "注意" >}}
-你要信Cloudflare，呢個算係[Man-in-the-middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容。
-{{< /notice >}}
-
-## 放部NAS出街時，要點保障自己？
-
-- **用VPN並確保VPN版本更新**。除非真係要放比街外人用，否則只放VPN出街
-- 開個權限唔多既User account比自己平時用，非必要唔用Admin/Root account
-- **重要數據做好備份**
-- Firewall/NAS封鎖Inbound中國及俄羅斯IP，或直接Block香港以外所有IP
-- Port Forwarding唔好用常見既Port（如22/80/443/445/3389），用啲怪數字
-- 如有VLAN-aware既Switch及勁少少既Firewall（如pfSense）： 鎅個VLAN做DMZ，將需要放出街既Service全部放入去， 並嚴格限制其對其他VLAN既存取權
-
-只放VPN出街既好處（相比起個個Service都放出街）係你將黑客可以攻擊既地方減至最小（得VPN可以攻擊）。
-
-VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏洞都好快有修復（所以要保持VPN更新）。
-
-好多Service假設咗你將佢放係可信任既網絡入面，佢地冇咁著重安全性，你放佢出公海就會提高自己被黑客攻破既風險。
-
-{{< figure src="./Security.png" caption="唔注意安全既後果:laughing:" >}}
-
-## （2024年1月）Synology Plus系列買咩Model好？
+（此部分最後更新於2024年1月）
 
 現時最新出咗[DS224+](https://www.synology.com/zh-tw/products/DS224+)，[DS423+](https://www.synology.com/zh-tw/products/DS423+)，[DS723+](https://www.synology.com/zh-tw/products/DS723+)，[DS923+](https://www.synology.com/zh-tw/products/DS923+)。
 
@@ -150,19 +84,106 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗1
 
 ## HDD買邊隻？
 
-名牌廠商既CMR NAS Drive，如Seagate，WD/HGST，Toshiba等廠。
+名牌廠商（如Seagate，WD/HGST，Toshiba）既CMR NAS Drive。
 
 **注意唔好買SMR HDD。**
 
-可以買唔同牌子既HDD溝埋用，理論上咁做係安全過全買單一型號。
+可以買唔同牌子既同Size HDD溝埋用，理論上咁做係安全過全買單一型號。
 
 我揀HDD既準則係大牌子，CMR，然後就係每TB愈平愈好。
 
 要格價請去[Price.com.hk](https://www.price.com.hk/category.php?c=100015&gp=20)；[Amazon](https://www.amazon.com/b?node=1254762011)等外國網站有時都有特惠。
 
-**HDD遲早會壞，做好備份先係最實際。**
+此外亦可考慮拆碟（Shucking），即是買個3.5吋外置硬碟（例如WD Elements）返黎拆殻拎隻硬碟用。
+
+有時外置硬碟價錢抵玩，唔少鬼佬同連登巴打就選擇買返黎拆。**拆碟有風險**，請做好曬功課再落決定。
+
+緊記：**HDD遲早會壞，做好備份先係最實際**。
 
 [BackBlaze企業用HDD損壞率調查](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
+
+## 點樣係街外存取屋企部NAS？
+
+### VPN（推薦）:thumbsup:
+
+[Tailscale](Tailscale)最簡單，**無需做Port Forwarding，亦唔需要Public IP**，亦有大牌子NAS setup教學（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)），對新手黎講係最好選擇。
+
+識玩既可以自己Setup [Wireguard](https://www.wireguard.com/)（易Setup+極低overhead）。
+
+再唔係就OpenVPN，好多家用Router都有支持。
+
+如果選擇用Wireguard/OpenVPN，**我強烈建議你只放VPN一個Port出街，屋企其他Service全部只能透過VPN使用**。
+
+{{< notice warning "注意" >}}
+S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wireguard上去用](https://github.com/runfalk/synology-wireguard)（風險自負）；
+
+或者用Wireguard-go（例如[呢個qBittorrent Docker image](https://hotio.dev/containers/qbittorrent/)內置），但會比Kernel版慢。
+{{< /notice >}}
+
+### Port Forwarding
+
+要係Router到做，詳情請參閱你部Router既說明書。
+
+例如你個Service個IP:Port係`192.168.1.100:5001`，你去Router到設定Port 1234 -> 192.168.1.100（Port 5001），
+
+咁你係街上用瀏覽器打你`<屋企Public IP>:1234`就可以掂到呢個Service。
+
+{{< notice info "必須有 Public IP" >}}
+你要有Public IP先可以係街外掂到屋企部Router，如果冇既話放Port都冇用。
+
+香港唔少寬頻供應商都會派Public IP，但通常係浮動IP（即自己會轉；一啲係熄光纖盒先會轉）。
+
+先去Router搵下自己WAN/Public IP係咩，再去[呢到](https://www.whatismyip.com/)顯示既IP做比較。如果兩者一樣，咁呢個就係你既Public IP；但唔一樣就代表你寬頻行緊CGNAT，冇Public IP。
+
+如果唔想記屋企IP或避免IP浮動產生問題，可以買個域名及設定DDNS，或者用免費DDNS服務（[DuckDNS](https://www.duckdns.org/)/[Synology DDNS](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_ddns)）。
+{{< /notice >}}
+
+### [QuickConnect](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_quickconnect)/[MyQnapCloud](https://www.qnap.com/zh-hk/software/myqnapcloud)
+
+（呢到只講QuickConnect，因為我冇QNAP）
+
+無需做Port forwarding，靠Synology Server做Hole punching，或（如失敗）用Synology Relay Server做中間人連結部NAS同你部手機/電腦。[（QuickConnect白皮書）](https://kb.synology.com/zh-tw/WP/Synology_QuickConnect_White_Paper/4)
+
+注意用QuickConnect只能掂到DSM及部分Synology App，冇辦法透過佢開NAS上既Plex/Jellyfin等等你自己裝既App。
+
+### [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) （進階）
+
+經Cloudflare放Service出街，**無需做Port forwarding，亦唔需要Public IP**。
+
+Cloudflare Tunnel本身係免費，但你要有一個Nameserver係Cloudflare既域名先用到。
+
+用佢既好處係可以獲得Cloudflare既DDOS保護；此外亦支持用第三方授權：例如用Google，咁可以指定某啲特定Gmail既持有人先存取到到你啲野。
+
+{{< notice warning "注意" >}}
+你要信Cloudflare，呢個算係[Man-in-the-middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容。
+{{< /notice >}}
+
+## 放部NAS出街時，要點保障自己？
+
+- **用VPN並確保VPN版本更新**。除非真係要放比街外人用，否則只放VPN出街
+- **重要數據做好備份**，亦要有至少一份**即使被Hack黑客都掂唔到**既備份。
+- 開個權限唔多既User account比自己平時用，非必要唔用Admin/Root account
+- Firewall/NAS封鎖Inbound中國及俄羅斯IP，或直接Block香港以外所有IP
+- Port Forwarding唔好用常見既Port（如22/80/443/445/3389），用啲怪數字
+- Port Forwarding只放Reverse Proxy（Apache/NGINX/HAProxy等等）；同時買個域名或用免費DDNS，再攞個SSL憑證行HTTPS
+- （進階）如有VLAN-aware既Switch及勁少少既Firewall（如pfSense）：鎅個VLAN做DMZ，將需要放出街既Service全部放入去， 並嚴格限制其對其他VLAN既存取權
+
+{{< detail "第二點：點樣備份先安全？" >}}
+必須有至少一份**即使被Hack黑客都掂唔到**既備份。例子：
+
+1. 定時將外置硬碟接駁NAS做備份，做好後斷開外置硬碟連接（即離線備份）。
+2. 由備份Server主動從NAS撈數據做備份（而唔係NAS主動倒數據落備份Server），且禁止網絡其他機主動存取備份Server
+
+如果黑客攻到入黎，又掂到曬你啲備份，咁佢直接剷曬/加密曬咪得。咁樣你既備份形同虛設。
+{{< /detail >}}
+
+只放VPN出街既好處（相比起個個Service都放出街）係你將黑客可以攻擊既地方減至最小（得VPN可以攻擊）。
+
+VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏洞都好快有修復（所以要保持VPN更新）。
+
+好多Service假設咗你將佢放係可信任既網絡入面，佢地冇咁著重安全性，你放佢出公海就會提高自己被黑客攻破既風險。
+
+{{< figure src="./Security.png" caption="唔注意安全既後果:laughing:" >}}
 
 ## 咩係轉碼（Transcoding）？
 
@@ -197,13 +218,11 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗1
 {{< detail "轉碼知多啲" >}}
 你啲片既格式（MP4/MKV/WebM等）其實係Container格式黎，佢地入面裝住咗Video/Audio/Subtitle，三者分別有自己獨特既格式。
 
-轉碼其實就係將你條原片既Video/Audio/Subtitle **Decode（解碼）** 去Raw，再**Encode（編碼）** 去你媒體播放器播放到既format，最後再將成品經網絡餵比個媒體播放器。
+轉碼其實就係將你條原片既Video/Audio/Subtitle **Decode（解碼）** 去Raw，再**Encode（編碼）** 去你媒體播放器播放到既Format，最後再將成品經網絡餵比個媒體播放器。
 
-所以你NAS/轉碼器要有你**原片Audio/Video格式既Decoder**及**媒體播放器可播放格式既Encoder**。
+所以你NAS/轉碼器要有你**原片格式既Decoder**及**媒體播放器可播放格式既Encoder**。
 
-（當然如果Video/Audio/Subtitle某一Part唔需要轉碼既話，就唔需要對應既Encoder/Decoder）
-
-[Jellyfin Codec Support](https://jellyfin.org/docs/general/clients/codec-support/)
+[Jellyfin Codec Support及介紹](https://jellyfin.org/docs/general/clients/codec-support/)
 {{< /detail >}}
 
 ## 有用網站
