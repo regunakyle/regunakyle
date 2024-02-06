@@ -18,6 +18,10 @@ date = "2024-01-20"
 
 因為愈寫愈多，我決定抽出黎放係自己個Blog到，順便加啲圖/Formatting咁。~~幫我個Blog加啲流量~~
 
+如發現有錯誤，可以去[我Github提交Issue](https://github.com/regunakyle/regunakyle/issues/new)。
+
+**本文（及Homelab系列其他文章）遵循[「署名-相同方式共享 4.0 國際」](https://choosealicense.com/licenses/cc-by-sa-4.0/)協議。轉載請註明出處。**
+
 ## 買邊個牌子好？
 
 如果冇特別偏好既話，建議Synology（群輝），原因如下:
@@ -48,7 +52,7 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 **備份要有多版本**，例如每個月尾做一次備份，然後保留最多12份（一年），之後先從最舊開始剷。可以用*增量備份*方式減少備份所佔空間，例如[Synology Hyper Backup](https://www.synology.com/zh-hk/dsm/feature/hyper_backup)就係增量備份。[（三種備份方式簡介）](https://zhuanlan.zhihu.com/p/135242862)
 
-**做咗備份仲要定時檢查備份Work唔Work**，例如試下還原去其他地方睇下讀唔讀到啲資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。:sob:
+**做咗備份仲要定時檢查備份Work唔Work**，例如試下還原去其他地方睇下讀唔讀到啲資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。
 
 **3-2-1備份法則**：3份數據，2種儲存媒介，1份存於異地。可以先從雲端存儲或外置硬碟入手。
 
@@ -74,7 +78,7 @@ DS224+及DS423+冇得升10G，但用Intel CPU，有Hardware encode/decoder，比
 
 睇返你想買個隻Model個Spec，正常有寫有冇得加。
 
-Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗16GB）
+Spec上面會寫最多加幾多，但通常可加更多，但加到唔代表用得曬。（我部DS220+加咗16GB）
 
 至於RAM選擇係玄學，可以有兩個人用同一部NAS同一型號RAM，但一個加完Boot唔到，另一個Boot到咁既情況。
 
@@ -117,14 +121,14 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗1
 {{< notice warning "注意" >}}
 S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wireguard上去用](https://github.com/runfalk/synology-wireguard)（風險自負）；
 
-或者用Wireguard-go（例如[呢個qBittorrent Docker image](https://hotio.dev/containers/qbittorrent/)內置），但會比Kernel版慢。
+或者用Wireguard-go（例如[呢個qBittorrent Docker image](https://hotio.dev/containers/qbittorrent/)有教點設定），但會比Kernel版慢。
 {{< /notice >}}
 
 ### Port Forwarding
 
 要係Router到做，詳情請參閱你部Router既說明書。
 
-例如你個Service個IP:Port係`192.168.1.100:5001`，你去Router到設定Port 1234 -> 192.168.1.100（Port 5001），
+例如你個Service個IP:Port係`192.168.1.100:5001`，你去Router到設定Port 1234 -> `192.168.1.100`（Port 5001），
 
 咁你係街上用瀏覽器打你`<屋企Public IP>:1234`就可以掂到呢個Service。
 
@@ -138,21 +142,23 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 如果唔想記屋企IP或避免IP浮動產生問題，可以買個域名及設定DDNS，或者用免費DDNS服務（[DuckDNS](https://www.duckdns.org/)/[Synology DDNS](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_ddns)）。
 {{< /notice >}}
 
-### [QuickConnect](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_quickconnect)/[MyQnapCloud](https://www.qnap.com/zh-hk/software/myqnapcloud)
+### QuickConnect/MyQnapCloud
 
-（呢到只講QuickConnect，因為我冇QNAP）
+部分NAS牌子提供免費Relay服務，例如Synology既[QuickConnect](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_quickconnect)同QNAP既[MyQnapCloud](https://www.qnap.com/zh-hk/software/myqnapcloud)。
+
+因為我冇QNAP，呢到只講QuickConnect：
 
 無需做Port forwarding，靠Synology Server做Hole punching，或（如失敗）用Synology Relay Server做中間人連結部NAS同你部手機/電腦。[（QuickConnect白皮書）](https://kb.synology.com/zh-tw/WP/Synology_QuickConnect_White_Paper/4)
 
 注意用QuickConnect只能掂到DSM及部分Synology App，冇辦法透過佢開NAS上既Plex/Jellyfin等等你自己裝既App。
 
-### [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/) （進階）
+### Cloudflare Tunnel（進階）
 
-經Cloudflare放Service出街，**無需做Port forwarding，亦唔需要Public IP**。
+即Cloudflare做中間人幫你放Service出街。**無需做Port forwarding，亦唔需要Public IP**。
 
-Cloudflare Tunnel本身係免費，但你要有一個Nameserver係Cloudflare既域名先用到。
+[Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)本身係免費，但你要有一個Nameserver係Cloudflare既域名先用到。
 
-用佢既好處係可以獲得Cloudflare既DDOS保護；此外亦支持用第三方授權：例如用Google，咁可以指定某啲特定Gmail既持有人先存取到到你啲野。
+用佢既好處係可以獲得Cloudflare既DDOS保護；此外亦支持用第三方授權，例如用Google，咁可以指定特定Gmail帳號持有人先存取到到你啲野。
 
 {{< notice warning "注意" >}}
 你要信Cloudflare，呢個算係[Man-in-the-middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容。
@@ -165,13 +171,13 @@ Cloudflare Tunnel本身係免費，但你要有一個Nameserver係Cloudflare既�
 - 開個權限唔多既User account比自己平時用，非必要唔用Admin/Root account
 - Firewall/NAS封鎖Inbound中國及俄羅斯IP，或直接Block香港以外所有IP
 - Port Forwarding唔好用常見既Port（如22/80/443/445/3389），用啲怪數字
-- Port Forwarding只放Reverse Proxy（Apache/NGINX/HAProxy等等）；同時買個域名或用免費DDNS，再攞個SSL憑證行HTTPS
-- （進階）如有VLAN-aware既Switch及勁少少既Firewall（如pfSense）：鎅個VLAN做DMZ，將需要放出街既Service全部放入去， 並嚴格限制其對其他VLAN既存取權
+- Port Forwarding只放Reverse proxy（Apache/NGINX/HAProxy等等）；同時買個域名或用免費DDNS，再[攞個SSL憑證](#點樣獲得免費既ssl憑證)行HTTPS
+- 如有VLAN功能既Switch及勁少少既Firewall（較新既家用Router裝[OpenWrt](https://openwrt.org/)可以做曬兩樣野）：鎅個VLAN做DMZ，將需要放出街既Service全部放入去，並嚴格限制其對其他VLAN既存取權
 
 {{< detail "第二點：點樣備份先安全？" >}}
 必須有至少一份**即使被Hack黑客都掂唔到**既備份。例子：
 
-1. 定時將外置硬碟接駁NAS做備份，做好後斷開外置硬碟連接（即離線備份）。
+1. 定時將外置硬碟接駁NAS做備份，做好後斷開外置硬碟連接（即離線備份）
 2. 由備份Server主動從NAS撈數據做備份（而唔係NAS主動倒數據落備份Server），且禁止網絡其他機主動存取備份Server
 
 如果黑客攻到入黎，又掂到曬你啲備份，咁佢直接剷曬/加密曬咪得。咁樣你既備份形同虛設。
@@ -185,11 +191,35 @@ VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏
 
 {{< figure src="./Security.png" caption="唔注意安全既後果:laughing:" >}}
 
+## 點樣獲得免費既SSL憑證？
+
+[Let's Encrypt](https://letsencrypt.org/)可以派發免費既SSL憑證，好多家用Server玩家都用佢（Synology都有用）。
+
+佢地既SSL憑證有效期只有90日，通常建議每60日更新一次憑證。
+
+佢地提供[幾種方法](https://letsencrypt.org/docs/challenge-types/)比你證明你擁有個域名。我推薦**DNS-01**方法，因為：
+
+1. 唔洗開Port都行到
+2. 可以攞Wildcard憑證（例如`*.<子網域名>.duckdns.org`，咁就唔洗個個Service都整一張憑證）
+
+**DNS-01**要你個[DNS provider支持先用到](https://community.letsencrypt.org/t/dns-providers-who-easily-integrate-with-lets-encrypt-dns-validation/86438)。其中DuckDNS同Cloudflare值得一提，前者係免費，後者有[Cloudflare Tunnel可以玩](#cloudflare-tunnel進階)。
+
+有唔少[工具](https://letsencrypt.org/docs/client-options/)可以幫你管理Let's Encrypt既SSL憑證；[pfSense](https://docs.netgate.com/pfsense/en/latest/packages/acme/index.html)/[OpenWrt](https://openwrt.org/docs/guide-user/services/tls/acmesh/)等OS有插件幫你做；用Docker既玩家可以睇下[Nginx Proxy Manager](https://github.com/NginxProxyManager/nginx-proxy-manager)/[Caddy](https://caddyserver.com/)。
+
+{{< notice info "Let's Encrypt妙用" >}}
+有啲Service一定要HTTPS先運作到（如[Vaultwarden](https://github.com/dani-garcia/vaultwarden)），咁樣就算你只係屋企或經VPN用，都係要搞SSL憑證。
+
+只要用Let's Encrypt既DNS-01方法就可以唔開Port都申請到SSL憑證，攞到後係Reverse proxy設定就得。
+
+[Running a private vaultwarden instance with Let's Encrypt certs](https://github.com/dani-garcia/vaultwarden/wiki/Running-a-private-vaultwarden-instance-with-Let%27s-Encrypt-certs)（唔用Vaultwarden都值得一睇）
+
+{{< /notice >}}
+
 ## 咩係轉碼（Transcoding）？
 
 一個媒體播放器（如你部電視個瀏覽器）通常唔係支持所有媒體格式（影片格式、音頻格式、字幕格式等）。
 
-如果播放器支持你想播條片既格式，咁部NAS直接經網絡餵條片比個播放器就得 （即Direct Play） ，咁樣部NAS唔洗點做野。
+如果播放器支持你想播條片既格式，咁部NAS直接經網絡餵條片比個播放器就得（即Direct Play），咁樣部NAS唔洗點做野。
 
 但如果格式不合，有兩個選項：
 
@@ -213,7 +243,7 @@ VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏
 
 機頂盒有Apple TV/Chromecast/Roku/Nvidia Shield等等，買邊隻請自行做Research或去我地Post討論。
 
-另外：如果你用緊PC/手機瀏覽器睇片唔Work既話，可以試下用[VLC](https://www.videolan.org/)或Plex/Jellyfin既App。
+另外：如果你用緊PC/手機瀏覽器睇片唔Work既話，可以試下用[VLC](https://www.videolan.org/)或Plex/Jellyfin既原生App。
 
 {{< detail "轉碼知多啲" >}}
 你啲片既格式（MP4/MKV/WebM等）其實係Container格式黎，佢地入面裝住咗Video/Audio/Subtitle，三者分別有自己獨特既格式。

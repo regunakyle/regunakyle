@@ -1,9 +1,7 @@
 {{ $title:= .Get 0 }}
 
 <details style="color: mediumaquamarine">
-  <summary>
-    <em>{{$title}}</em>
-  </summary>
+  <summary>{{ " :bulb:" | emojify }} <em>{{$title}}</em></summary>
   <div
     style="
       padding: 0 3rem;

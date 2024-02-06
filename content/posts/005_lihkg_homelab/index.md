@@ -98,7 +98,7 @@ Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passth
 
 Intel CPU既iGPU可以用SR-IOV(12代或以後)或GVT-G(5至10代CPU)方法令Host同虛擬機都用到同一隻iGPU，唔洗額外買隻獨立GPU。
 
-**唯獨係11代咩都冇**。如果你有送iGPU入虛擬機既需求（例如個Host靠iGPU著Mon，但虛擬機行Jellyfin要iGPU做轉碼）既話要注意。
+**唯獨係11代咩都冇**。如果你Host同虛擬機都要用iGPU（例如個Host靠iGPU著Mon，但虛擬機行Jellyfin要iGPU做轉碼）既話要注意。
 
 [Arch Wiki：Intel GVT-G](https://wiki.archlinux.org/title/Intel_GVT-g)
 
@@ -161,13 +161,13 @@ Hypervisor即專用黎行虛擬機既軟件。上一點提及既Hypervisor全部
 
 ## 咩係IPMI？有冇代替品？
 
-IPMI係Remote management solution。同普通Remote desktop唔同既係佢可以係**最低層控制個Server**。
+IPMI係Remote management solution。同普通Remote desktop唔同既係佢可以係**最底層控制個Server**。
 
-你可以用佢Remote開/關機，改BIOS，重裝OS等等。非常適合Server係Remote或難搬地方既人。
+你可以用佢Remote開/關機，改BIOS設定，重裝OS等等。非常適合Server係Remote或難搬地方既人。
 
-Intel有個類似solution叫**VPro**，好多商用Intel機都有支持，配合[MeshCentral](https://github.com/Ylianst/MeshCentral)可做到中央控制。
+Intel有個類似Solution叫**VPro**，好多商用Intel機都有支持，配合[MeshCentral](https://github.com/Ylianst/MeshCentral)可做到中央控制。
 
-另一個相對易入手既Alternative係[PiKVM](https://pikvm.org/)，需要你自己買件DIY，或者買作者成Set件砌。
+另一個相對易入手既代替品係[PiKVM](https://pikvm.org/)，需要你自己買件DIY，或者買作者成Set件砌。
 
 想平啲既話可以去淘寶搵翻版（[Blicube](https://www.blicube.com/blikvm-products/)/[Geekworm](https://geekworm.com/collections/pikvm)）。PiKVM甚至可以配合[特定](https://docs.pikvm.org/multiport/#list-of-tested-kvms)[KVM switch](https://docs.google.com/document/d/1wgBZHxwpbJWkJBD3I8ZkZxSDxt0DdNDDYRNtVoL_vK4/)一下控制多部機。
 
