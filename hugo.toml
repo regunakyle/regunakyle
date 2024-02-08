@@ -11,6 +11,10 @@ enableEmoji = true
 
 pluralizelisttitles = false
 
+[services]
+[services.googleAnalytics]
+ID = 'G-7G8KK1FRKB'
+
 [markup.highlight]
 style = "github-dark"
 
