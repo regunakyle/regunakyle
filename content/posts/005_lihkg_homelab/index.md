@@ -66,9 +66,7 @@ ECC既用途係偵測RAM入面數據有否出現Bit flip並作出修正[（運�
 
 AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](https://www.amd.com/en/products/apu/amd-ryzen-5-pro-5650g)配X570板，低能耗+多核+ECC+靚IOMMU）。另一個選擇係執二手Server件/洋垃圾（Xeon/Epyc之類），淘寶一堆平價野。
 
-我既諗法係，你要儲存既數據愈多/愈重要，用既RAM量愈大，就愈值得買ECC件。
-
-注意：ECC唔係靈丹妙藥，如果條RAM本身係壞既話照樣會狂出Error。
+我既諗法係，你要儲存既數據愈多/愈重要，用既RAM量愈大，就愈值得買ECC件。（當買個心安都好）
 
 [延伸閱讀：Will ZFS and non-ECC RAM kill your data？](https://jrs-s.net/2015/02/03/will-zfs-and-non-ecc-ram-kill-your-data/)
 
@@ -76,6 +74,7 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 1. ECC RAM有分RDIMM/LRDIMM/UDIMM，要睇清楚塊板支持邊款先至買。
 2. DDR5所謂既內置ECC並非真ECC，且不能取代真ECC。
+3. ECC唔係靈丹妙藥，如果條RAM本身係壞既話照樣會狂出Error。
 {{< /notice >}}
 
 ### 主機板IOMMU grouping
@@ -88,11 +87,11 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 **個Host無法使用任何Passthrough咗入虛擬機既硬件**，可以想像係將個硬件完全地交咗比虛擬機管理。
 
-其實有方法呃個Kernel，令佢以為全部hardware都係自己一個IOMMU group（關鍵字：ACS patch）。
+其實有方法呃個Kernel，令佢以為全部硬件都有自己一個獨佔既IOMMU group（關鍵字：ACS patch）。
 
 Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passthrough#Verify_IOMMU_isolation)就可以用到呢個Patch。注意用呢個Patch有[安全性風險](https://www.reddit.com/r/VFIO/comments/9jer5r/acs_patch_risk/)。
 
-[Script for checking IOMMU group](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Ensuring_that_the_groups_are_valid)
+[Arch Wiki：Script for checking IOMMU group](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Ensuring_that_the_groups_are_valid)
 
 ### Intel CPU虛擬機共享iGPU
 
@@ -114,11 +113,13 @@ Intel CPU既iGPU可以用SR-IOV(12代或以後)或GVT-G(5至10代CPU)方法令Ho
 
 ## LXC係咩黎？同Docker有咩唔同？
 
-LXC雖然都係"Container"，**但佢概念上更接近虛擬機，係虛擬機既輕量級代替品。**
+LXC雖然同Docker一樣係"Container"，**但佢概念上更接近虛擬機，係虛擬機既輕量級代替品。**
 
 同虛擬機相似，係LXC上面你可以手動裝十幾廿個Service同時行。另外兩者都支持Snapshot/Rollback及Backup/Restore。
 
-LXC同VM唔同既係LXC會同個Host共用Kernel（VM有自己Kernel），所以資源消耗較低，相對地安全性冇VM咁強。
+LXC（及Docker）同虛擬機唔同既係佢會同個Host共用Kernel（虛擬機有自己Kernel），所以資源消耗較低。
+
+相對地，LXC（及Docker）安全性冇虛擬機咁強，例如佢地可造成Kernal panic並令個Host一齊訓低。
 
 Docker同LXC唔同既係Docker通常一個Image淨係會行一隻Service，但LXC你可以係一隻上面裝十幾廿個Service同時行。
 

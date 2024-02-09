@@ -14,7 +14,7 @@ date = "2024-01-20"
 
 {{< figure src="./Cover.png" caption="圖片來源：Synology官網" >}}
 
-註：本文其實係[連登硬件台](https://lihkg.com/category/22)Homelab post既內容。（我係樓主:raising_hand:）
+註：本文其實係連登硬件台Homelab post既內容。（我係樓主:raising_hand:）
 
 因為愈寫愈多，我決定抽出黎放係自己個Blog到，順便加啲圖/Formatting咁。~~幫我個Blog加啲流量~~
 
@@ -50,7 +50,7 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 - Router取消任何Port Forwarding（通訊埠轉發/「放Port」）
 - NAS取消Quickconnect/MyQnapCloud
 
-**備份要有多版本**，例如每個月尾做一次備份，然後保留最多12份（一年），之後先從最舊開始剷。可以用*增量備份*方式減少備份所佔空間，例如[Synology Hyper Backup](https://www.synology.com/zh-hk/dsm/feature/hyper_backup)就係增量備份。[（三種備份方式簡介）](https://zhuanlan.zhihu.com/p/135242862)
+**備份要有多版本**，例如每個月尾做一次備份，然後保留最多12份（一年），之後先從最舊開始剷。可以用{{< underline "增量備份" >}}方式減少備份所佔空間，例如[Synology Hyper Backup](https://www.synology.com/zh-hk/dsm/feature/hyper_backup)就係增量備份。[（三種備份方式簡介）](https://zhuanlan.zhihu.com/p/135242862)
 
 **做咗備份仲要定時檢查備份Work唔Work**，例如試下還原去其他地方睇下讀唔讀到啲資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。
 
@@ -112,11 +112,9 @@ Spec上面會寫最多加幾多，但通常可加更多，但加到唔代表用�
 
 [Tailscale](Tailscale)最簡單，**無需做Port Forwarding，亦唔需要Public IP**，亦有大牌子NAS setup教學（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)），對新手黎講係最好選擇。
 
-識玩既可以自己Setup [Wireguard](https://www.wireguard.com/)（易Setup+極低overhead）。
+識玩既可以自己Setup [Wireguard](https://www.wireguard.com/)（易Setup+[比OpenVPN快勁多](https://www.wireguard.com/performance/)）；再唔係就OpenVPN，好多家用Router都有支持。
 
-再唔係就OpenVPN，好多家用Router都有支持。
-
-如果選擇用Wireguard/OpenVPN，**我強烈建議你只放VPN一個Port出街，屋企其他Service全部只能透過VPN使用**。
+如果選擇用Wireguard/OpenVPN（必須有Public IP先用到），**建議你只放VPN一個Port出街**，屋企其他Service全部透過VPN使用。
 
 {{< notice warning "注意" >}}
 S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wireguard上去用](https://github.com/runfalk/synology-wireguard)（風險自負）；
@@ -130,7 +128,7 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 
 例如你個Service個IP:Port係`192.168.1.100:5001`，你去Router到設定Port 1234 -> `192.168.1.100`（Port 5001），
 
-咁你係街上用瀏覽器打你`<屋企Public IP>:1234`就可以掂到呢個Service。
+咁你係街上就可以用`<屋企Public IP>:1234`掂到呢個Service。
 
 {{< notice info "必須有 Public IP" >}}
 你要有Public IP先可以係街外掂到屋企部Router，如果冇既話放Port都冇用。
@@ -146,13 +144,13 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 
 部分NAS牌子提供免費Relay服務，例如Synology既[QuickConnect](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_quickconnect)同QNAP既[MyQnapCloud](https://www.qnap.com/zh-hk/software/myqnapcloud)。
 
-因為我冇QNAP，呢到只講QuickConnect：
+因為我得Synology，呢到只講QuickConnect：
 
-無需做Port forwarding，靠Synology Server做Hole punching，或（如失敗）用Synology Relay Server做中間人連結部NAS同你部手機/電腦。[（QuickConnect白皮書）](https://kb.synology.com/zh-tw/WP/Synology_QuickConnect_White_Paper/4)
+**無需做Port forwarding，亦唔需要Public IP**。靠Synology server做Hole punching，或（如失敗）用Synology Relay Server做中間人連結部NAS同你部手機/電腦。[（QuickConnect白皮書）](https://kb.synology.com/zh-tw/WP/Synology_QuickConnect_White_Paper/4)
 
 注意用QuickConnect只能掂到DSM及部分Synology App，冇辦法透過佢開NAS上既Plex/Jellyfin等等你自己裝既App。
 
-### Cloudflare Tunnel（進階）
+### Cloudflare Tunnel
 
 即Cloudflare做中間人幫你放Service出街。**無需做Port forwarding，亦唔需要Public IP**。
 
@@ -162,15 +160,17 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 
 {{< notice warning "注意" >}}
 你要信Cloudflare，呢個算係[Man-in-the-middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容。
+
+此外，用Cloudflare Tunnel做媒體串流或大檔案傳輸**有機會違反佢地既ToS**，除非你[將啲檔案放上佢地平台再傳輸](https://blog.cloudflare.com/updated-tos/)。
 {{< /notice >}}
 
 ## 放部NAS出街時，要點保障自己？
 
-- **用VPN並確保VPN版本更新**。除非真係要放比街外人用，否則只放VPN出街
+- **用VPN並確保VPN版本更新**。除非真係要放比街外人用，否則只用VPN
 - **重要數據做好備份**，亦要有至少一份**即使被Hack黑客都掂唔到**既備份。
 - 開個權限唔多既User account比自己平時用，非必要唔用Admin/Root account
 - Firewall/NAS封鎖Inbound中國及俄羅斯IP，或直接Block香港以外所有IP
-- Port Forwarding唔好用常見既Port（如22/80/443/445/3389），用啲怪數字
+- Port Forwarding唔好用常見既Port（如22/80/443/445/3389），用啲怪數字（例如變5位數）
 - Port Forwarding只放Reverse proxy（Apache/NGINX/HAProxy等等）；同時買個域名或用免費DDNS，再[攞個SSL憑證](#點樣獲得免費既ssl憑證)行HTTPS
 - 如有VLAN功能既Switch及勁少少既Firewall（較新既家用Router裝[OpenWrt](https://openwrt.org/)可以做曬兩樣野）：鎅個VLAN做DMZ，將需要放出街既Service全部放入去，並嚴格限制其對其他VLAN既存取權
 
@@ -180,7 +180,7 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 1. 定時將外置硬碟接駁NAS做備份，做好後斷開外置硬碟連接（即離線備份）
 2. 由備份Server主動從NAS撈數據做備份（而唔係NAS主動倒數據落備份Server），且禁止網絡其他機主動存取備份Server
 
-如果黑客攻到入黎，又掂到曬你啲備份，咁佢直接剷曬/加密曬咪得。咁樣你既備份形同虛設。
+如果黑客攻到入黎，又掂到曬你啲備份，咁佢直接剷曬/加密曬咪得，咁樣你既備份形同虛設。
 {{< /detail >}}
 
 只放VPN出街既好處（相比起個個Service都放出街）係你將黑客可以攻擊既地方減至最小（得VPN可以攻擊）。
@@ -200,11 +200,11 @@ VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏
 佢地提供[幾種方法](https://letsencrypt.org/docs/challenge-types/)比你證明你擁有個域名。我推薦**DNS-01**方法，因為：
 
 1. 唔洗開Port都行到
-2. 可以攞Wildcard憑證（例如`*.<子網域名>.duckdns.org`，咁就唔洗個個Service都整一張憑證）
+2. 可以攞Wildcard憑證（例如`*.<子網域名>.duckdns.org`），唔洗個個Service都整一張憑證
 
-**DNS-01**要你個[DNS provider支持先用到](https://community.letsencrypt.org/t/dns-providers-who-easily-integrate-with-lets-encrypt-dns-validation/86438)。其中DuckDNS同Cloudflare值得一提，前者係免費，後者有[Cloudflare Tunnel可以玩](#cloudflare-tunnel進階)。
+**DNS-01**要你個[DNS provider支持先用到](https://community.letsencrypt.org/t/dns-providers-who-easily-integrate-with-lets-encrypt-dns-validation/86438)。其中DuckDNS同Cloudflare值得一提，前者係免費，後者有[Cloudflare Tunnel可以玩](#cloudflare-tunnel)。
 
-有唔少[工具](https://letsencrypt.org/docs/client-options/)可以幫你管理Let's Encrypt既SSL憑證；[pfSense](https://docs.netgate.com/pfsense/en/latest/packages/acme/index.html)/[OpenWrt](https://openwrt.org/docs/guide-user/services/tls/acmesh/)等OS有插件幫你做；用Docker既玩家可以睇下[Nginx Proxy Manager](https://github.com/NginxProxyManager/nginx-proxy-manager)/[Caddy](https://caddyserver.com/)。
+有唔少[工具](https://letsencrypt.org/docs/client-options/)可以幫你管理Let's Encrypt既SSL憑證；[pfSense](https://docs.netgate.com/pfsense/en/latest/packages/acme/index.html)/[OpenWrt](https://openwrt.org/docs/guide-user/services/tls/acmesh/)等OS有插件幫你做；用Docker既玩家可以睇下[Nginx Proxy Manager](https://github.com/NginxProxyManager/nginx-proxy-manager)/[Caddy](https://github.com/caddyserver/caddy/)。
 
 {{< notice info "Let's Encrypt妙用" >}}
 有啲Service一定要HTTPS先運作到（如[Vaultwarden](https://github.com/dani-garcia/vaultwarden)），咁樣就算你只係屋企或經VPN用，都係要搞SSL憑證。
@@ -231,7 +231,7 @@ VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏
 
 通常大牌子NAS既Intel CPU都有內顯，或者獨立顯示卡，佢地都有Hardware encoder+decoder。
 
-咁樣NAS既CPU既負荷（相比冇encoder+decoder既情況）會大大降低，唔會因為播片而卡死部NAS。（而且通常可以同時間轉碼多過一條片）
+咁樣NAS既CPU既負荷（相比冇encoder+decoder既情況）會大大降低，唔會因為播片而卡死部NAS。（而且通常可以同時間多過一條片做轉碼）
 
 {{< notice info "轉換影片解析度" >}}
 將片轉做唔同解析度（例如4K轉去1080p）都係轉碼既一種，想係街用流量睇屋企4K片既話有用。
