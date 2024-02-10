@@ -15,6 +15,6 @@ I also daily drive Linux (:tophat:[Fedora](https://fedoraproject.org/) is my fav
 
 People working with me says I am a fast learner :scientist:, and they are not wrong: I enjoy doing research on topics I found interesting; I found a lot of topics in technology interesting ([Hackernews](https://news.ycombinator.com/front) is my favourite source of tech news!).
 
-As of now I am self-studying AWS management, Ansible and networking. Ideally I would see myself become a tech lead in a major company in the future.
+As of now I am self-studying AWS management, system design and networking. Ideally I would see myself become a tech lead in a major company in the future.
 
 You can contact me via [Discord](https://discordapp.com/users/263243377821089792), [Telegram](https://t.me/regunakyle) or at `yatkinleung [at] hotmail [dot] com`.

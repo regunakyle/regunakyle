@@ -21,7 +21,7 @@ date = "2024-01-22"
 優點：
 
 - :moneybag: 硬件性價比可以大幅拋離任意大牌子NAS（講緊係同性能下可以平40%或以上）
-- 硬件選擇自由（例如可以用舊機既料砌，或可根據自己需求購買各類零件；M.2 10G網卡聽過未）
+- 硬件選擇自由（例如可以用舊機既料砌，或可根據自己需求購買各類零件；[M.2 10G網卡](https://www.innodisk.com/tw/products/embedded-peripheral/communication/egpl-t101)聽過未）
 - 可以學野（Sysadmin或Networking功夫，市場對呢啲技術有需求）
 
 缺點：
@@ -32,9 +32,9 @@ date = "2024-01-22"
 
 ## 硬件邊到黎？
 
-舊電腦/Laptop，Raspberry Pi或類似產品，二手市場，淘寶/Amazon等。
+舊電腦/Laptop、[Raspberry Pi](https://classroomeshop.com/collections/raspberry-pi)或類似產品、二手市場、淘寶/Amazon等。
 
-部分硬件只可能搵到淘寶/國產貨（或外國只有高價代替品），如各式軟路由工控機/細NAS機箱等。
+部分硬件只可能搵到淘寶/國產貨（或外國只有高價代替品），如各式軟路由工控機及細NAS機箱等。
 
 NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-design.com/products/cases/node/)），不過通常偏大部/貴，想要細部或平啲就要淘寶。
 
@@ -50,17 +50,17 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 但如果係常時都高負載既話，AMD非G系列既能耗比就相當高，值得考慮。
 
-另外：Intel T字尾CPU Idle時同普通版差唔多。普通版CPU係BIOS set功耗牆之後理論上可以做到類似T字尾CPU既效果。
+另外：Intel T字尾CPU idle時耗電同普通版差唔多。普通版CPU係BIOS設定功耗牆之後可以做到類似T字尾CPU既效果。
 
 [延伸閱讀：Intel T processors power consumption tests](https://www.reddit.com/r/homelab/comments/189vkss/intel_t_processors_power_consumption_tests/)
 
 ### ECC RAM
 
-ECC既用途係偵測RAM入面數據有否出現Bit flip並作出修正[（運作原理）](https://youtu.be/zzeuOecdgAI)。
+ECC既用途係偵測RAM入面數據有否出現Bit flip並作出修正。[（運作原理）](https://youtu.be/zzeuOecdgAI)
 
-如果冇ECC，咁你RAM入面數據出現Bit flip時可能咩事都冇，可能令Server死機，最嚴重既情況係造成Data corruption。
+如果冇ECC，咁你RAM入面數據出現Bit flip時可能咩事都冇，可能令Server死機，最嚴重既情況係造成偵測唔到既Data corruption。
 
-但Bit flip發生機率極低。除非玩到去Data Center級數（或者Server係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)），否則可能十年都遇唔到一次因Bit flip造成既Data corruption。（[測試數據](https://youtu.be/DAXVSNAj6GM)）
+但Bit flip發生機率極低。除非玩到去Data center級數（或者Server係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)），否則可能十年都遇唔到一次因Bit flip造成既Data corruption。[（測試數據）](https://youtu.be/DAXVSNAj6GM)
 
 問題係雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，消費級主機板Chipset全部唔支持ECC，要上到Workstation或Server級Chipset先有。
 
@@ -95,9 +95,9 @@ Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passth
 
 ### Intel CPU虛擬機共享iGPU
 
-Intel CPU既iGPU可以用SR-IOV(12代或以後)或GVT-G(5至10代CPU)方法令Host同虛擬機都用到同一隻iGPU，唔洗額外買隻獨立GPU。
+Intel CPU既iGPU可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）方法令Host同虛擬機都用到同一隻iGPU。
 
-**唯獨係11代咩都冇**。如果你Host同虛擬機都要用iGPU（例如個Host靠iGPU著Mon，但虛擬機行Jellyfin要iGPU做轉碼）既話要注意。
+**唯獨係11代咩都冇**。如果你Host同虛擬機都要用iGPU（例如個Host靠iGPU先顯示到野，但虛擬機行Jellyfin要iGPU做轉碼）既話要注意。
 
 [延伸閱讀：Intel GVT-G setup（Arch Wiki）](https://wiki.archlinux.org/title/Intel_GVT-g)
 
@@ -115,7 +115,7 @@ Intel CPU既iGPU可以用SR-IOV(12代或以後)或GVT-G(5至10代CPU)方法令Ho
 
 LXC雖然同Docker一樣係"Container"，**但佢概念上更接近虛擬機，係虛擬機既輕量級代替品。**
 
-同虛擬機相似，係LXC上面你可以手動裝十幾廿個Service同時行。另外兩者都支持Snapshot/Rollback及Backup/Restore。
+同虛擬機相似，係LXC上面你係手動裝Service行。另外兩者都支持快照（Snapshot）及備份。
 
 LXC（及Docker）同虛擬機唔同既係佢會同個Host共用Kernel（虛擬機有自己Kernel），所以資源消耗較低。
 
@@ -131,21 +131,21 @@ Docker係Application層級Container：一個Image專行一隻App；LXC係OS層�
 
 ### Hypervisor OS
 
-**[Proxmox VE](https://www.proxmox.com/en/proxmox-virtual-environment/overview)** :thumbsup:，[VMWare ESXi](https://www.vmware.com/hk/products/esxi-and-esx.html)，[Windows Server + Hyper-V](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/hyper-v-on-windows-server)，[XCP-NG](https://xcp-ng.org/)
+**[Proxmox VE](https://www.proxmox.com/en/proxmox-virtual-environment/overview)** :thumbsup:、[VMWare ESXi](https://www.vmware.com/hk/products/esxi-and-esx.html)、[Windows Server + Hyper-V](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/hyper-v-on-windows-server)、[XCP-NG](https://xcp-ng.org/)
 
 [Hyper-V Server 2019（免費）](https://www.microsoft.com/en-us/evalcenter/evaluate-hyper-v-server-2019)
 
 ### NAS OS
 
-[TrueNAS Core/TrueNAS Scale](https://www.truenas.com/truenas-community-editions/)，[Xpenology（黑群輝）](https://xpenology-com.translate.goog/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)，[Unraid（付費）](https://unraid.net/)，[OpenMediaVault](https://www.openmediavault.org/)
+[TrueNAS Core/TrueNAS Scale](https://www.truenas.com/truenas-community-editions/)、[Xpenology（黑群輝）](https://xpenology-com.translate.goog/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)、[Unraid（付費）](https://unraid.net/)、[OpenMediaVault](https://www.openmediavault.org/)
 
 ### Server OS
 
-**[Debian](https://www.debian.org/)** :thumbsup:，[Ubuntu Server](https://ubuntu.com/server)，[CentOS Stream](https://www.centos.org/centos-stream/)，[RHEL（有No-cost subscription）](https://developers.redhat.com/articles/faqs-no-cost-red-hat-enterprise-linux)
+**[Debian](https://www.debian.org/)** :thumbsup:、[Ubuntu Server](https://ubuntu.com/server)、[CentOS Stream](https://www.centos.org/centos-stream/)、[RHEL（有No-cost subscription）](https://developers.redhat.com/articles/faqs-no-cost-red-hat-enterprise-linux)
 
 ### Router/Firewall OS
 
-[pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)（x86機推薦），[OpenWrt](https://openwrt.org/)（家用Router推薦）
+[pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)（x86機推薦）、[OpenWrt](https://openwrt.org/)（家用Router推薦）
 
 ## 咩係Hypervisor？點解要用佢？
 
@@ -153,19 +153,18 @@ Hypervisor即專用黎行虛擬機既軟件。上一點提及既Hypervisor全部
 
 用Hypervisor既好處：
 
-- 虛擬機Snapshot/Rollback（極有用）
-- 成個虛擬機Backup/Restore
+- 虛擬機快照及備份（非常實用）
 - 容許將來有需要時加虛擬機
-- （Proxmox）有Web UI，易管理
-- 視乎你既硬件，Reboot虛擬機可能比Reboot實機快勁多
+- 有人性化既操作介面，易管理
+- 視乎你既硬件，重啟虛擬機可能比重啟實機快勁多
 
-咁多好處下，就算你只會用一個虛擬機，都可以考慮下用Hypervisor OS。
+咁多好處下，就算你只會用一個虛擬機，都可以考慮下用Hypervisor。
 
 ## 咩係IPMI？有冇代替品？
 
 IPMI係遠端管理Server既工具。同普通Remote desktop工具唔同既係佢可以係**最底層控制個Server**。
 
-你可以用佢遠端開/關機，改BIOS設定，重裝OS等等。非常適合Server係屋企外或難搬地方既人。
+你可以用佢遠端開/關機、改BIOS設定、重裝OS等等。非常適合Server係屋企外或難搬地方既人。
 
 Intel有個類似工具叫**VPro**，好多商用Intel機都有支持，配合[MeshCentral](https://github.com/Ylianst/MeshCentral)可做到中央控制。
 
@@ -177,17 +176,15 @@ Intel有個類似工具叫**VPro**，好多商用Intel機都有支持，配合[M
 
 ## 用咩硬件去加HDD port數？
 
-請睇以下連結：
+請睇：[Recommended Controller for Unraid](https://forums.unraid.net/topic/102010-recommended-controllers-for-unraid/)。
 
-[Recommended Controller for Unraid](https://forums.unraid.net/topic/102010-recommended-controllers-for-unraid/)
-
-[TrueNAS reflash LSI card教學](https://www.truenas.com/community/resources/detailed-newcomers-guide-to-crossflashing-lsi-9211-9300-9305-9311-9400-94xx-hba-and-variants.54/)
+[延伸閱讀：TrueNAS reflash LSI card教學](https://www.truenas.com/community/resources/detailed-newcomers-guide-to-crossflashing-lsi-9211-9300-9305-9311-9400-94xx-hba-and-variants.54/)
 
 ## CPU冇內顯，買咩卡用黎做轉碼？
 
-Intel Arc系列:thumbsup: 1000蚊樓下買到既平價Transcode神卡，又有AV1 encoding support。
+Intel Arc系列:thumbsup: 1000蚊樓下買到既平價轉碼神卡，又支持AV1 encoding。
 
-想再平啲既話可考慮二手Quadro或Intel DG1。建議睇下呢啲參考資料再買：
+想再平啲既話可考慮二手Nvidia Quadro或Intel DG1。建議睇下呢啲參考資料再買：
 
 [Media Capabilities Supported by Intel Hardware](https://www.intel.com/content/www/us/en/docs/onevpl/developer-reference-media-intel-hardware/)
 
@@ -199,7 +196,7 @@ Intel Arc系列:thumbsup: 1000蚊樓下買到既平價Transcode神卡，又有AV
 
 ## 更多討論區/資源
 
-[ServeTheHome（Homelab新聞/硬件Review網頁）](https://www.servethehome.com/)
+[ServeTheHome（Homelab新聞/硬件評測網頁）](https://www.servethehome.com/)
 
 [Chiphell論壇](https://www.chiphell.com/forum-146-1.html)
 

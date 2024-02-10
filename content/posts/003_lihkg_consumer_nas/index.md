@@ -18,7 +18,7 @@ date = "2024-01-20"
 
 因為愈寫愈多，我決定抽出黎放係自己個Blog到，順便加啲圖/Formatting咁。~~幫我個Blog加啲流量~~
 
-如發現有錯誤，可以去[我Github提交Issue](https://github.com/regunakyle/regunakyle/issues/new)。
+如發現有錯誤，可以去我Github[提交Issue](https://github.com/regunakyle/regunakyle/issues/new)。
 
 **本文（及Homelab系列其他文章）遵循[「署名-相同方式共享 4.0 國際」](https://choosealicense.com/licenses/cc-by-sa-4.0/)協議。轉載請註明出處。**
 
@@ -54,7 +54,7 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 **做咗備份仲要定時檢查備份Work唔Work**，例如試下還原去其他地方睇下讀唔讀到啲資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。
 
-**3-2-1備份法則**：3份數據，2種儲存媒介，1份存於異地。可以先從雲端存儲或外置硬碟入手。
+**3-2-1備份法則**：3份數據、2種儲存媒介、1份存於異地。可以先從雲端存儲或外置硬碟入手。
 
 **注意RAID並非備份，且不能取代備份。重要數據一定要做好備份。**
 
@@ -64,7 +64,7 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 （此部分最後更新於2024年1月）
 
-現時最新出咗[DS224+](https://www.synology.com/zh-tw/products/DS224+)，[DS423+](https://www.synology.com/zh-tw/products/DS423+)，[DS723+](https://www.synology.com/zh-tw/products/DS723+)，[DS923+](https://www.synology.com/zh-tw/products/DS923+)。
+現時最新出咗[DS224+](https://www.synology.com/zh-tw/products/DS224+)、[DS423+](https://www.synology.com/zh-tw/products/DS423+)、[DS723+](https://www.synology.com/zh-tw/products/DS723+)、[DS923+](https://www.synology.com/zh-tw/products/DS923+)。
 
 DS723+及DS923+冇Hardware encode/decoder，但可以加購10G卡，配合NVMe SSD使用可以做到高速大量傳輸。（另外呢兩部Support ECC RAM）
 
@@ -78,27 +78,27 @@ DS224+及DS423+冇得升10G，但用Intel CPU，有Hardware encode/decoder，比
 
 睇返你想買個隻Model個Spec，正常有寫有冇得加。
 
-Spec上面會寫最多加幾多，但通常可加更多，但加到唔代表用得曬。（我部DS220+加咗16GB）
+Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗16GB）
 
 至於RAM選擇係玄學，可以有兩個人用同一部NAS同一型號RAM，但一個加完Boot唔到，另一個Boot到咁既情況。
 
-買之前**最好上網Google下其他人買咗咩型號咩Size既RAM**，起碼成功率大啲。
+買之前**最好上網Google下其他人買咗咩型號咩容量既RAM**，起碼成功率大啲。
 
 如果肯定要佢Work，咁要買返Synology既RAM，但性價比超級低:money_with_wings:。
 
 ## HDD買邊隻？
 
-名牌廠商（如Seagate，WD/HGST，Toshiba）既CMR NAS Drive。
+名牌廠商（如Seagate、WD/HGST、Toshiba）既CMR NAS Drive。
 
 **注意唔好買SMR HDD。**
 
-可以買唔同牌子既同Size HDD溝埋用，理論上咁做係安全過全買單一型號。
+可以買唔同牌子既同容量HDD溝埋用，咁做理論上係安全過全買單一型號。
 
-我揀HDD既準則係大牌子，CMR，然後就係每TB愈平愈好。
+我揀HDD既準則係大牌子、CMR，然後就係每TB愈平愈好。
 
 要格價請去[Price.com.hk](https://www.price.com.hk/category.php?c=100015&gp=20)；[Amazon](https://www.amazon.com/b?node=1254762011)等外國網站有時都有特惠。
 
-此外亦可考慮拆碟（Shucking），即是買個3.5吋外置硬碟（例如WD Elements）返黎拆殻拎隻硬碟用。
+此外亦可考慮拆碟（Shucking），即是買個3.5吋外置硬碟（例如[WD Elements](https://www.westerndigital.com/zh-tw/products/external-drives/wd-elements-desktop-usb-3-0-hdd)）返黎拆殻拎隻硬碟用。
 
 有時外置硬碟價錢抵玩，唔少鬼佬同連登巴打就選擇買返黎拆。**拆碟有風險**，請做好曬功課再落決定。
 
@@ -174,8 +174,8 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 - **重要數據做好備份**，亦要有至少一份**即使被Hack黑客都掂唔到**既備份。
 - 開個權限唔多既User account比自己平時用，非必要唔用Admin/Root account
 - Firewall/NAS封鎖Inbound中國及俄羅斯IP，或直接Block香港以外所有IP
-- Port Forwarding唔好用常見既Port（如22/80/443/445/3389），用啲怪數字
-- Port Forwarding只放Reverse proxy（Apache/NGINX/HAProxy等等）；同時買個域名或用免費DDNS，再[攞個SSL憑證](#點樣獲得免費既ssl憑證)行HTTPS
+- Port Forwarding唔好用常見既Port（如22、80、443、445、3389），用啲怪數字
+- Port Forwarding只放Reverse proxy（Apache、NGINX、HAProxy等等）；同時買個域名或用免費DDNS，再[攞個SSL憑證](#點樣獲得免費既ssl憑證)行HTTPS
 - 如有VLAN功能既Switch及勁少少既Firewall（較新既家用Router裝[OpenWrt](https://openwrt.org/)可以做曬兩樣野）：鎅個VLAN做DMZ，將需要放出街既Service全部放入去，並嚴格限制其對其他VLAN既存取權
 
 {{< detail "第二點：點樣備份先安全？" >}}
@@ -197,7 +197,7 @@ VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏
 
 ## 點樣獲得免費既SSL憑證？
 
-[Let's Encrypt](https://letsencrypt.org/)可以派發免費既SSL憑證，好多家用Server玩家都用佢。
+[Let's Encrypt](https://letsencrypt.org/)係一間免費提供SSL憑證既既非牟利機構，好多家用Server玩家都用佢地既憑證。
 
 佢地提供[幾種方法](https://letsencrypt.org/docs/challenge-types/)比你證明你擁有個域名。我推薦**DNS-01**方法，因為：
 
@@ -206,12 +206,12 @@ VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏
 
 **DNS-01**要你個[DNS provider支持先用到](https://community.letsencrypt.org/t/dns-providers-who-easily-integrate-with-lets-encrypt-dns-validation/86438)。其中DuckDNS同Cloudflare值得一提，前者係免費，後者有[Cloudflare Tunnel可以玩](#cloudflare-tunnel)。
 
-佢地既SSL憑證**有效期只有90日**，通常建議每60日更新一次憑證。
+Let's Encrypt既SSL憑證**有效期只有90日**，佢地建議每60日更新一次憑證。
 
 有唔少[工具](https://letsencrypt.org/docs/client-options/)可以幫你管理Let's Encrypt既SSL憑證；[pfSense](https://docs.netgate.com/pfsense/en/latest/packages/acme/index.html)/[OpenWrt](https://openwrt.org/docs/guide-user/services/tls/acmesh/)等OS有插件幫你做；用Docker既玩家可以睇下[Nginx Proxy Manager](https://github.com/NginxProxyManager/nginx-proxy-manager)/[Caddy](https://github.com/caddyserver/caddy/)。
 
 {{< notice info "Let's Encrypt妙用" >}}
-有啲Service一定要HTTPS先運作到（如[Vaultwarden](https://github.com/dani-garcia/vaultwarden)），咁樣就算你只係屋企或經VPN用，都係要搞SSL憑證。
+有啲Service一定要HTTPS先運作到（如[Vaultwarden](https://github.com/dani-garcia/vaultwarden)），咁樣就算你只係屋企或純經VPN用，都係要搞SSL憑證。
 
 只要用Let's Encrypt既DNS-01方法就可以唔開Port都申請到SSL憑證，攞到後係Reverse proxy設定就得。
 
@@ -227,7 +227,7 @@ VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏
 
 但如果格式不合，有兩個選項：
 
-### NAS轉碼:film_strip:
+{{< underline "NAS轉碼">}}:film_strip:
 
 你部NAS要將條片先轉碼做合適既格式，再餵比播放器。咁樣會燒部NAS隻CPU。
 
@@ -241,18 +241,22 @@ VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏
 將片轉做唔同解析度（例如4K轉去1080p）都係轉碼既一種，想係街用流量睇屋企4K片既話有用。
 {{< /notice >}}
 
-### 換媒體播放器:tv:
+{{< underline "換媒體播放器">}}:tv:
 
-例如買隻機頂盒插上電視轉輸入源，等隻機頂盒做播放器。機頂盒通常支持更多檔案格式。
+例如買隻機頂盒或TV stick插上電視轉輸入源，用佢地做播放器。
 
-機頂盒有Apple TV/Chromecast/Roku/Nvidia Shield等等，買邊隻請自行做Research或去我地Post討論。
+機頂盒：[Nvidia Shield](https://www.nvidia.com/zh-tw/shield/) :thumbsup:、[Apple TV](https://www.apple.com/hk/tv-home/)、普通x86迷你電腦
+
+TV stick：[Google Chromecast](https://store.google.com/tw/product/chromecast_google_tv)、[Roku](https://www.roku.com/products/players)、[Amazon Fire TV](https://www.amazon.com/s?bbn=8521791011&rh=n%3A16333372011%2Cn%3A2102313011%2Cn%3A8521791011%2Cn%3A21579967011&dc&rnid=8521791011)等
+
+呢啲產品通常比你部電視支持更多檔案格式。買邊隻請自己做功課，或去我地Post討論。
 
 另外：如果你用緊PC/手機瀏覽器睇片唔Work既話，可以試下用[VLC](https://www.videolan.org/)或Plex/Jellyfin既原生App。
 
 {{< detail "轉碼知多啲" >}}
 你啲片既格式（MP4/MKV/WebM等）其實係Container格式黎，佢地入面裝住咗Video/Audio/Subtitle，三者分別有自己獨特既格式。
 
-轉碼其實就係將你條原片既Video/Audio/Subtitle **Decode（解碼）** 去Raw，再**Encode（編碼）** 去你媒體播放器播放到既Format，最後再將成品經網絡餵比個媒體播放器。
+轉碼其實就係將你條原片既Video/Audio/Subtitle **Decode（解碼）** 去Raw，再**Encode（編碼）** 去你媒體播放器播放到既格式，最後再將成品經網絡餵比個媒體播放器。
 
 所以你NAS/轉碼器要有你**原片格式既Decoder**及**媒體播放器可播放格式既Encoder**。
 

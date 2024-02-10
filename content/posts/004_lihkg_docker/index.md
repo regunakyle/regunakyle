@@ -18,7 +18,7 @@ date = "2024-01-21"
 
 ## Docker係咩黎？有咩咁勁？
 
-Docker可以將唔同既程式連埋所需既野一次過打包做一舊，然後你禁幾粒掣or行幾條Script就可以用佢，可以當係App Store既App咁。
+Docker可以將唔同既程式連埋所需既野一次過打包做一舊，然後你禁幾粒掣或行幾條Script就可以用佢，可以當係App Store既App咁。
 
 冇Docker之前同一部機想行唔同程式可能遇到相容性問題（例如兩個程式要用同一款但又唔同版本既Library，又或者S牌DSM個Library版本太舊）。Docker完美解決咗呢個問題，成件打包用就得。
 
@@ -176,7 +176,7 @@ Grammarly翻版（[Languagetool](https://github.com/languagetool-org/languagetoo
 
 [Reddit：r/Selfhosted](https://www.reddit.com/r/selfhosted/)
 
-[This Week in Self-Hosted](https://selfh.st/)
+[This Week in Self-Hosted](https://selfh.st/)（Self host軟件新聞）
 
 ## [按我進入下一章](../005_lihkg_homelab/)
 
