@@ -16,7 +16,7 @@ date = "2024-01-20"
 
 註：本文其實係連登硬件台Homelab post既內容。（我係樓主:raising_hand:）
 
-因為愈寫愈多，我決定抽出黎放係自己個Blog到，順便加啲圖/Formatting咁。~~幫我個Blog加啲流量~~
+因為愈寫愈多，我決定抽出黎放係自己個Blog到，順便加啲圖執靚仔啲。~~幫我個Blog加啲流量~~
 
 如發現有錯誤，可以去我Github[提交Issue](https://github.com/regunakyle/regunakyle/issues/new)。
 
@@ -26,7 +26,7 @@ date = "2024-01-20"
 
 如果冇特別偏好既話，建議Synology（群輝），原因如下:
 
-- UI人性化，易用，易Setup
+- 介面人性化，易用，易安裝
 - 官方教學文檔內容齊全
 - 最多人買，社群大，有問題都易搵答案
 - 相對其他大牌子（如QNAP）冇咁多Security問題
@@ -41,13 +41,13 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 ## QNAP好似經常出事（如勒索軟件），係咪唔買得？
 
-**唔係**。 如果你部機唔放出街既話，其實部部機都差唔多咁安全。
+**唔係**。如果你部機唔放出街既話，其實部部機都差唔多咁安全。
 
 咩牌子NAS都好，想要保障自己數據既話，做好以下既野：
 
 - **重要數據做好備份**
 - Router取消UPnP
-- Router取消任何Port Forwarding（通訊埠轉發/「放Port」）
+- Router取消任何Port Forwarding
 - NAS取消Quickconnect/MyQnapCloud
 
 **備份要有多版本**，例如每個月尾做一次備份，然後保留最多12份（一年），之後先從最舊開始剷。可以用{{< underline "增量備份" >}}方式減少備份所佔空間，例如[Synology Hyper Backup](https://www.synology.com/zh-hk/dsm/feature/hyper_backup)就係增量備份。[（三種備份方式簡介）](https://zhuanlan.zhihu.com/p/135242862)
@@ -86,15 +86,15 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗1
 
 如果肯定要佢Work，咁要買返Synology既RAM，但性價比超級低:money_with_wings:。
 
-## HDD買邊隻？
+## 硬碟買邊隻？
 
 名牌廠商（如Seagate、WD/HGST、Toshiba）既CMR NAS Drive。
 
-**注意唔好買SMR HDD。**
+**注意唔好買SMR硬碟。**
 
-可以買唔同牌子既同容量HDD溝埋用，咁做理論上係安全過全買單一型號。
+可以買唔同牌子、同容量既硬碟溝埋用，咁做理論上係安全過全買單一型號。
 
-我揀HDD既準則係大牌子、CMR，然後就係每TB愈平愈好。
+我揀硬碟既準則係大牌子、CMR，然後就係每TB愈平愈好。
 
 要格價請去[Price.com.hk](https://www.price.com.hk/category.php?c=100015&gp=20)；[Amazon](https://www.amazon.com/b?node=1254762011)等外國網站有時都有特惠。
 
@@ -102,9 +102,9 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗1
 
 有時外置硬碟價錢抵玩，唔少鬼佬同連登巴打就選擇買返黎拆。**拆碟有風險**，請做好曬功課再落決定。
 
-緊記：**HDD遲早會壞，做好備份先係最實際**。
+緊記：**硬碟遲早會壞，做好備份先係最實際**。
 
-[延伸閱讀：BackBlaze企業用HDD損壞率調查](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
+[延伸閱讀：BackBlaze企業用硬碟損壞率調查](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
 
 ## 點樣係街外存取屋企部NAS？
 
@@ -112,9 +112,9 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗1
 
 {{< figure src="./VPN.jpg" >}}
 
-[Tailscale](Tailscale)最簡單，**無需做Port Forwarding，亦唔需要Public IP**，亦有大牌子NAS setup教學（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)），對新手黎講係最好選擇。
+[Tailscale](Tailscale)最簡單，**無需做Port Forwarding，亦唔需要Public IP**，亦有大牌子NAS安裝教學（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)），對新手黎講係最好選擇。
 
-識玩既可以自己Setup [Wireguard](https://www.wireguard.com/)，易Setup+[比OpenVPN快勁多](https://www.wireguard.com/performance/)，但要有部Kernel版本5.6或以上既Linux機先發揮到佢最佳效果。
+識玩既可以自己安裝[Wireguard](https://www.wireguard.com/)。Wireguard[比OpenVPN快勁多](https://www.wireguard.com/performance/)，但要有部Kernel版本5.6或以上既Linux機先發揮到佢最佳效果。
 
 再唔係就OpenVPN，好多家用Router都有支持。
 
@@ -126,7 +126,7 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 或者用Wireguard-go（例如[呢個qBittorrent Docker image](https://hotio.dev/containers/qbittorrent/)有教點設定），但會比Kernel版慢。
 {{< /notice >}}
 
-### Port Forwarding
+### Port Forwarding（通訊埠轉發/「放Port」）
 
 要係Router到做，詳情請參閱你部Router既說明書。
 
@@ -189,7 +189,7 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 
 只放VPN出街既好處（相比起個個Service都放出街）係你將黑客可以攻擊既地方減至最小（得VPN可以攻擊）。
 
-VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏洞都好快有修復（所以要保持VPN更新）。
+VPN將安全性放第一，只要設定得當就非常難以攻破，而且有漏洞都好快有修復（所以要保持VPN更新）。
 
 好多Service假設咗你將佢放係可信任既網絡入面，佢地冇咁著重安全性，你放佢出公海就會提高自己被黑客攻破既風險。
 
@@ -219,7 +219,7 @@ Let's Encrypt既SSL憑證**有效期只有90日**，佢地建議每60日更新�
 
 {{< /notice >}}
 
-## 咩係轉碼（Transcoding）？
+## 咩係轉碼（Transcode）？
 
 一個媒體播放器（如你部電視個瀏覽器）通常唔係支持所有媒體格式（影片格式、音頻格式、字幕格式等）。
 
@@ -227,7 +227,7 @@ Let's Encrypt既SSL憑證**有效期只有90日**，佢地建議每60日更新�
 
 但如果格式不合，有兩個選項：
 
-{{< underline "NAS轉碼">}}:film_strip:
+### NAS轉碼:film_strip:
 
 你部NAS要將條片先轉碼做合適既格式，再餵比播放器。咁樣會燒部NAS隻CPU。
 
@@ -241,7 +241,7 @@ Let's Encrypt既SSL憑證**有效期只有90日**，佢地建議每60日更新�
 將片轉做唔同解析度（例如4K轉去1080p）都係轉碼既一種，想係街用流量睇屋企4K片既話有用。
 {{< /notice >}}
 
-{{< underline "換媒體播放器">}}:tv:
+### 換媒體播放器:tv:
 
 例如買隻機頂盒或TV stick插上電視轉輸入源，用佢地做播放器。
 

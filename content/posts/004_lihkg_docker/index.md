@@ -62,11 +62,11 @@ Selfhost圈子入面最熱門既內容。
 
 用家先係Sonarr/Radarr指定想睇咩劇集/電影，然後Sonarr/Radarr去唔同網站撈Seed（Prowlarr提供Source），再叫qBittorrent去下載，下載完就可以係Plex/Jellyfin到睇。
 
-[延伸閱讀：Synology Docker Media Server Setup教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)
+[延伸閱讀：Synology Docker Media Server安裝教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)
 
 [延伸閱讀：想討論PT (Private tracker)](https://lih.kg/2447243)
 
-### 全家Adblock :thumbsup:
+### 全家過濾廣告 :thumbsup:
 
 {{< figure src="./AdguardHome.png" caption="AdguardHome介面" >}}
 
@@ -74,7 +74,7 @@ Selfhost圈子入面最熱門既內容。
 
 DNS層級過濾廣告，同時亦可做家長監控（即是封鎖你指定既網頁）。
 
-Setup後再係Router到設定個DNS server做佢，咁成個屋企網絡既機器都會過濾到廣告。
+安裝後再係Router到設定個DNS server做佢，咁成個屋企網絡既機器都會過濾到廣告。
 
 有興趣既話可以研究埋[Unbound](https://unbound.docs.nlnetlabs.nl/en/latest/)（Recursive DNS）或者DNS-over-HTTPS/DNS-over-TLS。前者可以[增強私隱](https://docs.pi-hole.net/guides/dns/unbound/#what-does-this-guide-provide)，後者可保證你寬頻供應商無法更改你既DNS query。
 
@@ -108,17 +108,17 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 如果你用[Obsidian](https://obsidian.md/)既話，可以[自己Host個CouchDB做live sync](https://github.com/vrtmrz/obsidian-livesync/tree/main)。
 
-### 將得USB連接既Printer/Scanner變成屋企網絡可用
+### 將得USB連接既打印機/掃描器變成屋企網絡可用
 
 {{< figure src="./Scanservjs.jpg" caption="Scanservjs介面" >}}
 
-軟件：[（Print）CUPS](https://openprinting.github.io/cups/)/[（Scan）Scanservjs](https://github.com/sbs20/scanservjs)
+軟件：[（打印）CUPS](https://openprinting.github.io/cups/)/[（掃描）Scanservjs](https://github.com/sbs20/scanservjs)
 
-如果你同我一樣有部得USB既陳年All-in-one printer，又或者係一定要裝垃圾軟件先用到既Printer，呢兩個App可以幫到你。
+如果你同我一樣有部得USB既陳年多合一打印機，又或者係一定要裝垃圾軟件先用到既打印機，呢兩個App可以幫到你。
 
-只要USB插住Host呢兩個App既機，成個屋企網絡既機都可以透過呢兩個App用隻Printer/Scanner，唔洗裝任何其他App。
+只要連接打印機同裝住呢兩個App既Server，成個屋企網絡既機就可以透過呢兩個App用隻打印機/掃描器，唔洗裝任何其他App。
 
-不過視乎你部Printer型號，有可能要你自己上Printer個官網下載Driver安裝，之後呢兩個App先行到。
+不過視乎你部打印機既型號，有可能要你自己搵部機既Linux driver並安裝後先行到呢兩個App。
 
 ### ChatGPT/Midjourney翻版
 
@@ -126,17 +126,15 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 軟件：[（Gen圖）stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)/[（Gen字）text-generation-webui](https://github.com/oobabooga/text-generation-webui)
 
-有兩款：Gen圖AI同Gen字AI。要多謝[Stability AI](https://stability.ai/)同[Facebook](https://ai.meta.com/)令我地有免費AI玩。
-
-自己Host既原因：無Censorship（問佢點整炸彈都照答）、唔洗買VPN都用到、保障私隱。
-
-行AI你先要下載個Model，再係對應既Web UI到Load就可以用：
+行AI你先要下載個Model，再係對應既App到載入就可以用：
 
 [CivitAI（Gen圖Model下載）](https://civitai.com/)
 
 [Huggingface：TheBloke（Gen字Model下載）](https://huggingface.co/TheBloke)
 
-呢兩個Web UI都有API，識寫程式既話可以睇下。
+呢兩個App都有API，識寫程式既話可以睇下。
+
+自己Host AI既最大賣點係冇Censorship，你問佢[幾邪惡既野都會答你](https://www.reddit.com/r/LocalLLaMA/comments/149su0a/a_short_conversation_with_falcon/)。此外亦可保障私隱。
 
 你部品牌NAS行AI應該有困難。如果有興趣既話，可以考慮下自組Server行。
 
@@ -148,13 +146,13 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 :thumbsup: 一個介面控制屋企智能家具（[Home Assistant](https://www.home-assistant.io/)）
 
-:thumbsup: Airdrop cross-platform翻版（[PairDrop](https://github.com/schlagmichdoch/PairDrop)）
+:thumbsup: 跨平台Airdrop翻版（[PairDrop](https://github.com/schlagmichdoch/PairDrop)）
 
 :thumbsup: 電子書下載及管理（[LazyLibrarian](https://lazylibrarian.gitlab.io/)，[Calibre](https://docs.linuxserver.io/images/docker-calibre/)，[Calibre-web](https://github.com/janeczku/calibre-web)）
 
 翻牆工具（[V2Ray](https://www.v2ray.com/)/[XRay](https://xtls.github.io/)）
 
-自製Cloud/Sync（[Nextcloud](https://nextcloud.com/athome/)/[Syncthing](https://github.com/syncthing/syncthing)）
+自製Onedrive（[Nextcloud](https://nextcloud.com/athome/)/[Syncthing](https://github.com/syncthing/syncthing)）
 
 Google Photo翻版（[Immich](https://github.com/immich-app/immich)/[Photoprism](https://github.com/photoprism/photoprism)）
 
@@ -164,7 +162,7 @@ Google Photo翻版（[Immich](https://github.com/immich-app/immich)/[Photoprism]
 
 [Game Server](https://github.com/GameServerManagers/docker-gameserver)（ARK/Barotrauma/CS2/Factorio/Minecraft/Palworld/Terraria/TF2等等，太多不能盡錄）
 
-各類Discord/Telegram Bot（例如[Discord播歌Bot](https://github.com/SudhanPlayz/Discord-MusicBot)/[Telegram加密貨幣交易Bot](https://github.com/freqtrade/freqtrade)）
+各類Discord/Telegram bot（例如[Discord播歌Bot](https://github.com/SudhanPlayz/Discord-MusicBot)/[Telegram加密貨幣交易Bot](https://github.com/freqtrade/freqtrade)）
 
 自動Steam掛卡（[Archisteamfarm](https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Docker)）
 
@@ -172,11 +170,11 @@ Grammarly翻版（[Languagetool](https://github.com/languagetool-org/languagetoo
 
 ## 有用網站
 
+[This Week in Self-Hosted](https://selfh.st/)（Self host軟件新聞）
+
 [Github：Awesome Selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted)
 
 [Reddit：r/Selfhosted](https://www.reddit.com/r/selfhosted/)
-
-[This Week in Self-Hosted](https://selfh.st/)（Self host軟件新聞）
 
 ## [按我進入下一章](../005_lihkg_homelab/)
 

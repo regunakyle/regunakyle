@@ -27,7 +27,7 @@ date = "2024-01-22"
 缺點：
 
 - 通常體積大，耗電大
-- 要學勁多野（唔係講笑），Setup麻煩，一定要識英文
+- 要學勁多野（唔係講笑），安裝麻煩，一定要識英文
 - 維護靠自己（不過通常係第一次Set完後就唔洗點理）
 
 ## 硬件邊到黎？
@@ -42,7 +42,7 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 ## 買硬件有咩要注意？
 
-### 預計Server Workload買CPU
+### 預計Server負載買CPU
 
 大部分人個Server**其實85%時間都係Idle**，咁樣既話你買CPU唔係睇Peak consumption而係Idle consumption。
 
@@ -56,11 +56,11 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 ### ECC RAM
 
-ECC既用途係偵測RAM入面數據有否出現Bit flip並作出修正。[（運作原理）](https://youtu.be/zzeuOecdgAI)
+ECC既用途係偵測RAM有否發生Bit flip，如有就嘗試修正。[（運作原理）](https://youtu.be/zzeuOecdgAI)
 
-如果冇ECC，咁你RAM入面數據出現Bit flip時可能咩事都冇，可能令Server死機，最嚴重既情況係造成偵測唔到既Data corruption。
+如果冇ECC，咁你RAM發生Bit flip時可能咩事都冇，可能令Server死機，最嚴重既情況係造成偵測唔到既資料損毀。
 
-但Bit flip發生機率極低。除非玩到去Data center級數（或者Server係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)），否則可能十年都遇唔到一次因Bit flip造成既Data corruption。[（測試數據）](https://youtu.be/DAXVSNAj6GM)
+但Bit flip發生機率極低。除非玩到去Data center級數（或者Server係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)），否則可能十年都遇唔到一次因Bit flip造成既資料損毀。[（測試數據）](https://youtu.be/DAXVSNAj6GM)
 
 問題係雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，消費級主機板Chipset全部唔支持ECC，要上到Workstation或Server級Chipset先有。
 
@@ -129,21 +129,21 @@ Docker係Application層級Container：一個Image專行一隻App；LXC係OS層�
 
 {{< figure src="./Proxmox.png" caption="Proxmox VE介面" >}}
 
-### Hypervisor OS
+{{< underline "Hypervisor OS" >}}
 
 **[Proxmox VE](https://www.proxmox.com/en/proxmox-virtual-environment/overview)** :thumbsup:、[VMWare ESXi](https://www.vmware.com/hk/products/esxi-and-esx.html)、[Windows Server + Hyper-V](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/hyper-v-on-windows-server)、[XCP-NG](https://xcp-ng.org/)
 
 [Hyper-V Server 2019（免費）](https://www.microsoft.com/en-us/evalcenter/evaluate-hyper-v-server-2019)
 
-### NAS OS
+{{< underline "NAS OS" >}}
 
 [TrueNAS Core/TrueNAS Scale](https://www.truenas.com/truenas-community-editions/)、[Xpenology（黑群輝）](https://xpenology-com.translate.goog/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)、[Unraid（付費）](https://unraid.net/)、[OpenMediaVault](https://www.openmediavault.org/)
 
-### Server OS
+{{< underline "Server OS" >}}
 
 **[Debian](https://www.debian.org/)** :thumbsup:、[Ubuntu Server](https://ubuntu.com/server)、[CentOS Stream](https://www.centos.org/centos-stream/)、[RHEL（有No-cost subscription）](https://developers.redhat.com/articles/faqs-no-cost-red-hat-enterprise-linux)
 
-### Router/Firewall OS
+{{< underline "Router/Firewall OS" >}}
 
 [pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)（x86機推薦）、[OpenWrt](https://openwrt.org/)（家用Router推薦）
 
@@ -174,7 +174,7 @@ Intel有個類似工具叫**VPro**，好多商用Intel機都有支持，配合[M
 
 {{< figure src="./PiKVM.jpg" caption="PiKVM遠端控制Asus家用主機板BIOS" >}}
 
-## 用咩硬件去加HDD port數？
+## 用咩硬件去增加主機板SATA插口數？
 
 請睇：[Recommended Controller for Unraid](https://forums.unraid.net/topic/102010-recommended-controllers-for-unraid/)。
 
