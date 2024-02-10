@@ -14,9 +14,9 @@ date = "2024-01-21"
 
 （本文最後更新時間：2024年2月6日）
 
-## Docker係咩黎？有咩咁勁？
+{{< figure src="./Cover.webp" >}}
 
-{{< svg "Cover.svg" >}}
+## Docker係咩黎？有咩咁勁？
 
 Docker可以將唔同既程式連埋所需既野一次過打包做一舊，然後你禁幾粒掣or行幾條Script就可以用佢，可以當係App Store既App咁。
 
@@ -90,9 +90,9 @@ Setup後再係Router到設定個DNS server做佢，咁成個屋企網絡既機�
 
 軟件：[Homepage](https://github.com/gethomepage/homepage)/[Dashy](https://github.com/Lissy93/dashy)/[Heimdall](https://github.com/linuxserver/Heimdall)/[Homer](https://github.com/bastienwirtz/homer)
 
-當你自己Host一堆Service時，好難記得曬每個Service既`IP:Port`係咩。
+當你自己Host一堆Service時，好難記得曬每個Service既IP:Port係咩。
 
-用呢啲儀表板可以將自己Service既`IP:Port`放曬係同一個地方，以後忘記既話入去Click就得。
+用呢啲儀表板可以將自己Service既IP:Port放曬係同一個地方，以後忘記既話入去Click就得。
 
 非常適合諗住將啲Service分享比屋企人/朋友用既人。
 
