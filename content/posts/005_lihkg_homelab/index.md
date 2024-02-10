@@ -14,7 +14,7 @@ date = "2024-01-22"
 
 （本文最後更新時間：2024年2月6日）
 
-{{< figure src="./LackRack.jpg" caption="IKEA LACK土炮Server Rack" >}}
+{{< figure src="./Cover.jpg" caption="IKEA LACK土炮Server Rack" >}}
 
 ## 點解要自組？自組有咩好/壞處？
 
@@ -38,7 +38,7 @@ date = "2024-01-22"
 
 NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-design.com/products/cases/node/)），不過通常偏大部/貴，想要細部或平啲就要淘寶。
 
-[Small Form Factor PC Master List](https://docs.google.com/spreadsheets/d/1AddRvGWJ_f4B6UC7_IftDiVudVc8CJ8sxLUqlxVsCz4/)
+[延伸閱讀：Small Form Factor PC Master List](https://docs.google.com/spreadsheets/d/1AddRvGWJ_f4B6UC7_IftDiVudVc8CJ8sxLUqlxVsCz4/)
 
 ## 買硬件有咩要注意？
 
@@ -52,7 +52,7 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 另外：Intel T字尾CPU Idle時同普通版差唔多。普通版CPU係BIOS set功耗牆之後理論上可以做到類似T字尾CPU既效果。
 
-[Intel T processors power consumption tests](https://www.reddit.com/r/homelab/comments/189vkss/intel_t_processors_power_consumption_tests/)
+[延伸閱讀：Intel T processors power consumption tests](https://www.reddit.com/r/homelab/comments/189vkss/intel_t_processors_power_consumption_tests/)
 
 ### ECC RAM
 
@@ -91,7 +91,7 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passthrough#Verify_IOMMU_isolation)就可以用到呢個Patch。注意用呢個Patch有[安全性風險](https://www.reddit.com/r/VFIO/comments/9jer5r/acs_patch_risk/)。
 
-[Arch Wiki：Script for checking IOMMU group](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Ensuring_that_the_groups_are_valid)
+[延伸閱讀：Script for checking IOMMU group（Arch Wiki）](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Ensuring_that_the_groups_are_valid)
 
 ### Intel CPU虛擬機共享iGPU
 
@@ -99,9 +99,9 @@ Intel CPU既iGPU可以用SR-IOV(12代或以後)或GVT-G(5至10代CPU)方法令Ho
 
 **唯獨係11代咩都冇**。如果你Host同虛擬機都要用iGPU（例如個Host靠iGPU著Mon，但虛擬機行Jellyfin要iGPU做轉碼）既話要注意。
 
-[Arch Wiki：Intel GVT-G](https://wiki.archlinux.org/title/Intel_GVT-g)
+[延伸閱讀：Intel GVT-G setup（Arch Wiki）](https://wiki.archlinux.org/title/Intel_GVT-g)
 
-[12代或更新CPU之SR-IOV方法](https://github.com/strongtz/i915-sriov-dkms)
+[延伸閱讀：12代或更新CPU之SR-IOV方法](https://github.com/strongtz/i915-sriov-dkms)
 
 {{< notice info "Container幫到你" >}}
 如果不幸地用緊11代Intel CPU，或唔想搞以上既野，可以轉用LXC或Docker。
@@ -119,7 +119,7 @@ LXC雖然同Docker一樣係"Container"，**但佢概念上更接近虛擬機，�
 
 LXC（及Docker）同虛擬機唔同既係佢會同個Host共用Kernel（虛擬機有自己Kernel），所以資源消耗較低。
 
-相對地，LXC（及Docker）安全性冇虛擬機咁強，例如佢地可造成Kernal panic並令個Host一齊訓低。
+相對地，LXC（及Docker）安全性冇虛擬機咁強，例如佢地可造成Kernal panic令個Host死埋。
 
 Docker同LXC唔同既係Docker通常一個Image淨係會行一隻Service，但LXC你可以係一隻上面裝十幾廿個Service同時行。
 
@@ -145,11 +145,12 @@ Docker係Application層級Container：一個Image專行一隻App；LXC係OS層�
 
 ### Router/Firewall OS
 
-[pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)（x86機推薦），[OpenWrt](https://openwrt.org/)（家用All-in-one router推薦）
+[pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)（x86機推薦），[OpenWrt](https://openwrt.org/)（家用Router推薦）
 
 ## 咩係Hypervisor？點解要用佢？
 
 Hypervisor即專用黎行虛擬機既軟件。上一點提及既Hypervisor全部都係Type 1，有接近原生既Performance。
+
 用Hypervisor既好處：
 
 - 虛擬機Snapshot/Rollback（極有用）
@@ -162,17 +163,17 @@ Hypervisor即專用黎行虛擬機既軟件。上一點提及既Hypervisor全部
 
 ## 咩係IPMI？有冇代替品？
 
-IPMI係Remote management solution。同普通Remote desktop唔同既係佢可以係**最底層控制個Server**。
+IPMI係遠端管理Server既工具。同普通Remote desktop工具唔同既係佢可以係**最底層控制個Server**。
 
-你可以用佢Remote開/關機，改BIOS設定，重裝OS等等。非常適合Server係Remote或難搬地方既人。
+你可以用佢遠端開/關機，改BIOS設定，重裝OS等等。非常適合Server係屋企外或難搬地方既人。
 
-Intel有個類似Solution叫**VPro**，好多商用Intel機都有支持，配合[MeshCentral](https://github.com/Ylianst/MeshCentral)可做到中央控制。
+Intel有個類似工具叫**VPro**，好多商用Intel機都有支持，配合[MeshCentral](https://github.com/Ylianst/MeshCentral)可做到中央控制。
 
-另一個相對易入手既代替品係[PiKVM](https://pikvm.org/)，需要你自己買件DIY，或者買作者成Set件砌。
+另一個相對易入手既代替品係[PiKVM](https://pikvm.org/)，需要你自己買件DIY，或者買作者成套件砌。
 
 想平啲既話可以去淘寶搵翻版（[Blicube](https://www.blicube.com/blikvm-products/)/[Geekworm](https://geekworm.com/collections/pikvm)）。PiKVM甚至可以配合[特定](https://docs.pikvm.org/multiport/#list-of-tested-kvms)[KVM switch](https://docs.google.com/document/d/1wgBZHxwpbJWkJBD3I8ZkZxSDxt0DdNDDYRNtVoL_vK4/)一下控制多部機。
 
-{{< figure src="./PiKVM.jpg" caption="PiKVM遠端控制Asus主機板BIOS" >}}
+{{< figure src="./PiKVM.jpg" caption="PiKVM遠端控制Asus家用主機板BIOS" >}}
 
 ## 用咩硬件去加HDD port數？
 
@@ -186,7 +187,7 @@ Intel有個類似Solution叫**VPro**，好多商用Intel機都有支持，配合
 
 Intel Arc系列:thumbsup: 1000蚊樓下買到既平價Transcode神卡，又有AV1 encoding support。
 
-想再平D既話可考慮二手Quadro或Intel DG1。建議睇下呢啲參考資料再買：
+想再平啲既話可考慮二手Quadro或Intel DG1。建議睇下呢啲參考資料再買：
 
 [Media Capabilities Supported by Intel Hardware](https://www.intel.com/content/www/us/en/docs/onevpl/developer-reference-media-intel-hardware/)
 
@@ -194,7 +195,7 @@ Intel Arc系列:thumbsup: 1000蚊樓下買到既平價Transcode神卡，又有AV
 
 [Plex Media Server Hardware Transcoding Cheat Sheet](https://www.elpamsoft.com/?p=Plex-Hardware-Transcoding)
 
-[Nvidia-patch（移除Nvidia GPU既同時間轉碼數上限）](https://github.com/keylase/nvidia-patch)
+[延伸閱讀：Nvidia-patch（移除Nvidia GPU既同時間轉碼數上限）](https://github.com/keylase/nvidia-patch)
 
 ## 更多討論區/資源
 

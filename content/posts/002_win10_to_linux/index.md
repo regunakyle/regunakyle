@@ -35,7 +35,7 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 遊戲在虛擬機上運行順暢，沒有明顯輸入延遲，實在令我非常滿意。
 
-{{< figure src="./Setup.jpg" caption="左邊是Windows（**Looking Glass**），右邊是Linux" >}}
+{{< figure src="./Cover.jpg" caption="左邊是Windows（**Looking Glass**），右邊是Linux" >}}
 
 ## 解決方案
 
@@ -65,10 +65,10 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 要注意的是當GPU被用作VFIO後便不能在Linux上用了，所以需要另一張GPU（CPU內顯或另一張獨立GPU）讓Linux能顯示畫面，否則Linux只能顯示純命令行。
 
-{{< figure src="./BareMetal.png" caption="實機Windows下的3DMark跑分" >}}
+{{< figure src="./BareMetal.jpg" caption="實機Windows下的3DMark跑分" >}}
 
 \
-{{< figure src="./VFIO.png" caption="VFIO下的3DMark跑分，可見與實機表現十分接近" >}}
+{{< figure src="./VFIO.jpg" caption="VFIO下的3DMark跑分，可見與實機表現十分接近" >}}
 
 {{< notice info "為甚麼 CPU 分數低了？" >}}
 因為Windows虛擬機比起實機少了1核（必須預留至少1核給Linux）。
@@ -88,7 +88,7 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 我會選擇用**Looking Glass**是因為我經常在使用Windows虛擬機時快速切換至Linux去做其他事情，沒有它的話我就要不斷手動切換螢幕的輸入源了。
 
-{{< figure src="./LookingGlass.png" caption="Looking Glass下的跑分" >}}
+{{< figure src="./LookingGlass.jpg" caption="Looking Glass下的跑分" >}}
 
 #### Looking Glass的替代方案
 

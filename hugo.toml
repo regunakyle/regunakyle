@@ -45,17 +45,17 @@ author = "authors"
 # Social links
 [[params.social]]
 name = "Github"
-icon = "fa fa-2x fa-github"
+icon = "fa-2x fa-brands fa-github"
 weight = 10
 url = "https://github.com/regunakyle"
 [[params.social]]
 name = "Discord"
-icon = "fa fa-2x fa-discord"
+icon = "fa-2x fa-brands fa-discord"
 weight = 20
 url = "https://discordapp.com/users/263243377821089792"
 [[params.social]]
 name = "Telegram"
-icon = "fa fa-2x fa-telegram"
+icon = "fa-2x fa-brands fa-telegram"
 weight = 30
 url = "https://t.me/regunakyle"
 

@@ -12,7 +12,7 @@ date = "2024-01-20"
 
 （本文最後更新時間：2024年2月6日）
 
-{{< figure src="./Cover.png" caption="圖片來源：Synology官網" >}}
+{{< figure src="./Cover.jpg" caption="圖片來源：Synology官網" >}}
 
 註：本文其實係連登硬件台Homelab post既內容。（我係樓主:raising_hand:）
 
@@ -74,7 +74,7 @@ DS224+及DS423+冇得升10G，但用Intel CPU，有Hardware encode/decoder，比
 
 ## 有冇得加RAM？要買邊條？
 
-[RAM選擇教學](https://nascompares.com/guide/synology-unofficial-memory-upgrades-2022-updated/)
+請睇[RAM選擇教學](https://nascompares.com/guide/synology-unofficial-memory-upgrades-2022-updated/)。
 
 睇返你想買個隻Model個Spec，正常有寫有冇得加。
 
@@ -104,15 +104,19 @@ Spec上面會寫最多加幾多，但通常可加更多，但加到唔代表用�
 
 緊記：**HDD遲早會壞，做好備份先係最實際**。
 
-[BackBlaze企業用HDD損壞率調查](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
+[延伸閱讀：BackBlaze企業用HDD損壞率調查](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
 
 ## 點樣係街外存取屋企部NAS？
 
 ### VPN（推薦）:thumbsup:
 
+{{< figure src="./VPN.jpg" >}}
+
 [Tailscale](Tailscale)最簡單，**無需做Port Forwarding，亦唔需要Public IP**，亦有大牌子NAS setup教學（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)），對新手黎講係最好選擇。
 
-識玩既可以自己Setup [Wireguard](https://www.wireguard.com/)（易Setup+[比OpenVPN快勁多](https://www.wireguard.com/performance/)）；再唔係就OpenVPN，好多家用Router都有支持。
+識玩既可以自己Setup [Wireguard](https://www.wireguard.com/)，易Setup+[比OpenVPN快勁多](https://www.wireguard.com/performance/)，但要有部Kernel版本5.6或以上既Linux機先發揮到佢最佳效果。
+
+再唔係就OpenVPN，好多家用Router都有支持。
 
 如果選擇用Wireguard/OpenVPN（必須有Public IP先用到），**建議你只放VPN一個Port出街**，屋企其他Service全部透過VPN使用。
 
@@ -128,7 +132,7 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 
 例如你個Service個IP:Port係`192.168.1.100:5001`，你去Router到設定Port 1234 -> `192.168.1.100`（Port 5001），
 
-咁你係街上就可以用`<屋企Public IP>:1234`掂到呢個Service。
+咁你係街上就可以用`<屋企Public IP>:1234`掂到`192.168.1.100:5001`呢個Service。
 
 {{< notice info "必須有 Public IP" >}}
 你要有Public IP先可以係街外掂到屋企部Router，如果冇既話放Port都冇用。
@@ -161,7 +165,7 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 {{< notice warning "注意" >}}
 你要信Cloudflare，呢個算係[Man-in-the-middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容。
 
-此外，用Cloudflare Tunnel做媒體串流或大檔案傳輸**有機會違反佢地既ToS**，除非你[將啲檔案放上佢地平台再傳輸](https://blog.cloudflare.com/updated-tos/)。
+此外，用Cloudflare Tunnel做媒體串流或大檔案傳輸**有機會違反佢地既服務條款**，除非你[將啲檔案放上佢地平台再傳輸](https://blog.cloudflare.com/updated-tos/)。
 {{< /notice >}}
 
 ## 放部NAS出街時，要點保障自己？
@@ -170,7 +174,7 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 - **重要數據做好備份**，亦要有至少一份**即使被Hack黑客都掂唔到**既備份。
 - 開個權限唔多既User account比自己平時用，非必要唔用Admin/Root account
 - Firewall/NAS封鎖Inbound中國及俄羅斯IP，或直接Block香港以外所有IP
-- Port Forwarding唔好用常見既Port（如22/80/443/445/3389），用啲怪數字（例如變5位數）
+- Port Forwarding唔好用常見既Port（如22/80/443/445/3389），用啲怪數字
 - Port Forwarding只放Reverse proxy（Apache/NGINX/HAProxy等等）；同時買個域名或用免費DDNS，再[攞個SSL憑證](#點樣獲得免費既ssl憑證)行HTTPS
 - 如有VLAN功能既Switch及勁少少既Firewall（較新既家用Router裝[OpenWrt](https://openwrt.org/)可以做曬兩樣野）：鎅個VLAN做DMZ，將需要放出街既Service全部放入去，並嚴格限制其對其他VLAN既存取權
 
@@ -189,13 +193,11 @@ VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏
 
 好多Service假設咗你將佢放係可信任既網絡入面，佢地冇咁著重安全性，你放佢出公海就會提高自己被黑客攻破既風險。
 
-{{< figure src="./Security.png" caption="唔注意安全既後果:laughing:" >}}
+{{< figure src="./Security.jpg" caption="唔注意安全既後果:laughing:" >}}
 
 ## 點樣獲得免費既SSL憑證？
 
-[Let's Encrypt](https://letsencrypt.org/)可以派發免費既SSL憑證，好多家用Server玩家都用佢（Synology都有用）。
-
-佢地既SSL憑證有效期只有90日，通常建議每60日更新一次憑證。
+[Let's Encrypt](https://letsencrypt.org/)可以派發免費既SSL憑證，好多家用Server玩家都用佢。
 
 佢地提供[幾種方法](https://letsencrypt.org/docs/challenge-types/)比你證明你擁有個域名。我推薦**DNS-01**方法，因為：
 
@@ -204,6 +206,8 @@ VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏
 
 **DNS-01**要你個[DNS provider支持先用到](https://community.letsencrypt.org/t/dns-providers-who-easily-integrate-with-lets-encrypt-dns-validation/86438)。其中DuckDNS同Cloudflare值得一提，前者係免費，後者有[Cloudflare Tunnel可以玩](#cloudflare-tunnel)。
 
+佢地既SSL憑證**有效期只有90日**，通常建議每60日更新一次憑證。
+
 有唔少[工具](https://letsencrypt.org/docs/client-options/)可以幫你管理Let's Encrypt既SSL憑證；[pfSense](https://docs.netgate.com/pfsense/en/latest/packages/acme/index.html)/[OpenWrt](https://openwrt.org/docs/guide-user/services/tls/acmesh/)等OS有插件幫你做；用Docker既玩家可以睇下[Nginx Proxy Manager](https://github.com/NginxProxyManager/nginx-proxy-manager)/[Caddy](https://github.com/caddyserver/caddy/)。
 
 {{< notice info "Let's Encrypt妙用" >}}
@@ -211,7 +215,7 @@ VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏
 
 只要用Let's Encrypt既DNS-01方法就可以唔開Port都申請到SSL憑證，攞到後係Reverse proxy設定就得。
 
-[Running a private vaultwarden instance with Let's Encrypt certs](https://github.com/dani-garcia/vaultwarden/wiki/Running-a-private-vaultwarden-instance-with-Let%27s-Encrypt-certs)（唔用Vaultwarden都值得一睇）
+[延伸閱讀：Run a private vaultwarden with Let's Encrypt certs](https://github.com/dani-garcia/vaultwarden/wiki/Running-a-private-vaultwarden-instance-with-Let%27s-Encrypt-certs)（唔用Vaultwarden都值得一睇）
 
 {{< /notice >}}
 
@@ -252,7 +256,7 @@ VPN將安全性放第一，只要Setup得當就非常難以攻破，而且有漏
 
 所以你NAS/轉碼器要有你**原片格式既Decoder**及**媒體播放器可播放格式既Encoder**。
 
-[Jellyfin Codec Support及介紹](https://jellyfin.org/docs/general/clients/codec-support/)
+[延伸閱讀：Jellyfin Codec Support及介紹](https://jellyfin.org/docs/general/clients/codec-support/)
 {{< /detail >}}
 
 ## 有用網站

@@ -33,7 +33,7 @@ I spent some time reading Docker documentations and experimenting, learning a lo
 But why stops here? The Synology NAS was struggling to meet my growing ambition. This time I turned to my brother's old PC, it was about 7 years old and needed an upgrade anyway.
 So I bought him some *shiny new hardware™* :money_with_wings: and used his old PC to build my own NAS. He was happy, I was happy, a win-win for both of us!
 
-{{< figure src="./Server.jpg" caption="Self built NAS" >}}
+{{< figure src="./Cover.jpg" caption="Self built NAS" >}}
 
 The homelab scales, so does my need for complex networking infrastructure. I don't expose my network to the public, but for some services it is unavoidable (e.g. [Umami](https://github.com/umami-software/umami), [Synapse](https://github.com/matrix-org/synapse)). Following the old wisdom of network isolation, I bought some used enterprise networking gears and designed my network topology. Ideally only one isolated Debian VM is exposed to the public, it cannot touch other machines in my network (except some services like database). I can only access the other machines via VPN outside my home network.
 

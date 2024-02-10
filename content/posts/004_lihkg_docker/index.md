@@ -16,7 +16,7 @@ date = "2024-01-21"
 
 ## Docker係咩黎？有咩咁勁？
 
-{{< svg "Docker.svg" >}}
+{{< svg "Cover.svg" >}}
 
 Docker可以將唔同既程式連埋所需既野一次過打包做一舊，然後你禁幾粒掣or行幾條Script就可以用佢，可以當係App Store既App咁。
 
@@ -28,7 +28,7 @@ Docker可以將唔同既程式連埋所需既野一次過打包做一舊，然�
 
 ## 咩機支持Docker?
 
-Synology既話Plus系列或較新既非Plus機種都有支持。[呢到](https://www.synology.com/zh-tw/dsm/packages/ContainerManager)睇適用機種。
+Synology既話Plus系列或較新既非Plus機種都有支持。[呢到](https://www.synology.com/zh-tw/dsm/packages/ContainerManager)可以睇適用機種。
 
 注意只有Plus系列先有得加RAM；此外非Plus機種用ARM CPU未必支持到全部Docker Image。
 
@@ -48,7 +48,7 @@ Docker預設係以Root身份行。咁既話出現Container escape時隻Container
 
 ### 自製Netflix :thumbsup:
 
-{{< figure src="./Jellyfin.png" caption="Jellyfin介面" >}}
+{{< figure src="./Jellyfin.jpg" caption="Jellyfin介面" >}}
 
 軟件：
 
@@ -62,13 +62,13 @@ Selfhost圈子入面最熱門既內容。
 
 用家先係Sonarr/Radarr指定想睇咩劇集/電影，然後Sonarr/Radarr去唔同網站撈Seed（Prowlarr提供Source），再叫qBittorrent去下載，下載完就可以係Plex/Jellyfin到睇。
 
-[Synology Docker Media Server Setup教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)
+[延伸閱讀：Synology Docker Media Server Setup教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)
 
 [延伸閱讀：想討論PT (Private tracker)](https://lih.kg/2447243)
 
 ### 全家Adblock :thumbsup:
 
-{{< figure src="./AdguardHome.gif" caption="AdguardHome介面" >}}
+{{< figure src="./AdguardHome.png" caption="AdguardHome介面" >}}
 
 軟件：[AdGuardHome](https://hub.docker.com/r/adguard/adguardhome)/[PiHole](https://github.com/pi-hole/docker-pi-hole)
 
@@ -86,7 +86,7 @@ Setup後再係Router到設定個DNS server做佢，咁成個屋企網絡既機�
 
 ### Server儀表板 :thumbsup:
 
-{{< figure src="./Dashy.png" caption="Dashy介面" >}}
+{{< figure src="./Dashy.jpg" caption="Dashy介面" >}}
 
 軟件：[Homepage](https://github.com/gethomepage/homepage)/[Dashy](https://github.com/Lissy93/dashy)/[Heimdall](https://github.com/linuxserver/Heimdall)/[Homer](https://github.com/bastienwirtz/homer)
 
@@ -140,9 +140,9 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 你部品牌NAS行AI應該有困難。如果有興趣既話，可以考慮下自組Server行。
 
-[Reddit：r/StableDiffusion](https://www.reddit.com/r/StableDiffusion/)
+[延伸閱讀：r/StableDiffusion](https://www.reddit.com/r/StableDiffusion/)
 
-[Reddit：r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/)
+[延伸閱讀：r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/)
 
 ### 其他有趣Software
 
