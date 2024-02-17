@@ -12,7 +12,7 @@ date = "2024-01-21"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月6日）
+（本文最後更新時間：2024年2月17日）
 
 {{< figure src="./Cover.webp" >}}
 
@@ -44,6 +44,12 @@ Docker預設係以Root身份行。咁既話出現Container escape時隻Container
 
 然後[Docker --user flag選擇呢個user既UID：GID去行](https://docs.docker.com/engine/reference/run/#user)。
 
+{{< notice warning "注意" >}}
+有啲Docker image只支持用Root行。
+
+我建議任何Docker image都試下用Non-root user行下先，唔得再用Root。
+{{< /notice >}}
+
 ## Docker有咩好玩?
 
 ### 自製Netflix :thumbsup:
@@ -60,7 +66,7 @@ Docker預設係以Root身份行。咁既話出現Container escape時隻Container
 
 Selfhost圈子入面最熱門既內容。
 
-用家先係Sonarr/Radarr指定想睇咩劇集/電影，然後Sonarr/Radarr去唔同網站撈Seed（Prowlarr提供Source），再叫qBittorrent去下載，下載完就可以係Plex/Jellyfin到睇。
+用家先係Sonarr/Radarr指定想睇咩劇集/電影，然後Sonarr/Radarr去唔同網站撈Seed（Prowlarr做Seed整合），再叫qBittorrent去下載，下載完就可以係Plex/Jellyfin到睇。
 
 [延伸閱讀：Synology Docker Media Server安裝教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)
 
@@ -72,16 +78,21 @@ Selfhost圈子入面最熱門既內容。
 
 軟件：[AdGuardHome](https://hub.docker.com/r/adguard/adguardhome)/[PiHole](https://github.com/pi-hole/docker-pi-hole)
 
-DNS層級過濾廣告，同時亦可做家長監控（即是封鎖你指定既網頁）。
+DNS層過濾廣告，同時亦可做家長監控（即是封鎖你指定既網頁）。
 
 安裝後再係Router到設定個DNS server做佢，咁成個屋企網絡既機器都會過濾到廣告。
 
-有興趣既話可以研究埋[Unbound](https://unbound.docs.nlnetlabs.nl/en/latest/)（Recursive DNS）或者DNS-over-HTTPS/DNS-over-TLS。前者可以[增強私隱](https://docs.pi-hole.net/guides/dns/unbound/#what-does-this-guide-provide)，後者可保證你寬頻供應商無法更改你既DNS query。
+有興趣既話可以研究埋[Unbound](https://unbound.docs.nlnetlabs.nl/en/latest/)（Recursive DNS）或者DNS-over-HTTPS/DNS-over-TLS（Encrypted DNS）。前者可以[增強私隱](https://docs.pi-hole.net/guides/dns/unbound/#what-does-this-guide-provide)，後者可保證你寬頻供應商無法篡改你既DNS query。
 
-{{< notice info "檢查寬頻供應商有冇騎劫你DNS" >}}
-先設定Router DNS做[1.1.1.1](https://1.1.1.1/)，再去[呢到](https://www.dnsleaktest.com)做測試。
+{{< notice info "檢查寬頻供應商有冇攔截你 DNS request" >}}
+先去Router設定DNS server做[1.1.1.1](https://1.1.1.1/)，再去[呢到](https://www.dnsleaktest.com)做測試。
 
-如顯示既ISP唔係Cloudflare，你就知道你既DNS比你個寬頻供應商騎劫咗。
+如顯示既ISP唔係Cloudflare，你就知道你既DNS request比你個寬頻供應商攔截及篡改咗。
+
+注意：Encrypted DNS只能保證你DNS request不被第三方偷窺及篡改。
+
+寬頻供應商仍然可以其他方式干預你既網絡，例如直接封鎖你要去既網站既IP。
+
  {{< /notice >}}
 
 ### Server儀表板 :thumbsup:
@@ -106,7 +117,7 @@ DNS層級過濾廣告，同時亦可做家長監控（即是封鎖你指定既�
 
 Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/feature/note_station)。
 
-如果你用[Obsidian](https://obsidian.md/)既話，可以[自己Host個CouchDB做live sync](https://github.com/vrtmrz/obsidian-livesync/tree/main)。
+如果你用[Obsidian](https://obsidian.md/)既話，可以自己Host個CouchDB做[Live sync](https://github.com/vrtmrz/obsidian-livesync/)。
 
 ### 將得USB連接既打印機/掃描器變成屋企網絡可用
 

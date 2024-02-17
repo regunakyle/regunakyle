@@ -61,30 +61,30 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 [VFIO](https://docs.kernel.org/driver-api/vfio.html)（Virtual Function I/O）容許使用者空間進程及虛擬機能直接存取電腦硬件，讓虛擬機也能享有接近原生的硬件表現。
 
-很多虛擬機的GPU都是模擬出來的（畢竟虛擬機能顯示畫面就足夠了），**VFIO**則是把整個物理GPU送給虛擬機。除了GPU外，還能把網卡、USB控制器、SSD、SATA控制器（自組NAS福音）及CPU內顯等等都送進去，由虛擬機直接控制這些硬件，並能獲得硬件的最佳性能。
+很多虛擬機的顯示卡都是模擬出來的（畢竟虛擬機能顯示畫面就足夠了），透過**VFIO**可把實體顯示卡送入虛擬機。除了顯示卡外，還能把網卡、USB控制器、SSD、SATA控制器（自組NAS福音）及CPU內顯等等都送進去，由虛擬機直接控制這些硬件，並能獲得硬件的最佳性能。
 
-要注意的是當GPU被用作VFIO後便不能在Linux上用了，所以需要另一張GPU（CPU內顯或另一張獨立GPU）讓Linux能顯示畫面，否則Linux只能顯示純命令行。
+要注意的是當顯示卡被用作VFIO後便不能在Linux上用了，所以需要另一張顯示卡（CPU內顯或另一張獨立顯示卡）讓Linux能顯示畫面，否則Linux只能顯示純命令行。
 
 {{< figure src="./BareMetal.jpg" caption="實機Windows下的3DMark跑分" >}}
 
 \
 {{< figure src="./VFIO.jpg" caption="VFIO下的3DMark跑分，可見與實機表現十分接近" >}}
 
-{{< notice info "為甚麼 CPU 分數低了？" >}}
-因為Windows虛擬機比起實機少了1核（必須預留至少1核給Linux）。
+{{< notice info "CPU 分數較低原因" >}}
+上圖Windows虛擬機比起實機少了一核（兩線程），所以CPU分數較低。
  {{< /notice >}}
 
 ### Looking Glass
 
 [Looking Glass](https://looking-glass.io/)是**VFIO**的延伸。
 
-**VFIO**因為把你指定的GPU送給了Windows虛擬機，用家需要另外連接這GPU和螢幕，然後切換螢幕的輸入源才能看到虛擬機的畫面。如果你只有一個螢幕，那麼同一時間就只能看到Linux和Windows虛擬機其一的畫面。
+**VFIO**因為把你指定的顯示卡送給了Windows虛擬機，用家需要另外連接這顯示卡和螢幕，然後切換螢幕的輸入源才能看到虛擬機的畫面。如果你只有一個螢幕，那麼同一時間就只能看到Linux和Windows虛擬機其一的畫面。
 
 **Looking Glass**能解決這個問題：它將Windows虛擬機的原生未壓縮影像極低延遲地投射到Linux上。這樣就無需切換輸入源，可以一鍵切換操作Linux及Windows虛擬機。
 
 此外還有其他功能，例如將Linux的:studio_microphone:麥克風輸入送至虛擬機內，或是將Linux及虛擬機的:clipboard:剪貼簿同步等等。另外也有官方OBS插件，讓**Looking Glass**的影像直接輸出至OBS上，這樣就能同時實況Linux和Windows虛擬機的畫面。
 
-要注意的是，**Looking Glass**對硬件的要求比**VFIO**更高，必須**要有兩張獨立GPU**和預留CPU至少兩核（四線程）給Linux才能順暢使用。此外，**Looking Glass**亦會對送入虛擬機的GPU會產生一定負荷，所以**GPU的表現會有一定程度下降**（我GPU跑分低了10％）。
+要注意的是，**Looking Glass**對硬件的要求比**VFIO**更高，必須**要有兩張獨立顯示卡**和預留CPU至少兩核（四線程）給Linux才能順暢使用。此外，**Looking Glass**亦會對送入虛擬機的顯示卡會產生一定負荷，所以**顯示卡的表現會有一定程度下降**（我顯示卡跑分低了10％）。
 
 我會選擇用**Looking Glass**是因為我經常在使用Windows虛擬機時快速切換至Linux去做其他事情，沒有它的話我就要不斷手動切換螢幕的輸入源了。
 
@@ -98,7 +98,7 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 [Parsec](https://parsec.app/)是另一個的即時畫面實況解決方案，同樣在Linux及虛擬機安裝即可，但這軟件是閉源的。
 
-即時畫面實況的好處是不需第二張獨立GPU（CPU內顯就夠用了），但畫面質素可能較差（畢竟是實況，必須做壓縮；**Looking Glass**沒有做任何壓縮）。
+即時畫面實況的好處是不需第二張獨立顯示卡（CPU內顯就夠用了），但畫面質素可能較差（畢竟是實況，必須做壓縮；**Looking Glass**沒有做任何壓縮）。
 
 ## 結語
 

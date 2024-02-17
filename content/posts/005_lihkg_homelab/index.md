@@ -1,5 +1,5 @@
 +++
-title = "連登Homelab系列（三）：自組NAS/Server常見問題"
+title = "連登Homelab系列（三）：Homelab常見問題"
 author = "Eric Leung"
 description = "LIHKG Homelab Post series: FAQ for homelab"
 categories = ["連登Homelab系列"]
@@ -12,11 +12,11 @@ date = "2024-01-22"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月6日）
+（本文最後更新時間：2024年2月17日）
 
-{{< figure src="./Cover.jpg" caption="IKEA LACK土炮Server Rack" >}}
+{{< figure src="./Cover.jpg" caption="IKEA LackRack：廉價DIY機櫃" >}}
 
-## 點解要自組？自組有咩好/壞處？
+## 點解要自組NAS？自組有咩好/壞處？
 
 優點：
 
@@ -27,18 +27,24 @@ date = "2024-01-22"
 缺點：
 
 - 通常體積大，耗電大
-- 要學勁多野（唔係講笑），安裝麻煩，一定要識英文
-- 維護靠自己（不過通常係第一次Set完後就唔洗點理）
+- 要學勁多野，安裝麻煩，要花時間讀文檔（要識英文）
+- 維護靠自己（不過通常係安裝完後就唔洗點理）
 
 ## 硬件邊到黎？
 
-舊電腦/Laptop、[Raspberry Pi](https://classroomeshop.com/collections/raspberry-pi)或類似產品、二手市場、淘寶/Amazon等。
+舊電腦/Laptop、[Raspberry Pi](https://classroomeshop.com/collections/raspberry-pi)或類似產品、二手市場、淘寶、Amazon等。
 
-部分硬件只可能搵到淘寶/國產貨（或外國只有高價代替品），如各式軟路由工控機及細NAS機箱等。
+部分硬件只可能搵到淘寶或國產貨（或外國只有高價代替品），如各式軟路由工控機及細NAS機箱等。
 
 NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-design.com/products/cases/node/)），不過通常偏大部/貴，想要細部或平啲就要淘寶。
 
 [延伸閱讀：Small Form Factor PC Master List](https://docs.google.com/spreadsheets/d/1AddRvGWJ_f4B6UC7_IftDiVudVc8CJ8sxLUqlxVsCz4/)
+
+## 用咩硬件去增加主機板SATA插口數？
+
+請睇：[Recommended Controller for Unraid](https://forums.unraid.net/topic/102010-recommended-controllers-for-unraid/)。
+
+[延伸閱讀：TrueNAS reflash LSI card教學](https://www.truenas.com/community/resources/detailed-newcomers-guide-to-crossflashing-lsi-9211-9300-9305-9311-9400-94xx-hba-and-variants.54/)
 
 ## 買硬件有咩要注意？
 
@@ -79,13 +85,15 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 ### 主機板IOMMU grouping
 
-如果你想用Hypervisor/行虛擬機的話，需要注意主機板既IOMMU grouping。
+如果你想行虛擬機的話，有機會要將Host既PCIe設備Passthrough入虛擬機，例如將CPU內顯送入Jellyfin虛擬機或將SATA controller送入NAS虛擬機。如此送入去既硬件完全由虛擬機控制，可獲得接近無損性能。
 
-因為如果你想將Host既硬件Passthrough入去虛擬機既話，就要將一個IOMMU group既所有硬件一次過送曬入去。
+要做PCIe passthrough既話，主機板要支持IOMMU，此外亦要注意IOMMU既Grouping。
 
-例如你PCIe 1槽同SATA controller係同一IOMMU group，咁你想送個插咗係PCIe 1槽既硬件(如GPU)入虛擬機，就要連隻SATA controller都送埋入去。
+PCIe passthrough係以一個IOMMU group為單位。一個IOMMU group可以有多過一個硬件，想送某個硬件就要連同佢IOMMU group既其他硬件一齊送入去。
 
-**個Host無法使用任何Passthrough咗入虛擬機既硬件**，可以想像係將個硬件完全地交咗比虛擬機管理。
+假設你主機板PCIe 1槽、SATA controller及網卡係同一IOMMU group，咁你想送個插咗係PCIe 1槽既硬件（如顯示卡）入虛擬機，就要將SATA controller（連帶硬碟）同網卡都送埋入去。
+
+**Host不能使用任何Passthrough咗入虛擬機既硬件**。
 
 其實有方法呃個Kernel，令佢以為全部硬件都有自己一個獨佔既IOMMU group（關鍵字：ACS patch）。
 
@@ -93,37 +101,40 @@ Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passth
 
 [延伸閱讀：Script for checking IOMMU group（Arch Wiki）](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Ensuring_that_the_groups_are_valid)
 
-### Intel CPU虛擬機共享iGPU
+### Host及虛擬機共享Intel CPU內顯
 
-Intel CPU既iGPU可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）方法令Host同虛擬機都用到同一隻iGPU。
+Intel CPU既內顯可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）方法令Host同虛擬機都用到佢。
 
-**唯獨係11代咩都冇**。如果你Host同虛擬機都要用iGPU（例如個Host靠iGPU先顯示到野，但虛擬機行Jellyfin要iGPU做轉碼）既話要注意。
+**唯獨係11代咩都冇**。如果你Host同虛擬機都要用內顯（例如個Host靠內顯先顯示到野，但虛擬機行Jellyfin要內顯做轉碼）既話要注意。
+
+如果不幸地用緊11代Intel CPU，或唔想搞以上既野，可以轉用LXC或Docker：只要個Host用到個內顯，LXC及Docker都用到。
 
 [延伸閱讀：Intel GVT-G setup（Arch Wiki）](https://wiki.archlinux.org/title/Intel_GVT-g)
 
-[延伸閱讀：12代或更新CPU之SR-IOV方法](https://github.com/strongtz/i915-sriov-dkms)
+[延伸閱讀：12代及以後Intel CPU之SR-IOV方法](https://github.com/strongtz/i915-sriov-dkms)
 
-{{< notice info "Container幫到你" >}}
-如果不幸地用緊11代Intel CPU，或唔想搞以上既野，可以轉用LXC或Docker。
+{{< notice info "Nvidia 顯示卡" >}}
+有方法使Host同虛擬機可共享某啲型號既Nvidia顯示卡。
 
-只需將`/dev/dri/<你個Device名>`或成個`/dev/dri`作為Volume mount入去，隻Container就可以用到個iGPU。
+詳請請睇[呢到](https://gitlab.com/polloloco/vgpu-proxmox)。注意30系或以上既顯示卡型號用唔到呢個方法。
 
-注意：個Host要Load定Driver（i915），隻iGPU先會係`/dev/dri`出現。
 {{< /notice >}}
 
-## LXC係咩黎？同Docker有咩唔同？
+## LXC係咩黎？同Docker/虛擬機有咩唔同？
 
-LXC雖然同Docker一樣係"Container"，**但佢概念上更接近虛擬機，係虛擬機既輕量級代替品。**
+LXC雖然同Docker一樣係"Container"，**但佢概念上同使用上都更接近虛擬機，係虛擬機既輕量級代替品。**
 
 同虛擬機相似，係LXC上面你係手動裝Service行。另外兩者都支持快照（Snapshot）及備份。
 
 LXC（及Docker）同虛擬機唔同既係佢會同個Host共用Kernel（虛擬機有自己Kernel），所以資源消耗較低。
 
-相對地，LXC（及Docker）安全性冇虛擬機咁強，例如佢地可造成Kernal panic令個Host死埋。
+相對地LXC（及Docker）安全性較虛擬機弱，例如佢地造成Kernal panic時會炸死埋個Host及其他虛擬機，虛擬機Kernal panic只會炸死自己。
 
-Docker同LXC唔同既係Docker通常一個Image淨係會行一隻Service，但LXC你可以係一隻上面裝十幾廿個Service同時行。
+此外，因為共用Kernel，如果有軟件要較新版本Kernel既話（如Wireguard要Linux版本5.6或以上），LXC（及Docker）都會行唔到。
 
-Docker係Application層級Container：一個Image專行一隻App；LXC係OS層級Container：佢提供咗個OS比你，你要自己係上面裝野行。
+Docker同LXC唔同既係Docker通常一個Image淨係會行一隻Service，但LXC你可以係上面裝十幾廿個Service同時行。
+
+Docker係Application級Container：一個Image專行一隻App；LXC係OS級Container：佢提供咗個OS比你，你係上面玩咩都得。
 
 ## 用咩OS？
 
@@ -131,13 +142,13 @@ Docker係Application層級Container：一個Image專行一隻App；LXC係OS層�
 
 {{< underline "Hypervisor OS" >}}
 
-**[Proxmox VE](https://www.proxmox.com/en/proxmox-virtual-environment/overview)** :thumbsup:、[VMWare ESXi](https://www.vmware.com/hk/products/esxi-and-esx.html)、[Windows Server + Hyper-V](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/hyper-v-on-windows-server)、[XCP-NG](https://xcp-ng.org/)
+**[Proxmox VE](https://www.proxmox.com/en/proxmox-virtual-environment/overview)** :thumbsup:、[VMWare ESXi（付費）](https://www.vmware.com/hk/products/esxi-and-esx.html)、[Windows Server + Hyper-V（付費）](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/hyper-v-on-windows-server)、[XCP-NG](https://xcp-ng.org/)
 
 [Hyper-V Server 2019（免費）](https://www.microsoft.com/en-us/evalcenter/evaluate-hyper-v-server-2019)
 
 {{< underline "NAS OS" >}}
 
-[TrueNAS Core/TrueNAS Scale](https://www.truenas.com/truenas-community-editions/)、[Xpenology（黑群輝）](https://xpenology-com.translate.goog/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)、[Unraid（付費）](https://unraid.net/)、[OpenMediaVault](https://www.openmediavault.org/)
+[TrueNAS（Core/Scale）](https://www.truenas.com/truenas-community-editions/) :thumbsup:、[Xpenology（黑群輝）](https://xpenology-com.translate.goog/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)、[Unraid（付費）](https://unraid.net/)、[OpenMediaVault](https://www.openmediavault.org/)
 
 {{< underline "Server OS" >}}
 
@@ -147,18 +158,37 @@ Docker係Application層級Container：一個Image專行一隻App；LXC係OS層�
 
 [pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)（x86機推薦）、[OpenWrt](https://openwrt.org/)（家用Router推薦）
 
+{{< notice info "Networking 神器 Openwrt" >}}
+一部裝咗OpenWrt既家用Router可以做曬Firewall、Router、Managed Switch（VLAN功能）同Access Point既工作。
+
+而且唔洗買好貴既機，例如[Linksys E8450](https://openwrt.org/toh/linksys/e8450)非常適合OpenWrt，現時港行價都係600蚊左右。
+
+Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、[SQM](https://openwrt.org/docs/guide-user/network/traffic-shaping/sqm)等等。你甚至可以用幾部OpenWrt機行[802.11s Mesh Networking](https://openwrt.org/docs/guide-user/network/wifi/mesh/80211s)同[802.11k/v/r 快速漫遊](https://vicfree.com/2022/11/openwrt-wpa3-802.11kvr-ap-setup/)。
+
+如果你岩岩開始玩Homelab，可以先從支持OpenWrt既家用Router入手，有需要時再買獨立Networking硬件。
+
+{{< /notice >}}
+
 ## 咩係Hypervisor？點解要用佢？
 
-Hypervisor即專用黎行虛擬機既軟件。上一點提及既Hypervisor全部都係Type 1，有接近原生既Performance。
+Hypervisor即專用黎行虛擬機既軟件。上一項提及既Hypervisor OS用既全部都係用Type 1 hypervisor（例如Proxmox用既係[QEMU/KVM](https://zhuanlan.zhihu.com/p/48664113)），虛擬機性能損耗極低，接近原生性能。
 
 用Hypervisor既好處：
 
 - 虛擬機快照及備份（非常實用）
-- 容許將來有需要時加虛擬機
+- 可以匯入虛擬機，或匯出虛擬機去另一部Hypervisor
+- 提供軟件測試平台
 - 有人性化既操作介面，易管理
 - 視乎你既硬件，重啟虛擬機可能比重啟實機快勁多
 
-咁多好處下，就算你只會用一個虛擬機，都可以考慮下用Hypervisor。
+就算你只會用一個虛擬機，都可以考慮下用Hypervisor：淨係快照及備份通常都值回票價。
+
+{{< notice info "題外話：係Linux 整個 Windows 虛擬機打機" >}}
+QEMU/KVM只要係Linux都用到。有一個特別玩法係Desktop Linux整個Windows虛擬機打機。
+
+我自己部PC就係用Fedora做主OS，並係上面整咗個Windows 10虛擬機。詳情可以睇我[呢個Post](../002_win10_to_linux/)。
+
+{{< /notice >}}
 
 ## 咩係IPMI？有冇代替品？
 
@@ -174,12 +204,6 @@ Intel有個類似工具叫**VPro**，好多商用Intel機都有支持，配合[M
 
 {{< figure src="./PiKVM.jpg" caption="PiKVM遠端控制Asus家用主機板BIOS" >}}
 
-## 用咩硬件去增加主機板SATA插口數？
-
-請睇：[Recommended Controller for Unraid](https://forums.unraid.net/topic/102010-recommended-controllers-for-unraid/)。
-
-[延伸閱讀：TrueNAS reflash LSI card教學](https://www.truenas.com/community/resources/detailed-newcomers-guide-to-crossflashing-lsi-9211-9300-9305-9311-9400-94xx-hba-and-variants.54/)
-
 ## CPU冇內顯，買咩卡用黎做轉碼？
 
 Intel Arc系列:thumbsup: 1000蚊樓下買到既平價轉碼神卡，又支持AV1 encoding。
@@ -192,7 +216,7 @@ Intel Arc系列:thumbsup: 1000蚊樓下買到既平價轉碼神卡，又支持AV
 
 [Plex Media Server Hardware Transcoding Cheat Sheet](https://www.elpamsoft.com/?p=Plex-Hardware-Transcoding)
 
-[延伸閱讀：Nvidia-patch（移除Nvidia GPU既同時間轉碼數上限）](https://github.com/keylase/nvidia-patch)
+[延伸閱讀：Nvidia-patch（移除Nvidia顯示卡既同時間轉碼數上限）](https://github.com/keylase/nvidia-patch)
 
 ## 更多討論區/資源
 

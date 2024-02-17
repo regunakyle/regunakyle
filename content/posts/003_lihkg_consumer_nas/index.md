@@ -10,7 +10,7 @@ date = "2024-01-20"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月6日）
+（本文最後更新時間：2024年2月17日）
 
 {{< figure src="./Cover.jpg" caption="圖片來源：Synology官網" >}}
 
@@ -29,19 +29,18 @@ date = "2024-01-20"
 - 介面人性化，易用，易安裝
 - 官方教學文檔內容齊全
 - 最多人買，社群大，有問題都易搵答案
-- 相對其他大牌子（如QNAP）冇咁多Security問題
 
 Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
-其他大牌子硬件全部跑贏Synology，但Synology軟件做得最好，可以話係買軟件送機。
+其他大牌子硬件性能全部跑贏Synology，但Synology軟件做得最好，可以話係買軟件送硬件。
 
-如果識野/想學野既話，可以考慮自組。[（後方討論）](../005_lihkg_homelab/)
+如果識野/想學野既話，可以考慮自組。
 
-[Synology NAS選擇器](https://www.synology.com/zh-tw/support/nas_selector)
+[延伸閱讀：Synology NAS選擇器](https://www.synology.com/zh-tw/support/nas_selector)
 
 ## QNAP好似經常出事（如勒索軟件），係咪唔買得？
 
-**唔係**。如果你部機唔放出街既話，其實部部機都差唔多咁安全。
+**唔係**。只要唔將部NAS放出街，咩牌子既NAS其實都差唔多咁安全。
 
 咩牌子NAS都好，想要保障自己數據既話，做好以下既野：
 
@@ -50,7 +49,9 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 - Router取消任何Port Forwarding
 - NAS取消Quickconnect/MyQnapCloud
 
-**備份要有多版本**，例如每個月尾做一次備份，然後保留最多12份（一年），之後先從最舊開始剷。可以用{{< underline "增量備份" >}}方式減少備份所佔空間，例如[Synology Hyper Backup](https://www.synology.com/zh-hk/dsm/feature/hyper_backup)就係增量備份。[（三種備份方式簡介）](https://zhuanlan.zhihu.com/p/135242862)
+**備份要有多版本**，例如每個月尾做一次備份，然後保留最多12份（一年），之後先從最舊開始剷。
+
+優質備份軟件係保留多版本既同時亦會將重複資料刪除（即Deduplication）以節省空間，例如[Synology Hyper Backup](https://www.synology.com/zh-hk/dsm/feature/hyper_backup)、[BorgBackup](https://github.com/borgbackup/borg)、[Restic](https://github.com/restic/restic)等等都做到。
 
 **做咗備份仲要定時檢查備份Work唔Work**，例如試下還原去其他地方睇下讀唔讀到啲資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。
 
@@ -72,7 +73,7 @@ DS224+及DS423+冇得升10G，但用Intel CPU，有Hardware encode/decoder，比
 
 我個人覺得如果你冇10G需求既話，買DS224+或DS423+較好。
 
-## 有冇得加RAM？要買邊條？
+## Synology機有冇得加RAM？要買邊條？
 
 請睇[RAM選擇教學](https://nascompares.com/guide/synology-unofficial-memory-upgrades-2022-updated/)。
 
@@ -112,18 +113,20 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗1
 
 {{< figure src="./VPN.jpg" >}}
 
-[Tailscale](Tailscale)最簡單，**無需做Port Forwarding，亦唔需要Public IP**，亦有大牌子NAS安裝教學（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)），對新手黎講係最好選擇。
+[Tailscale](Tailscale)最簡單，**無需做Port Forwarding**，亦有大牌子NAS安裝教學（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)），對新手黎講係最好選擇。
 
-識玩既可以自己安裝[Wireguard](https://www.wireguard.com/)。Wireguard[比OpenVPN快勁多](https://www.wireguard.com/performance/)，但要有部Kernel版本5.6或以上既Linux機先發揮到佢最佳效果。
+追求性能既話可選擇[Wireguard](https://www.wireguard.com/)。Wireguard比OpenVPN[快勁多](https://www.wireguard.com/performance/)，但要較新既家用Router先有支持。
 
-再唔係就OpenVPN，好多家用Router都有支持。
+再唔係就OpenVPN，好多較舊既家用Router都有支持。
 
-如果選擇用Wireguard/OpenVPN（必須有Public IP先用到），**建議你只放VPN一個Port出街**，屋企其他Service全部透過VPN使用。
+如果選擇用Wireguard/OpenVPN（必須有Public IP先用到），建議你**只放VPN一個Port出街**，屋企其他Service全部透過VPN使用。
 
 {{< notice warning "注意" >}}
-S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wireguard上去用](https://github.com/runfalk/synology-wireguard)（風險自負）；
+S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wireguard上去用](https://github.com/runfalk/synology-wireguard)（風險自負）；
 
 或者用Wireguard-go（例如[呢個qBittorrent Docker image](https://hotio.dev/containers/qbittorrent/)有教點設定），但會比Kernel版慢。
+
+其他可行方案：係NAS裝Linux虛擬機、係家用Router裝OpenWrt、買部細機仔（如Raspberry Pi或淘寶軟路由機）裝Linux或pfSense/OPNSense等等。裝好後再係上面安裝Wireguard行。
 {{< /notice >}}
 
 ### Port Forwarding（通訊埠轉發/「放Port」）
@@ -150,17 +153,19 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 
 因為我得Synology，呢到只講QuickConnect：
 
-**無需做Port forwarding，亦唔需要Public IP**。靠Synology server做Hole punching，或（如失敗）用Synology Relay Server做中間人連結部NAS同你部手機/電腦。[（QuickConnect白皮書）](https://kb.synology.com/zh-tw/WP/Synology_QuickConnect_White_Paper/4)
+**無需做Port forwarding**，靠Synology server做Hole punching，或（如失敗）用Synology Relay Server做中間人連結部NAS同你部手機/電腦。[（QuickConnect白皮書）](https://kb.synology.com/zh-tw/WP/Synology_QuickConnect_White_Paper/4)
 
 注意用QuickConnect只能掂到DSM及部分Synology App，冇辦法透過佢開NAS上既Plex/Jellyfin等等你自己裝既App。
 
 ### Cloudflare Tunnel
 
-即Cloudflare做中間人幫你放Service出街。**無需做Port forwarding，亦唔需要Public IP**。
+即Cloudflare做中間人幫你放Service出街。**無需做Port forwarding**。
 
 [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)本身係免費，但你要有一個Nameserver係Cloudflare既域名先用到。
 
 用佢既好處係可以獲得Cloudflare既DDOS保護；此外亦支持用第三方授權，例如用Google，咁可以指定特定Gmail帳號持有人先存取到到你啲野。
+
+[延伸閱讀：類似Cloudflare Tunnel方案一覽](https://github.com/anderspitman/awesome-tunneling)
 
 {{< notice warning "注意" >}}
 你要信Cloudflare，呢個算係[Man-in-the-middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容。
@@ -176,7 +181,7 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 - Firewall/NAS封鎖Inbound中國及俄羅斯IP，或直接Block香港以外所有IP
 - Port Forwarding唔好用常見既Port（如22、80、443、445、3389），用啲怪數字
 - Port Forwarding只放Reverse proxy（Apache、NGINX、HAProxy等等）；同時買個域名或用免費DDNS，再[攞個SSL憑證](#點樣獲得免費既ssl憑證)行HTTPS
-- 如有VLAN功能既Switch及勁少少既Firewall（較新既家用Router裝[OpenWrt](https://openwrt.org/)可以做曬兩樣野）：鎅個VLAN做DMZ，將需要放出街既Service全部放入去，並嚴格限制其對其他VLAN既存取權
+- 如有VLAN功能既Switch及勁少少既Firewall（較新既家用Router裝OpenWrt可以做曬兩樣野）：鎅個VLAN做DMZ，將需要放出街既Service全部放入去，並嚴格限制其對其他VLAN既存取權
 
 {{< detail "第二點：點樣備份先安全？" >}}
 必須有至少一份**即使被Hack黑客都掂唔到**既備份。例子：
@@ -184,7 +189,7 @@ S牌DSM個Linux底太舊 ，Kernel冇Wireguard。[你可以嘗試自己裝Wiregu
 1. 定時將外置硬碟接駁NAS做備份，做好後斷開外置硬碟連接（即離線備份）
 2. 由備份Server主動從NAS撈數據做備份（而唔係NAS主動倒數據落備份Server），且禁止網絡其他機主動存取備份Server
 
-如果黑客攻到入黎，又掂到曬你啲備份，咁佢直接剷曬/加密曬咪得，咁樣你既備份形同虛設。
+如果黑客攻到入黎，又掂到曬你啲備份，咁佢直接剷曬或加密曬咪得。咁樣你既備份形同虛設。
 {{< /detail >}}
 
 只放VPN出街既好處（相比起個個Service都放出街）係你將黑客可以攻擊既地方減至最小（得VPN可以攻擊）。
@@ -210,7 +215,7 @@ Let's Encrypt既SSL憑證**有效期只有90日**，佢地建議每60日更新�
 
 有唔少[工具](https://letsencrypt.org/docs/client-options/)可以幫你管理Let's Encrypt既SSL憑證；[pfSense](https://docs.netgate.com/pfsense/en/latest/packages/acme/index.html)/[OpenWrt](https://openwrt.org/docs/guide-user/services/tls/acmesh/)等OS有插件幫你做；用Docker既玩家可以睇下[Nginx Proxy Manager](https://github.com/NginxProxyManager/nginx-proxy-manager)/[Caddy](https://github.com/caddyserver/caddy/)。
 
-{{< notice info "Let's Encrypt妙用" >}}
+{{< notice info "Let's Encrypt 妙用" >}}
 有啲Service一定要HTTPS先運作到（如[Vaultwarden](https://github.com/dani-garcia/vaultwarden)），咁樣就算你只係屋企或純經VPN用，都係要搞SSL憑證。
 
 只要用Let's Encrypt既DNS-01方法就可以唔開Port都申請到SSL憑證，攞到後係Reverse proxy設定就得。
@@ -251,7 +256,7 @@ TV stick：[Google Chromecast](https://store.google.com/tw/product/chromecast_go
 
 呢啲產品通常比你部電視支持更多檔案格式。買邊隻請自己做功課，或去我地Post討論。
 
-另外：如果你用緊PC/手機瀏覽器睇片唔Work既話，可以試下用[VLC](https://www.videolan.org/)或Plex/Jellyfin既原生App。
+另外：如果你用緊PC/手機/電視瀏覽器睇片唔Work既話，可以試下用Plex/Jellyfin既原生App或[VLC](https://www.videolan.org/)。
 
 {{< detail "轉碼知多啲" >}}
 你啲片既格式（MP4/MKV/WebM等）其實係Container格式黎，佢地入面裝住咗Video/Audio/Subtitle，三者分別有自己獨特既格式。
