@@ -116,7 +116,7 @@ Intel CPU既內顯可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）�
 {{< notice info "Nvidia 顯示卡" >}}
 有方法使Host同虛擬機可共享某啲型號既Nvidia顯示卡。
 
-詳請請睇[呢到](https://gitlab.com/polloloco/vgpu-proxmox)。注意30系或以上既顯示卡型號用唔到呢個方法。
+[呢到](https://gitlab.com/polloloco/vgpu-proxmox)有適用於Proxmox既安裝教學。注意30系或以上既顯示卡型號用唔到呢個方法。
 
 {{< /notice >}}
 
@@ -171,7 +171,7 @@ Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、[SQM](http
 
 ## 咩係Hypervisor？點解要用佢？
 
-Hypervisor即專用黎行虛擬機既軟件。上一項提及既Hypervisor OS用既全部都係用Type 1 hypervisor（例如Proxmox用既係[QEMU/KVM](https://zhuanlan.zhihu.com/p/48664113)），虛擬機性能損耗極低，接近原生性能。
+Hypervisor即專用黎行虛擬機既軟件。上一項提及既Hypervisor OS用既全部都係用Type 1 hypervisor（例如Proxmox用既係[QEMU+KVM](https://zhuanlan.zhihu.com/p/48664113)），虛擬機性能損耗極低，接近原生性能。
 
 用Hypervisor既好處：
 
@@ -184,9 +184,9 @@ Hypervisor即專用黎行虛擬機既軟件。上一項提及既Hypervisor OS用
 就算你只會用一個虛擬機，都可以考慮下用Hypervisor：淨係快照及備份通常都值回票價。
 
 {{< notice info "題外話：係Linux 整個 Windows 虛擬機打機" >}}
-QEMU/KVM只要係Linux都用到。有一個特別玩法係Desktop Linux整個Windows虛擬機打機。
+QEMU+KVM任何Linux機都用到。有一個特別玩法係Desktop Linux上面整個Windows虛擬機打機。
 
-我自己部PC就係用Fedora做主OS，並係上面整咗個Windows 10虛擬機。詳情可以睇我[呢個Post](../002_win10_to_linux/)。
+我自己部PC就係用[Fedora](https://fedoraproject.org/)做主OS，並係上面整咗個Windows 10虛擬機，詳情可以睇我[呢個Post](../002_win10_to_linux/)。
 
 {{< /notice >}}
 
