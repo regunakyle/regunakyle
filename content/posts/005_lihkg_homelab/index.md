@@ -14,7 +14,7 @@ date = "2024-01-22"
 
 （本文最後更新時間：2024年2月17日）
 
-{{< figure src="./Cover.jpg" caption="IKEA LackRack：廉價DIY機櫃" >}}
+{{< figure src="./Cover.jpg" caption="IKEA LackRack - 廉價DIY機櫃" >}}
 
 ## 點解要自組NAS？自組有咩好/壞處？
 
@@ -161,7 +161,7 @@ Docker係Application級Container：一個Image專行一隻App；LXC係OS級Conta
 {{< notice info "Networking 神器 Openwrt" >}}
 一部裝咗OpenWrt既家用Router可以做曬Firewall、Router、Managed Switch（VLAN功能）同Access Point既工作。
 
-而且唔洗買好貴既機，例如[Linksys E8450](https://openwrt.org/toh/linksys/e8450)非常適合OpenWrt，現時港行價都係600蚊左右。
+而且唔洗買好貴既機，例如[Linksys E8450](https://openwrt.org/toh/linksys/e8450)非常適合OpenWrt，現時[港行](https://www.price.com.hk/product.php?p=478204)都係600蚊左右。
 
 Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、[SQM](https://openwrt.org/docs/guide-user/network/traffic-shaping/sqm)等等。你甚至可以用幾部OpenWrt機行[802.11s Mesh Networking](https://openwrt.org/docs/guide-user/network/wifi/mesh/80211s)同[802.11k/v/r 快速漫遊](https://vicfree.com/2022/11/openwrt-wpa3-802.11kvr-ap-setup/)。
 
