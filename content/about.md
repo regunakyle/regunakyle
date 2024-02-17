@@ -11,7 +11,7 @@ While I am not at work, I enjoy tinkering with my homelab. Having alternatives t
 
 I excel at Python (+Django) and SQL, have good experience in Java (+Spring Boot) and Javascript (+React). I also have much more knowledge of computer hardware and Linux server than your average developer :sunglasses:. I also have hand-on experience on DevOps (I set up the CI/CD environment in my company all by myself).
 
-I also daily drive Linux (:tophat:[Fedora](https://fedoraproject.org/) is my favourite distro!), with a Windows 10 virtual machine inside for [high-performance, low-latency gaming](../posts/002_win10_to_linux/).
+I also daily drive Linux (:tophat:[Fedora](https://fedoraproject.org/) is my favourite distro!), with a Windows 10 virtual machine inside for [high-performance, low-latency gaming](../posts/002_win10_to_linux/). Find out more about my setup [here](https://github.com/regunakyle/dotfiles).
 
 People working with me says I am a fast learner :scientist:, and they are not wrong: I enjoy doing research on topics I found interesting; I found a lot of topics in technology interesting ([Hackernews](https://news.ycombinator.com/front) is my favourite source of tech news!).
 
