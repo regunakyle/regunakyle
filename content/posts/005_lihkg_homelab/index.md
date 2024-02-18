@@ -240,4 +240,12 @@ Intel既獨立顯示卡:thumbsup: 入門級型號（1000蚊樓下買到）就已
 
 [Youtube：Lawrence Systems](https://www.youtube.com/@LAWRENCESYSTEMS)
 
+## 鳴謝
+
+多謝你睇到最後！
+
+係到特別鳴謝Homelab post既一眾連登巴打，大家既討論令我學到好多野。
+
+如果你冇睇連登Homelab post，歡迎你入黎一齊吹下水，交流下技術 :men_wrestling: 。
+
 ## [返回主目錄](../../categories/連登homelab系列/)
