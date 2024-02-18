@@ -18,7 +18,7 @@ date = "2024-01-20"
 
 因為愈寫愈多，我決定抽出黎放係自己個Blog到，順便加啲圖執靚仔啲。~~幫我個Blog加啲流量~~
 
-如發現有錯誤，可以去我Github[提交Issue](https://github.com/regunakyle/regunakyle/issues/new)。
+如發現有錯誤，請去呢到[提交Issue](https://github.com/regunakyle/regunakyle/issues/new)。如果你本指南幫助到你，希望你去[Github](https://github.com/regunakyle/regunakyle)比粒星我 :rofl: 謝謝你先 :bowing_man:
 
 **本文（及Homelab系列其他文章）遵循[「署名-相同方式共享 4.0 國際」](https://choosealicense.com/licenses/cc-by-sa-4.0/)協議。轉載請註明出處。**
 
