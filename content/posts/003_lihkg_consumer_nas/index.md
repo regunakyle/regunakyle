@@ -10,7 +10,7 @@ date = "2024-01-20"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月17日）
+（本文最後更新時間：2024年2月18日）
 
 {{< figure src="./Cover.jpg" caption="圖片來源：Synology官網" >}}
 
@@ -22,7 +22,7 @@ date = "2024-01-20"
 
 **本文（及Homelab系列其他文章）遵循[「署名-相同方式共享 4.0 國際」](https://choosealicense.com/licenses/cc-by-sa-4.0/)協議。轉載請註明出處。**
 
-## 買邊個牌子好？
+## NAS買邊隻牌子好？
 
 如果冇特別偏好既話，建議Synology（群輝），原因如下:
 
@@ -42,12 +42,7 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 **唔係**。只要唔將部NAS放出街，咩牌子既NAS其實都差唔多咁安全。
 
-咩牌子NAS都好，想要保障自己數據既話，做好以下既野：
-
-- **重要數據做好備份**
-- Router取消UPnP
-- Router取消任何Port Forwarding
-- NAS取消Quickconnect/MyQnapCloud
+咩牌子NAS都好，想要保障自己數據就必須**做好備份**。
 
 **備份要有多版本**，例如每個月尾做一次備份，然後保留最多12份（一年），之後先從最舊開始剷。
 
@@ -61,7 +56,24 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 [延伸閱讀：Why is RAID not a backup？](https://serverfault.com/questions/2888/why-is-raid-not-a-backup)
 
-## Synology Plus系列買咩Model好？
+## 點確保部NAS冇放出街？
+
+做好以下步驟，通常已足夠保證街外人存取唔到你部NAS。
+
+- Router取消任何容許街外存取既設定，包括但不限於：
+  - UPnP
+  - Port Forwarding
+  - Port Triggering
+  - DMZ
+- NAS取消Quickconnect/MyQnapCloud或類似服務
+
+同埋平時上網小心啲，某啲電腦病毒可容許黑客透過中咗毒既機存取你屋企網絡上其他電子設備。
+
+如果有需要出街時掂部NAS，我強烈建議你用VPN。VPN算係最安全及簡單既街外存取辦法。
+
+[下面](#點樣係街外存取屋企部nas)會講幾個放NAS出街既方法，以及有咩注意事項。
+
+## Synology Plus系列NAS買邊隻Model好？
 
 （此部分最後更新於2024年1月）
 
@@ -69,21 +81,19 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 DS723+及DS923+冇Hardware encode/decoder，但可以加購10G卡，配合NVMe SSD使用可以做到高速大量傳輸。（另外呢兩部Support ECC RAM）
 
-DS224+及DS423+冇得升10G，但用Intel CPU，有Hardware encode/decoder，比上面兩款更適合做轉碼。
+DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上面兩款更適合做轉碼。
 
 我個人覺得如果你冇10G需求既話，買DS224+或DS423+較好。
 
-## Synology機有冇得加RAM？要買邊條？
+## Synology NAS想加RAM，要買咩型號既RAM？
 
-請睇[RAM選擇教學](https://nascompares.com/guide/synology-unofficial-memory-upgrades-2022-updated/)。
+請睇[第三方RAM選擇教學](https://nascompares.com/guide/synology-unofficial-memory-upgrades-2022-updated/)。
 
-睇返你想買個隻Model個Spec，正常有寫有冇得加。
+買第三方既RAM有風險：可以有兩個人用同型號NAS，買同型號既第三方RAM，但一個加完開唔到機，另一個開到機咁既情況。
 
-Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗16GB）
+雖然咁講，但都有唔少人會選擇買第三方既RAM，而且有不少成功例子：例如我自己部DS220+就係用Kingston既16GB RAM。
 
-至於RAM選擇係玄學，可以有兩個人用同一部NAS同一型號RAM，但一個加完Boot唔到，另一個Boot到咁既情況。
-
-買之前**最好上網Google下其他人買咗咩型號咩容量既RAM**，起碼成功率大啲。
+買之前**最好上網Google下你個NAS型號其他人加咩型號既RAM**，咁起碼成功率大啲。
 
 如果肯定要佢Work，咁要買返Synology既RAM，但性價比超級低:money_with_wings:。
 
@@ -113,18 +123,18 @@ Spec上面會寫最多加幾多，但通常可加更多。（我部DS220+加咗1
 
 {{< figure src="./VPN.jpg" >}}
 
-[Tailscale](Tailscale)最簡單，**無需做Port Forwarding**，亦有大牌子NAS安裝教學（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)），對新手黎講係最好選擇。
+[Tailscale](https://tailscale.com/)最簡單，**無需做Port Forwarding**，亦有大牌子NAS安裝教學（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)），對新手黎講係最好選擇。
 
 追求性能既話可選擇[Wireguard](https://www.wireguard.com/)。Wireguard比OpenVPN[快勁多](https://www.wireguard.com/performance/)，但要較新既家用Router先有支持。
 
 再唔係就OpenVPN，好多較舊既家用Router都有支持。
 
-如果選擇用Wireguard/OpenVPN（必須有Public IP先用到），建議你**只放VPN一個Port出街**，屋企其他Service全部透過VPN使用。
+如果選擇用Wireguard/OpenVPN，就要做Port forwarding。我建議你**只放VPN一個Port出街**，屋企其他Service全部透過VPN使用。
 
 {{< notice warning "注意" >}}
 S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wireguard上去用](https://github.com/runfalk/synology-wireguard)（風險自負）；
 
-或者用Wireguard-go（例如[呢個qBittorrent Docker image](https://hotio.dev/containers/qbittorrent/)有教點設定），但會比Kernel版慢。
+或者用Wireguard-go版（例如[呢個qBittorrent Docker image](https://hotio.dev/containers/qbittorrent/)有教點設定），但會比普通版慢。
 
 其他可行方案：係NAS裝Linux虛擬機、係家用Router裝OpenWrt、買部細機仔（如Raspberry Pi或淘寶軟路由機）裝Linux或pfSense/OPNSense等等。裝好後再係上面安裝Wireguard行。
 {{< /notice >}}
@@ -140,11 +150,13 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 {{< notice info "必須有 Public IP" >}}
 你要有Public IP先可以係街外掂到屋企部Router，如果冇既話放Port都冇用。
 
-香港唔少寬頻供應商都會派Public IP，但通常係浮動IP（即自己會轉；一啲係熄光纖盒先會轉）。
+香港唔少寬頻供應商都會派Public IP，但通常係浮動IP（即自己會轉；一啲係重啟光纖盒先會轉）。
 
-先去Router搵下自己WAN/Public IP係咩，再去[呢到](https://www.whatismyip.com/)顯示既IP做比較。如果兩者一樣，咁呢個就係你既Public IP；但唔一樣就代表你寬頻行緊CGNAT，冇Public IP。
+先去Router搵下自己WAN/Public IP係咩，再去[呢到](https://www.whatismyip.com/)顯示既IP做比較。如果兩者一樣，咁呢個就係你既Public IP；但唔一樣就代表你寬頻行緊[CGNAT](https://en.wikipedia.org/wiki/Carrier-grade_NAT)，冇Public IP。
 
-如果唔想記屋企IP或避免IP浮動產生問題，可以買個域名及設定DDNS，或者用免費DDNS服務（[DuckDNS](https://www.duckdns.org/)/[Synology DDNS](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_ddns)）。
+如不幸地行緊CGNAT，可以試下聯絡寬頻供應商叫佢派Public IP比你，或用IPv6（如寬頻供應商有派比你），或直接用其他唔需Port forwarding既方法。
+
+如果唔想記屋企Public IP或避免IP浮動產生問題，可以買個域名及設定DDNS，或者用免費DDNS服務（[DuckDNS](https://www.duckdns.org/)/[Synology DDNS](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_ddns)）。
 {{< /notice >}}
 
 ### QuickConnect/MyQnapCloud
@@ -168,22 +180,26 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 [延伸閱讀：類似Cloudflare Tunnel方案一覽](https://github.com/anderspitman/awesome-tunneling)
 
 {{< notice warning "注意" >}}
-你要信Cloudflare，呢個算係[Man-in-the-middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容。
+你要信Cloudflare，呢個算係[Man in the middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容。
 
-此外，用Cloudflare Tunnel做媒體串流或大檔案傳輸**有機會違反佢地既服務條款**，除非你[將啲檔案放上佢地平台再傳輸](https://blog.cloudflare.com/updated-tos/)。
+此外，用Cloudflare Tunnel做媒體串流或大檔案傳輸可能違反佢地既服務條款，除非你[將啲檔案放上佢地平台再傳輸](https://blog.cloudflare.com/updated-tos/)。
 {{< /notice >}}
 
 ## 放部NAS出街時，要點保障自己？
 
-- **用VPN並確保VPN版本更新**。除非真係要放比街外人用，否則只用VPN
+**用VPN並確保VPN版本更新**。除非真係要放比街外人用，否則只用VPN。
+
+如果真係要放出公海，我有以下建議：
+
 - **重要數據做好備份**，亦要有至少一份**即使被Hack黑客都掂唔到**既備份。
 - 開個權限唔多既User account比自己平時用，非必要唔用Admin/Root account
 - Firewall/NAS封鎖Inbound中國及俄羅斯IP，或直接Block香港以外所有IP
 - Port Forwarding唔好用常見既Port（如22、80、443、445、3389），用啲怪數字
-- Port Forwarding只放Reverse proxy（Apache、NGINX、HAProxy等等）；同時買個域名或用免費DDNS，再[攞個SSL憑證](#點樣獲得免費既ssl憑證)行HTTPS
+- Port Forwarding只放反向代理（Reverse proxy），如Apache、NGINX、HAProxy等；同時買個域名或用免費DDNS，再[攞個SSL憑證](#點樣獲得免費既ssl憑證)行HTTPS
 - 如有VLAN功能既Switch及勁少少既Firewall（較新既家用Router裝OpenWrt可以做曬兩樣野）：鎅個VLAN做DMZ，將需要放出街既Service全部放入去，並嚴格限制其對其他VLAN既存取權
+- 上網講野小心啲，唔好成為黑客或國家機關既攻擊目標 :shushing_face:
 
-{{< detail "第二點：點樣備份先安全？" >}}
+{{< detail "點樣備份先可以「即使被Hack黑客都掂唔到」？" >}}
 必須有至少一份**即使被Hack黑客都掂唔到**既備份。例子：
 
 1. 定時將外置硬碟接駁NAS做備份，做好後斷開外置硬碟連接（即離線備份）
@@ -198,6 +214,16 @@ VPN將安全性放第一，只要設定得當就非常難以攻破，而且有�
 
 好多Service假設咗你將佢放係可信任既網絡入面，佢地冇咁著重安全性，你放佢出公海就會提高自己被黑客攻破既風險。
 
+{{< notice tip "Port forwarding 小知識" >}}
+Port forwarding本身並無任何風險，所有風險都來自你Forward出去既Service本身既安全性強弱。
+
+例如放VPN係十分安全，但你放QNAP NAS個網頁介面出去可能好快就出事。
+
+同樣道理，如果你完全信任某個Service既安全性，咁直接放佢出街都唔係唔得。
+
+最緊要係明白放各種Service出街既風險，同埋要為最壞情況做好準備。
+{{< /notice >}}
+
 {{< figure src="./Security.jpg" caption="唔注意安全既後果:laughing:" >}}
 
 ## 點樣獲得免費既SSL憑證？
@@ -207,7 +233,7 @@ VPN將安全性放第一，只要設定得當就非常難以攻破，而且有�
 佢地提供[幾種方法](https://letsencrypt.org/docs/challenge-types/)比你證明你擁有個域名。我推薦**DNS-01**方法，因為：
 
 1. 唔洗開Port都行到
-2. 可以攞Wildcard憑證（例如`*.<子網域名>.duckdns.org`），唔洗個個Service都整一張憑證
+2. 可以攞Wildcard憑證（例如`*.<子網域名>.duckdns.org`）
 
 **DNS-01**要你個[DNS provider支持先用到](https://community.letsencrypt.org/t/dns-providers-who-easily-integrate-with-lets-encrypt-dns-validation/86438)。其中DuckDNS同Cloudflare值得一提，前者係免費，後者有[Cloudflare Tunnel可以玩](#cloudflare-tunnel)。
 
@@ -215,13 +241,19 @@ Let's Encrypt既SSL憑證**有效期只有90日**，佢地建議每60日更新�
 
 有唔少[工具](https://letsencrypt.org/docs/client-options/)可以幫你管理Let's Encrypt既SSL憑證；[pfSense](https://docs.netgate.com/pfsense/en/latest/packages/acme/index.html)/[OpenWrt](https://openwrt.org/docs/guide-user/services/tls/acmesh/)等OS有插件幫你做；用Docker既玩家可以睇下[Nginx Proxy Manager](https://github.com/NginxProxyManager/nginx-proxy-manager)/[Caddy](https://github.com/caddyserver/caddy/)。
 
-{{< notice info "Let's Encrypt 妙用" >}}
+{{< notice tip "Let's Encrypt 妙用" >}}
 有啲Service一定要HTTPS先運作到（如[Vaultwarden](https://github.com/dani-garcia/vaultwarden)），咁樣就算你只係屋企或純經VPN用，都係要搞SSL憑證。
 
-只要用Let's Encrypt既DNS-01方法就可以唔開Port都申請到SSL憑證，攞到後係Reverse proxy設定就得。
+只要用Let's Encrypt既DNS-01方法就可以唔開Port都申請到SSL憑證，攞到後係反向代理設定好就得。
 
 [延伸閱讀：Run a private vaultwarden with Let's Encrypt certs](https://github.com/dani-garcia/vaultwarden/wiki/Running-a-private-vaultwarden-instance-with-Let%27s-Encrypt-certs)（唔用Vaultwarden都值得一睇）
 
+{{< /notice >}}
+
+{{< notice warning "必須保護 SSL 憑證密鑰" >}}
+SSL憑證有兩個檔案，其中一個係密鑰。你要保護密鑰不被外人得到，唔可以將密鑰分享比陌生人。
+
+[呢到](https://security.stackexchange.com/a/16694)有講SSL憑證密鑰被偷既話有咩可能既後果，以及被偷後要點處理。
 {{< /notice >}}
 
 ## 咩係轉碼（Transcode）？
@@ -238,11 +270,11 @@ Let's Encrypt既SSL憑證**有效期只有90日**，佢地建議每60日更新�
 
 如果你隻NAS有Hardware encoder+decoder既話，部NAS就會將轉碼工作掉比佢地去做。
 
-通常大牌子NAS既Intel CPU都有內顯，或者獨立顯示卡，佢地都有Hardware encoder+decoder。
+咁樣NAS隻CPU既負荷（相比起冇Encoder+decoder既情況）會大大降低，唔會因為播片而卡死部NAS。
 
-咁樣NAS既CPU既負荷（相比冇encoder+decoder既情況）會大大降低，唔會因為播片而卡死部NAS。（而且通常可以同時間多過一條片做轉碼）
+通常大牌子NAS既Intel CPU都有內顯或者獨立顯示卡，佢地都有Hardware encoder+decoder。
 
-{{< notice info "轉換影片解析度" >}}
+{{< notice tip "轉換影片解析度" >}}
 將片轉做唔同解析度（例如4K轉去1080p）都係轉碼既一種，想係街用流量睇屋企4K片既話有用。
 {{< /notice >}}
 

@@ -12,7 +12,7 @@ date = "2024-01-22"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月17日）
+（本文最後更新時間：2024年2月18日）
 
 {{< figure src="./Cover.jpg" caption="IKEA LackRack - 廉價DIY機櫃" >}}
 
@@ -22,12 +22,12 @@ date = "2024-01-22"
 
 - :moneybag: 硬件性價比可以大幅拋離任意大牌子NAS（講緊係同性能下可以平40%或以上）
 - 硬件選擇自由（例如可以用舊機既料砌，或可根據自己需求購買各類零件；[M.2 10G網卡](https://www.innodisk.com/tw/products/embedded-peripheral/communication/egpl-t101)聽過未）
-- 可以學野（Sysadmin或Networking功夫，市場對呢啲技術有需求）
+- 可以學野（Sysadmin及Networking功夫，市場對呢啲技術有需求）
 
 缺點：
 
-- 通常體積大，耗電大
-- 要學勁多野，安裝麻煩，要花時間讀文檔（要識英文）
+- 通常體積較大，耗電量較多
+- 安裝麻煩，要花時間讀文檔，必須識英文
 - 維護靠自己（不過通常係安裝完後就唔洗點理）
 
 ## 硬件邊到黎？
@@ -68,9 +68,9 @@ ECC既用途係偵測RAM有否發生Bit flip，如有就嘗試修正。[（運�
 
 但Bit flip發生機率極低。除非玩到去Data center級數（或者Server係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)），否則可能十年都遇唔到一次因Bit flip造成既資料損毀。[（測試數據）](https://youtu.be/DAXVSNAj6GM)
 
-問題係雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，消費級主機板Chipset全部唔支持ECC，要上到Workstation或Server級Chipset先有。
+雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，消費級主機板Chipset全部唔支持ECC，要上到Workstation或Server級Chipset先有。
 
-AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](https://www.amd.com/en/products/apu/amd-ryzen-5-pro-5650g)配X570板，低能耗+多核+ECC+靚IOMMU）。另一個選擇係執二手Server件/洋垃圾（Xeon/Epyc之類），淘寶一堆平價野。
+AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](https://www.amd.com/en/products/apu/amd-ryzen-5-pro-5650g)配X570板，低能耗+多核+有內顯+支持ECC+靚IOMMU）。另一個選擇係執二手Server件/洋垃圾（Xeon/Epyc之類），淘寶一堆平價野。
 
 我既諗法係，你要儲存既數據愈多/愈重要，用既RAM量愈大，就愈值得買ECC件。（當買個心安都好）
 
@@ -107,16 +107,16 @@ Intel CPU既內顯可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）�
 
 **唯獨係11代咩都冇**。如果你Host同虛擬機都要用內顯（例如個Host靠內顯先顯示到野，但虛擬機行Jellyfin要內顯做轉碼）既話要注意。
 
-如果不幸地用緊11代Intel CPU，或唔想搞以上既野，可以轉用LXC或Docker：只要個Host用到個內顯，LXC及Docker都用到。
+如果不幸地用緊11代Intel CPU，或唔想搞以上既野，可以轉用LXC或Docker：只要個Host用到個內顯，LXC及Docker就肯定用到。
 
 [延伸閱讀：Intel GVT-G setup（Arch Wiki）](https://wiki.archlinux.org/title/Intel_GVT-g)
 
 [延伸閱讀：12代及以後Intel CPU之SR-IOV方法](https://github.com/strongtz/i915-sriov-dkms)
 
-{{< notice info "Nvidia 顯示卡" >}}
-有方法使Host同虛擬機可共享某啲型號既Nvidia顯示卡。
+{{< notice tip "Nvidia 顯示卡" >}}
+有方法使Host同虛擬機共享某啲型號既Nvidia顯示卡。
 
-[呢到](https://gitlab.com/polloloco/vgpu-proxmox)有適用於Proxmox既安裝教學。注意30系或以上既顯示卡型號用唔到呢個方法。
+[呢到](https://gitlab.com/polloloco/vgpu-proxmox)有適用於Proxmox既安裝教學。注意30系及以上既顯示卡型號用唔到呢個方法。
 
 {{< /notice >}}
 
@@ -130,7 +130,7 @@ LXC（及Docker）同虛擬機唔同既係佢會同個Host共用Kernel（虛擬�
 
 相對地LXC（及Docker）安全性較虛擬機弱，例如佢地造成Kernal panic時會炸死埋個Host及其他虛擬機，虛擬機Kernal panic只會炸死自己。
 
-此外，因為共用Kernel，如果有軟件要較新版本Kernel既話（如Wireguard要Linux版本5.6或以上），LXC（及Docker）都會行唔到。
+此外，因為共用Kernel，如果有軟件要求較新版本Kernel既話（如Wireguard要Linux版本5.6或以上），LXC（及Docker）都會行唔到。
 
 Docker同LXC唔同既係Docker通常一個Image淨係會行一隻Service，但LXC你可以係上面裝十幾廿個Service同時行。
 
@@ -159,7 +159,7 @@ Docker係Application級Container：一個Image專行一隻App；LXC係OS級Conta
 [pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)（x86機推薦）、[OpenWrt](https://openwrt.org/)（家用Router推薦）
 
 {{< notice info "Networking 神器 Openwrt" >}}
-一部裝咗OpenWrt既家用Router可以做曬Firewall、Router、Managed Switch（VLAN功能）同Access Point既工作。
+一部裝咗OpenWrt既家用Router可以做曬Firewall、Router、Managed switch（VLAN功能）同Access point既工作。
 
 而且唔洗買好貴既機，例如[Linksys E8450](https://openwrt.org/toh/linksys/e8450)非常適合OpenWrt，現時[港行](https://www.price.com.hk/product.php?p=478204)都係600蚊左右。
 
@@ -183,10 +183,10 @@ Hypervisor即專用黎行虛擬機既軟件。上一項提及既Hypervisor OS用
 
 就算你只會用一個虛擬機，都可以考慮下用Hypervisor：淨係快照及備份通常都值回票價。
 
-{{< notice info "題外話：係Linux 整個 Windows 虛擬機打機" >}}
+{{< notice note "題外話：係Linux 整個 Windows 虛擬機打機" >}}
 QEMU+KVM任何Linux機都用到。有一個特別玩法係Desktop Linux上面整個Windows虛擬機打機。
 
-我自己部PC就係用[Fedora](https://fedoraproject.org/)做主OS，並係上面整咗個Windows 10虛擬機，詳情可以睇我[呢個Post](../002_win10_to_linux/)。
+我自己部PC就係用[Fedora Linux](https://fedoraproject.org/)做主OS，並用Windows 10虛擬機打機。詳情可以睇我[呢個Post](../002_win10_to_linux/)。
 
 {{< /notice >}}
 
@@ -202,13 +202,17 @@ Intel有個類似工具叫**VPro**，好多商用Intel機都有支持，配合[M
 
 想平啲既話可以去淘寶搵翻版（[Blicube](https://www.blicube.com/blikvm-products/)/[Geekworm](https://geekworm.com/collections/pikvm)）。PiKVM甚至可以配合[特定](https://docs.pikvm.org/multiport/#list-of-tested-kvms)[KVM switch](https://docs.google.com/document/d/1wgBZHxwpbJWkJBD3I8ZkZxSDxt0DdNDDYRNtVoL_vK4/)一下控制多部機。
 
-{{< figure src="./PiKVM.jpg" caption="PiKVM遠端控制Asus家用主機板BIOS" >}}
+{{< youtube 232opnNPGNo  >}}
 
-## CPU冇內顯，買咩卡用黎做轉碼？
+## CPU冇內顯，買咩顯示卡做轉碼？
 
-Intel Arc系列:thumbsup: 1000蚊樓下買到既平價轉碼神卡，又支持AV1 encoding。
+Intel既獨立顯示卡:thumbsup: 入門級型號（1000蚊樓下買到）就已經有同高階卡一樣既轉碼性能。
 
-想再平啲既話可考慮二手Nvidia Quadro或Intel DG1。建議睇下呢啲參考資料再買：
+支持好多媒體格式（包括AV1 encoding），低能耗，有啲型號甚至係半高/單插槽闊，非常適合Server用。
+
+此外Nvidia Quadro系列都唔錯，可以搵下有冇二手貨。
+
+想買轉碼卡既話建議睇下呢啲參考資料再買：
 
 [Media Capabilities Supported by Intel Hardware](https://www.intel.com/content/www/us/en/docs/onevpl/developer-reference-media-intel-hardware/)
 
@@ -230,7 +234,7 @@ Intel Arc系列:thumbsup: 1000蚊樓下買到既平價轉碼神卡，又支持AV
 
 [Youtube：司波圖](https://www.youtube.com/@SpotoTsui)
 
-[Youtube：錢韋德](https://www.youtube.com/@qianweide/videos)
+[Youtube：錢韋德](https://www.youtube.com/@qianweide)
 
 [Youtube：TechnoTim](https://www.youtube.com/@TechnoTim)
 

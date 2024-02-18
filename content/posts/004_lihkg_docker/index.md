@@ -12,7 +12,7 @@ date = "2024-01-21"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月17日）
+（本文最後更新時間：2024年2月18日）
 
 {{< figure src="./Cover.webp" >}}
 
@@ -22,15 +22,15 @@ Docker可以將唔同既程式連埋所需既野一次過打包做一舊，然�
 
 冇Docker之前同一部機想行唔同程式可能遇到相容性問題（例如兩個程式要用同一款但又唔同版本既Library，又或者S牌DSM個Library版本太舊）。Docker完美解決咗呢個問題，成件打包用就得。
 
-注意其實Docker做到既野虛擬機都做到，不過虛擬機比Docker燒CPU/RAM。
+其實Docker做到既野虛擬機都做到，不過虛擬機比Docker用更多CPU及RAM。
 
-**另外要玩Docker的話強烈建議加RAM**。
+**要玩Docker的話強烈建議加RAM**。
 
 ## 咩機支持Docker?
 
 Synology既話Plus系列或較新既非Plus機種都有支持。[呢到](https://www.synology.com/zh-tw/dsm/packages/ContainerManager)可以睇適用機種。
 
-注意只有Plus系列先有得加RAM；此外非Plus機種用ARM CPU未必支持到全部Docker Image。
+注意非Plus機種用ARM架構既CPU，可能行唔到某啲Docker image。
 
 其他牌子請自己Google:stuck_out_tongue:
 
@@ -44,10 +44,13 @@ Docker預設係以Root身份行。咁既話出現Container escape時隻Container
 
 然後[Docker --user flag選擇呢個user既UID：GID去行](https://docs.docker.com/engine/reference/run/#user)。
 
+Synology用家可以睇[呢個教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)，有整Docker專用User及安裝Docker版Media server apps既步驟。
+
 {{< notice warning "注意" >}}
 有啲Docker image只支持用Root行。
 
 我建議任何Docker image都試下用Non-root user行下先，唔得再用Root。
+
 {{< /notice >}}
 
 ## Docker有咩好玩?
@@ -68,9 +71,18 @@ Selfhost圈子入面最熱門既內容。
 
 用家先係Sonarr/Radarr指定想睇咩劇集/電影，然後Sonarr/Radarr去唔同網站撈Seed（Prowlarr做Seed整合），再叫qBittorrent去下載，下載完就可以係Plex/Jellyfin到睇。
 
-[延伸閱讀：Synology Docker Media Server安裝教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)
+{{< notice info "Private tracker" >}}
+最新既電影/劇集等比較容易係公海搵到Seed。但較舊或冷門既資源可能好難搵。
+
+有興趣既玩家可以研究下Private tracker（PT）。大既PT站資源較齊，容易搵到冷門或較舊既資源。
+
+PT唔係直接就入到會，可能要你課金（大陸/台灣個啲），又或者要現有會員出邀請比你。
+
+另外PT通常禁止會員只下載不上傳，上傳得太少可能會被踢走。有玩家甚至會整Seedbox專做PT。
 
 [延伸閱讀：想討論PT (Private tracker)](https://lih.kg/2447243)
+
+ {{< /notice >}}
 
 ### 全家過濾廣告 :thumbsup:
 
@@ -156,8 +168,6 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 ### 其他有趣Software
 
 :thumbsup: 一個介面控制屋企智能家具（[Home Assistant](https://www.home-assistant.io/)）
-
-:thumbsup: 跨平台Airdrop翻版（[PairDrop](https://github.com/schlagmichdoch/PairDrop)）
 
 :thumbsup: 電子書下載及管理（[LazyLibrarian](https://lazylibrarian.gitlab.io/)，[Calibre](https://docs.linuxserver.io/images/docker-calibre/)，[Calibre-web](https://github.com/janeczku/calibre-web)）
 
