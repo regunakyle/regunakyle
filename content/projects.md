@@ -11,9 +11,9 @@ date = "2023-04-09"
 
 A guide for [GWENT: The Witcher Card Game](https://www.playgwent.com/) written with [Hugo](https://gohugo.io/).
 
-It has 1,000 visitors per month at it's peak. Unfortunately the game is [being discontinued](https://www.ign.com/articles/cd-projekt-red-is-sunsetting-support-for-gwent-the-witcher-card-game).
+It has 1,000 visitors per month at it's peak. Unfortunately the game is [effectively discontinued](https://www.ign.com/articles/cd-projekt-red-is-sunsetting-support-for-gwent-the-witcher-card-game).
 
-It is a fun game though, I recommend you to try it (and use my [invite link](https://www.playgwent.com/en/invite-a-friend/LVWFHBSH03) while you are at it :money_mouth_face:).
+It is a fun game, and demands strategic planning rather than luck. I recommend you to try it.
 
 ### [My Discord Bot](https://github.com/regunakyle/my-discord-bot)
 
