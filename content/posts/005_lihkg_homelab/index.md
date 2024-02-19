@@ -85,15 +85,17 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 ### 主機板IOMMU grouping
 
-如果你想行虛擬機的話，有機會要將Host既PCIe設備Passthrough入虛擬機，例如將CPU內顯送入Jellyfin虛擬機或將SATA controller送入NAS虛擬機。如此送入去既硬件完全由虛擬機控制，可獲得接近無損性能。
+如果你想行虛擬機的話，有機會要將Host既PCIe設備Passthrough入虛擬機，例如將CPU內顯送入Jellyfin虛擬機或將SATA控制器送入NAS虛擬機。如此送入去既硬件完全由虛擬機控制，可獲得接近無損性能。
 
-要做PCIe passthrough既話，主機板要支持IOMMU，此外亦要注意IOMMU既Grouping。
+要做PCIe passthrough既話，主機板要支持IOMMU，此外亦要注意IOMMU group分佈。
 
 PCIe passthrough係以一個IOMMU group為最小單位。一個IOMMU group可以有多過一個硬件，想送某個硬件就要連同佢IOMMU group既其他硬件一齊送入去。
 
-假設你主機板PCIe 1槽、SATA controller及網卡係同一IOMMU group，咁你想送個插咗係PCIe 1槽既硬件（如顯示卡）入虛擬機，就要將SATA controller（連帶硬碟）同網卡都送埋入去。
+假設你主機板PCIe 1槽、SATA控制器及網卡係同一IOMMU group，咁你想送個插咗係PCIe 1槽既硬件（如顯示卡）入虛擬機，就要將SATA控制器（連帶硬碟）同網卡都送埋入去。
 
 **Host不能使用任何Passthrough咗入虛擬機既硬件**。
+
+要自己做功課，搵下咩主機板IOMMU group靚。例如Reddit網友話技嘉X570板既IOMMU group非常靚。
 
 其實有方法呃個Kernel，令佢以為全部硬件都有自己一個獨佔既IOMMU group（關鍵字：ACS patch）。
 
@@ -101,12 +103,12 @@ Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passth
 
 [延伸閱讀：Script for checking IOMMU group（Arch Wiki）](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Ensuring_that_the_groups_are_valid)
 
-{{< notice info "主機板DMI" >}}
+{{< notice info "主機板 DMI" >}}
 主機板Chipset同CPU之間係用一條PCIe link連接住（Intel稱之為DMI），Chipset所有硬件會共用DMI既頻寬（Bandwidth）同CPU做資料傳輸。
 
 唔同Chipset既DMI頻寬可能唔同，例如Intel 5xx/6xx系同AMD 6xx系Chipset既頻寬係PCIe 4.0 x8（約16GB/s），AMD 5xx系就只得PCIe 4.0 x4（約8GB/s）。
 
-如果係Chipset做大量傳輸（例如同時存取幾隻位於Chipset既NVMe SSD），DMI就有機會成為瓶頸。
+係Chipset做大量資料傳輸（例如同時存取多隻Chipset既NVMe SSD）既最快速度受DMI頻寬限制。
 {{< /notice >}}
 
 ### Host及虛擬機共享Intel CPU內顯
@@ -138,11 +140,11 @@ LXC（及Docker）同虛擬機唔同既係佢會同個Host共用Kernel（虛擬�
 
 相對地LXC（及Docker）安全性較虛擬機弱，例如佢地造成Kernal panic時會炸死埋個Host及其他虛擬機，虛擬機Kernal panic只會炸死自己。
 
-此外，因為共用Kernel，如果有軟件要求較新版本Kernel既話（如Wireguard要Linux版本5.6或以上），LXC（及Docker）都會行唔到。
+此外，因為共用Kernel，Host因Kernel太舊行唔到既軟件，LXC（及Docker）同樣都行唔到。（如Wireguard要Linux版本5.6或以上）
 
 Docker同LXC唔同既係Docker通常一個Image淨係會行一隻Service，但LXC你可以係上面裝十幾廿個Service同時行。
 
-Docker係Application級Container：一個Image專行一隻App；LXC係OS級Container：佢提供咗個OS比你，你係上面玩咩都得。
+Docker係Application級Container：一個Image專行一隻App ；LXC係OS級Container：佢提供咗個OS比你，你係上面玩咩都得。
 
 ## 用咩OS？
 
@@ -175,6 +177,7 @@ Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、[SQM](http
 
 {{< /notice >}}
 
+\
 {{< figure src="./Proxmox.png" caption="Proxmox VE介面" >}}
 
 ## 咩係Hypervisor？點解要用佢？
