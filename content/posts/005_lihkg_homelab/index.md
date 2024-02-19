@@ -50,11 +50,11 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 ### 預計Server負載買CPU
 
-大部分人個Server**其實85%時間都係待機**，咁樣既話你買CPU唔應該睇最高耗電量，而係睇**待機時耗電量**。
+大部分人個Server**其實絕大部分時間都係待機**，咁樣既話你買CPU唔應該睇滿載耗電量，而要睇**待機耗電量**。
 
-就我所知：Intel及AMD G系列CPU既待機耗電量較低，而AMD非G系列就待機耗電較高。
+就我所知：Intel及AMD G系列CPU既待機耗電較低，而AMD非G系列就待機耗電較高。
 
-但如果係常時都高負載既話，AMD非G系列既能耗比就相當高，值得考慮。
+但如果係常時都高負載既話，AMD非G系列CPU通常較同價既Intel CPU有更佳能耗比，值得考慮。
 
 另外：Intel T字尾CPU待機時耗電同普通版差唔多。普通版CPU係BIOS設定功耗牆之後可以做到類似T字尾CPU既效果。
 
@@ -89,7 +89,7 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 要做PCIe passthrough既話，主機板要支持IOMMU，此外亦要注意IOMMU既Grouping。
 
-PCIe passthrough係以一個IOMMU group為單位。一個IOMMU group可以有多過一個硬件，想送某個硬件就要連同佢IOMMU group既其他硬件一齊送入去。
+PCIe passthrough係以一個IOMMU group為最小單位。一個IOMMU group可以有多過一個硬件，想送某個硬件就要連同佢IOMMU group既其他硬件一齊送入去。
 
 假設你主機板PCIe 1槽、SATA controller及網卡係同一IOMMU group，咁你想送個插咗係PCIe 1槽既硬件（如顯示卡）入虛擬機，就要將SATA controller（連帶硬碟）同網卡都送埋入去。
 
@@ -100,6 +100,14 @@ PCIe passthrough係以一個IOMMU group為單位。一個IOMMU group可以有多
 Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passthrough#Verify_IOMMU_isolation)就可以用到呢個Patch。注意用呢個Patch有[安全性風險](https://www.reddit.com/r/VFIO/comments/9jer5r/acs_patch_risk/)。
 
 [延伸閱讀：Script for checking IOMMU group（Arch Wiki）](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Ensuring_that_the_groups_are_valid)
+
+{{< notice info "主機板DMI" >}}
+主機板Chipset同CPU之間係用一條PCIe link連接住（Intel稱之為DMI），Chipset所有硬件會共用DMI既頻寬（Bandwidth）同CPU做資料傳輸。
+
+唔同Chipset既DMI頻寬可能唔同，例如Intel 5xx/6xx系同AMD 6xx系Chipset既頻寬係PCIe 4.0 x8（約16GB/s），AMD 5xx系就只得PCIe 4.0 x4（約8GB/s）。
+
+如果係Chipset做大量傳輸（例如同時存取幾隻位於Chipset既NVMe SSD），DMI就有機會成為瓶頸。
+{{< /notice >}}
 
 ### Host及虛擬機共享Intel CPU內顯
 
@@ -138,8 +146,6 @@ Docker係Application級Container：一個Image專行一隻App；LXC係OS級Conta
 
 ## 用咩OS？
 
-{{< figure src="./Proxmox.png" caption="Proxmox VE介面" >}}
-
 {{< underline "Hypervisor OS" >}}
 
 **[Proxmox VE](https://www.proxmox.com/en/proxmox-virtual-environment/overview)** :thumbsup:、[VMWare ESXi（付費）](https://www.vmware.com/hk/products/esxi-and-esx.html)、[Windows Server + Hyper-V（付費）](https://learn.microsoft.com/en-us/windows-server/virtualization/hyper-v/hyper-v-on-windows-server)、[XCP-NG](https://xcp-ng.org/)
@@ -168,6 +174,8 @@ Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、[SQM](http
 如果你岩岩開始玩Homelab，可以先從支持OpenWrt既家用Router入手，有需要時再買獨立Networking硬件。
 
 {{< /notice >}}
+
+{{< figure src="./Proxmox.png" caption="Proxmox VE介面" >}}
 
 ## 咩係Hypervisor？點解要用佢？
 

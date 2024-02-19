@@ -221,9 +221,9 @@ Port forwarding本身並無任何風險，所有風險都來自你Forward出去�
 
 例如放VPN係十分安全，但你放QNAP NAS個網頁介面出去可能好快就出事。
 
-同樣道理，如果你完全信任某個Service既安全性，咁直接放佢出街都唔係唔得。
+同樣道理，如果你完全信任某個Service既安全性，咁我唔會反對你直接放佢出街。
 
-最緊要係明白放各種Service出街既風險，同埋要為最壞情況做好準備。
+最緊要係要明白放各種Service出街既風險，同埋要為最壞情況做好準備。
 {{< /notice >}}
 
 {{< figure src="./Security.jpg" caption="唔注意安全既後果:laughing:" >}}
