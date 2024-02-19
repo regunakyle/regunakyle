@@ -50,13 +50,13 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 ### 預計Server負載買CPU
 
-大部分人個Server**其實85%時間都係Idle**，咁樣既話你買CPU唔係睇Peak consumption而係Idle consumption。
+大部分人個Server**其實85%時間都係待機**，咁樣既話你買CPU唔應該睇最高耗電量，而係睇**待機時耗電量**。
 
-就我所知：Intel及AMD G系列CPU既Idle consumption較低，而AMD非G系列就Idle耗電較高。
+就我所知：Intel及AMD G系列CPU既待機耗電量較低，而AMD非G系列就待機耗電較高。
 
 但如果係常時都高負載既話，AMD非G系列既能耗比就相當高，值得考慮。
 
-另外：Intel T字尾CPU idle時耗電同普通版差唔多。普通版CPU係BIOS設定功耗牆之後可以做到類似T字尾CPU既效果。
+另外：Intel T字尾CPU待機時耗電同普通版差唔多。普通版CPU係BIOS設定功耗牆之後可以做到類似T字尾CPU既效果。
 
 [延伸閱讀：Intel T processors power consumption tests](https://www.reddit.com/r/homelab/comments/189vkss/intel_t_processors_power_consumption_tests/)
 
@@ -68,7 +68,7 @@ ECC既用途係偵測RAM有否發生Bit flip，如有就嘗試修正。[（運�
 
 但Bit flip發生機率極低。除非玩到去Data center級數（或者Server係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)），否則可能十年都遇唔到一次因Bit flip造成既資料損毀。[（測試數據）](https://youtu.be/DAXVSNAj6GM)
 
-雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，消費級主機板Chipset全部唔支持ECC，要上到Workstation或Server級Chipset先有。
+雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，消費級主機板Chipset全部唔支持ECC，要上到Workstation或Server級Chipset先有，呢啲主機板一手價超級高。
 
 AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](https://www.amd.com/en/products/apu/amd-ryzen-5-pro-5650g)配X570板，低能耗+多核+有內顯+支持ECC+靚IOMMU）。另一個選擇係執二手Server件/洋垃圾（Xeon/Epyc之類），淘寶一堆平價野。
 
@@ -177,7 +177,7 @@ Hypervisor即專用黎行虛擬機既軟件。上一項提及既Hypervisor OS用
 
 - 虛擬機快照及備份（非常實用）
 - 可以匯入虛擬機，或匯出虛擬機去另一部Hypervisor
-- 提供軟件測試平台
+- 容許將來擴展規模，例如Server硬件升級後可以開多幾隻虛擬機
 - 有人性化既操作介面，易管理
 - 視乎你既硬件，重啟虛擬機可能比重啟實機快勁多
 
