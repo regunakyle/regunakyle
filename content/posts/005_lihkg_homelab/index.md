@@ -85,7 +85,7 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 ### 主機板IOMMU grouping
 
-如果你想行虛擬機的話，有機會要將Host既PCIe設備Passthrough入虛擬機，例如將CPU內顯送入Jellyfin虛擬機或將SATA控制器送入NAS虛擬機。如此送入去既硬件完全由虛擬機控制，可獲得接近無損性能。
+如果你想行虛擬機的話，有機會要將硬件Passthrough入虛擬機，例如將CPU內顯送入Jellyfin虛擬機或將SATA控制器送入NAS虛擬機。如此送入去既硬件完全由虛擬機控制，可獲得接近無損性能。
 
 要做PCIe passthrough既話，主機板要支持IOMMU，此外亦要注意IOMMU group分佈。
 
@@ -93,9 +93,9 @@ PCIe passthrough係以一個IOMMU group為最小單位。一個IOMMU group可以
 
 假設你主機板PCIe 1槽、SATA控制器及網卡係同一IOMMU group，咁你想送個插咗係PCIe 1槽既硬件（如顯示卡）入虛擬機，就要將SATA控制器（連帶硬碟）同網卡都送埋入去。
 
-**Host不能使用任何Passthrough咗入虛擬機既硬件**。
+**一個IOMMU group既硬件Passthrough咗入虛擬機後會被獨享**，Host及其他虛擬機不能使用呢啲硬件。
 
-要自己做功課，搵下咩主機板IOMMU group靚。例如Reddit網友話技嘉X570板既IOMMU group非常靚。
+要自己做功課，搵下咩主機板IOMMU group靚。IOMMU group最靚既主板係每一個硬件都獨佔一個IOMMU group。Reddit網友話X570 Chipset既主機板IOMMU group非常靚，例如我個塊[X570S AERO G](https://www.gigabyte.com/tw/Motherboard/X570S-AERO-G-rev-1x)就係靚既。
 
 其實有方法呃個Kernel，令佢以為全部硬件都有自己一個獨佔既IOMMU group（關鍵字：ACS patch）。
 
@@ -175,7 +175,6 @@ Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、[SQM](http
 如果你岩岩開始玩Homelab，可以先從支持OpenWrt既家用Router入手，有需要時再買獨立Networking硬件。
 {{< /notice >}}
 
-\
 {{< figure src="./Proxmox.png" caption="Proxmox VE介面" >}}
 
 ## 咩係Hypervisor？點解要用佢？
