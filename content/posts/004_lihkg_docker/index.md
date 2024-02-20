@@ -50,8 +50,83 @@ Synology用家可以睇[呢個教學](https://trash-guides.info/Hardlinks/How-to
 有啲Docker image只支持用Root行。
 
 我建議任何Docker image都試下用Non-root user行下先，唔得再用Root。
-
 {{< /notice >}}
+
+## 唔想打Command，有冇比較容易操作既Docker管理介面？
+
+Synology DSM最新既[Container Manager](https://kb.synology.com/zh-hk/DSM/help/ContainerManager/docker_desc)比以前個版本改善咗好多，加咗Docker Compose支持，基本上已足夠絕大部分情況使用。
+
+如果用緊較舊版本既DSM，或用緊其他牌子NAS又想要好啲既介面，可以睇下[Portainer](https://github.com/portainer/portainer)。
+
+呢到簡單講下點樣安裝Portainer：
+
+（以下用Synology DSM 7做例，但只要有Docker及Docker Compose既機都適用）
+
+1. 以管理員帳號身份登入，係其他User存取唔到既地方（例如管理員帳號既`home`文件夾）到開個文件夾，名稱隨意（例如`Portainer`）
+
+2. 搵部電腦整個`compose.yaml`檔案，內容如下：
+
+```yaml
+services:
+  portainer-ce:
+    container_name: portainer-ce
+    image: portainer/portainer-ce:latest
+    ports:
+       - "9443:9443"
+       ## Portainer支持Port 9000行HTTP。如有需要用HTTP，可將下一行既#號刪除
+       #- "9000:9000" 
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./data:/data
+    restart: unless-stopped
+
+networks:
+  default:
+     name: portainer-network
+```
+
+3. 將`compose.yaml`上傳至NAS頭先新開既文件夾
+
+4. 係新開文件夾入面開個`data`文件夾
+
+做曬以上後應該睇到係咁樣：
+
+{{< figure src="./Synology.jpg" >}}
+
+然後要行Command。有幾種方法（例如網上有人用DSM個[任務排程表](https://kb.synology.com/zh-hk/DSM/help/DSM/AdminCenter/system_taskscheduler)行），我呢到只講SSH：
+
+1. 係NAS介面開啟SSH服務，並用管理員帳號SSH入去（[Synology教學](https://kb.synology.com/zh-hk/DSM/tutorial/How_to_login_to_DSM_with_root_permission_via_SSH_Telnet)/[QNAP教學](https://www.qnap.com/zh-tw/how-to/faq/article/how-to-access-qnap-nas-by-ssh)）
+
+2. 係SSH上面搵返上一部分既第一步開既文件夾並用`cd`指令走入去
+
+提示：
+
+- 用`ls -al`指令睇當下文件夾有咩野
+- 用`pwd`指令睇而家係邊個文件夾
+- 用`cd <文件夾路徑>`指令入去另一個文件夾
+  - 用`cd ..`指令去上一層文件夾
+  - 用`cd /`指令返去最頂層文件夾
+  - 用`cd`指令返去SSH帳號既`home`文件夾
+
+{{< figure src="./SSH.png" caption="入到有齊data文件夾同compose.yaml既文件夾" >}}
+
+3. 打以下指令其中一個，啟動Portainer（如果佢問你密碼，你照入返就得）
+
+- `sudo docker compose up -d`
+- `sudo docker-compose up -d`（Synology要用呢個）
+
+{{< figure src="./Compose.png" >}}
+
+4. 用電腦瀏覽器打`https://<NAS IP>:9443`去到Portainer介面，跟住佢照做就得
+
+{{< figure src="./Portainer.png" caption="設定密碼後入去按Get Started即可" >}}
+
+以後如果想停止Portainer，同樣SSH入去並`cd`入Portainer文件夾打：
+
+- `sudo docker compose down`
+- `sudo docker-compose down`（Synology要用呢個）
+
+最後，如果將來唔再需要用SSH，可以去NAS介面將SSH服務停咗佢。
 
 ## Docker有咩好玩?
 
@@ -81,8 +156,7 @@ PT唔係直接就入到會，可能要你課金（大陸/台灣個啲），又�
 另外PT通常禁止會員只下載不上傳，上傳得太少可能會被踢走。有玩家甚至會整Seedbox專做PT。
 
 [延伸閱讀：想討論PT (Private tracker)](https://lih.kg/2447243)
-
- {{< /notice >}}
+{{< /notice >}}
 
 ### 全家過濾廣告 :thumbsup:
 
@@ -104,8 +178,7 @@ DNS層過濾廣告，同時亦可做家長監控（即是封鎖你指定既網�
 注意：Encrypted DNS只能保證你DNS request不被第三方偷窺及篡改。
 
 寬頻供應商仍然可以其他方式干預你既網絡，例如直接封鎖你要去既網站既IP。
-
- {{< /notice >}}
+{{< /notice >}}
 
 ### Server儀表板 :thumbsup:
 

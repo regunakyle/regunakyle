@@ -20,7 +20,7 @@ date = "2024-01-20"
 
 本指南一共有三章節，每節涵蓋唔同主題。每節開頭及結尾都有通往另一章節（或返回[主目錄](../../categories/連登homelab系列/)）既超連結。
 
-如發現有錯誤，請[提交Issue](https://github.com/regunakyle/regunakyle/issues/new)。如果本指南幫助到你，希望你去[Github](https://github.com/regunakyle/regunakyle)右上角比粒星我 :rofl: 謝謝你先 :bowing_man:
+如發現錯處，煩請[提交Issue](https://github.com/regunakyle/regunakyle/issues/new)。如果本指南幫助到你，希望你去[Github](https://github.com/regunakyle/regunakyle)右上角比粒星我 :rofl: 謝謝你先 :bowing_man:
 
 **本文（及Homelab系列其他文章）遵循[「署名-相同方式共享 4.0 國際」](https://choosealicense.com/licenses/cc-by-sa-4.0/)協議。轉載請註明出處。**
 
@@ -71,9 +71,9 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 同埋平時上網小心啲，某啲電腦病毒可容許黑客透過中咗毒既機存取你屋企網絡上其他電子設備。
 
-如果有需要出街時掂部NAS，我強烈建議你用VPN。VPN算係最安全及簡單既街外存取辦法。
+如果有需要出街時存取部NAS，**我強烈建議你用VPN**。VPN係相對簡單又非常安全既街外存取辦法。
 
-[下面](#點樣係街外存取屋企部nas)會講幾個放NAS出街既方法，以及有咩注意事項。
+[本文下方](#點樣係街外存取屋企部nas)會講幾個放NAS出街既方法，以及有咩注意事項。
 
 ## Synology Plus系列NAS買邊隻Model好？
 
@@ -182,7 +182,7 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 [延伸閱讀：類似Cloudflare Tunnel方案一覽](https://github.com/anderspitman/awesome-tunneling)
 
 {{< notice warning "注意" >}}
-你要信Cloudflare，呢個算係[Man in the middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容。
+你要信Cloudflare，呢個[算係Man in the middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容。
 
 此外，用Cloudflare Tunnel做媒體串流或大檔案傳輸可能違反佢地既服務條款，除非你[將啲檔案放上佢地平台再傳輸](https://blog.cloudflare.com/updated-tos/)。
 {{< /notice >}}
@@ -195,7 +195,7 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 - **重要數據做好備份**，亦要有至少一份**即使被Hack黑客都掂唔到**既備份。
 - 開個權限唔多既User account比自己平時用，非必要唔用Admin/Root account
-- Firewall/NAS封鎖Inbound中國及俄羅斯IP，或直接Block香港以外所有IP
+- Firewall/NAS封鎖來自中國及俄羅斯既Inbound IP，或直接Block香港以外所有Inbound IP
 - Port Forwarding唔好用常見既Port（如22、80、443、445、3389），用啲怪數字
 - Port Forwarding只放反向代理（Reverse proxy），如Apache、NGINX、HAProxy等；同時買個域名或用免費DDNS，再[攞個SSL憑證](#點樣獲得免費既ssl憑證)行HTTPS
 - 如有VLAN功能既Switch及勁少少既Firewall（較新既家用Router裝OpenWrt可以做曬兩樣野）：鎅個VLAN做DMZ，將需要放出街既Service全部放入去，並嚴格限制其對其他VLAN既存取權
@@ -221,7 +221,7 @@ Port forwarding本身並無任何風險，所有風險都來自你Forward出去�
 
 例如放VPN係十分安全，但你放QNAP NAS個網頁介面出去可能好快就出事。
 
-同樣道理，如果你完全信任某個Service既安全性，咁我唔會反對你直接放佢出街。
+同樣道理，如果你完全信任某個Service既安全性，咁我唔會反對你直接做Port forwarding放佢出街。
 
 最緊要係要明白放各種Service出街既風險，同埋要為最壞情況做好準備。
 {{< /notice >}}
@@ -246,10 +246,13 @@ Let's Encrypt既SSL憑證**有效期只有90日**，佢地建議每60日更新�
 {{< notice tip "Let's Encrypt 妙用" >}}
 有啲Service一定要HTTPS先運作到（如[Vaultwarden](https://github.com/dani-garcia/vaultwarden)），咁樣就算你只係屋企或純經VPN用，都係要搞SSL憑證。
 
-只要用Let's Encrypt既DNS-01方法就可以唔開Port都申請到SSL憑證，攞到後係反向代理設定好就得。
+一個可行方案係自己整自我簽署憑證(Self-signed Certificate)。自我簽署憑證[原則上係不可信](https://security.stackexchange.com/questions/112768/why-are-self-signed-certificates-not-trusted-and-is-there-a-way-to-make-them-tru)（所以Vaultwarden唔會認），你要係每部會用呢個Service既電腦/手機到載入個SSL憑證先可以正常用到。
+
+更佳做法係用Let's Encrypt：Let's Encrypt係受國際信任既憑證頒發機構（Certificate Authority），正常電腦/手機出廠已預設會信佢地既SSL憑證，唔洗上面咁自己載入憑證先用到個Service。
+
+只要用佢地既DNS-01方法就可以唔開Port都申請到SSL憑證，攞到後係反向代理設定好就得。
 
 [延伸閱讀：Run a private vaultwarden with Let's Encrypt certs](https://github.com/dani-garcia/vaultwarden/wiki/Running-a-private-vaultwarden-instance-with-Let%27s-Encrypt-certs)（唔用Vaultwarden都值得一睇）
-
 {{< /notice >}}
 
 {{< notice warning "必須保護 SSL 憑證密鑰" >}}

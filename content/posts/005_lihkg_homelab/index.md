@@ -127,7 +127,6 @@ Intel CPU既內顯可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）�
 有方法使Host同虛擬機共享某啲型號既Nvidia顯示卡。
 
 [呢到](https://gitlab.com/polloloco/vgpu-proxmox)有適用於Proxmox既安裝教學。注意30系及以上既顯示卡型號用唔到呢個方法。
-
 {{< /notice >}}
 
 ## LXC係咩黎？同Docker/虛擬機有咩唔同？
@@ -174,7 +173,6 @@ Docker係Application級Container：一個Image專行一隻App ；LXC係OS級Cont
 Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、[SQM](https://openwrt.org/docs/guide-user/network/traffic-shaping/sqm)等等。你甚至可以用幾部OpenWrt機行[802.11s Mesh Networking](https://openwrt.org/docs/guide-user/network/wifi/mesh/80211s)同[802.11k/v/r 快速漫遊](https://vicfree.com/2022/11/openwrt-wpa3-802.11kvr-ap-setup/)。
 
 如果你岩岩開始玩Homelab，可以先從支持OpenWrt既家用Router入手，有需要時再買獨立Networking硬件。
-
 {{< /notice >}}
 
 \
@@ -198,7 +196,6 @@ Hypervisor即專用黎行虛擬機既軟件。上一項提及既Hypervisor OS用
 QEMU+KVM任何Linux機都用到。有一個特別玩法係Desktop Linux上面整個Windows虛擬機打機。
 
 我自己部PC就係用[Fedora Linux](https://fedoraproject.org/)做主OS，並用Windows 10虛擬機打機。詳情可以睇我[呢個Post](../002_win10_to_linux/)。
-
 {{< /notice >}}
 
 ## 咩係IPMI？有冇代替品？
@@ -209,9 +206,9 @@ IPMI係遠端管理Server既工具。同普通Remote desktop工具唔同既係�
 
 Intel有個類似工具叫**VPro**，好多商用Intel機都有支持，配合[MeshCentral](https://github.com/Ylianst/MeshCentral)可做到中央控制。
 
-另一個相對易入手既代替品係[PiKVM](https://pikvm.org/)，需要你自己買件DIY，或者買作者成套件砌。
+另一個相對易入手既代替品係[PiKVM](https://pikvm.org/)，需要你自己買件DIY，或者買作者成套件砌。想平啲既話可以去淘寶搵山寨版（[Blicube](https://www.blicube.com/blikvm-products/)/[Geekworm](https://geekworm.com/collections/pikvm)）。
 
-想平啲既話可以去淘寶搵翻版（[Blicube](https://www.blicube.com/blikvm-products/)/[Geekworm](https://geekworm.com/collections/pikvm)）。PiKVM甚至可以配合[特定](https://docs.pikvm.org/multiport/#list-of-tested-kvms)[KVM switch](https://docs.google.com/document/d/1wgBZHxwpbJWkJBD3I8ZkZxSDxt0DdNDDYRNtVoL_vK4/)一下控制多部機。
+PiKVM甚至可以配合[特定](https://docs.pikvm.org/multiport/#list-of-tested-kvms)[KVM switch](https://docs.google.com/document/d/1wgBZHxwpbJWkJBD3I8ZkZxSDxt0DdNDDYRNtVoL_vK4/)一下控制多部機。
 
 {{< youtube 232opnNPGNo  >}}
 
