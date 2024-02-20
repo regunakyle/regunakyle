@@ -121,7 +121,7 @@ networks:
 
 {{< figure src="./Portainer.png" caption="設定密碼後入去按Get Started即可" >}}
 
-以後如果想停止Portainer，同樣SSH入去並`cd`入Portainer文件夾打：
+以後如果想停止Portainer，同樣SSH入去並`cd`入Portainer文件夾打以下其一：
 
 - `sudo docker compose down`
 - `sudo docker-compose down`（Synology要用呢個）
