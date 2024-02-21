@@ -12,7 +12,7 @@ date = "2024-01-21"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月18日）
+（本文最後更新時間：2024年2月21日）
 
 {{< figure src="./Cover.webp" >}}
 
@@ -36,20 +36,34 @@ Synology既話Plus系列或較新既非Plus機種都有支持。[呢到](https:/
 
 ## 用Docker要注意啲咩？
 
-**盡量避免以Root身份行Docker**。
+### 只用App官方或知名團體提供既既Docker image
+
+用其他人整既Docker image本質上同網上下載EXE檔冇咩分別，所以要用官方或其他可信團體出既版本。
+
+例如[Linuxserver.io](https://www.linuxserver.io/)及[Hotio](https://hotio.dev/)呢兩個團體既Docker image都多人用，官方冇出Image既話可以先睇佢地。
+
+更好既做法係自己撈Source code落黎自己Build個Docker image，但可惜唔係人人都識或想自己Build。
+
+Docker本身會提供一定保護（例如冇Map volume既話Container係讀取唔到Host既檔案），但有惡意既Container仲可以用其他方法攻擊你，例如行掘礦程式，又或者嘗試破解屋企網絡入面既其他Service。
+
+### Docker既安全貼士
 
 Docker預設係以Root身份行。咁既話出現Container escape時隻Container就可以對你部機為所欲為。
 
-**最好起一個User專用黎行Docker野**，並起個文件夾比呢個User專用，其他檔案有需要先比權限佢掂。
+雖然咁講，但只要唔用`--privileged`行既話，Docker本身既保護都強，Container escape唔係咁易。
 
-然後[Docker --user flag選擇呢個user既UID：GID去行](https://docs.docker.com/engine/reference/run/#user)。
+但為咗減低風險，**最好起一個User專用黎行Docker野**，並起個文件夾比呢個User專用，其他檔案有需要先比權限佢掂。
+
+然後Docker加兩個Flag行：`--user <新User UID>:<新User GID>` `--security-opt=no-new-privileges`
 
 Synology用家可以睇[呢個教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)，有整Docker專用User及安裝Docker版Media server apps既步驟。
 
 {{< notice warning "注意" >}}
 有啲Docker image只支持用Root行。
 
-我建議任何Docker image都試下用Non-root user行下先，唔得再用Root。
+我建議任何Docker image都試下用以上兩個Flag行下先（可能要搞好多野先Work），實在搞唔掂先用Root行。
+
+[呢到](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html)有個Docker安全性貼士清單，可以按自己需要再加入面講既Flag行Docker。
 {{< /notice >}}
 
 ## 唔想打Command，有冇比較容易操作既Docker管理介面？
@@ -67,6 +81,7 @@ Synology DSM最新既[Container Manager](https://kb.synology.com/zh-hk/DSM/help/
 2. 搵部電腦整個`compose.yaml`檔案，內容如下：
 
 ```yaml
+# compose.yaml
 services:
   portainer-ce:
     container_name: portainer-ce
@@ -177,7 +192,7 @@ DNS層過濾廣告，同時亦可做家長監控（即是封鎖你指定既網�
 
 注意：Encrypted DNS只能保證你DNS request不被第三方偷窺及篡改。
 
-寬頻供應商仍然可以其他方式干預你既網絡，例如直接封鎖你要去既網站既IP。
+寬頻供應商仍然可以用其他方法干預你既網絡，例如直接封鎖你要去既網站既IP。
 {{< /notice >}}
 
 ### Server儀表板 :thumbsup:
