@@ -10,7 +10,7 @@ date = "2024-01-20"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月21日）
+（本文最後更新時間：2024年2月22日）
 
 {{< figure src="./Cover.jpg" caption="圖片來源：Synology官網" >}}
 
@@ -59,9 +59,9 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 [延伸閱讀：Why is RAID not a backup？](https://serverfault.com/questions/2888/why-is-raid-not-a-backup)
 
 {{< notice info "係咪全部數據都一定要做備份？" >}}
-**唔係**。備份係風險管理，要實現可能要付出大量成本。如果你某啲數據唔重要既話，唔備份都可以。
+**唔係**。備份係風險管理，都要計成本效益。如果你某啲數據唔重要既話，唔備份都可以：但冇備份就要做好因突發事件而冇曬數據既心理準備。
 
-可以想像一下：如果你某啲數據一夜冇曬，你會有咩感覺？如果唔心痛既話，個啲數據既備份優先度就比較低。冇備份就要做好冇曬數據既心理準備。
+可以想像一下：如果你某啲數據一夜冇曬，你會有咩感覺？如果唔心痛既話，個啲數據既備份優先度就比較低。
 {{< /notice >}}
 
 ## 點確保部NAS冇放出街？
@@ -212,7 +212,7 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 1. 定時將外置硬碟接駁NAS做備份，做好後斷開外置硬碟連接（即離線備份）
 2. 由備份Server主動從NAS撈數據做備份（而唔係NAS主動倒數據落備份Server），且禁止網絡其他機主動存取備份Server
-3. 備份Server只接受增量備份，禁止刪除或更改舊既備份
+3. 備份Server只接受上傳備份，禁止刪除或更改舊既備份
 
 如果黑客攻到入黎，又掂到曬你啲備份，咁佢直接剷曬或加密曬咪得。咁樣你既備份形同虛設。
 {{< /detail >}}
@@ -248,7 +248,7 @@ Port forwarding本身並無任何風險，所有風險都來自你Forward出去�
 
 Let's Encrypt既SSL憑證**有效期只有90日**，佢地建議每60日更新一次憑證。
 
-有唔少[工具](https://letsencrypt.org/docs/client-options/)可以幫你管理Let's Encrypt既SSL憑證；[pfSense](https://docs.netgate.com/pfsense/en/latest/packages/acme/index.html)/[OpenWrt](https://openwrt.org/docs/guide-user/services/tls/acmesh/)等OS有插件幫你做；用Docker既玩家可以睇下[Nginx Proxy Manager](https://github.com/NginxProxyManager/nginx-proxy-manager)/[Caddy](https://github.com/caddyserver/caddy/)。
+有唔少[工具](https://letsencrypt.org/docs/client-options/)可以幫你管理及更新Let's Encrypt既SSL憑證；[pfSense](https://docs.netgate.com/pfsense/en/latest/packages/acme/index.html)/[OpenWrt](https://openwrt.org/docs/guide-user/services/tls/acmesh/)等OS有插件幫你做；用Docker既玩家可以睇下[Nginx Proxy Manager](https://github.com/NginxProxyManager/nginx-proxy-manager)/[Caddy](https://github.com/caddyserver/caddy/)。
 
 {{< notice tip "Let's Encrypt 妙用" >}}
 有啲Service一定要HTTPS先運作到（如[Vaultwarden](https://github.com/dani-garcia/vaultwarden)），咁樣就算你只係屋企或純經VPN用，都係要搞SSL憑證。

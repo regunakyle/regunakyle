@@ -31,4 +31,4 @@ A clone of [vtuber.hk](https://vtuber.hk/), the so-called *DD-site*. Written wit
 
 The idea did not come from me: someone wanted to create their own *DD-site* because she thought the site was hostile to new VTubers, and her friend asked me for help.
 
-Personally I do not watch VTubers, but I found the idea interesting enough for me to work on it. I will create a basic clone of *DD-site* first (with all of its functionality), then add more features like admin dashboard later.
+Personally I do not watch VTubers, but I found the idea interesting enough for me to work on it.

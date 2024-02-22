@@ -12,7 +12,7 @@ date = "2024-01-22"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月18日）
+（本文最後更新時間：2024年2月22日）
 
 {{< figure src="./Cover.jpg" caption="IKEA LackRack - 廉價DIY機櫃" >}}
 
@@ -42,9 +42,13 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 ## 用咩硬件去增加主機板SATA插口數？
 
-請睇：[Recommended Controller for Unraid](https://forums.unraid.net/topic/102010-recommended-controllers-for-unraid/)。
+請睇以下文章：
 
-[延伸閱讀：TrueNAS reflash LSI card教學](https://www.truenas.com/community/resources/detailed-newcomers-guide-to-crossflashing-lsi-9211-9300-9305-9311-9400-94xx-hba-and-variants.54/)
+[Recommended Controller for Unraid](https://forums.unraid.net/topic/102010-recommended-controllers-for-unraid/)。
+
+[Top Picks for TrueNAS and FreeNAS HBAs (Host Bus Adapters)](https://www.servethehome.com/buyers-guides/top-hardware-components-for-truenas-freenas-nas-servers/top-picks-truenas-freenas-hbas/)
+
+用HBA卡既話要自己刷韌體改做IT模式。詳情請自己Google。
 
 ## 買硬件有咩要注意？
 
@@ -93,9 +97,9 @@ PCIe passthrough係以一個IOMMU group為最小單位。一個IOMMU group可以
 
 假設你主機板PCIe 1槽、SATA控制器及網卡係同一IOMMU group，咁你想送個插咗係PCIe 1槽既硬件（如顯示卡）入虛擬機，就要將SATA控制器（連帶硬碟）同網卡都送埋入去。
 
-**一個IOMMU group既硬件Passthrough咗入虛擬機後會被獨享**，Host及其他虛擬機不能使用呢啲硬件。
+**Host及其他虛擬機不能使用Passthrough咗入一部虛擬機既IOMMU group既全部硬件。**
 
-要自己做功課，搵下咩主機板IOMMU group靚。IOMMU group最靚既主板係每一個硬件都獨佔一個IOMMU group。Reddit網友話X570 Chipset既主機板IOMMU group非常靚，例如我個塊[X570S AERO G](https://www.gigabyte.com/tw/Motherboard/X570S-AERO-G-rev-1x)就係靚既。
+要自己做功課，搵下咩主機板IOMMU group靚。IOMMU group最靚既主板係每一個硬件都獨佔一個IOMMU group。Reddit網友話X570 Chipset既主機板IOMMU group非常靚，例如我塊[X570S AERO G](https://www.gigabyte.com/tw/Motherboard/X570S-AERO-G-rev-1x)真係靚。
 
 其實有方法呃個Kernel，令佢以為全部硬件都有自己一個獨佔既IOMMU group（關鍵字：ACS patch）。
 
@@ -103,10 +107,10 @@ Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passth
 
 [延伸閱讀：Script for checking IOMMU group（Arch Wiki）](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Ensuring_that_the_groups_are_valid)
 
-{{< notice info "主機板 DMI" >}}
+{{< notice tip "主機板 DMI" >}}
 主機板Chipset同CPU之間係用一條PCIe link連接住（Intel稱之為DMI），Chipset所有硬件會共用DMI既頻寬（Bandwidth）同CPU做資料傳輸。
 
-唔同Chipset既DMI頻寬可能唔同，例如Intel 5xx/6xx系同AMD 6xx系Chipset既頻寬係PCIe 4.0 x8（約16GB/s），AMD 5xx系就只得PCIe 4.0 x4（約8GB/s）。
+唔同Chipset既DMI頻寬可能唔同，例如Intel 5xx/6xx系、AMD 6xx系Chipset既頻寬係PCIe 4.0 x8（約16GB/s），AMD 5xx系就只得PCIe 4.0 x4（約8GB/s）。
 
 係Chipset做大量資料傳輸（例如同時存取多隻Chipset既NVMe SSD）既最快速度受DMI頻寬限制。
 {{< /notice >}}
@@ -201,7 +205,7 @@ QEMU+KVM任何Linux機都用到。有一個特別玩法係Desktop Linux上面整
 
 IPMI係遠端管理Server既工具。同普通Remote desktop工具唔同既係佢可以係**最底層控制個Server**。
 
-你可以用佢遠端開/關機、改BIOS設定、重裝OS等等。非常適合Server係屋企外或難搬地方既人。
+不但可以遠端睇到Server既螢幕輸出同埋操控佢，仲可以開/關機、改BIOS設定、重裝OS等等。非常適合Server係屋企外或難搬地方既人。
 
 Intel有個類似工具叫**VPro**，好多商用Intel機都有支持，配合[MeshCentral](https://github.com/Ylianst/MeshCentral)可做到中央控制。
 
@@ -213,7 +217,7 @@ PiKVM甚至可以配合[特定](https://docs.pikvm.org/multiport/#list-of-tested
 
 ## CPU冇內顯，買咩顯示卡做轉碼？
 
-Intel既獨立顯示卡:thumbsup: 入門級型號（1000蚊樓下買到）就已經有同高階卡一樣既轉碼性能。
+Intel既獨立顯示卡:thumbsup: 入門級型號（1000蚊樓下買到）就已經有同高階卡一樣既超強轉碼性能。
 
 支持好多媒體格式（包括AV1 encoding），低能耗，有啲型號甚至係半高/單插槽闊，非常適合Server用。
 

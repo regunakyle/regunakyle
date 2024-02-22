@@ -12,7 +12,7 @@ date = "2024-01-21"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月21日）
+（本文最後更新時間：2024年2月22日）
 
 {{< figure src="./Cover.webp" >}}
 
@@ -118,14 +118,14 @@ networks:
 
 - 用`ls -al`指令睇當下文件夾有咩野
 - 用`pwd`指令睇而家係邊個文件夾
-- 用`cd <文件夾路徑>`指令入去另一個文件夾
+- 用`cd <文件夾名稱>`指令入去另一個文件夾
   - 用`cd ..`指令去上一層文件夾
   - 用`cd /`指令返去最頂層文件夾
-  - 用`cd`指令返去SSH帳號既`home`文件夾
+  - 用`cd`指令返去當前SSH帳號既`home`文件夾
 
 {{< figure src="./SSH.png" caption="入到有齊data文件夾同compose.yaml既文件夾" >}}
 
-3. 打以下指令其中一個，啟動Portainer（如果佢問你密碼，你照入返就得）
+1. 打以下指令其中一個，啟動Portainer（如果佢問你密碼，你照入返就得）
 
 - `sudo docker compose up -d`
 - `sudo docker-compose up -d`（Synology要用呢個）
@@ -136,7 +136,7 @@ networks:
 
 {{< figure src="./Portainer.png" caption="設定密碼後入去按Get Started即可" >}}
 
-以後如果想停止Portainer，同樣SSH入去並`cd`入Portainer文件夾打以下其一：
+以後如果想停止Portainer，同樣SSH入去並`cd`入`compose.yaml`所在文件夾打以下指令其一：
 
 - `sudo docker compose down`
 - `sudo docker-compose down`（Synology要用呢個）
@@ -185,7 +185,7 @@ DNS層過濾廣告，同時亦可做家長監控（即是封鎖你指定既網�
 
 有興趣既話可以研究埋[Unbound](https://unbound.docs.nlnetlabs.nl/en/latest/)（Recursive DNS）或者DNS-over-HTTPS/DNS-over-TLS（Encrypted DNS）。前者可以[增強私隱](https://docs.pi-hole.net/guides/dns/unbound/#what-does-this-guide-provide)，後者可保證你寬頻供應商無法篡改你既DNS query。
 
-{{< notice info "檢查寬頻供應商有冇攔截你 DNS request" >}}
+{{< notice tip "檢查寬頻供應商有冇篡改你 DNS request" >}}
 先去Router設定DNS server做[1.1.1.1](https://1.1.1.1/)，再去[呢到](https://www.dnsleaktest.com)做測試。
 
 如顯示既ISP唔係Cloudflare，你就知道你既DNS request比你個寬頻供應商攔截及篡改咗。
@@ -245,7 +245,7 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 呢兩個App都有API，識寫程式既話可以睇下。
 
-自己Host AI既最大賣點係冇Censorship，你問佢[幾邪惡既野都會答你](https://www.reddit.com/r/LocalLLaMA/comments/149su0a/a_short_conversation_with_falcon/)。此外亦可保障私隱。
+自己Host AI既最大賣點係冇Censorship，你問佢[幾邪惡既野都會答你](https://www.reddit.com/r/LocalLLaMA/comments/149su0a/a_short_conversation_with_falcon/)。此外亦可[保障私隱](https://www.schneier.com/blog/archives/2024/02/microsoft-is-spying-on-users-of-its-ai-tools.html)。
 
 你部品牌NAS行AI應該有困難。如果有興趣既話，可以考慮下自組Server行。
 

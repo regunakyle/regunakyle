@@ -15,7 +15,7 @@ I excel at Python (+Django) and SQL, have good experience in Java (+Spring Boot)
 
 I also daily drive Linux (:tophat:[Fedora KDE](https://fedoraproject.org/spins/kde/) is my favourite distro!), with a Windows 10 virtual machine inside for [high-performance, low-latency gaming](../posts/002_win10_to_linux/). Find out more about my setup [here](https://github.com/regunakyle/dotfiles).
 
-People working with me says I am a fast learner, and they are not wrong: I enjoy doing research on topics I found interesting; I found a lot of topics in technology interesting: Currently my focus are Linux, LLM and computer hardware. By the way, [Hackernews](https://news.ycombinator.com/front) is my favourite source of tech news!
+People working with me says I am a fast learner, and they are not wrong: I enjoy doing research on topics I found interesting; I found a lot of topics in technology interesting: Currently my focus are Linux, LLM and computer hardware. By the way, [Hacker News](https://news.ycombinator.com/front) is my favourite source of tech news!
 
 As of now I am self-studying AWS management, system design and networking. Ideally I would see myself become a tech lead in a major company in the future.
 
