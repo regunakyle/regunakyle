@@ -99,7 +99,7 @@ PCIe passthrough係以一個IOMMU group為最小單位。一個IOMMU group可以
 
 **Host及其他虛擬機不能使用Passthrough咗入一部虛擬機既IOMMU group既全部硬件。**
 
-要自己做功課，搵下咩主機板IOMMU group靚。IOMMU group最靚既主板係每一個硬件都獨佔一個IOMMU group。Reddit網友話X570 Chipset既主機板IOMMU group非常靚，例如我塊[X570S AERO G](https://www.gigabyte.com/tw/Motherboard/X570S-AERO-G-rev-1x)真係靚。
+要自己做功課，搵下咩主機板IOMMU group靚。唔一定要追求最完美（即每一個硬件都獨佔一個IOMMU group），可根據你既需求去查（例如想整NAS虛擬機既話，隻SATA控制器最好獨佔一個IOMMU group）。
 
 其實有方法呃個Kernel，令佢以為全部硬件都有自己一個獨佔既IOMMU group（關鍵字：ACS patch）。
 
@@ -167,7 +167,7 @@ Docker係Application級Container：一個Image專行一隻App ；LXC係OS級Cont
 
 {{< underline "Router/Firewall OS" >}}
 
-[pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)（x86機推薦）、[OpenWrt](https://openwrt.org/)（家用Router推薦）
+[OpenWrt](https://openwrt.org/) :thumbsup:（家用Router推薦）、[pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)
 
 {{< notice info "Networking 神器 Openwrt" >}}
 一部裝咗OpenWrt既家用Router可以做曬Firewall、Router、Managed switch（VLAN功能）同Access point既工作。

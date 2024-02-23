@@ -181,7 +181,7 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 即Cloudflare做中間人幫你放Service出街。**無需做Port forwarding**。
 
-[Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)本身係免費，但你要有一個Nameserver係Cloudflare既域名先用到。
+[Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)本身係免費，但你要有一個[Nameserver係Cloudflare既域名](https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/)先用到。
 
 用佢既好處係可以獲得Cloudflare既DDOS保護；此外亦支持用第三方授權，例如用Google，咁可以指定特定Gmail帳號持有人先存取到到你啲野。
 

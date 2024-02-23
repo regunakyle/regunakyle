@@ -161,7 +161,9 @@ Selfhost圈子入面最熱門既內容。
 
 用家先係Sonarr/Radarr指定想睇咩劇集/電影，然後Sonarr/Radarr去唔同網站撈Seed（Prowlarr做Seed整合），再叫qBittorrent去下載，下載完就可以係Plex/Jellyfin到睇。
 
-{{< notice info "Private tracker" >}}
+[延伸閱讀：Sonarr/Radarr官方文檔](https://lih.kg/2447243)
+
+{{< notice tip "Private tracker" >}}
 最新既電影/劇集等比較容易係公海搵到Seed。但較舊或冷門既資源可能好難搵。
 
 有興趣既玩家可以研究下Private tracker（PT）。大既PT站資源較齊，容易搵到冷門或較舊既資源。
