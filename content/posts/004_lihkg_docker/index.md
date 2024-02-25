@@ -38,13 +38,13 @@ Synology既話Plus系列或較新既非Plus機種都有支持。[呢到](https:/
 
 ### 只用App官方或知名團體提供既既Docker image
 
-用其他人整既Docker image本質上同網上下載EXE檔冇咩分別，所以要用官方或其他可信團體出既版本。
+用網上既Docker image本質上同用陌生人既EXE檔冇咩分別，所以要用官方或其他可信團體整既版本。
 
 例如[Linuxserver.io](https://www.linuxserver.io/)及[Hotio](https://hotio.dev/)呢兩個團體既Docker image都多人用，官方冇出Image既話可以先睇佢地。
 
 更好既做法係自己撈Source code落黎自己Build個Docker image，但可惜唔係人人都識或想自己Build。
 
-Docker本身會提供一定保護（例如冇Map volume既話Container係讀取唔到Host既檔案），但有惡意既Container仲可以用其他方法攻擊你，例如行掘礦程式，又或者嘗試破解屋企網絡入面既其他Service。
+Docker本身會提供一定保護（例如冇Map volume既話Container係存取唔到Host既檔案），但有惡意既Container仲可以用其他方法攻擊你，例如行掘礦程式，又或者嘗試破解屋企網絡入面既其他Service。
 
 ### Docker既安全貼士
 
@@ -76,7 +76,7 @@ Synology DSM最新既[Container Manager](https://kb.synology.com/zh-hk/DSM/help/
 
 （以下用Synology DSM 7做例，但只要有Docker及Docker Compose既機都適用）
 
-1. 以管理員帳號身份登入，係其他User存取唔到既地方（例如管理員帳號既`home`文件夾）到開個文件夾，名稱隨意（例如`Portainer`）
+1. 以管理員帳號身份登入DSM，係其他User存取唔到既地方（例如管理員帳號既`home`文件夾）到開個文件夾，名稱隨意（例如`Portainer`）
 
 2. 搵部電腦整個`compose.yaml`檔案，內容如下：
 
