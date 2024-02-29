@@ -10,7 +10,7 @@ date = "2024-01-20"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月22日）
+（本文最後更新時間：2024年3月1日）
 
 {{< figure src="./Cover.jpg" caption="圖片來源：Synology官網" >}}
 
@@ -109,7 +109,7 @@ DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上�
 
 名牌廠商（如Seagate、WD/HGST、Toshiba）既CMR NAS Drive。
 
-**注意唔好買SMR硬碟。**
+**注意唔好買SMR硬碟。** 買硬碟之前要睇下個型號係CMR定SMR（尤其是買WD硬碟時）。
 
 可以買唔同牌子、同容量既硬碟溝埋用，咁做理論上係安全過全買單一型號。
 
@@ -131,13 +131,23 @@ DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上�
 
 {{< figure src="./VPN.jpg" >}}
 
-[Tailscale](https://tailscale.com/)最簡單，**無需做Port Forwarding**，亦有大牌子NAS安裝教學（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)），對新手黎講係最好選擇。
+[Tailscale](https://tailscale.com/)對新手黎講係最好選擇：**無需做Port Forwarding**，安裝極簡單（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)教學），裝完就用得。新手唔知揀咩/唔想研究既話可以先試Tailscale。
 
 追求性能既話可選擇[Wireguard](https://www.wireguard.com/)。Wireguard比OpenVPN[快勁多](https://www.wireguard.com/performance/)，但要較新既家用Router先有支持。
 
 再唔係就OpenVPN，好多較舊既家用Router都有支持。
 
-如果選擇用Wireguard/OpenVPN，就要做Port forwarding。我建議你**只放VPN一個Port出街**，屋企其他Service全部透過VPN使用。
+如果選擇用Wireguard/OpenVPN（要做Port forwarding），我建議你**只放VPN一個Port出街**，屋企其他Service全部透過VPN使用。
+
+{{< notice tip "Tailscale直連" >}}
+Tailscale有兩種連接方法：直連或用佢地既中繼Server（DERP）。Tailscale會做Hole punching並藉此連結你部機同屋企部NAS，失敗既話先會用DERP：直連速度快，DERP就非常慢。
+
+理想情況係唔洗做野就可以直連。要測試既話可以用流量係NAS下載大檔案睇速度（我用4G LTE行到40mbps），或者SSH入部NAS打`tailscale status`（睇下佢顯示`relay`還是`direct`）。
+
+如果做唔到直連既話，可以嘗試Port forwarding（Router`41641/udp`放NAS既`41641/udp`）。
+
+[延伸閱讀：Tailscale防火牆設定教學](https://tailscale.com/kb/1082/firewall-ports)
+{{< /notice >}}
 
 {{< notice warning "注意" >}}
 S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wireguard上去用](https://github.com/runfalk/synology-wireguard)（風險自負）；
@@ -169,11 +179,11 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 ### QuickConnect/MyQnapCloud
 
-部分NAS牌子提供免費Relay服務，例如Synology既[QuickConnect](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_quickconnect)同QNAP既[MyQnapCloud](https://www.qnap.com/zh-hk/software/myqnapcloud)。
+部分NAS牌子提供免費中繼Server，例如Synology既[QuickConnect](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_quickconnect)同QNAP既[MyQnapCloud](https://www.qnap.com/zh-hk/software/myqnapcloud)。
 
 因為我得Synology，呢到只講QuickConnect：
 
-**無需做Port forwarding**，靠Synology server做Hole punching，或（如失敗）用Synology Relay Server做中間人連結部NAS同你部手機/電腦。[（QuickConnect白皮書）](https://kb.synology.com/zh-tw/WP/Synology_QuickConnect_White_Paper/4)
+**無需做Port forwarding**，靠Synology server做Hole punching，或（如失敗）用Synology中繼Server做中間人連結部NAS同你部手機/電腦。[（QuickConnect白皮書）](https://kb.synology.com/zh-tw/WP/Synology_QuickConnect_White_Paper/4)
 
 注意用QuickConnect只能掂到DSM及部分Synology App，冇辦法透過佢開NAS上既Plex/Jellyfin等等你自己裝既App。
 
