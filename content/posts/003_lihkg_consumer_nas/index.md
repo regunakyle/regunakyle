@@ -142,7 +142,7 @@ DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上�
 {{< notice tip "Tailscale直連" >}}
 Tailscale有兩種連接方法：直連或用佢地既中繼Server（DERP）。Tailscale會做Hole punching並藉此連結你部機同屋企部NAS，失敗既話先會用DERP：直連速度快，DERP就非常慢。
 
-理想情況係唔洗做野就可以直連。要測試既話可以用流量係NAS下載大檔案睇速度（我用4G LTE行到40mbps），或者SSH入部NAS打`tailscale status`（睇下佢顯示`relay`還是`direct`）。
+理想情況係唔洗做野就可以直連。要測試既話可以用流量係NAS下載大檔案睇速度（我用4G LTE行到35Mbps），或者SSH入部NAS打`tailscale status`（睇下佢顯示`relay`還是`direct`）。
 
 如果做唔到直連既話，可以嘗試Port forwarding（Router`41641/udp`放NAS既`41641/udp`）。
 
