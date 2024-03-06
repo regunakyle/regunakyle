@@ -32,7 +32,7 @@ date = "2024-01-22"
 
 ## 硬件邊到黎？
 
-舊電腦/Laptop、[Raspberry Pi](https://classroomeshop.com/collections/raspberry-pi)或類似產品、二手市場、淘寶、Amazon等。
+舊電腦/Laptop、[Raspberry Pi](https://classroomeshop.com/collections/raspberry-pi)或類似產品、各式迷你電腦、各式二手Server硬件/洋垃圾等。
 
 部分硬件只可能搵到淘寶或國產貨（或外國只有高價代替品），如各式軟路由工控機及細NAS機箱等。
 
@@ -93,7 +93,7 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 要做PCIe passthrough既話，主機板要支持IOMMU，此外亦要注意IOMMU group分佈。
 
-PCIe passthrough係以一個IOMMU group為最小單位。一個IOMMU group可以有多過一個硬件，想送某個硬件就要連同佢IOMMU group既其他硬件一齊送入去。
+**PCIe passthrough係以一個IOMMU group為最小單位**。每個硬件都屬於某個IOMMU group，但一個IOMMU group可以有多過一個硬件。想送某個硬件就要連同佢IOMMU group既其他硬件一齊送入去。
 
 假設你主機板PCIe 1槽、SATA控制器及網卡係同一IOMMU group，咁你想送個插咗係PCIe 1槽既硬件（如顯示卡）入虛擬機，就要將SATA控制器（連帶硬碟）同網卡都送埋入去。
 
@@ -121,7 +121,7 @@ Intel CPU既內顯可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）�
 
 **唯獨係11代咩都冇**。如果你Host同虛擬機都要用內顯（例如個Host靠內顯先顯示到野，但虛擬機行Jellyfin要內顯做轉碼）既話要注意。
 
-如果不幸地用緊11代Intel CPU，或唔想搞以上既野，可以轉用LXC或Docker：只要個Host用到個內顯，LXC及Docker就肯定用到。
+如果不幸地用緊11代Intel CPU，或唔想搞以上既野，可以轉用LXC或Docker：只要個Host用到個內顯，LXC及Docker就肯定有方法用到。
 
 [延伸閱讀：Intel GVT-G setup（Arch Wiki）](https://wiki.archlinux.org/title/Intel_GVT-g)
 
@@ -137,17 +137,17 @@ Intel CPU既內顯可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）�
 
 LXC雖然同Docker一樣係"Container"，**但佢概念上同使用上都更接近虛擬機，係虛擬機既輕量級代替品。**
 
-同虛擬機相似，係LXC上面你係手動裝Service行。另外兩者都支持快照（Snapshot）及備份。
+同虛擬機相似，係LXC上面你係手動裝軟件行。另外兩者都支持快照（Snapshot）及備份。
 
 LXC（及Docker）同虛擬機唔同既係佢會同個Host共用Kernel（虛擬機有自己Kernel），所以資源消耗較低。
 
-相對地LXC（及Docker）安全性較虛擬機弱，例如佢地造成Kernal panic時會炸死埋個Host及其他虛擬機，虛擬機Kernal panic只會炸死自己。
+相對地LXC（及Docker）安全性較弱，例如佢地造成Kernal panic時會炸死埋個Host及其他虛擬機，虛擬機Kernal panic只會炸死自己。
 
-此外，因為共用Kernel，Host因Kernel太舊行唔到既軟件，LXC（及Docker）同樣都行唔到。（如Wireguard要Linux版本5.6或以上）
+此外，因為共用Kernel，Host因Kernel太舊而行唔到既軟件，LXC（及Docker）同樣都行唔到。（例如Wireguard要Linux版本5.6或以上）
 
-Docker同LXC唔同既係Docker通常一個Image淨係會行一隻Service，但LXC你可以係上面裝十幾廿個Service同時行。
+Docker同LXC唔同既係Docker一個Image淨係會行一隻軟件，但LXC你可以係上面裝十幾廿個軟件同時行。
 
-Docker係Application級Container：一個Image專行一隻App ；LXC係OS級Container：佢提供咗個OS比你，你係上面玩咩都得。
+Docker係Application級Container：一個Image專行一個軟件 ；LXC係OS級Container：佢提供咗個OS比你，你係上面玩咩都得。
 
 ## 用咩OS？
 
@@ -190,7 +190,7 @@ Hypervisor即專用黎行虛擬機既軟件。上一項提及既Hypervisor OS用
 - 虛擬機快照及備份（非常實用）
 - 可以匯入虛擬機，或匯出虛擬機去另一部Hypervisor
 - 容許將來擴展規模，例如Server硬件升級後可以開多幾隻虛擬機
-- 有人性化既操作介面，易管理
+- 有人性化既操作介面，唔洗淨係對住Command line
 - 視乎你既硬件，重啟虛擬機可能比重啟實機快勁多
 
 就算你只會用一個虛擬機，都可以考慮下用Hypervisor：淨係快照及備份通常都值回票價。

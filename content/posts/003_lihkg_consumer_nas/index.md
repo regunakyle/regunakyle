@@ -142,7 +142,7 @@ DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上�
 {{< notice tip "Tailscale直連" >}}
 Tailscale有兩種連接方法：直連或用佢地既中繼Server（DERP）。Tailscale會做Hole punching並藉此連結你部機同屋企部NAS，失敗既話先會用DERP：直連速度快，DERP就非常慢。
 
-理想情況係唔洗做野就可以直連。要測試既話可以用流量係NAS下載大檔案睇速度（我用4G LTE行到35Mbps），或者SSH入部NAS打`tailscale status`（睇下佢顯示`relay`還是`direct`）。
+理想情況係唔洗做野就可以直連。要測試既話可以用手機流量係NAS下載大檔案睇速度（我用4G LTE行到35Mbps），或者SSH入部NAS打`tailscale status`（睇下佢顯示`relay`還是`direct`）。
 
 如果做唔到直連既話，可以嘗試Port forwarding（Router`41641/udp`放NAS既`41641/udp`）。
 
@@ -207,10 +207,10 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 **用VPN並確保VPN版本更新**。除非真係要放比街外人用，否則只用VPN。
 
-如果唔用VPN而選擇直接放出公海，我有以下建議：
+如果唔用VPN而選擇直接Port forwarding放出公海，我有以下建議：
 
 - **重要數據做好備份**，亦要有至少一份**即使被Hack黑客都掂唔到**既備份。
-- 開個權限唔多既User account比自己平時用，非必要唔用Admin/Root account
+- 開個權限唔多既帳號比自己平時用，非必要唔用管理員帳號
 - Firewall/NAS封鎖來自中國及俄羅斯既Inbound IP，或直接Block香港以外所有Inbound IP
 - Port Forwarding唔好用常見既Port（如22、80、443、445、3389），用啲怪數字
 - Port Forwarding只放反向代理（Reverse proxy），如Apache、NGINX、HAProxy等；同時買個域名或用免費DDNS，再[攞個SSL憑證](#點樣獲得免費既ssl憑證)行HTTPS
@@ -251,14 +251,14 @@ Port forwarding本身並無任何風險，所有風險都來自你Forward出去�
 
 佢地提供[幾種方法](https://letsencrypt.org/docs/challenge-types/)比你證明你擁有個域名。我推薦**DNS-01**方法，因為：
 
-1. 唔洗開Port都行到
+1. 唔洗放Port都行到
 2. 可以攞Wildcard憑證（例如`*.<子網域名>.duckdns.org`）
 
 **DNS-01**要你個[DNS provider支持先用到](https://community.letsencrypt.org/t/dns-providers-who-easily-integrate-with-lets-encrypt-dns-validation/86438)。其中DuckDNS同Cloudflare值得一提，前者係免費，後者有[Cloudflare Tunnel可以玩](#cloudflare-tunnel)。
 
 Let's Encrypt既SSL憑證**有效期只有90日**，佢地建議每60日更新一次憑證。
 
-有唔少[工具](https://letsencrypt.org/docs/client-options/)可以幫你管理及更新Let's Encrypt既SSL憑證；[pfSense](https://docs.netgate.com/pfsense/en/latest/packages/acme/index.html)/[OpenWrt](https://openwrt.org/docs/guide-user/services/tls/acmesh/)等OS有插件幫你做；用Docker既玩家可以睇下[Nginx Proxy Manager](https://github.com/NginxProxyManager/nginx-proxy-manager)/[Caddy](https://github.com/caddyserver/caddy/)。
+有唔少[工具](https://letsencrypt.org/docs/client-options/)可以幫你管理及更新Let's Encrypt既SSL憑證；[OpenWrt](https://openwrt.org/docs/guide-user/services/tls/acmesh/)/[pfSense](https://docs.netgate.com/pfsense/en/latest/packages/acme/index.html)等OS有插件幫你做；用Docker既玩家可以睇下[Nginx Proxy Manager](https://github.com/NginxProxyManager/nginx-proxy-manager)/[Caddy](https://github.com/caddyserver/caddy/)。
 
 {{< notice tip "Let's Encrypt 妙用" >}}
 有啲Service一定要HTTPS先運作到（如[Vaultwarden](https://github.com/dani-garcia/vaultwarden)），咁樣就算你只係屋企或純經VPN用，都係要搞SSL憑證。
@@ -282,13 +282,13 @@ SSL憑證有兩個檔案，其中一個係密鑰。你要保護密鑰不被外�
 
 一個媒體播放器（如你部電視個瀏覽器）通常唔係支持所有媒體格式（影片格式、音頻格式、字幕格式等）。
 
-如果播放器支持你想播條片既格式，咁部NAS直接經網絡餵條片比個播放器就得（即Direct Play），咁樣部NAS唔洗點做野。
+如果播放器支持你想播條片既格式，咁部NAS直接經網絡傳輸條片比個播放器就得（即Direct Play）。咁樣部NAS唔洗點做野。
 
 但如果格式不合，有兩個選項：
 
 ### NAS轉碼:film_strip:
 
-你部NAS要將條片先轉碼做合適既格式，再餵比播放器。咁樣會燒部NAS隻CPU。
+你部NAS要將條片先轉碼做合適既格式，再傳輸比播放器。咁樣會燒部NAS隻CPU。
 
 如果你隻NAS有Hardware encoder+decoder既話，部NAS就會將轉碼工作掉比佢地去做。
 
@@ -298,6 +298,8 @@ SSL憑證有兩個檔案，其中一個係密鑰。你要保護密鑰不被外�
 
 {{< notice tip "轉換影片解析度" >}}
 將片轉做唔同解析度（例如4K轉去1080p）都係轉碼既一種，想係街用流量睇屋企4K片既話有用。
+
+另一個做法係下載曬同一個影片既高清版同標清版，出街時直接睇標清版，咁就唔洗轉碼。
 {{< /notice >}}
 
 ### 換媒體播放器:tv:
@@ -315,7 +317,7 @@ TV stick：[Google Chromecast](https://store.google.com/tw/product/chromecast_go
 {{< detail "轉碼知多啲" >}}
 你啲片既格式（MP4/MKV/WebM等）其實係Container格式黎，佢地入面裝住咗Video/Audio/Subtitle，三者分別有自己獨特既格式。
 
-轉碼其實就係將你條原片既Video/Audio/Subtitle **Decode（解碼）** 去Raw，再**Encode（編碼）** 去你媒體播放器播放到既格式，最後再將成品經網絡餵比個媒體播放器。
+轉碼其實就係將你條原片既Video/Audio/Subtitle **Decode（解碼）** 去Raw，再**Encode（編碼）** 去你媒體播放器播放到既格式，最後再將成品經網絡傳輸比個媒體播放器。
 
 所以你NAS/轉碼器要有你**原片格式既Decoder**及**媒體播放器可播放格式既Encoder**。
 

@@ -18,7 +18,7 @@ date = "2024-01-21"
 
 ## Docker係咩黎？有咩咁勁？
 
-Docker可以將唔同既程式連埋所需既野一次過打包做一舊，然後你禁幾粒掣或行幾條Script就可以用佢，可以當係App Store既App咁。
+Docker可以將有用程式及佢所需既野一次過打包做一舊，然後你禁幾粒掣或行幾條Script就可以用佢，可以當係App Store既App咁。
 
 冇Docker之前同一部機想行唔同程式可能遇到相容性問題（例如兩個程式要用同一款但又唔同版本既Library，又或者S牌DSM個Library版本太舊）。Docker完美解決咗呢個問題，成件打包用就得。
 
@@ -120,7 +120,7 @@ networks:
 - 用`pwd`指令睇而家係邊個文件夾
 - 用`cd <文件夾名稱>`指令入去另一個文件夾
   - 用`cd ..`指令去上一層文件夾
-  - 用`cd /`指令返去最頂層文件夾
+  - 用`cd /`指令返去最上層文件夾
   - 用`cd`指令返去當前SSH帳號既`home`文件夾
 
 {{< figure src="./SSH.png" caption="入到有齊data文件夾同compose.yaml既文件夾" >}}
@@ -159,12 +159,12 @@ networks:
 
 Selfhost圈子入面最熱門既內容。
 
-用家先係Sonarr/Radarr指定想睇咩劇集/電影，然後Sonarr/Radarr去唔同網站撈Seed（Prowlarr做Seed整合），再叫qBittorrent去下載，下載完就可以係Plex/Jellyfin到睇。
+用家先係Sonarr/Radarr指定想睇咩劇集/電影，然後Sonarr/Radarr去唔同網站撈種（Prowlarr做種子整合），再叫qBittorrent去下載，下載完就可以係Plex/Jellyfin到睇。
 
 [延伸閱讀：Sonarr/Radarr官方文檔](https://lih.kg/2447243)
 
 {{< notice tip "Private tracker" >}}
-最新既電影/劇集等比較容易係公海搵到Seed。但較舊或冷門既資源可能好難搵。
+最新既電影/劇集等比較容易係公海撈到種，而較舊或冷門既資源可能好難搵。
 
 有興趣既玩家可以研究下Private tracker（PT）。大既PT站資源較齊，容易搵到冷門或較舊既資源。
 
@@ -205,7 +205,7 @@ DNS層過濾廣告，同時亦可做家長監控（即是封鎖你指定既網�
 
 當你自己Host一堆Service時，好難記得曬每個Service既IP:Port係咩。
 
-用呢啲儀表板可以將自己Service既IP:Port放曬係同一個地方，以後忘記既話入去Click就得。
+用呢啲儀表板可以將唔同Service既IP:Port標記曬係同一個地方，以後忘記既話入去㩒就得。
 
 非常適合諗住將啲Service分享比屋企人/朋友用既人。
 
