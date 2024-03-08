@@ -12,7 +12,7 @@ date = "2024-01-22"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月22日）
+（本文最後更新時間：2024年3月9日）
 
 {{< figure src="./Cover.jpg" caption="IKEA LackRack - 廉價DIY機櫃" >}}
 
@@ -48,7 +48,7 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 [Top Picks for TrueNAS and FreeNAS HBAs (Host Bus Adapters)](https://www.servethehome.com/buyers-guides/top-hardware-components-for-truenas-freenas-nas-servers/top-picks-truenas-freenas-hbas/)
 
-用HBA卡既話要自己刷韌體改做IT模式。詳情請自己Google。
+用HBA卡既話要自己刷韌體改做IT模式，詳情請自己Google。
 
 ## 買硬件有咩要注意？
 
@@ -70,7 +70,7 @@ ECC既用途係偵測RAM有否發生Bit flip，如有就嘗試修正。[（運�
 
 如果冇ECC，咁你RAM發生Bit flip時可能咩事都冇，可能令Server死機，最嚴重既情況係造成偵測唔到既資料損毀。
 
-但Bit flip發生機率極低。除非玩到去Data center級數（或者Server係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)），否則可能十年都遇唔到一次因Bit flip造成既資料損毀。[（測試數據）](https://youtu.be/DAXVSNAj6GM)
+但Bit flip發生機率極低。除非玩到去Data center級數（或者Server係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)），否則可能廿年都遇唔到一次因Bit flip造成既資料損毀。
 
 雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，消費級主機板Chipset全部唔支持ECC，要上到Workstation或Server級Chipset先有，呢啲主機板一手價超級高。
 
@@ -93,7 +93,7 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 要做PCIe passthrough既話，主機板要支持IOMMU，此外亦要注意IOMMU group分佈。
 
-**PCIe passthrough係以一個IOMMU group為最小單位**。每個硬件都屬於某個IOMMU group，但一個IOMMU group可以有多過一個硬件。想送某個硬件就要連同佢IOMMU group既其他硬件一齊送入去。
+**PCIe passthrough係以一個IOMMU group為最小單位**。每個硬件都屬於一個IOMMU group，但一個IOMMU group可以有多過一個硬件。想送某個硬件就要連同佢IOMMU group既其他硬件一齊送入去。
 
 假設你主機板PCIe 1槽、SATA控制器及網卡係同一IOMMU group，咁你想送個插咗係PCIe 1槽既硬件（如顯示卡）入虛擬機，就要將SATA控制器（連帶硬碟）同網卡都送埋入去。
 
@@ -112,14 +112,14 @@ Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passth
 
 唔同Chipset既DMI頻寬可能唔同，例如Intel 5xx/6xx系、AMD 6xx系Chipset既頻寬係PCIe 4.0 x8（約16GB/s），AMD 5xx系就只得PCIe 4.0 x4（約8GB/s）。
 
-係Chipset做大量資料傳輸（例如同時存取多隻Chipset既NVMe SSD）既最快速度受DMI頻寬限制。
+係Chipset做大量資料傳輸（例如同時存取多隻Chipset上既NVMe SSD）既最快速度受DMI頻寬限制。
 {{< /notice >}}
 
 ### Host及虛擬機共享Intel CPU內顯
 
 Intel CPU既內顯可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）方法令Host同虛擬機都用到佢。
 
-**唯獨係11代咩都冇**。如果你Host同虛擬機都要用內顯（例如個Host靠內顯先顯示到野，但虛擬機行Jellyfin要內顯做轉碼）既話要注意。
+**唯獨係11代咩都冇**。如果你個Host同虛擬機都要用內顯（例如個Host靠內顯先顯示到野，但虛擬機行Jellyfin要內顯做轉碼）既話要注意。
 
 如果不幸地用緊11代Intel CPU，或唔想搞以上既野，可以轉用LXC或Docker：只要個Host用到個內顯，LXC及Docker就肯定有方法用到。
 
@@ -147,7 +147,7 @@ LXC（及Docker）同虛擬機唔同既係佢會同個Host共用Kernel（虛擬�
 
 Docker同LXC唔同既係Docker一個Image淨係會行一隻軟件，但LXC你可以係上面裝十幾廿個軟件同時行。
 
-Docker係Application級Container：一個Image專行一個軟件 ；LXC係OS級Container：佢提供咗個OS比你，你係上面玩咩都得。
+Docker係Application級Container：一個Image專行一個軟件 ；LXC係OS級Container：同虛擬機一樣，佢提供咗個OS比你，你係上面玩咩都得。
 
 ## 用咩OS？
 
@@ -159,7 +159,7 @@ Docker係Application級Container：一個Image專行一個軟件 ；LXC係OS級C
 
 {{< underline "NAS OS" >}}
 
-[TrueNAS（Core/Scale）](https://www.truenas.com/truenas-community-editions/) :thumbsup:、[Xpenology（黑群輝）](https://xpenology-com.translate.goog/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)、[Unraid（付費）](https://unraid.net/)、[OpenMediaVault](https://www.openmediavault.org/)
+[TrueNAS（Core/Scale）](https://www.truenas.com/truenas-community-editions/)、[Xpenology（黑群輝）](https://xpenology-com.translate.goog/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)、[Unraid（付費）](https://unraid.net/)、[OpenMediaVault](https://www.openmediavault.org/)
 
 {{< underline "Server OS" >}}
 
@@ -167,16 +167,16 @@ Docker係Application級Container：一個Image專行一個軟件 ；LXC係OS級C
 
 {{< underline "Router/Firewall OS" >}}
 
-[OpenWrt](https://openwrt.org/) :thumbsup:（家用Router推薦）、[pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)
+[OpenWrt](https://openwrt.org/) :thumbsup:（家用路由器推薦）、[pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)
 
-{{< notice info "Networking 神器 Openwrt" >}}
-一部裝咗OpenWrt既家用Router可以做曬Firewall、Router、Managed switch（VLAN功能）同Access point既工作。
+{{< notice info "Openwrt ：小型 Homelab 神器" >}}
+一部裝咗OpenWrt既家用路由器可以做曬防火牆、路由器、VLAN交換機同無線存取點既工作。
 
 而且唔洗買好貴既機，例如[Linksys E8450](https://openwrt.org/toh/linksys/e8450)非常適合OpenWrt，現時[港行](https://www.price.com.hk/product.php?p=478204)都係600蚊左右。
 
-Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、[SQM](https://openwrt.org/docs/guide-user/network/traffic-shaping/sqm)等等。你甚至可以用幾部OpenWrt機行[802.11s Mesh Networking](https://openwrt.org/docs/guide-user/network/wifi/mesh/80211s)同[802.11k/v/r 快速漫遊](https://vicfree.com/2022/11/openwrt-wpa3-802.11kvr-ap-setup/)。
+Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、AdGuardHome、NGINX、[SQM](https://openwrt.org/docs/guide-user/network/traffic-shaping/sqm)等等。你甚至可以用幾部OpenWrt機行[802.11s Mesh Networking](https://openwrt.org/docs/guide-user/network/wifi/mesh/80211s)同[802.11k/v/r 快速漫遊](https://vicfree.com/2022/11/openwrt-wpa3-802.11kvr-ap-setup/)。
 
-如果你岩岩開始玩Homelab，可以先從支持OpenWrt既家用Router入手，有需要時再買獨立Networking硬件。
+如果你岩岩開始玩Homelab，可以先從支持OpenWrt既家用路由器入手，有需要時再買獨立Networking硬件。
 {{< /notice >}}
 
 {{< figure src="./Proxmox.png" caption="Proxmox VE介面" >}}
@@ -235,13 +235,13 @@ Intel既獨立顯示卡:thumbsup: 入門級型號（1000蚊樓下買到）就已
 
 ## 更多討論區/資源
 
-[ServeTheHome（Homelab新聞/硬件評測網頁）](https://www.servethehome.com/)
+[Reddit：r/Homelab](https://www.reddit.com/r/homelab/)
 
 [Chiphell論壇](https://www.chiphell.com/forum-146-1.html)
 
 [恩山無線論壇（OpenWrt討論）](https://www.right.com.cn/forum/forum-72-1.html)
 
-[Reddit：r/Homelab](https://www.reddit.com/r/homelab/)
+[ServeTheHome（Homelab新聞/硬件評測網頁）](https://www.servethehome.com/)
 
 [Youtube：司波圖](https://www.youtube.com/@SpotoTsui)
 
@@ -255,7 +255,7 @@ Intel既獨立顯示卡:thumbsup: 入門級型號（1000蚊樓下買到）就已
 
 多謝你睇到最後！
 
-係到特別鳴謝Homelab post既一眾連登巴打，大家既討論令我學到好多野。
+特別鳴謝連登Homelab post既一眾巴打，大家既討論令我學到好多野。
 
 如果你冇睇連登Homelab post，歡迎你入黎一齊吹下水，交流下技術 :men_wrestling: 。
 

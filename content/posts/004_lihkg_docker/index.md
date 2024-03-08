@@ -12,15 +12,15 @@ date = "2024-01-21"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年2月22日）
+（本文最後更新時間：2024年3月9日）
 
 {{< figure src="./Cover.webp" >}}
 
 ## Docker係咩黎？有咩咁勁？
 
-Docker可以將有用程式及佢所需既野一次過打包做一舊，然後你禁幾粒掣或行幾條Script就可以用佢，可以當係App Store既App咁。
+Docker可以將有用程式及佢所需既野一次過打包做一舊，只需行一條Script就可以用佢，可以當係App Store既App咁。
 
-冇Docker之前同一部機想行唔同程式可能遇到相容性問題（例如兩個程式要用同一款但又唔同版本既Library，又或者S牌DSM個Library版本太舊）。Docker完美解決咗呢個問題，成件打包用就得。
+冇Docker時同一部機想行唔同程式可能遇到相容性問題（例如兩個程式要用同一款但唔同版本既Library，又或者Synology DSM個Library版本太舊）。Docker完美解決咗呢個問題，成件打包用就得。
 
 其實Docker做到既野虛擬機都做到，不過虛擬機比Docker用更多CPU及RAM。
 
@@ -40,11 +40,11 @@ Synology既話Plus系列或較新既非Plus機種都有支持。[呢到](https:/
 
 用網上既Docker image本質上同用陌生人既EXE檔冇咩分別，所以要用官方或其他可信團體整既版本。
 
-例如[Linuxserver.io](https://www.linuxserver.io/)及[Hotio](https://hotio.dev/)呢兩個團體既Docker image都多人用，官方冇出Image既話可以先睇佢地。
+例如[Linuxserver.io](https://www.linuxserver.io/)及[Hotio](https://hotio.dev/)既Docker image都多人用，App官方冇出Docker版既話可以先睇佢地。
 
-更好既做法係自己撈Source code落黎自己Build個Docker image，但可惜唔係人人都識或想自己Build。
+更好既做法係自己撈Source code落黎Build個Docker image，但可惜唔係人人都識或想自己Build。
 
-Docker本身會提供一定保護（例如冇Map volume既話Container係存取唔到Host既檔案），但有惡意既Container仲可以用其他方法攻擊你，例如行掘礦程式，又或者嘗試破解屋企網絡入面既其他Service。
+Docker本身會提供一定保護（例如冇Map volume既話Container係存取唔到個Host既檔案），但有惡意既Container仲可以用其他方法攻擊你，例如行掘礦程式，又或者嘗試破解屋企網絡入面既其他Service。
 
 ### Docker既安全貼士
 
@@ -56,7 +56,7 @@ Docker預設係以Root身份行。咁既話出現Container escape時隻Container
 
 然後Docker加兩個Flag行：`--user <新User UID>:<新User GID>` `--security-opt=no-new-privileges`
 
-Synology用家可以睇[呢個教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)，有整Docker專用User及安裝Docker版Media server apps既步驟。
+Synology用家可以睇[呢個教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)，有整Docker專用User及整Docker版Media server既步驟。
 
 {{< notice warning "注意" >}}
 有啲Docker image只支持用Root行。
@@ -125,14 +125,14 @@ networks:
 
 {{< figure src="./SSH.png" caption="入到有齊data文件夾同compose.yaml既文件夾" >}}
 
-1. 打以下指令其中一個，啟動Portainer（如果佢問你密碼，你照入返就得）
+1. 打以下指令其中一個以啟動Portainer（如果佢問你密碼，你照入返就得）
 
 - `sudo docker compose up -d`
 - `sudo docker-compose up -d`（Synology要用呢個）
 
 {{< figure src="./Compose.png" >}}
 
-4. 用電腦瀏覽器打`https://<NAS IP>:9443`去到Portainer介面，跟住佢照做就得
+4. 用電腦瀏覽器打`https://<NAS IP>:9443`去到Portainer介面，入去跟佢指引做就得
 
 {{< figure src="./Portainer.png" caption="設定密碼後入去按Get Started即可" >}}
 
@@ -183,16 +183,16 @@ PT唔係直接就入到會，可能要你課金（大陸/台灣個啲），又�
 
 DNS層過濾廣告，同時亦可做家長監控（即是封鎖你指定既網頁）。
 
-安裝後再係Router到設定個DNS server做佢，咁成個屋企網絡既機器都會過濾到廣告。
+安裝後再係路由器到設定個DNS server做佢，咁成個屋企網絡既機器都會過濾到廣告。
 
 有興趣既話可以研究埋[Unbound](https://unbound.docs.nlnetlabs.nl/en/latest/)（Recursive DNS）或者DNS-over-HTTPS/DNS-over-TLS（Encrypted DNS）。前者可以[增強私隱](https://docs.pi-hole.net/guides/dns/unbound/#what-does-this-guide-provide)，後者可保證你寬頻供應商無法篡改你既DNS query。
 
 {{< notice tip "檢查寬頻供應商有冇篡改你 DNS request" >}}
-先去Router設定DNS server做[1.1.1.1](https://1.1.1.1/)，再去[呢到](https://www.dnsleaktest.com)做測試。
+先去路由器設定DNS server做[1.1.1.1](https://1.1.1.1/)，再去[呢到](https://www.dnsleaktest.com)做測試。
 
 如顯示既ISP唔係Cloudflare，你就知道你既DNS request比你個寬頻供應商攔截及篡改咗。
 
-注意：Encrypted DNS只能保證你DNS request不被第三方偷窺及篡改。
+注意：Encrypted DNS只能保證你既DNS request不被第三方偷窺及篡改。
 
 寬頻供應商仍然可以用其他方法干預你既網絡，例如直接封鎖你要去既網站既IP。
 {{< /notice >}}
@@ -203,7 +203,7 @@ DNS層過濾廣告，同時亦可做家長監控（即是封鎖你指定既網�
 
 軟件：[Homepage](https://github.com/gethomepage/homepage)/[Dashy](https://github.com/Lissy93/dashy)/[Heimdall](https://github.com/linuxserver/Heimdall)/[Homer](https://github.com/bastienwirtz/homer)
 
-當你自己Host一堆Service時，好難記得曬每個Service既IP:Port係咩。
+行一堆Service時好難記得曬每個Service既IP:Port係咩。
 
 用呢啲儀表板可以將唔同Service既IP:Port標記曬係同一個地方，以後忘記既話入去㩒就得。
 
@@ -219,7 +219,7 @@ DNS層過濾廣告，同時亦可做家長監控（即是封鎖你指定既網�
 
 Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/feature/note_station)。
 
-如果你用[Obsidian](https://obsidian.md/)既話，可以自己Host個CouchDB做[Live sync](https://github.com/vrtmrz/obsidian-livesync/)。
+如果你用[Obsidian](https://obsidian.md/)既話，可以自己起個CouchDB做[Live sync](https://github.com/vrtmrz/obsidian-livesync/)。
 
 ### 將得USB連接既打印機/掃描器變成屋企網絡可用
 
@@ -231,7 +231,7 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 只要連接打印機同裝住呢兩個App既Server，成個屋企網絡既機就可以透過呢兩個App用隻打印機/掃描器，唔洗裝任何其他App。
 
-不過視乎你部打印機既型號，有可能要你自己搵部機既Linux driver並安裝後先行到呢兩個App。
+不過視乎你部打印機既型號，有可能要你自己搵部打印機既Linux版驅動程式並安裝後先行到呢兩個App。
 
 ### ChatGPT/Midjourney翻版
 
@@ -247,7 +247,7 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 呢兩個App都有API，識寫程式既話可以睇下。
 
-自己Host AI既最大賣點係冇Censorship，你問佢[幾邪惡既野都會答你](https://www.reddit.com/r/LocalLLaMA/comments/149su0a/a_short_conversation_with_falcon/)。此外亦可[保障私隱](https://www.schneier.com/blog/archives/2024/02/microsoft-is-spying-on-users-of-its-ai-tools.html)。
+自己行AI既最大賣點係冇Censorship，你問佢[幾邪惡既野都會答你](https://www.reddit.com/r/LocalLLaMA/comments/149su0a/a_short_conversation_with_falcon/)。此外亦可[保障私隱](https://www.schneier.com/blog/archives/2024/02/microsoft-is-spying-on-users-of-its-ai-tools.html)。
 
 你部品牌NAS行AI應該有困難。如果有興趣既話，可以考慮下自組Server行。
 
@@ -281,11 +281,11 @@ Grammarly翻版（[Languagetool](https://github.com/languagetool-org/languagetoo
 
 ## 有用網站
 
-[This Week in Self-Hosted](https://selfh.st/)（Self host軟件新聞）
+[Reddit：r/Selfhosted](https://www.reddit.com/r/selfhosted/)
 
 [Github：Awesome Selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted)
 
-[Reddit：r/Selfhosted](https://www.reddit.com/r/selfhosted/)
+[This Week in Self-Hosted](https://selfh.st/)（Self host軟件新聞）
 
 ## [按我進入下一章](../005_lihkg_homelab/)
 

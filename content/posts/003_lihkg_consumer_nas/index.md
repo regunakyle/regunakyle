@@ -10,7 +10,7 @@ date = "2024-01-20"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年3月1日）
+（本文最後更新時間：2024年3月9日）
 
 {{< figure src="./Cover.jpg" caption="圖片來源：Synology官網" >}}
 
@@ -26,11 +26,11 @@ date = "2024-01-20"
 
 ## NAS買邊隻牌子好？
 
-如果冇特別偏好既話，建議Synology（群輝），原因如下:
+如果冇特別偏好既話，建議Synology（群輝）:
 
 - 介面人性化，易用，易安裝
 - 官方教學文檔內容齊全
-- 最多人買，社群大，有問題都易搵答案
+- **最多人買，社群大，有問題都易搵答案**
 
 Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
@@ -61,17 +61,17 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 {{< notice info "係咪全部數據都一定要做備份？" >}}
 **唔係**。備份係風險管理，都要計成本效益。如果你某啲數據唔重要既話，唔備份都可以：但冇備份就要做好因突發事件而冇曬數據既心理準備。
 
-可以想像一下：如果你某啲數據一夜冇曬，你會有咩感覺？如果唔心痛既話，個啲數據既備份優先度就比較低。
+可以想像一下：如果你某啲數據一夜冇曬，你會有咩感覺？如果覺得心痛，咁個啲數據你就要做備份；唔心痛既話，個啲數據既備份優先度就比較低。
 {{< /notice >}}
 
 ## 點確保部NAS冇放出街？
 
 做好以下步驟，通常已足夠保證街外人存取唔到你部NAS。
 
-- Router取消任何容許街外存取既設定，包括但不限於：
+- 路由器取消任何容許街外存取既設定，包括但不限於：
   - UPnP
-  - Port Forwarding
-  - Port Triggering
+  - Port forwarding
+  - Port triggering
   - DMZ
 - NAS取消Quickconnect/MyQnapCloud或類似服務
 
@@ -109,7 +109,7 @@ DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上�
 
 名牌廠商（如Seagate、WD/HGST、Toshiba）既CMR NAS Drive。
 
-**注意唔好買SMR硬碟。** 買硬碟之前要睇下個型號係CMR定SMR（尤其是買WD硬碟時）。
+**注意唔好買SMR硬碟。** 買硬碟之前要睇下個型號係CMR定SMR（尤其是WD硬碟）。
 
 可以買唔同牌子、同容量既硬碟溝埋用，咁做理論上係安全過全買單一型號。
 
@@ -131,20 +131,20 @@ DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上�
 
 {{< figure src="./VPN.jpg" >}}
 
-[Tailscale](https://tailscale.com/)對新手黎講係最好選擇：**無需做Port Forwarding**，安裝極簡單（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)教學），裝完就用得。新手唔知揀咩/唔想研究既話可以先試Tailscale。
+[Tailscale](https://tailscale.com/)對新手黎講係最好選擇：**無需做Port forwarding**，安裝極簡單（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)教學），裝完就用得。新手唔知揀咩/唔想研究既話可以先試Tailscale。
 
-追求性能既話可選擇[Wireguard](https://www.wireguard.com/)。Wireguard比OpenVPN[快勁多](https://www.wireguard.com/performance/)，但要較新既家用Router先有支持。
+追求性能既話可選擇[Wireguard](https://www.wireguard.com/)。Wireguard比OpenVPN[快勁多](https://www.wireguard.com/performance/)，但要較新既家用路由器先有支持。
 
-再唔係就OpenVPN，好多較舊既家用Router都有支持。
+再唔係就OpenVPN，好多較舊既家用路由器都有支持。
 
 如果選擇用Wireguard/OpenVPN（要做Port forwarding），我建議你**只放VPN一個Port出街**，屋企其他Service全部透過VPN使用。
 
 {{< notice tip "Tailscale直連" >}}
-Tailscale有兩種連接方法：直連或用佢地既中繼Server（DERP）。Tailscale會做Hole punching並藉此連結你部機同屋企部NAS，失敗既話先會用DERP：直連速度快，DERP就非常慢。
+Tailscale有兩種連接方法：直連或用佢地既中繼Server（DERP）。Tailscale會做Hole punching並藉此令你部機同屋企部NAS可以直連，失敗既話先會用DERP：直連速度快，DERP就非常慢。
 
 理想情況係唔洗做野就可以直連。要測試既話可以用手機流量係NAS下載大檔案睇速度（我用4G LTE行到35Mbps），或者SSH入部NAS打`tailscale status`（睇下佢顯示`relay`還是`direct`）。
 
-如果做唔到直連既話，可以嘗試Port forwarding（Router`41641/udp`放NAS既`41641/udp`）。
+如果做唔到直連既話，可以嘗試做Port forwarding（路由器`41641/udp`放NAS既`41641/udp`）。
 
 [延伸閱讀：Tailscale防火牆設定教學](https://tailscale.com/kb/1082/firewall-ports)
 {{< /notice >}}
@@ -154,23 +154,23 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 或者用Wireguard-go版（例如[呢個qBittorrent Docker image](https://hotio.dev/containers/qbittorrent/)有教點設定），但會比普通版慢。
 
-其他可行方案：係NAS裝Linux虛擬機、係家用Router裝OpenWrt、買部細機仔（如Raspberry Pi或淘寶軟路由機）裝Linux或pfSense/OPNSense等等。裝好後再係上面安裝Wireguard行。
+其他可行方案：係NAS裝Linux虛擬機、係家用路由器裝OpenWrt、買部細機仔（如Raspberry Pi或淘寶軟路由機）裝Linux或pfSense/OPNSense等等。裝好後再係上面安裝Wireguard行。
 {{< /notice >}}
 
 ### Port Forwarding（通訊埠轉發/「放Port」）
 
-要係Router到做，詳情請參閱你部Router既說明書。
+要係路由器到做，詳情請參閱你部路由器既說明書。
 
-例如你個Service個IP:Port係`192.168.1.100:5001`，你去Router到設定Port 1234 -> `192.168.1.100`（Port 5001），
+例如你個Service個IP:Port係`192.168.1.100:5001`，你去路由器到設定Port 1234 -> `192.168.1.100`（Port 5001），
 
 咁你係街上就可以用`<屋企Public IP>:1234`掂到`192.168.1.100:5001`呢個Service。
 
 {{< notice info "必須有 Public IP" >}}
-你要有Public IP先可以係街外掂到屋企部Router，如果冇既話放Port都冇用。
+你要有Public IP先可以係街外掂到屋企部路由器，如果冇既話放Port都冇用。
 
-香港唔少寬頻供應商都會派Public IP，但通常係浮動IP（即自己會轉；一啲係重啟光纖盒先會轉）。
+香港唔少寬頻供應商都會派Public IP，但通常係浮動IP（即自己會轉；通常係重啟光纖盒先會轉）。
 
-先去Router搵下自己WAN/Public IP係咩，再去[呢到](https://www.whatismyip.com/)顯示既IP做比較。如果兩者一樣，咁呢個就係你既Public IP；但唔一樣就代表你寬頻行緊[CGNAT](https://en.wikipedia.org/wiki/Carrier-grade_NAT)，冇Public IP。
+先去路由器搵下自己WAN/Public IP係咩，再去[呢到](https://www.whatismyip.com/)顯示既IP做比較。如果兩者一樣，咁呢個就係你既Public IP；但唔一樣就代表你寬頻行緊[CGNAT](https://en.wikipedia.org/wiki/Carrier-grade_NAT)，冇Public IP。
 
 如不幸地行緊CGNAT，可以試下聯絡寬頻供應商叫佢派Public IP比你，或用IPv6（如寬頻供應商有派比你），或直接用其他唔需Port forwarding既方法。
 
@@ -185,7 +185,7 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 **無需做Port forwarding**，靠Synology server做Hole punching，或（如失敗）用Synology中繼Server做中間人連結部NAS同你部手機/電腦。[（QuickConnect白皮書）](https://kb.synology.com/zh-tw/WP/Synology_QuickConnect_White_Paper/4)
 
-注意用QuickConnect只能掂到DSM及部分Synology App，冇辦法透過佢開NAS上既Plex/Jellyfin等等你自己裝既App。
+注意用QuickConnect只能掂到DSM及部分Synology App，冇辦法透過佢開NAS上既Plex/Jellyfin等你自己裝既App。
 
 ### Cloudflare Tunnel
 
@@ -193,7 +193,7 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)本身係免費，但你要有一個[Nameserver係Cloudflare既域名](https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/)先用到。
 
-用佢既好處係可以獲得Cloudflare既DDOS保護；此外亦支持用第三方授權，例如用Google，咁可以指定特定Gmail帳號持有人先存取到到你啲野。
+用佢既好處係可以獲得Cloudflare既DDOS保護；此外亦支持用第三方授權，例如用Google，咁可以指定某啲Gmail帳號持有人先存取到到你啲野。
 
 [延伸閱讀：類似Cloudflare Tunnel方案一覽](https://github.com/anderspitman/awesome-tunneling)
 
@@ -207,14 +207,14 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 **用VPN並確保VPN版本更新**。除非真係要放比街外人用，否則只用VPN。
 
-如果唔用VPN而選擇直接Port forwarding放出公海，我有以下建議：
+如果唔用VPN而選擇直接做Port forwarding放出公海，我有以下建議：
 
 - **重要數據做好備份**，亦要有至少一份**即使被Hack黑客都掂唔到**既備份。
 - 開個權限唔多既帳號比自己平時用，非必要唔用管理員帳號
-- Firewall/NAS封鎖來自中國及俄羅斯既Inbound IP，或直接Block香港以外所有Inbound IP
-- Port Forwarding唔好用常見既Port（如22、80、443、445、3389），用啲怪數字
-- Port Forwarding只放反向代理（Reverse proxy），如Apache、NGINX、HAProxy等；同時買個域名或用免費DDNS，再[攞個SSL憑證](#點樣獲得免費既ssl憑證)行HTTPS
-- 如有VLAN功能既Switch及勁少少既Firewall（較新既家用Router裝OpenWrt可以做曬兩樣野）：鎅個VLAN做DMZ，將需要放出街既Service全部放入去，並嚴格限制其對其他VLAN既存取權
+- 路由器或NAS既防火牆封鎖中國及俄羅斯既Inbound IP，或直接封鎖香港以外所有Inbound IP
+- Port forwarding唔好用常見既Port（如22、80、443、445、3389），用啲怪數字
+- Port forwarding只放反向代理（Reverse proxy），如Apache、NGINX、HAProxy等；同時買個域名或用免費DDNS，再[攞個SSL憑證](#點樣獲得免費既ssl憑證)行HTTPS
+- 如有VLAN功能既交換機及勁少少既防火牆（較新既家用路由器裝OpenWrt可以做曬兩樣野）：鎅個VLAN做DMZ，將需要放出街既Service全部放入去，並嚴格限制其對其他VLAN既存取權
 - 上網講野小心啲，唔好成為黑客或國家機關既攻擊目標 :shushing_face:
 
 {{< detail "點樣備份先可以「即使被Hack黑客都掂唔到」？" >}}
