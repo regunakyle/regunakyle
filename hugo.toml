@@ -58,6 +58,11 @@ name = "Telegram"
 icon = "fa-2x fa-brands fa-telegram"
 weight = 30
 url = "https://t.me/regunakyle"
+[[params.social]]
+name = "RSS"
+icon = "fa-2x fa-solid fa-square-rss"
+weight = 30
+url = "./posts/index.xml"
 
 # Menu links
 [[menu.main]]
