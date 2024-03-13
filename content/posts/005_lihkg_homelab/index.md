@@ -143,7 +143,7 @@ LXC（及Docker）同虛擬機唔同既係佢會同個Host共用Kernel（虛擬�
 
 相對地LXC（及Docker）安全性較弱，例如佢地造成Kernal panic時會炸死埋個Host及其他虛擬機，虛擬機Kernal panic只會炸死自己。
 
-此外，因為共用Kernel，Host因Kernel太舊而行唔到既軟件，LXC（及Docker）同樣都行唔到。（例如Wireguard要Linux版本5.6或以上）
+此外，因為共用Kernel，Host因Kernel太舊而行唔到既軟件，LXC（及Docker）同樣都行唔到。（例如Wireguard要Kernel版本5.6或以上）
 
 Docker同LXC唔同既係Docker一個Image淨係會行一隻軟件，但LXC你可以係上面裝十幾廿個軟件同時行。
 

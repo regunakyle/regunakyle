@@ -82,7 +82,7 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 **Looking Glass**能解決這個問題：它將Windows虛擬機的原生未壓縮影像極低延遲地投射到Linux上。這樣就無需切換輸入源，可以一鍵切換操作Linux及Windows虛擬機。
 
-此外還有其他功能，例如將Linux的:studio_microphone:麥克風輸入送至虛擬機內，或是將Linux及虛擬機的:clipboard:剪貼簿同步等等。另外也有官方OBS插件，讓**Looking Glass**的影像直接輸出至OBS上，這樣就能同時實況Linux和Windows虛擬機的畫面。
+此外還有其他功能，例如將Linux的麥克風輸入送至虛擬機內，或是將Linux及虛擬機的剪貼簿同步等等。另外也有官方OBS插件，讓**Looking Glass**的影像直接輸出至OBS上，這樣就能同時實況Linux和Windows虛擬機的畫面。
 
 要注意的是，**Looking Glass**對硬件的要求比**VFIO**更高，必須**要有兩張獨立顯示卡**和預留CPU至少兩核（四線程）給Linux才能順暢使用。此外，**Looking Glass**亦會對送入虛擬機的顯示卡會產生一定負荷，所以**顯示卡的表現會有一定程度下降**（我顯示卡跑分低了10％）。
 
@@ -96,7 +96,7 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 最近我看到一種做法是在虛擬機安裝[Sunshine](https://github.com/LizardByte/Sunshine)，然後在Linux上用[Moonlight](https://github.com/moonlight-stream/moonlight-qt)進行即時畫面實況及互動。這兩個軟件是雲端遊戲的DIY版，剛好可以用來取代**Looking Glass**的功能。
 
-[Parsec](https://parsec.app/)是另一個的即時畫面實況解決方案，同樣在Linux及虛擬機安裝即可，但這軟件是閉源的。
+[Parsec](https://parsec.app/)是另一款即時畫面實況解決方案，同樣在Linux及虛擬機安裝即可，但這軟件是閉源的。
 
 即時畫面實況的好處是不需第二張獨立顯示卡（CPU內顯就夠用了），但畫面質素可能較差（畢竟是實況，必須做壓縮；**Looking Glass**沒有做任何壓縮）。
 

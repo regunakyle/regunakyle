@@ -14,7 +14,7 @@ date = "2024-01-20"
 
 {{< figure src="./Cover.jpg" caption="圖片來源：Synology官網" >}}
 
-註：本文其實係連登硬件台Homelab post既內容。（我係樓主:raising_hand:）
+註：本文其實係連登硬件台Homelab post既內容。（我係樓主）
 
 因為愈寫愈多，我決定抽出黎放係自己個Blog到，順便加啲圖執靚仔啲。~~幫我個Blog加啲流量~~
 
@@ -97,13 +97,13 @@ DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上�
 
 請睇[第三方RAM選擇教學](https://nascompares.com/guide/synology-unofficial-memory-upgrades-2022-updated/)。
 
-買第三方既RAM有風險：可以有兩個人用同型號NAS，買同型號既第三方RAM，但一個加完開唔到機，另一個開到機咁既情況。
+買第三方廠商整既RAM有風險：可以有兩個人用同型號NAS，買同型號既第三方RAM，但一個加完開唔到機，另一個開到機咁既情況。
 
 雖然咁講，但都有唔少人會選擇買第三方既RAM，而且有不少成功例子：例如我自己部DS220+就係用Kingston既16GB RAM。
 
 買之前**最好上網Google下你個NAS型號其他人加咩型號既RAM**，咁起碼成功率大啲。
 
-如果肯定要佢Work，咁要買返Synology既RAM，但性價比超級低:money_with_wings:。
+買Synology既RAM就肯定Work，但性價比超級低：同樣價錢夠你買幾條容量更大既第三方RAM去試。
 
 ## 硬碟買邊隻？
 
@@ -306,11 +306,11 @@ SSL憑證有兩個檔案，其中一個係密鑰。你要保護密鑰不被外�
 
 例如買隻機頂盒或TV stick插上電視轉輸入源，用佢地做播放器。
 
-機頂盒：[Nvidia Shield](https://www.nvidia.com/zh-tw/shield/) :thumbsup:、[Apple TV](https://www.apple.com/hk/tv-home/)、普通x86迷你電腦
+機頂盒：[Nvidia Shield](https://www.nvidia.com/zh-tw/shield/) :thumbsup:、[Apple TV](https://www.apple.com/hk/tv-home/)、各類Android TV Box等
 
 TV stick：[Google Chromecast](https://store.google.com/tw/product/chromecast_google_tv)、[Roku](https://www.roku.com/products/players)、[Amazon Fire TV](https://www.amazon.com/s?bbn=8521791011&rh=n%3A16333372011%2Cn%3A2102313011%2Cn%3A8521791011%2Cn%3A21579967011&dc&rnid=8521791011)等
 
-呢啲產品通常比你部電視支持更多檔案格式。買邊隻請自己做功課，或去我地Post討論。
+呢啲產品通常支持更多檔案格式。買邊隻請自己做功課，或去我地Post討論。
 
 另外：如果你用緊PC/手機/電視瀏覽器睇片唔Work既話，可以試下用Plex/Jellyfin既原生App或[VLC](https://www.videolan.org/)。
 
