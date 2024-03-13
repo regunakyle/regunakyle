@@ -135,7 +135,7 @@ Intel CPU既內顯可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）�
 
 ## LXC係咩黎？同Docker/虛擬機有咩唔同？
 
-LXC雖然同Docker一樣係"Container"，**但佢概念上同使用上都更接近虛擬機，係虛擬機既輕量級代替品。**
+[LXC](https://linuxcontainers.org/)全名係Linux Container。雖然佢同Docker一樣都係"Container"科技，**但佢概念上同使用上都更接近虛擬機，係虛擬機既輕量級代替品。**
 
 同虛擬機相似，係LXC上面你係手動裝軟件行。另外兩者都支持快照（Snapshot）及備份。
 

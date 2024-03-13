@@ -18,7 +18,7 @@ date = "2024-01-21"
 
 ## Docker係咩黎？有咩咁勁？
 
-Docker可以將有用程式及佢所需既野一次過打包做一舊，只需行一條Script就可以用佢，可以當係App Store既App咁。
+[Docker](https://docs.docker.com/get-started/overview/)可以將有用程式及佢所需既野一次過打包做一舊，只需行一條Script就可以用佢，可以當係App Store既App咁。
 
 冇Docker時同一部機想行唔同程式可能遇到相容性問題（例如兩個程式要用同一款但唔同版本既Library，又或者Synology DSM個Library版本太舊）。Docker完美解決咗呢個問題，成件打包用就得。
 
