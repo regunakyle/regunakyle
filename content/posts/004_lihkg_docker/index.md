@@ -121,7 +121,7 @@ networks:
 - 用`cd <文件夾名稱>`指令入去另一個文件夾
   - 用`cd ..`指令去上一層文件夾
   - 用`cd /`指令返去最上層文件夾
-  - 用`cd`指令返去當前SSH帳號既`home`文件夾
+  - 用`cd`指令（後面唔加野）可返回當前SSH帳號既`home`文件夾
 
 {{< figure src="./SSH.png" caption="入到有齊data文件夾同compose.yaml既文件夾" >}}
 
@@ -166,9 +166,9 @@ Selfhost圈子入面最熱門既內容。
 {{< notice tip "Private tracker" >}}
 最新既電影/劇集等比較容易係公海撈到種，而較舊或冷門既資源可能好難搵。
 
-有興趣既玩家可以研究下Private tracker（PT）。大既PT站資源較齊，容易搵到冷門或較舊既資源。
+有興趣既玩家可以研究下Private tracker（PT）。大既PT站資源較齊，較易搵到冷門或較舊既資源。
 
-PT唔係直接就入到會，可能要你課金（大陸/台灣個啲），又或者要現有會員出邀請比你。
+PT唔係直接就入到會，可能要你課金（中國大陸/台灣個啲），又或者要現有會員出邀請比你。
 
 另外PT通常禁止會員只下載不上傳，上傳得太少可能會被踢走。有玩家甚至會整Seedbox專做PT。
 
@@ -257,7 +257,7 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 ### 其他有趣Software
 
-:thumbsup: 一個介面控制屋企智能家具（[Home Assistant](https://www.home-assistant.io/)）
+:thumbsup: 一個介面控制屋企既智能家具（[Home Assistant](https://www.home-assistant.io/)）
 
 :thumbsup: 電子書下載及管理（[LazyLibrarian](https://lazylibrarian.gitlab.io/)，[Calibre](https://docs.linuxserver.io/images/docker-calibre/)，[Calibre-web](https://github.com/janeczku/calibre-web)）
 

@@ -70,7 +70,7 @@ ECC既用途係偵測RAM有否發生Bit flip，如有就嘗試修正。[（運�
 
 如果冇ECC，咁你RAM發生Bit flip時可能咩事都冇，可能令Server死機，最嚴重既情況係造成偵測唔到既資料損毀。
 
-但Bit flip發生機率極低。除非玩到去Data center級數（或者Server係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)），否則可能廿年都遇唔到一次因Bit flip造成既資料損毀。
+但Bit flip發生機率極低。除非玩到去Data center級數（或者Server放係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)），否則可能廿年都遇唔到一次因Bit flip造成既資料損毀。
 
 雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，消費級主機板Chipset全部唔支持ECC，要上到Workstation或Server級Chipset先有，呢啲主機板一手價超級高。
 
@@ -82,7 +82,7 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 {{< notice info "注意事項" >}}
 
-1. ECC RAM有分RDIMM/LRDIMM/UDIMM，要睇清楚塊板支持邊款先至買。
+1. ECC RAM有分RDIMM/LRDIMM/UDIMM，要睇清楚塊板支持邊款先好買。
 2. DDR5所謂既內置ECC並非真ECC，且不能取代真ECC。
 3. ECC唔係靈丹妙藥，如果條RAM本身係壞既話照樣會狂出Error。
 {{< /notice >}}
@@ -244,8 +244,6 @@ Intel既獨立顯示卡:thumbsup: 入門級型號（1000蚊樓下買到）就已
 [ServeTheHome（Homelab新聞/硬件評測網頁）](https://www.servethehome.com/)
 
 [Youtube：司波圖](https://www.youtube.com/@SpotoTsui)
-
-[Youtube：錢韋德](https://www.youtube.com/@qianweide)
 
 [Youtube：TechnoTim](https://www.youtube.com/@TechnoTim)
 

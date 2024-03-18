@@ -99,7 +99,7 @@ DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上�
 
 買第三方廠商整既RAM有風險：可以有兩個人用同型號NAS，買同型號既第三方RAM，但一個加完開唔到機，另一個開到機咁既情況。
 
-雖然咁講，但都有唔少人會選擇買第三方既RAM，而且有不少成功例子：例如我自己部DS220+就係用Kingston既16GB RAM。
+雖然咁講，但都有唔少人選擇買第三方既RAM，成功例子亦多：例如我自己部DS220+就係用Kingston既16GB RAM。
 
 買之前**最好上網Google下你個NAS型號其他人加咩型號既RAM**，咁起碼成功率大啲。
 
@@ -109,7 +109,7 @@ DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上�
 
 名牌廠商（如Seagate、WD/HGST、Toshiba）既CMR NAS Drive。
 
-**注意唔好買SMR硬碟。** 買硬碟之前要睇下個型號係CMR定SMR（尤其是WD硬碟）。
+**注意唔好買SMR硬碟。** 買硬碟之前要睇下個型號係CMR定SMR（尤其是[WD硬碟](https://www.hkepc.com/20555/RED_%E7%A1%AC%E7%A2%9F%E5%81%B7%E6%8F%9B_SMR_%E4%BA%8B%E4%BB%B6%E9%99%B7%E9%9B%86%E9%AB%94%E8%A8%B4%E8%A8%9F_WD_%E5%92%8C%E8%A7%A3%E8%B3%A0_270_%E8%90%AC%E7%BE%8E%E5%85%83%E7%94%A8%E5%AE%B6%E5%8F%AF%E7%B6%B2%E4%B8%8A%E7%94%B3%E8%AB%8B)）。
 
 可以買唔同牌子、同容量既硬碟溝埋用，咁做理論上係安全過全買單一型號。
 
@@ -195,12 +195,12 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 用佢既好處係可以獲得Cloudflare既DDOS保護；此外亦支持用第三方授權，例如用Google，咁可以指定某啲Gmail帳號持有人先存取到到你啲野。
 
-[延伸閱讀：類似Cloudflare Tunnel方案一覽](https://github.com/anderspitman/awesome-tunneling)
-
 {{< notice warning "注意" >}}
 你要信Cloudflare，呢個[算係Man in the middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容。
 
 此外，用Cloudflare Tunnel做媒體串流或大檔案傳輸可能違反佢地既服務條款，除非你[將啲檔案放上佢地平台再傳輸](https://blog.cloudflare.com/updated-tos/)。
+
+[延伸閱讀：類似Cloudflare Tunnel方案一覽](https://github.com/anderspitman/awesome-tunneling)
 {{< /notice >}}
 
 ## 放部NAS出街時，要點保障自己？
