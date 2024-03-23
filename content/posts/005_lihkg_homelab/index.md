@@ -141,6 +141,8 @@ Intel CPU既內顯可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）�
 
 LXC（及Docker）同虛擬機唔同既係佢會同個Host共用Kernel（虛擬機有自己Kernel），所以資源消耗較低。
 
+另一個優勢係，因為LXC（及Docker）只係Host上既一個進程（Process），所以可以同個Host（及其他Container）共用硬件。虛擬機就只能透過SR-IOV共用硬件，或用Passthrough並失去硬件使用權。
+
 相對地LXC（及Docker）安全性較弱，例如佢地造成Kernal panic時會炸死埋個Host及其他虛擬機，虛擬機Kernal panic只會炸死自己。
 
 此外，因為共用Kernel，Host因Kernel太舊而行唔到既軟件，LXC（及Docker）同樣都行唔到。（例如Wireguard要Kernel版本5.6或以上）
