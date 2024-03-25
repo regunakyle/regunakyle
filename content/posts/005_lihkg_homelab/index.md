@@ -72,7 +72,7 @@ ECC既用途係偵測RAM有否發生Bit flip，如有就嘗試修正。[（運�
 
 但Bit flip發生機率極低。除非玩到去Data center級數（或者Server放係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)），否則可能廿年都遇唔到一次因Bit flip造成既資料損毀。
 
-雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，消費級主機板Chipset全部唔支持ECC，要上到Workstation或Server級Chipset先有，呢啲主機板一手價超級高。
+雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，家用級主機板Chipset全部唔支持ECC，要上到Workstation或Server級Chipset先有，呢啲主機板一手價超級高。
 
 AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](https://www.amd.com/en/products/apu/amd-ryzen-5-pro-5650g)配X570板，低能耗+多核+有內顯+支持ECC+靚IOMMU）。另一個選擇係執二手Server件/洋垃圾（Xeon/Epyc之類），淘寶一堆平價野。
 
@@ -192,7 +192,7 @@ Hypervisor即專用黎行虛擬機既軟件。上一項提及既Hypervisor OS用
 - 虛擬機快照及備份（非常實用）
 - 可以匯入虛擬機，或匯出虛擬機去另一部Hypervisor
 - 容許將來擴展規模，例如Server硬件升級後可以開多幾隻虛擬機
-- 有人性化既操作介面，唔洗淨係對住Command line
+- 有人性化既操作介面，唔洗淨係對住指令行
 - 視乎你既硬件，重啟虛擬機可能比重啟實機快勁多
 
 就算你只會用一個虛擬機，都可以考慮下用Hypervisor：淨係快照及備份通常都值回票價。

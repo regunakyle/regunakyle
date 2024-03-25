@@ -97,7 +97,7 @@ services:
 
 networks:
   default:
-     name: portainer-network
+     name: portainer-ce-network
 ```
 
 3. 將`compose.yaml`上傳至NAS頭先新開既文件夾
@@ -112,7 +112,7 @@ networks:
 
 1. 係NAS介面開啟SSH服務，並用管理員帳號SSH入去（[Synology教學](https://kb.synology.com/zh-hk/DSM/tutorial/How_to_login_to_DSM_with_root_permission_via_SSH_Telnet)/[QNAP教學](https://www.qnap.com/zh-tw/how-to/faq/article/how-to-access-qnap-nas-by-ssh)）
 
-2. 係SSH上面搵返上一部分既第一步開既文件夾並用`cd`指令走入去
+2. 係SSH入面用`cd`指令走入去上部分第一步開既文件夾
 
 提示：
 
@@ -255,7 +255,7 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 [延伸閱讀：r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/)
 
-### 其他有趣Software
+### 其他有趣軟件
 
 :thumbsup: 一個介面控制屋企既智能家具（[Home Assistant](https://www.home-assistant.io/)）
 

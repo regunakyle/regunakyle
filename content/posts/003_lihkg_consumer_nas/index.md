@@ -111,7 +111,7 @@ DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上�
 
 **注意唔好買SMR硬碟。** 買硬碟之前要睇下個型號係CMR定SMR（尤其是[WD硬碟](https://www.hkepc.com/20555/RED_%E7%A1%AC%E7%A2%9F%E5%81%B7%E6%8F%9B_SMR_%E4%BA%8B%E4%BB%B6%E9%99%B7%E9%9B%86%E9%AB%94%E8%A8%B4%E8%A8%9F_WD_%E5%92%8C%E8%A7%A3%E8%B3%A0_270_%E8%90%AC%E7%BE%8E%E5%85%83%E7%94%A8%E5%AE%B6%E5%8F%AF%E7%B6%B2%E4%B8%8A%E7%94%B3%E8%AB%8B)）。
 
-可以買唔同牌子、同容量既硬碟溝埋用，咁做理論上係安全過全買單一型號。
+可以買唔同牌子但容量相同既硬碟溝埋用，咁做理論上係安全過全買單一型號。
 
 我揀硬碟既準則係大牌子、CMR，然後就係每TB愈平愈好。
 
@@ -294,7 +294,7 @@ SSL憑證有兩個檔案，其中一個係密鑰。你要保護密鑰不被外�
 
 咁樣NAS隻CPU既負荷（相比起冇Encoder+decoder既情況）會大大降低，唔會因為播片而卡死部NAS。
 
-通常大牌子NAS既Intel CPU都有內顯或者獨立顯示卡，佢地都有Hardware encoder+decoder。
+通常大牌子NAS既Intel CPU有內顯（有啲型號甚至有獨立顯示卡），內有Hardware encoder+decoder。
 
 {{< notice tip "轉換影片解析度" >}}
 將片轉做唔同解析度（例如4K轉去1080p）都係轉碼既一種，想係街用流量睇屋企4K片既話有用。
