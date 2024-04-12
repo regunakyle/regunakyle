@@ -161,7 +161,7 @@ Docker係Application級Container：一個Image專行一個軟件 ；LXC係OS級C
 
 {{< underline "NAS OS" >}}
 
-[TrueNAS（Core/Scale）](https://www.truenas.com/truenas-community-editions/)、[Xpenology（黑群輝）](https://xpenology-com.translate.goog/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)、[Unraid（付費）](https://unraid.net/)、[OpenMediaVault](https://www.openmediavault.org/)
+[TrueNAS](https://www.truenas.com/truenas-community-editions/)[（建議選Scale）](https://www.theregister.com/2024/03/18/truenas_abandons_freebsd/)、[Xpenology（黑群輝）](https://xpenology.com/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)、[Unraid（付費）](https://unraid.net/)、[OpenMediaVault](https://www.openmediavault.org/)
 
 {{< underline "Server OS" >}}
 
