@@ -44,7 +44,7 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 請睇以下文章：
 
-[Recommended Controller for Unraid](https://forums.unraid.net/topic/102010-recommended-controllers-for-unraid/)。
+[Recommended Controller for Unraid](https://forums.unraid.net/topic/102010-recommended-controllers-for-unraid/)
 
 [Top Picks for TrueNAS and FreeNAS HBAs (Host Bus Adapters)](https://www.servethehome.com/buyers-guides/top-hardware-components-for-truenas-freenas-nas-servers/top-picks-truenas-freenas-hbas/)
 
