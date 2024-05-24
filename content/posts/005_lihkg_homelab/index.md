@@ -32,7 +32,7 @@ date = "2024-01-22"
 
 ## 硬件邊到黎？
 
-舊電腦/Laptop、[Raspberry Pi](https://classroomeshop.com/collections/raspberry-pi)或類似產品、各式迷你電腦、各式二手Server硬件/洋垃圾等。
+舊電腦/Laptop、各式迷你電腦（如J4125/N100機）、[Raspberry Pi](https://classroomeshop.com/collections/raspberry-pi)或其他單板機（SBC）、各式二手Server硬件/洋垃圾等。
 
 部分硬件只可能搵到淘寶或國產貨（或外國只有高價代替品），如各式軟路由工控機及細NAS機箱等。
 
@@ -240,8 +240,6 @@ Intel既獨立顯示卡:thumbsup: 入門級型號（1000蚊樓下買到）就已
 [Reddit：r/Homelab](https://www.reddit.com/r/homelab/)
 
 [Chiphell論壇](https://www.chiphell.com/forum-146-1.html)
-
-[恩山無線論壇（OpenWrt討論）](https://www.right.com.cn/forum/forum-72-1.html)
 
 [ServeTheHome（Homelab新聞/硬件評測網頁）](https://www.servethehome.com/)
 

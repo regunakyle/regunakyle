@@ -216,7 +216,7 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 - 開個權限唔多既帳號比自己平時用，非必要唔用管理員帳號
 - 路由器或NAS既防火牆封鎖中國及俄羅斯既Inbound IP，或直接封鎖香港以外所有Inbound IP
 - Port forwarding唔好用常見既Port（如22、80、443、445、3389），用啲怪數字
-- Port forwarding只放反向代理（Reverse proxy），如Apache、NGINX、HAProxy等；同時買個域名或用免費DDNS，再[攞個SSL憑證](#點樣獲得免費既ssl憑證)行HTTPS
+- Port forwarding只放反向代理（Reverse proxy），如NGINX、Caddy等；同時買個域名或用免費DDNS，再[攞個SSL憑證](#點樣獲得免費既ssl憑證)行HTTPS
 - 如有VLAN功能既交換機及勁少少既防火牆（較新既家用路由器裝OpenWrt可以做曬兩樣野）：鎅個VLAN做DMZ，將需要放出街既Service全部放入去，並嚴格限制其對其他VLAN既存取權
 - 上網講野小心啲，唔好成為黑客或國家機關既攻擊目標 :shushing_face:
 

@@ -172,7 +172,6 @@ PT唔係直接就入到會，可能要你課金（中國大陸/台灣個啲）�
 
 另外PT通常禁止會員只下載不上傳，上傳得太少可能會被踢走。有玩家甚至會整Seedbox專做PT。
 
-[延伸閱讀：想討論PT (Private tracker)](https://lih.kg/2447243)
 {{< /notice >}}
 
 ### 全家過濾廣告 :thumbsup:
@@ -199,7 +198,7 @@ DNS層過濾廣告，同時亦可做家長監控（即是封鎖你指定既網�
 
 ### Server儀表板 :thumbsup:
 
-{{< figure src="./Dashy.jpg" caption="Dashy介面" >}}
+{{< figure src="./Dashy.png" caption="Dashy介面" >}}
 
 軟件：[Homepage](https://github.com/gethomepage/homepage)/[Dashy](https://github.com/Lissy93/dashy)/[Heimdall](https://github.com/linuxserver/Heimdall)/[Homer](https://github.com/bastienwirtz/homer)
 
@@ -239,11 +238,7 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 軟件：[（Gen圖）stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)/[（Gen字）text-generation-webui](https://github.com/oobabooga/text-generation-webui)
 
-行AI你先要下載個Model，再係對應既App到載入就可以用：
-
-[CivitAI（Gen圖Model下載）](https://civitai.com/)
-
-[Huggingface：TheBloke（Gen字Model下載）](https://huggingface.co/TheBloke)
+行AI你先要下載個Model，再係對應既App到載入就可以用。
 
 呢兩個App都有API，識寫程式既話可以睇下。
 
@@ -251,13 +246,13 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 你部品牌NAS行AI應該有困難。如果有興趣既話，可以考慮下自組Server行。
 
-[延伸閱讀：r/StableDiffusion](https://www.reddit.com/r/StableDiffusion/)
+[延伸閱讀：CivitAI（Gen圖Model下載）](https://civitai.com/)
 
 [延伸閱讀：r/LocalLLaMA](https://www.reddit.com/r/LocalLLaMA/)
 
 ### 其他有趣軟件
 
-:thumbsup: 一個介面控制屋企既智能家具（[Home Assistant](https://www.home-assistant.io/)）
+:thumbsup: 一個介面控制屋企既智能家具（[HomeAssistant](https://www.home-assistant.io/)）
 
 :thumbsup: 電子書下載及管理（[LazyLibrarian](https://lazylibrarian.gitlab.io/)，[Calibre](https://docs.linuxserver.io/images/docker-calibre/)，[Calibre-web](https://github.com/janeczku/calibre-web)）
 
