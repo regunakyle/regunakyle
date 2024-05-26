@@ -30,27 +30,36 @@ date = "2024-01-21"
 
 Synology既話Plus系列或較新既非Plus機種都有支持。[呢到](https://www.synology.com/zh-tw/dsm/packages/ContainerManager)可以睇適用機種。
 
-注意非Plus機種用ARM架構既CPU，可能行唔到某啲Docker image。
+注意非Plus機種用ARM架構既CPU，可能行唔到某啲Docker映像（Image）。
 
 其他牌子請自己Google:stuck_out_tongue:
 
 ## 用Docker要注意啲咩？
 
-### 只用App官方或知名團體提供既既Docker image
+### 只用App官方或知名團體提供既既Docker映像
 
-用網上既Docker image本質上同用陌生人既EXE檔冇咩分別，所以要用官方或其他可信團體整既版本。
+用網上既Docker映像本質上同用陌生人既EXE檔冇咩分別，所以要用官方或其他可信團體整既版本。
 
-例如[Linuxserver.io](https://www.linuxserver.io/)及[Hotio](https://hotio.dev/)既Docker image都多人用，App官方冇出Docker版既話可以先睇佢地。
+例如[Linuxserver.io](https://www.linuxserver.io/)及[Hotio](https://hotio.dev/)既Docker映像都多人用，App官方冇出Docker版既話可以先睇佢地。
 
-更好既做法係自己撈Source code落黎Build個Docker image，但可惜唔係人人都識或想自己Build。
+更好既做法係自己撈Source code落黎構建個Docker映像，但可惜唔係人人都識或想自己做。
 
-Docker本身會提供一定保護（例如冇Map volume既話Container係存取唔到個Host既檔案），但有惡意既Container仲可以用其他方法攻擊你，例如行掘礦程式，又或者嘗試破解屋企網絡入面既其他Service。
+Docker本身會提供一定保護，例如你冇Mount volume既話容器（Container）係存取唔到個宿主機既檔案，但有惡意既容器仲可以用其他方法攻擊你，例如行掘礦程式，又或者嘗試破解屋企網絡入面既其他Service。
+
+{{< notice info "Docker名詞解釋" >}}
+映像（Image）係容器既藍圖，入面有齊曬個軟件運行需要既東西。Docker會根據呢個藍圖去複製及產出容器。
+
+容器（Container）係實際行緊既程式，由映像產生出黎。一個映像可以生成多個同一樣既容器。
+
+可以類比：映像係印鈔機，容器係實際印出既鈔票。
+
+{{< /notice >}}
 
 ### Docker既安全貼士
 
-Docker預設係以Root身份行。咁既話出現Container escape時隻Container就可以對你部機為所欲為。
+Docker預設係以Root身份行。咁既話出現*容器逃逸*時隻容器就可以對你部機為所欲為。
 
-雖然咁講，但只要唔用`--privileged`行既話，Docker本身既保護都強，Container escape唔係咁易。
+雖然咁講，但只要唔用`--privileged`行既話，Docker本身既保護都強，*容器逃逸*唔係咁易發生。
 
 但為咗減低風險，**最好起一個User專用黎行Docker野**，並起個文件夾比呢個User專用，其他檔案有需要先比權限佢掂。
 
@@ -59,9 +68,9 @@ Docker預設係以Root身份行。咁既話出現Container escape時隻Container
 Synology用家可以睇[呢個教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)，有整Docker專用User及整Docker版Media server既步驟。
 
 {{< notice warning "注意" >}}
-有啲Docker image只支持用Root行。
+有啲Docker映像只支持用Root行。
 
-我建議任何Docker image都試下用以上兩個Flag行下先（可能要搞好多野先Work），實在搞唔掂先用Root行。
+我建議任何Docker映像都試下用以上兩個Flag行下先（可能要搞好多野先用到），實在搞唔掂再用Root行。
 
 [呢到](https://cheatsheetseries.owasp.org/cheatsheets/Docker_Security_Cheat_Sheet.html)有個Docker安全性貼士清單，可以按自己需要再加入面講既Flag行Docker。
 {{< /notice >}}

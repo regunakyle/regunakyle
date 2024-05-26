@@ -70,7 +70,7 @@ ECC既用途係偵測RAM有否發生Bit flip，如有就嘗試修正。[（運�
 
 如果冇ECC，咁你RAM發生Bit flip時可能咩事都冇，可能令Server死機，最嚴重既情況係造成偵測唔到既資料損毀。
 
-但Bit flip發生機率極低。除非玩到去Data center級數（或者Server放係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)），否則可能廿年都遇唔到一次因Bit flip造成既資料損毀。
+但Bit flip發生機率極低。除非玩到Data center級數，或者Server放係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)，否則可能廿年都遇唔到一次因Bit flip造成既資料損毀。
 
 雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，家用級主機板Chipset全部唔支持ECC，要上到Workstation或Server級Chipset先有，呢啲主機板一手價超級高。
 
@@ -87,25 +87,23 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 3. ECC唔係靈丹妙藥，如果條RAM本身係壞既話照樣會狂出Error。
 {{< /notice >}}
 
-### 主機板IOMMU grouping
+### 主機板IOMMU組分佈
 
 如果你想行虛擬機的話，有機會要將硬件Passthrough入虛擬機，例如將CPU內顯送入Jellyfin虛擬機或將SATA控制器送入NAS虛擬機。如此送入去既硬件完全由虛擬機控制，可獲得接近無損性能。
 
-要做PCIe passthrough既話，主機板要支持IOMMU，此外亦要注意IOMMU group分佈。
+要做PCIe passthrough既話，主機板要支持IOMMU，此外亦要注意IOMMU組分佈。
 
-**PCIe passthrough係以一個IOMMU group為最小單位**。每個硬件都屬於一個IOMMU group，但一個IOMMU group可以有多過一個硬件。想送某個硬件就要連同佢IOMMU group既其他硬件一齊送入去。
+每個硬件都屬於一個IOMMU組，但一個IOMMU組可以有多過一個硬件。**PCIe passthrough係以一個IOMMU組為最小單位**，想送某個硬件就要連同佢IOMMU組既其他硬件一齊送入去。
 
-假設你主機板PCIe 1槽、SATA控制器及網卡係同一IOMMU group，咁你想送個插咗係PCIe 1槽既硬件（如顯示卡）入虛擬機，就要將SATA控制器（連帶硬碟）同網卡都送埋入去。
+假設你主機板PCIe 1槽、SATA控制器及網卡係同一IOMMU組，咁你想送個插咗係PCIe 1槽既硬件（如顯示卡）入虛擬機，就要將SATA控制器（連帶硬碟）同網卡都送埋入去。
 
-**Host及其他虛擬機不能使用Passthrough咗入一部虛擬機既IOMMU group既全部硬件。**
+**宿主機及其他虛擬機不能使用Passthrough咗入一部虛擬機既IOMMU組既全部硬件。**
 
-要自己做功課，搵下咩主機板IOMMU group靚。唔一定要追求最完美（即每一個硬件都獨佔一個IOMMU group），可根據你既需求去查（例如想整NAS虛擬機既話，隻SATA控制器最好獨佔一個IOMMU group）。
+要自己做功課，搵下咩主機板IOMMU組靚。唔一定要追求最完美（即每一個硬件都獨佔一個IOMMU組），可根據你既需求去查（例如想整NAS虛擬機既話，隻SATA控制器最好獨佔一個IOMMU組）。
 
-其實有方法呃個Kernel，令佢以為全部硬件都有自己一個獨佔既IOMMU group（關鍵字：ACS patch）。
+值得一提既係，有方法強行令全部硬件都有自己一個獨佔既IOMMU組（關鍵字：ACS override patch）。Proxmox跟呢個[教學](https://pve.proxmox.com/wiki/PCI_Passthrough#Verify_IOMMU_isolation)就可以用到呢個Patch。注意用呢個Patch有安全性風險（可以自己Google下）。
 
-Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passthrough#Verify_IOMMU_isolation)就可以用到呢個Patch。注意用呢個Patch有[安全性風險](https://www.reddit.com/r/VFIO/comments/9jer5r/acs_patch_risk/)。
-
-[延伸閱讀：Script for checking IOMMU group（Arch Wiki）](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Ensuring_that_the_groups_are_valid)
+[延伸閱讀：Steps for enabling and checking IOMMU group（Arch Wiki）](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Enabling_IOMMU)
 
 {{< notice tip "主機板 DMI" >}}
 主機板Chipset同CPU之間係用一條PCIe link連接住（Intel稱之為DMI），Chipset所有硬件會共用DMI既頻寬（Bandwidth）同CPU做資料傳輸。
@@ -115,20 +113,20 @@ Proxmox係[Kernel command line加一行](https://pve.proxmox.com/wiki/PCI_Passth
 係Chipset做大量資料傳輸（例如同時存取多隻Chipset上既NVMe SSD）既最快速度受DMI頻寬限制。
 {{< /notice >}}
 
-### Host及虛擬機共享Intel CPU內顯
+### 宿主機及虛擬機共享Intel CPU內顯
 
-Intel CPU既內顯可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）方法令Host同虛擬機都用到佢。
+Intel CPU既內顯可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）方法令宿主機同虛擬機都用到佢。
 
-**唯獨係11代咩都冇**。如果你個Host同虛擬機都要用內顯（例如個Host靠內顯先顯示到野，但虛擬機行Jellyfin要內顯做轉碼）既話要注意。
+**唯獨係11代咩都冇**。如果你個宿主機同虛擬機都要用內顯（例如個宿主機靠內顯先顯示到野，但虛擬機行Jellyfin要內顯做轉碼）既話要注意。
 
-如果不幸地用緊11代Intel CPU，或唔想搞以上既野，可以轉用LXC或Docker：只要個Host用到個內顯，LXC及Docker就肯定有方法用到。
+如果不幸地用緊11代Intel CPU，或唔想搞以上既野，可以轉用LXC或Docker：只要個宿主機用到個內顯，LXC及Docker就肯定有方法用到。
 
 [延伸閱讀：Intel GVT-G setup（Arch Wiki）](https://wiki.archlinux.org/title/Intel_GVT-g)
 
 [延伸閱讀：12代及以後Intel CPU之SR-IOV方法](https://github.com/strongtz/i915-sriov-dkms)
 
 {{< notice tip "Nvidia 顯示卡" >}}
-有方法使Host同虛擬機共享某啲型號既Nvidia顯示卡。
+有方法使宿主機同虛擬機共享某啲型號既Nvidia顯示卡。
 
 [呢到](https://gitlab.com/polloloco/vgpu-proxmox)有適用於Proxmox既安裝教學。注意30系及以上既顯示卡型號用唔到呢個方法。
 {{< /notice >}}
@@ -139,17 +137,17 @@ Intel CPU既內顯可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）�
 
 同虛擬機相似，係LXC上面你係手動裝軟件行。另外兩者都支持快照（Snapshot）及備份。
 
-LXC（及Docker）同虛擬機唔同既係佢會同個Host共用Kernel（虛擬機有自己Kernel），所以資源消耗較低。
+LXC（及Docker）同虛擬機唔同既係佢會同個宿主機共用內核（Kernel），所以資源消耗較低。（虛擬機有自己內核）
 
-另一個優勢係，因為LXC（及Docker）只係Host上既一個進程（Process），所以可以同個Host（及其他Container）共用硬件。虛擬機就只能透過SR-IOV共用硬件，或用Passthrough並失去硬件使用權。
+另一個優勢係，因為LXC（及Docker）只係宿主機上既一個進程（Process），所以可以同個宿主機（及其他Container）共用硬件。虛擬機就只能透過SR-IOV共用硬件，或用Passthrough並失去硬件使用權。
 
-相對地LXC（及Docker）安全性較弱，例如佢地造成Kernal panic時會炸死埋個Host及其他虛擬機，虛擬機Kernal panic只會炸死自己。
+相對地LXC（及Docker）安全性較弱，例如佢地造成Kernel panic時會炸死埋個宿主機及其他虛擬機，虛擬機Kernel panic只會炸死自己。
 
-此外，因為共用Kernel，Host因Kernel太舊而行唔到既軟件，LXC（及Docker）同樣都行唔到。（例如Wireguard要Kernel版本5.6或以上）
+此外，因為共用內核，宿主機因內核太舊而行唔到既軟件，LXC（及Docker）同樣都行唔到。（例如Wireguard要內核版本5.6或以上）
 
 Docker同LXC唔同既係Docker一個Image淨係會行一隻軟件，但LXC你可以係上面裝十幾廿個軟件同時行。
 
-Docker係Application級Container：一個Image專行一個軟件 ；LXC係OS級Container：同虛擬機一樣，佢提供咗個OS比你，你係上面玩咩都得。
+Docker係軟件級Container：一個Image專行一個軟件 ；LXC係OS級Container：同虛擬機一樣，佢提供咗個OS比你做平台，你係上面玩咩都得。
 
 ## 用咩OS？
 
@@ -174,7 +172,7 @@ Docker係Application級Container：一個Image專行一個軟件 ；LXC係OS級C
 {{< notice info "Openwrt ：小型 Homelab 神器" >}}
 一部裝咗OpenWrt既家用路由器可以做曬防火牆、路由器、VLAN交換機同無線存取點既工作。
 
-而且唔洗買好貴既機，例如[Linksys E8450](https://openwrt.org/toh/linksys/e8450)非常適合OpenWrt，現時[港行](https://www.price.com.hk/product.php?p=478204)都係600蚊左右。
+而且唔洗買好貴既機，例如[GL.iNet MT6000](https://openwrt.org/toh/gl.inet/gl-mt6000)非常適合OpenWrt，現時[淘寶](https://m.tb.cn/h.gWg9jMU)都係700蚊人仔左右。
 
 Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、AdGuardHome、NGINX、[SQM](https://openwrt.org/docs/guide-user/network/traffic-shaping/sqm)等等。你甚至可以用幾部OpenWrt機行[802.11s Mesh Networking](https://openwrt.org/docs/guide-user/network/wifi/mesh/80211s)同[802.11k/v/r 快速漫遊](https://vicfree.com/2022/11/openwrt-wpa3-802.11kvr-ap-setup/)。
 
@@ -185,14 +183,13 @@ Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、AdGuardHom
 
 ## 咩係Hypervisor？點解要用佢？
 
-Hypervisor即專用黎行虛擬機既軟件。上一項提及既Hypervisor OS用既全部都係用Type 1 hypervisor（例如Proxmox用既係[QEMU+KVM](https://zhuanlan.zhihu.com/p/48664113)），虛擬機性能損耗極低，接近原生性能。
+[Hypervisor](https://en.wikipedia.org/wiki/Hypervisor)即專用黎行虛擬機既軟件。上一項提及既Hypervisor OS用既全部都係用Type 1 hypervisor（例如Proxmox用既係[QEMU+KVM](https://zhuanlan.zhihu.com/p/48664113)），虛擬機性能損耗極低，接近原生性能。
 
 用Hypervisor既好處：
 
 - 虛擬機快照及備份（非常實用）
 - 可以匯入虛擬機，或匯出虛擬機去另一部Hypervisor
 - 容許將來擴展規模，例如Server硬件升級後可以開多幾隻虛擬機
-- 有人性化既操作介面，唔洗淨係對住指令行
 - 視乎你既硬件，重啟虛擬機可能比重啟實機快勁多
 
 就算你只會用一個虛擬機，都可以考慮下用Hypervisor：淨係快照及備份通常都值回票價。

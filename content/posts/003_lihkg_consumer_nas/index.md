@@ -103,7 +103,7 @@ DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上�
 
 買之前**最好上網Google下你個NAS型號其他人加咩型號既RAM**，咁起碼成功率大啲。
 
-買Synology既RAM就肯定Work，但性價比超級低：同樣價錢夠你買幾條容量更大既第三方RAM去試。
+買Synology既RAM就肯定Work，但性價比超級低：同樣價錢夠你買幾條容量大好多既第三方RAM去試。
 
 ## 硬碟買邊隻？
 
@@ -196,7 +196,7 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 [Cloudflare Tunnel](https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/)本身係免費，但你要有一個[Nameserver係Cloudflare既域名](https://developers.cloudflare.com/dns/zone-setups/full-setup/setup/)先用到。
 
-用佢既好處係可以獲得Cloudflare既DDOS保護；此外亦支持用第三方授權，例如用Google，咁可以指定某啲Gmail帳號持有人先存取到到你啲野。
+用佢既好處係可以獲得Cloudflare既保護（例如防DDOS）；此外亦支持用第三方授權，例如用Google，咁可以指定某啲Gmail帳號持有人先存取到到你啲野。
 
 {{< notice warning "注意" >}}
 你要信Cloudflare，呢個[算係Man in the middle](https://www.reddit.com/r/selfhosted/comments/17ogchd/cloudflare_tunnels_privacy/)，佢有方法睇到曬你啲流量既所有內容。
