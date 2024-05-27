@@ -47,11 +47,11 @@ Synology既話Plus系列或較新既非Plus機種都有支持。[呢到](https:/
 Docker本身會提供一定保護，例如你冇Mount volume既話容器（Container）係存取唔到個宿主機既檔案，但有惡意既容器仲可以用其他方法攻擊你，例如行掘礦程式，又或者嘗試破解屋企網絡入面既其他Service。
 
 {{< notice info "Docker名詞解釋" >}}
-映像（Image）係容器既藍圖，入面有齊曬個軟件運行需要既東西。Docker會根據呢個藍圖去複製及產出容器。
+**映像（Image）**係容器既藍圖，入面有齊曬個軟件運行需要既東西。Docker會根據呢個藍圖去複製及產出容器。
 
-容器（Container）係實際行緊既程式，由映像產生出黎。一個映像可以生成多個同一樣既容器。
+**容器（Container）**係實際行緊既程式，由映像產生出黎。一個映像可以生成多個同一樣既容器。
 
-可以類比：映像係印鈔機，容器係實際印出既鈔票。
+可以類比：映像係印鈔機，容器係實際印出、可使用既鈔票。
 
 {{< /notice >}}
 
@@ -195,12 +195,12 @@ DNS層過濾廣告，同時亦可做家長監控（即是封鎖你指定既網�
 
 有興趣既話可以研究埋[Unbound](https://unbound.docs.nlnetlabs.nl/en/latest/)（Recursive DNS）或者DNS-over-HTTPS/DNS-over-TLS（Encrypted DNS）。前者可以[增強私隱](https://docs.pi-hole.net/guides/dns/unbound/#what-does-this-guide-provide)，後者可保證你寬頻供應商無法篡改你既DNS query。
 
-{{< notice tip "檢查寬頻供應商有冇篡改你 DNS request" >}}
+{{< notice tip "檢查寬頻供應商有冇篡改你 DNS 請求" >}}
 先去路由器設定DNS server做[1.1.1.1](https://1.1.1.1/)，再去[呢到](https://www.dnsleaktest.com)做測試。
 
-如顯示既ISP唔係Cloudflare，你就知道你既DNS request比你個寬頻供應商攔截及篡改咗。
+如顯示既ISP唔係Cloudflare，即可斷定你既DNS請求比你個寬頻供應商攔截及篡改咗。
 
-注意：Encrypted DNS只能保證你既DNS request不被第三方偷窺及篡改。
+注意：Encrypted DNS只能保證你既DNS請求不被第三方偷窺及篡改。
 
 寬頻供應商仍然可以用其他方法干預你既網絡，例如直接封鎖你要去既網站既IP。
 {{< /notice >}}

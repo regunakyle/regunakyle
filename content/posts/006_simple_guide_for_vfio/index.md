@@ -114,7 +114,7 @@ done
 
 上面提及虛擬機卡推薦使用Nvidia：Windows驅動程式穩定、有Reset功能；缺點只有貴:money_with_wings:
 
-宿主機卡推薦Intel或AMD（CPU內顯或獨立顯示卡），因為這兩個牌子的顯示卡在Linux有開源的驅動程式，此外它們支持*DMABUF*功能，這對Looking Glass的性能有大幫助。
+宿主機卡推薦Intel或AMD（CPU內顯或獨立顯示卡），因為這兩個牌子的顯示卡在Linux有開源的驅動程式，此外它們支持*DMABUF* 功能，這對Looking Glass的性能有大幫助。
 
 如果打算用Looking Glass，開發者建議兩張獨立顯示卡。CPU內顯也能用，但Looking Glass的幀數會較低。我建議先安裝Looking Glass，看看能不能接受其幀數，不能接受再買第二張獨立顯示卡。
 
@@ -124,13 +124,13 @@ done
 
 #### CPU
 
-因為要至少預留一核/兩線程給宿主機（如果用Looking Glass的話要留至少兩核/四線程），所以CPU不能太弱。
+因為要至少預留一核/兩線程給宿主機（用Looking Glass的話要留至少兩核/四線程），所以CPU不能太弱。
 
-如果單純VFIO，我建議至少六核/十二線程起步，例如Intel 12400/AMD 5600X。
+如果單純VFIO，我建議至少六核/十二線程起步，例如Intel i5-12400/AMD 5600X。
 
 如果要用Looking Glass，我建議至少八核/十六線程起步，例如AMD 5700X。（我個人使用AMD 5900X）
 
-以上的建議都是假設買全大核CPU。如果你的CPU是大小核設計（例如近年Intel的P-core/E-core），VFIO設定上可能較麻煩。
+以上的建議都是假設買全大核CPU。如果你的CPU是大小核設計（例如近年Intel的P-core/E-core設計），VFIO設定上可能較麻煩。
 
 #### 其他硬件
 
@@ -144,7 +144,7 @@ done
 
 但如果你如此傳入去的設備有問題（例如有輸入延遲或經常斷連），我建議你將整個USB控制器傳入去。
 
-一個USB控制器通常控制一個或以上USB插槽，將控制器傳入後，VFIO虛擬機就能直接控制這些USB插槽上的設備，應能解決絕大部分USB相關問題。
+一個USB控制器**通常控制一個或以上USB插槽**。將控制器傳入後，VFIO虛擬機就能直接控制這些USB插槽上的設備，應能解決絕大部分USB相關問題。
 
 傳入USB控制器要注意IOMMU和Reset問題。你可以用這[Python腳本](./usb_iommu)去檢查USB插槽屬於哪個USB控制器，以及該USB控制器屬於哪個IOMMU組。(註：這腳本只能檢測已插入設備的USB插槽)
 
@@ -152,13 +152,19 @@ done
 
 VFIO虛擬機可以安裝在虛擬硬碟上，又或者可以直接安裝在其他存儲裝置上（例如NVMe SSD或SATA SSD/HDD）並將之傳入虛擬機：
 
-選擇前者的好處是不需要買額外存儲裝置（廢話），此外可以直接將虛擬硬碟做備份（因為虛擬硬碟本質上只是一個檔案）。
+選擇前者的好處是不需要買額外的存儲裝置（廢話），此外可以直接將虛擬硬碟做備份（因為虛擬硬碟本質上只是一個檔案）。
 
 選擇後者的好處是**可以Dual boot**（進入BIOS選擇安裝Windows的存儲裝置並啟動即可）。此外，如果你傳入的是NVMe SSD，其理論讀寫性能上限會比同樣在NVMe SSD上的虛擬硬碟高。（但對遊戲玩家而言虛擬硬碟的性能已足夠）
 
-如果你選擇後者，你要把對應的NVMe控制器（如使用NVMe SSD）或SATA控制器（如使用SATA SSD/HDD）傳入虛擬機。注意一個SATA控制器通常控制多於一個SATA插口，相反NVMe通常是一個控制器對一個SSD。
+如果你選擇後者，你要把對應的NVMe控制器（如使用NVMe SSD）或SATA控制器（如使用SATA SSD/HDD）傳入虛擬機。注意一個SATA控制器**通常控制多於一個SATA插口**，NVMe就通常是一個控制器對一個SSD。
 
-### VFIO虛擬機設定
+### VFIO虛擬機及Looking Glass設定
+
+此處假設你的電腦已經安裝最新版本的Fedora（現時是40）。
+
+我強烈建議以下內容配合[Arch Wiki上的教學](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)一並服用，可以相互參照。
+
+我的設定可能和Arch Wiki上的有出入，因為我參考了[VFIO Discord](https://discord.com/invite/f63cXwH)內的Linux高手們較新的建議。你可以一同入去研讀及發問再作決定。
 
 {{< notice warning "Intel用家注意" >}}
 
@@ -170,17 +176,50 @@ Intel平台上IOMMU需要以下步驟才能啟動：
 
 {{< /notice >}}
 
-此處假設你的電腦已經安裝最新版本的Fedora（現時是40）。
+#### 綁定vfio-pci/pci-stub驅動程式
 
-1. 執行上方檢查IOMMU組的腳本，記下你想傳入虛擬機的設備ID（應是`xxxx:xxxx`格式，例如我的3060Ti的ID是`10de:2489`）
+*vfio-pci* 是一個VFIO專用驅動程式。綁定*vfio-pci* 的硬件不會使用正常的驅動程式（比如顯示卡的官方驅動），因此宿主無法使用這些硬件。這樣能最大程度上保證VFIO虛擬機傳入硬件的穩定性。
+
+1. 執行上方檢查IOMMU組的腳本，記下你想傳入虛擬機的設備ID（應是`xxxx:xxxx`格式，例如我的3060 Ti的ID是`10de:2489`）
 2. 執行`sudo nano /etc/sysconfig/grub`，並於`GRUB_CMDLINE_LINUX`引號內的最後添加`vfio_pci.ids=<Device 1 ID>,<Device 2 ID>`（請自行填入設備ID），然後儲存
-3. 執行`sudo grub2-mkconfig -o /etc/grub2-efi.cfg`，然後重啟電腦
+3. 執行`sudo nano /etc/dracut.conf.d/vfio.conf`，貼上以下內容後儲存：
 
-重啟後輸入`lspci -nnk`，應看到想傳入虛擬機的設備有以下一項：`Kernel driver in use: vfio-pci`。
+```bash
+add_drivers+=" vfio vfio_iommu_type1 vfio_pci vfio_pci_core " 
+force_drivers+=" vfio_pci "
+```
 
-1. 執行`sudo dnf install @virtualization`
+4. 執行`sudo grub2-mkconfig -o /etc/grub2-efi.cfg` 及 `sudo dracut -fv`，然後重啟電腦
+5. 重啟後輸入`lspci -nnk`，應看到想傳入虛擬機的設備有`Kernel driver in use: vfio-pci`。
+
+有些硬件不能用以上方法綁定*vfio-pci* ，例如USB控制器和SATA控制器。因為這兩種硬件的驅動程式（USB是*xhci_hcd* 、SATA是*ahci* ）綁定優先度更高，*vfio-pci* 來不及綁定硬件。
+
+這時候可以轉用*pci-stub* ：它是*vfio-pci* 的前身，功能和*vfio-pci* 相近，但綁定優先度比*xhci_hcd* 和*ahci* 更高。它的缺點是它沒有*vfio-pci* 的一些功能（例如*vfio-pci* 可以把你的硬件設置成耗電較低的休眠狀態）。
+
+1. 執行`sudo nano /etc/sysconfig/grub`，並於`GRUB_CMDLINE_LINUX`引號內的最後添加`pci-stub.ids=<Device 1 ID>,<Device 2 ID>`（請自行填入設備ID），然後儲存
+2. 執行`sudo grub2-mkconfig -o /etc/grub2-efi.cfg`，然後重啟電腦
+3. 重啟後輸入`lspci -nnk`，應看到想傳入虛擬機的設備有：`Kernel driver in use: pci-stub`。
+
+不過也不一定要綁定*pci-stub* ：我自己就有一個USB控制器照常使用*xhci_hcd* ，VFIO虛擬機啟動時Linux會自動把*xhci_hcd* 換成*vfio-pci* ，虛擬機關機後又會換回*xhci_hcd* ，這樣做我沒遇到甚麼問題。
+
+注意：我不知道SATA控制器（或其他*vfio-pci* 綁定不了的硬件）不綁定*pci-stub* 的話會不會有問題，這個要留給其他用家自己研究了。
+
+#### 創建VFIO虛擬機
+
+1. 執行`sudo dnf install -y @virtualization`
 2. 下載Windows 10的ISO檔和[此處](https://github.com/virtio-win/virtio-win-pkg-scripts?tab=readme-ov-file#downloads)的`Latest virtio-win ISO`，並將它們移至`/var/lib/libvirt/images`（用`cp`或`mv`指令都可）
-5.
+3. 啟動*virt-manager* ，並啟用設定：*Edit* => *Preferences* => *Enable XML editing*
+4. 創建新的虛擬機（左上角按鍵），安裝ISO選擇你第2步下載的Windows 10 ISO檔，選擇後於下方`Choose the operation system you are installing`中選`Microsoft Windows 10`
+5. 設定CPU及RAM
+6. 在*virt-manager* 設定虛擬硬碟那一頁，取消選擇`Enable storage for this virtual machine`
+7. 最後一頁緊記按`Customize configuration before install`，然後按`Finish`
+
+{{< figure src="./VirtManagerUI.png" caption="這時應出現這個介面" >}}
+
+#### 設定VFIO虛擬機XML
+
+1. 在`Overview`頁，`Firmware`選擇`UEFI`。我建議將虛擬機改個獨特的名字（如`vfio-win10`），避免將來創建其他Windows 10虛擬機產生混亂
+2. 在`CPU`頁
 
 ### Looking Glass設定
 

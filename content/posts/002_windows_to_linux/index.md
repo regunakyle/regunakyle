@@ -78,13 +78,13 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 [Looking Glass](https://looking-glass.io/)是**VFIO**的延伸。
 
-**VFIO**因為把你指定的顯示卡送給了Windows虛擬機，用家需要另外連接這顯示卡和螢幕，然後切換螢幕的輸入源才能看到虛擬機的畫面。如果你只有一個螢幕，那麼同一時間就只能看到Linux和Windows虛擬機其一的畫面。
+**VFIO**因為把你指定的顯示卡送給了Windows虛擬機，用家需要另外連接這顯示卡和螢幕，然後切換螢幕的輸入源才能看到虛擬機的畫面。如果你只有一個螢幕，那麼同一時間就只能看到Linux或Windows虛擬機其一的畫面。
 
 **Looking Glass**能解決這個問題：它將Windows虛擬機的原生未壓縮影像極低延遲地投射到Linux上。這樣就無需切換輸入源，可以一鍵切換操作Linux及Windows虛擬機。
 
 此外還有其他功能，例如將Linux的麥克風輸入送至虛擬機內，或是將Linux及虛擬機的剪貼簿同步等等。另外也有官方OBS插件，讓**Looking Glass**的影像直接輸出至OBS上，這樣就能同時實況Linux和Windows虛擬機的畫面。
 
-要注意的是，**Looking Glass**對硬件的要求比**VFIO**更高，必須**要有兩張獨立顯示卡**和預留CPU至少兩核（四線程）給Linux才能順暢使用。此外，**Looking Glass**亦會對送入虛擬機的顯示卡會產生一定負荷，所以**顯示卡的表現會有一定程度下降**（我顯示卡跑分低了10％）。
+要注意的是，**Looking Glass**對硬件的要求比**VFIO**更高：開發者推薦**用兩張獨立顯示卡**和預留CPU至少兩核（四線程）給Linux。此外，**Looking Glass**亦會對送入虛擬機的顯示卡會產生一定負荷，所以**其性能會有一定程度下降**（我顯示卡跑分低了10％）。
 
 我會選擇用**Looking Glass**是因為我經常在使用Windows虛擬機時快速切換至Linux去做其他事情，沒有它的話我就要不斷手動切換螢幕的輸入源了。
 
@@ -115,3 +115,5 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 - [Fedora實現VFIO教學](https://vfio.blogspot.com/2015/05/vfio-gpu-how-to-series-part-1-hardware.html)
 - [Arch Wiki上的VFIO教學](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)
 - [VFIO Reddit](https://www.reddit.com/r/VFIO/)
+- [VFIO Discord](https://discord.com/invite/f63cXwH)
+- [Looking Glass Discord](https://discord.com/invite/52SMupxkvt)
