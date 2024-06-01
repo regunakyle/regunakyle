@@ -2,6 +2,7 @@
 title = "從Windows到Linux：VFIO及Looking Glass介紹"
 author = "Eric Leung"
 description = "Better than dual boot, really"
+categories = ["VFIO/Looking Glass系列"]
 date = "2023-06-11"
 +++
 
@@ -110,9 +111,10 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 
 如有時間，我會另外寫一篇文章說明如何實現**VFIO**及**Looking Glass**。
 
+（2024年6月更新：文章寫好了，在[這裡](../006_simple_guide_for_vfio_1/)！）
+
 ## 延伸閱讀
 
-- [Fedora實現VFIO教學](https://vfio.blogspot.com/2015/05/vfio-gpu-how-to-series-part-1-hardware.html)
 - [Arch Wiki上的VFIO教學](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)
 - [VFIO Reddit](https://www.reddit.com/r/VFIO/)
 - [VFIO Discord](https://discord.com/invite/f63cXwH)
