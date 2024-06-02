@@ -70,7 +70,7 @@ date = "2024-05-31"
 1. 先在BIOS啟用IOMMU。這選項有很多不同稱呼（例如IOMMU/VT-d/AMD-V/SVM等），請自己找找看
 2. 找個USB寫入[Fedora](https://fedoraproject.org/spins/kde/download)的映像，然後插入電腦，開機進入BIOS並啟動它
 {{< notice warning "Intel用家注意" >}}
-剛啟動Fedora時應看到這[畫面](./Grub.png)。選擇有`Test this media`的一項並按`e`，然後進入這[畫面](./GrubConfig1.png)。
+剛啟動Fedora時應看到這[畫面](./Grub.png)。選擇有`Test this media`的一項並按`E`，然後進入這[畫面](./GrubConfig1.png)。
 
 請在`linux`開頭的那一行的最後加上`intel_iommu=on`（[如圖](GrubConfig2.png)），然後按`F10`啟動Fedora。
 {{< /notice >}}
@@ -91,9 +91,9 @@ for g in $(find /sys/kernel/iommu_groups/* -maxdepth 0 -type d | sort -V); do
 done
 ```
 
-1. 按`ctrl+x => y => enter`以儲存並退出nano
+1. 按`CTRL+X => Y => ENTER`以儲存並退出nano
 2. 執行`chmod u+x iommu.sh`
-3. 執行`./iommu.sh | less`，可看到IOMMU組分佈及硬件有無[Reset功能](#reset-bug)（按上下鍵移動，按`q`退出）
+3. 執行`./iommu.sh | less`，可看到IOMMU組分佈及硬件有無[Reset功能](#reset-bug)（按上下鍵移動，按`Q`退出）
 
 如果你主機板的IOMMU組分佈不理想（例如兩張顯卡在同一個IOMMU組內），可以嘗試：
 

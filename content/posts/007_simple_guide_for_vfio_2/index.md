@@ -368,7 +368,7 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：它純粹是把虛擬
             （將`33554432`改成第一步計算出的數字，再乘以1024的二次方）
 
     - 執行`sudo nano /etc/libvirt/qemu.conf`：
-        1. 找出`cgroup_device_acl`項（nano內按`ctrl+w`可搜索關鍵字）
+        1. 找出`cgroup_device_acl`項（nano內按`CTRL+W`可搜索關鍵字）
         2. 將整個部分取消註解，並於最後添加`/dev/kvmfr0`，然後儲存。應得出以下：
 
             ```bash
@@ -403,11 +403,11 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：它純粹是把虛擬
     - 重啟電腦
 
 6. 啟動**VFIO**虛擬機：
-    - （如果*virt-manager* 顯示虛擬機黑屏，請把螢幕輸出轉至*虛擬機卡* 插螢幕的插口）
+    - 如果*virt-manager* 顯示虛擬機黑屏，請先把螢幕輸出轉至*虛擬機卡* 插螢幕的插口，再繼續操作
     - 於[此處](https://looking-glass.io/downloads)下載B7-rc1的*Windows Host Binary* 並安裝
     - 於[此處](https://www.spice-space.org/download.html#windows-binaries)下載*spice-guest-tools* 並安裝（安裝後虛擬機和宿主機可共享剪貼簿）
     - 確保**Looking Glass**正在運行：
-        1. 於虛擬機內按`win+r`，輸入`services.msc`並執行
+        1. 於虛擬機內按`WIN+R`，輸入`services.msc`並執行
         2. 找出`Looking Glass (host)`
         3. 如其未開始運行，選擇它，然後滑鼠右鍵功能表按啟動
 
@@ -433,8 +433,8 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：它純粹是把虛擬
 在Looking Glass窗口內按住*Escape key*（預設是`ScrollLock`鍵）可看到快捷鍵一覽。例如：
 
 1. `ScrollLock`：切換Capture mode：Capture mode下滑鼠及鍵盤會被鎖定在Looking Glass內
-2. `ScrollLock+f`：切換全螢幕模式
-3. `ScrollLock+d`：開啟或關閉FPS展示器
+2. `ScrollLock+F`：切換全螢幕模式
+3. `ScrollLock+D`：開啟或關閉FPS展示器
 
 可以在`.looking-glass-client.ini`設定*Escape key* ，例如：
 
@@ -488,12 +488,12 @@ escapeKey=KEY_RIGHTALT
       - `General configuration`內勾選`Connect automatically with priority`
       - `Connection name`可隨意改，但不要和原來的乙太網絡的名稱相同
     - 取消勾選`Enable STP (Spanning Tree Protocol)`
-    - （可選）`General configuration`中`Firewall zone`選擇`FedoraWorkstation`，以容許網絡上其他電腦連接宿主機的1025至65535連接埠
+    - **（可選）**`General configuration`中`Firewall zone`選擇`FedoraWorkstation`，以容許網絡上其他電腦連接宿主機的1025至65535連接埠
 4. 重啟電腦
 5. 開啟**VFIO**虛擬機設定介面並選擇虛擬機的虛擬網卡
 6. `Network source`選`Bridge device...`，`Device name`填`br0`
 
-啟動**VFIO**虛擬機並查找它的IP，應看到IP在宿主機的同一子網路內。
+最後啟動**VFIO**虛擬機並查找它的IP，應看到IP是在宿主機的同一子網路內。
 
 {{< underline "通訊埠轉發 (Port Forwarding)" >}}
 
@@ -516,7 +516,7 @@ escapeKey=KEY_RIGHTALT
 1. 下載[Debian](https://www.debian.org/)安裝檔並將其移至`/var/lib/libvirt/images`
 2. 開啟終端程式並執行`sudo systemctl enable libvirtd`
 3. 創造Debian虛擬機：
-    - 提供極少資源（我只提供兩線程和1024MB RAM）
+    - 提供極少資源（我只提供單核/兩線程和512MB RAM）
     - 傳入**VFIO**虛擬機使用的*虛擬機卡*
     - 於`Boot Options`勾選`Start virtual machine on host boot up`
     - 不安裝任何桌面環境
