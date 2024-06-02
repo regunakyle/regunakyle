@@ -3,14 +3,14 @@ title = "如何實現VFIO及Looking Glass（二）"
 author = "Eric Leung"
 description = "Guide for setting up VFIO and Looking Glass:2"
 categories = ["VFIO/Looking Glass系列"]
-date = "2024-06-01"
+date = "2024-06-02"
 +++
 
 {{< css "/css/chinese.css" >}}
 
 [按我返回上一篇文章](../006_simple_guide_for_vfio_1/)
 
-（本文最後更新時間：2024年6月1日）
+（本文最後更新時間：2024年6月2日）
 
 ### VFIO虛擬機及Looking Glass設定
 
