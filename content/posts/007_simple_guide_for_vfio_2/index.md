@@ -428,7 +428,7 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：它純粹是把虛擬
 
         （可於[此處](https://looking-glass.io/docs/B7-rc1/usage/#all-command-line-options)查看所有設定項）
 
-    - 執行`looking-glass-client`，如看到虛擬機畫面則成功
+    - 執行`looking-glass-client`，如能看到虛擬機畫面及操作它，則大功告成
 
 {{< notice info "Looking Glass 客戶端使用教學" >}}
 
