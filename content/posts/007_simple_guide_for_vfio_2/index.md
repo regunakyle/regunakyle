@@ -26,7 +26,7 @@ Intel平台上IOMMU需要以下步驟才能啟動：
 
 1. 執行`sudo nano /etc/sysconfig/grub`，並於`GRUB_CMDLINE_LINUX`引號內的最後添加`intel_iommu=on`，然後儲存
 2. 執行`sudo grub2-mkconfig -o /etc/grub2-efi.cfg`，然後重啟電腦
-3. 重啟後執行[這節](http://localhost:1313/posts/006_simple_guide_for_vfio_1/#%e4%b8%bb%e6%a9%9f%e6%9d%bfiommu)第4步檢查IOMMU組的腳本，如看到硬件的IOMMU組則成功
+3. 重啟後執行[這節](../006_simple_guide_for_vfio_1/#%e4%b8%bb%e6%a9%9f%e6%9d%bfiommu)第4步檢查IOMMU組的腳本，如看到硬件的IOMMU組則成功
 
 {{< /notice >}}
 
@@ -36,7 +36,7 @@ Intel平台上IOMMU需要以下步驟才能啟動：
 
 在執行以下步驟前，先保證你**兩張顯示卡都已連接電腦螢幕**。綁定了*vfio-pci* 的顯示卡不會顯示宿主機的畫面。如果沒接駁第二張顯示卡，你就只會看到黑屏。（CPU內顯須用主機板後方面板上的HDMI/DP插口）
 
-1. 執行[這節](http://localhost:1313/posts/006_simple_guide_for_vfio_1/#%e4%b8%bb%e6%a9%9f%e6%9d%bfiommu)第4步檢查IOMMU組的腳本，記下你想傳入虛擬機的設備ID（應是`xxxx:xxxx`格式，例如我的3060 Ti的ID是`10de:2489`）
+1. 執行[這節](../006_simple_guide_for_vfio_1/#%e4%b8%bb%e6%a9%9f%e6%9d%bfiommu)第4步檢查IOMMU組的腳本，記下你想傳入虛擬機的設備ID（應是`xxxx:xxxx`格式，例如我的3060 Ti的ID是`10de:2489`）
 2. 執行`sudo nano /etc/sysconfig/grub`，並於`GRUB_CMDLINE_LINUX`引號內的最後添加`vfio_pci.ids=abcd:efgh,1234:5678`（請自行代入設備ID），然後儲存
 3. 執行`sudo nano /etc/dracut.conf.d/vfio.conf`，貼上以下內容後儲存：
 
@@ -428,7 +428,7 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：它純粹是把虛擬
 
     - 執行`looking-glass-client`，如看到虛擬機畫面則成功
 
-{{< notice info "Looking Glass 使用教學" >}}
+{{< notice info "Looking Glass 客戶端使用教學" >}}
 
 在Looking Glass窗口內按住*Escape key*（預設是`ScrollLock`鍵）可看到快捷鍵一覽。例如：
 
@@ -446,7 +446,7 @@ escapeKey=KEY_RIGHTALT
 
 執行`looking-glass-client input:escapeKey=help`以查看可設做*Escape key* 的所有鍵。
 
-[Looking Glass官方使用教學](https://looking-glass.io/docs/B7-rc1/usage/)
+[Looking Glass客戶端官方使用教學](https://looking-glass.io/docs/B7-rc1/usage/)
 
 {{< /notice >}}
 
