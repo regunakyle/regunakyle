@@ -500,7 +500,7 @@ escapeKey=KEY_RIGHTALT
 1. 找一個空白文件夾，入內開啟終端程式
 2. 執行`git clone https://github.com/saschpe/libvirt-hook-qemu.git`
 3. 開啟`hooks.json`並將第59行的逗號刪除（如有）
-4. 根據說明自行修改`hooks.json`。可於`hooks.schema.json`查看`hooks.json`的格式
+4. 根據[說明](https://github.com/saschpe/libvirt-hook-qemu/blob/master/hooks.json)自行修改`hooks.json`。可於`hooks.schema.json`查看`hooks.json`的格式
 5. 執行`sudo make install`
 
 安裝後，可透過宿主機的指定連接埠去連接虛擬機的指定連接埠。
