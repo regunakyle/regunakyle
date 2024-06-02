@@ -16,7 +16,9 @@ date = "2024-06-02"
 
 **本文假設你的電腦已經安裝最新版本的Fedora**（現時是40）。
 
-我強烈建議以下內容配合[Arch Wiki上的教學](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)一並服用，可以相互參照。
+我用的是[KDE版本](https://fedoraproject.org/spins/kde/download)，但本教學應同時適用於[GNOME版本](https://fedoraproject.org/workstation/)（即*Workstation* ）。注意**不要安裝不可變（Immutable）版本**（Fedora稱之為*Atomic Desktop* ），例如[Silverblue](https://fedoraproject.org/atomic-desktops/silverblue/)和[Kinoite](https://fedoraproject.org/atomic-desktops/kinoite/)。
+
+強烈建議以下內容配合[Arch Wiki上的教學](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)一並服用，可以相互參照。
 
 我的設定可能和Arch Wiki上的有出入，因為我另外參考了[VFIO Discord](https://discord.com/invite/f63cXwH)內的Linux高手們較新的建議。我推薦加入這群組，因為群組內的`wiki-and-psa`頻道有必讀的虛擬機優化教學，此外也能請教群內Linux高手。
 

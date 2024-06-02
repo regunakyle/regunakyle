@@ -99,7 +99,7 @@ done
 
 1. 更新BIOS（有機會影響IOMMU組分佈）
 2. 將硬件轉插主機板上另一個PCIe/M.2插槽
-3. 使用**ACS override patch**：這個Patch可令全部硬件都有自己一個獨佔既IOMMU組，但用它會帶來安全性風險。請自己斟酌利弊，本文亦不提供安裝教學
+3. 使用[ACS override patch](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Bypassing_the_IOMMU_groups_(ACS_override_patch))：這個Patch可令全部硬件都有自己一個獨佔既IOMMU組，但用它會帶來安全性風險。請自己斟酌利弊，本文亦不提供安裝教學
 
 如果買新主機板的話，我建議買AMD的X570系。VFIO社群內不少人都說X570系主機板有非常好的IOMMU組分佈，而且不少X570主機板支持PCIe Bifurcation，非常適合**Looking Glass**。買X570系的壞處是不能戰未來：AM4平台不會再有新產品；它們用的DDR4記憶體同樣是夕陽產品。
 
@@ -113,7 +113,7 @@ done
 
 上部分檢查IOMMU組的腳本可同時檢查硬件有沒有Reset功能。如果你的AMD顯示卡沒有Reset功能，可以看看[Vendor Reset](https://github.com/gnif/vendor-reset)支不支持你的顯示卡，它可為部分AMD顯示卡添加Reset功能。
 
-（AMD連企業用的AI運算顯示卡都沒有Reset功能，令一眾企業客戶大呼中伏。不過據說情況[正在改善](https://www.reddit.com/r/Amd/comments/1bsjm5a/letter_to_amd_ongoing_amd/)）
+（AMD連企業用的AI運算顯示卡都沒有Reset功能，令一眾企業客戶大呼中伏。但據說情況[正在](https://www.reddit.com/r/Amd/comments/1bsjm5a/letter_to_amd_ongoing_amd/)[改善](https://forum.level1techs.com/t/the-state-of-amd-rx-7000-series-vfio-passthrough-april-2024/210242)）
 
 #### 顯示卡選擇
 
