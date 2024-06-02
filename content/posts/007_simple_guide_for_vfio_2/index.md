@@ -14,7 +14,7 @@ date = "2024-06-01"
 
 ### VFIO虛擬機及Looking Glass設定
 
-此處假設你的電腦已經安裝最新版本的Fedora（現時是40）。
+**本文假設你的電腦已經安裝最新版本的Fedora**（現時是40）。
 
 我強烈建議以下內容配合[Arch Wiki上的教學](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)一並服用，可以相互參照。
 
@@ -26,7 +26,7 @@ Intel平台上IOMMU需要以下步驟才能啟動：
 
 1. 執行`sudo nano /etc/sysconfig/grub`，並於`GRUB_CMDLINE_LINUX`引號內的最後添加`intel_iommu=on`，然後儲存
 2. 執行`sudo grub2-mkconfig -o /etc/grub2-efi.cfg`，然後重啟電腦
-3. 重啟後執行上方檢查IOMMU組的腳本，如看到硬件的IOMMU組則成功
+3. 重啟後執行[這節](http://localhost:1313/posts/006_simple_guide_for_vfio_1/#%e4%b8%bb%e6%a9%9f%e6%9d%bfiommu)第4步檢查IOMMU組的腳本，如看到硬件的IOMMU組則成功
 
 {{< /notice >}}
 
@@ -36,7 +36,7 @@ Intel平台上IOMMU需要以下步驟才能啟動：
 
 在執行以下步驟前，先保證你**兩張顯示卡都已連接電腦螢幕**。綁定了*vfio-pci* 的顯示卡不會顯示宿主機的畫面。如果沒接駁第二張顯示卡，你就只會看到黑屏。（CPU內顯須用主機板後方面板上的HDMI/DP插口）
 
-1. 執行上方檢查IOMMU組的腳本，記下你想傳入虛擬機的設備ID（應是`xxxx:xxxx`格式，例如我的3060 Ti的ID是`10de:2489`）
+1. 執行[這節](http://localhost:1313/posts/006_simple_guide_for_vfio_1/#%e4%b8%bb%e6%a9%9f%e6%9d%bfiommu)第4步檢查IOMMU組的腳本，記下你想傳入虛擬機的設備ID（應是`xxxx:xxxx`格式，例如我的3060 Ti的ID是`10de:2489`）
 2. 執行`sudo nano /etc/sysconfig/grub`，並於`GRUB_CMDLINE_LINUX`引號內的最後添加`vfio_pci.ids=abcd:efgh,1234:5678`（請自行代入設備ID），然後儲存
 3. 執行`sudo nano /etc/dracut.conf.d/vfio.conf`，貼上以下內容後儲存：
 
@@ -60,27 +60,33 @@ force_drivers+=" vfio_pci "
 
 注意：我不知道SATA控制器（或其他*vfio-pci* 綁定不了的硬件）不綁定*pci-stub* 的話會不會有問題，這個要留給你自己研究了。
 
+我的`GRUB_CMDLINE_LINUX`是這樣的：
+
+```bash
+GRUB_CMDLINE_LINUX="rhgb quiet vfio_pci.ids=10de:2489,10de:228b pci-stub.ids=1b21:3241"
+```
+
 #### 創建VFIO虛擬機
 
 1. 執行`sudo dnf install -y @virtualization`
-2. 下載Windows 10的ISO檔和[此處](https://github.com/virtio-win/virtio-win-pkg-scripts?tab=readme-ov-file#downloads)的`Latest virtio-win ISO`，並將它們移至`/var/lib/libvirt/images`（用`cp`或`mv`指令都可）
+2. 下載Windows 10的ISO檔和[此處](https://github.com/virtio-win/virtio-win-pkg-scripts?tab=readme-ov-file#downloads)的`Latest virtio-win ISO`，並將它們移至`/var/lib/libvirt/images`（提示：`sudo mv *.iso /var/lib/libvirt/images`）
 3. 啟動*virt-manager* ，並啟用設定：`Edit => Preferences => Enable XML editing`
 4. 創建新的虛擬機（左上角按鍵）
 5. 第一頁選擇`Local install media (ISO image or CDROM)`
 6. 第二頁選擇Windows 10 ISO檔作安裝ISO，選擇後於下方`Choose the operation system you are installing`中選`Microsoft Windows 10`
 7. 第三頁設定CPU及RAM
-8. 第四頁取消選擇`Enable storage for this virtual machine`
-9. 最後一頁緊記按`Customize configuration before install`，然後按`Finish`
+8. 第四頁取消勾選`Enable storage for this virtual machine`
+9. 最後一頁勾選`Customize configuration before install`，然後按`Finish`
 
 {{< figure src="./VirtManagerUI.png" caption="這時應出現這個介面" >}}
 
 #### 設定VFIO虛擬機
 
-[我的VFIO虛擬機的XML](./vfio.xml)
+[我的VFIO虛擬機的XML（參考用，不可直接複制貼上）](./vfio.xml)
 
 1. 在`Overview`頁，`Chipset`選`Q35`，`Firmware`選`UEFI`
 
-2. 在`CPU`頁，`Topology`下選擇`Manually set CPU Topology`：
+2. 在`CPU`頁，`Topology`下勾選`Manually set CPU Topology`：
     - `Sockets`設定為1
     - `Cores`設定為你想傳入的CPU核數
     - `Threads`設定為你CPU單核的線程數（通常是2）
@@ -89,12 +95,12 @@ force_drivers+=" vfio_pci "
     - 加入`PCI Host Device`：加入所有你想傳入虛擬機的硬件（例如*虛擬機卡* ）
     - 加入`Network`：`Device model`選擇`virtio`。加入後將原本使用`e1000e`的虛擬網卡刪除
     - 加入`Storage`：`Device type`選`CDROM Device`，再按`Manage...`並選擇上一部分第二步下載的`virtio-win`之ISO檔
-    - 如果你想將[Windows直接安裝於SSD/HDD上](#nvme-ssdsata控制器)，加入`PCI Host Device`並選擇對應的控制器即可
+    - 如果你想將[Windows直接安裝於SSD/HDD上](../006_simple_guide_for_vfio_1/#nvme-ssdsata控制器)，加入`PCI Host Device`並選擇對應的控制器即可
     - 如果你選擇用虛擬硬碟：
         1. 加入`Storage`：設定虛擬硬碟容量，然後`Bus Type`選擇`SCSI`
         2. 加入`Controller`：`Type`選擇`SCSI`
 
-4. 最後去`Overview`頁，然後按`XML`，進入下部分
+4. 最後返回`Overview`頁，然後按`XML`，進入下部分
 
 ##### CPU Pinning
 
@@ -171,11 +177,18 @@ CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE    MAXMHZ    MINMHZ       MHZ
 
 注意`<vcpupin>`要避免Pin第0個CPU核（`lscpu -e`的`CORE`一欄）的線程。
 
-CPU Pinning不是把CPU核限制只能由虛擬機使用：純粹是把虛擬機的CPU工作指派給你指定的CPU核去做，宿主機仍能使用這些Pin了的核。不過有方法把CPU獨立出來供虛擬機使用，可看看[Arch Wiki](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Dynamically_isolating_CPUs)的說明。
+CPU Pinning不是把CPU核限制只能由虛擬機使用：它純粹是把虛擬機的CPU工作指派給你指定的CPU核去做，宿主機仍能使用這些Pin了的核。不過有方法把CPU獨立出來供虛擬機使用，可看看[Arch Wiki](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Dynamically_isolating_CPUs)的說明。
+
+{{< notice warning "Intel大小核 CPU 用家注意" >}}
+我自己沒用過大小核結構的Intel CPU，不過我看網上的討論都建議只用（除Core 0外的）P-core做`vcpupin`，E-core則做`emulatorpin`及`iothreadpin`。
+
+如果`vcpupin`混合了P-core和E-core的話可能會產生問題，具體請自己研究。
+
+{{< /notice >}}
 
 ##### IOThread
 
-注意：**這部分只適用於虛擬硬碟用家**。如你選擇直接安裝Windows到HDD/SSD上，請跳過本節！
+注意：**這部分只適用於虛擬硬碟用家**。如你選擇直接安裝Windows到HDD/SSD上，請[跳過本節](#其他雜項優化)！
 
 此部分請配合[Arch Wiki上的條目](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Virtio_disk)一并服用。
 
@@ -191,27 +204,27 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：純粹是把虛擬機
     ```
 
 2. 返回`Overview`頁，在`<vcpu>`下方添加`<iothreads>1</iothreads>`
-3. 於`<cputune>`內的`<emulatorpin>`下添加以下：
+3. 於`<cputune>`內的`<emulatorpin>`下添加`<iothreadpin>`：
 
     ```XML
-    <iothreadpin iothread="1" cpuset="X" />
+    <iothreadpin iothread="1" cpuset="0-1,12-13" />
     ```
 
     （請自己代入`cpuset`的值，其應和`<emulatorpin>`的`cpuset`的值一樣）
 
 ##### 其他雜項優化
 
-1. 如果你用AMD的CPU，請在`<cpu>`一項內加`<feature policy='require' name='topoext'/>`及`<cache mode='passthrough'/>`。添加後應如此：
+1. 如果你用AMD的CPU，請在`<cpu>`項內加`<feature policy='require' name='topoext'/>`及`<cache mode='passthrough'/>`。添加後應如此：
 
 ```xml
 <cpu mode="host-passthrough">
-    <topology sockets="1" cores="6" threads="2"/>
+    <topology sockets="1" cores="10" threads="2"/>
     <feature policy="require" name="topoext"/>
     <cache mode="passthrough"/>
 </cpu>
 ```
 
-2. 在`<features>`項內的`<hyperv>`項替換做以下內容：
+2. 將`<features>`項內的`<hyperv>`項替換做以下內容：
 
 ```xml
     <hyperv mode='custom'>
@@ -253,11 +266,11 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：純粹是把虛擬機
 
 這時按`Load driver`，再於出現的驅動程式中選擇`w10`一項即可：
 
-{{< figure src="./Windows_SCSI_2.png" >}}
+{{< figure src="./Windows_SCSI_2.png" caption="要有`virtio-win`作為CDROM，`Load driver`才能找到驅動程式" >}}
 
-因為Windows沒有`virtio`虛擬網卡的驅動，所以整個安裝過程應是離線進行。
+因為Windows沒有`virtio`虛擬網卡的驅動，所以整個安裝過程都是離線進行。
 
-安裝Windows後，開啟檔案總管（File Explorer）並於左方開啟`virtio-win`的CD drive，然後執行`virtio-win-gt-x64.msi`。安裝成功後應可連接至網絡。
+安裝Windows後，開啟檔案總管（File Explorer）並開啟`virtio-win`的CDROM，然後執行CDROM內的`virtio-win-gt-x64.msi`。安裝成功後應可連接至網絡。
 
 最後將**VFIO**虛擬機關機，然後開啟虛擬機設定介面：
 
@@ -266,7 +279,7 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：純粹是把虛擬機
 
 到此**VFIO**虛擬機安裝已完成。如果你不打算安裝**Looking Glass**，可直接[跳過下一部分](#雜項)。
 
-純**VFIO**可能有其他設定要做（例如[設定evdev](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Passing_keyboard/mouse_via_Evdev)），請自行研究。
+純**VFIO**應有其他設定要做（例如[設定evdev](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Passing_keyboard/mouse_via_Evdev)），請自己做功課，在此不作說明。
 
 ### Looking Glass設定
 
@@ -282,7 +295,7 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：純粹是把虛擬機
     - 可讀讀[Additional tuning](https://looking-glass.io/docs/B7-rc1/install_libvirt/#additional-tuning)
 2. 於[此處](https://looking-glass.io/downloads)下載B7-rc1的*Source* 並解壓縮
 3. 官方教學之[Building](https://looking-glass.io/docs/B7-rc1/build/):
-    - 安裝[編譯依賴](https://looking-glass.io/wiki/Installation_on_other_distributions)：
+    - 安裝[編譯依賴](https://looking-glass.io/wiki/Installation_on_other_distributions#Fedora_35.2B)：
 
         ```bash
         sudo dnf install -y \
@@ -301,7 +314,7 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：純粹是把虛擬機
     注意：如果你的桌面環境是GNOME，請於上方`cmake`步驟添加`-DENABLE_LIBDECOR=on`（[原因](https://looking-glass.io/docs/B7-rc1/faq/#gnome-wayland-decorations)）。
 
 4. 官方教學之[IVSHMEM with the KVMFR module](https://looking-glass.io/docs/B7-rc1/ivshmem_kvmfr/)：
-    - 安裝[編譯依賴](https://looking-glass.io/wiki/Installation_on_other_distributions)：
+    - 安裝[編譯依賴](https://looking-glass.io/wiki/Installation_on_other_distributions#Installing_Additional_Dependencies_for_Kernel_Module_Build)：
 
         ```bash
         sudo dnf install -y dkms kernel-devel kernel-headers
@@ -339,7 +352,7 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：純粹是把虛擬機
             <domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
             ```
 
-            （先別儲存）
+            （修改後先別儲存）
 
         2. 於XML最後（即`</domain>`前）添加以下內容：
 
@@ -396,7 +409,7 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：純粹是把虛擬機
     - 確保**Looking Glass**正在運行：
         1. 於虛擬機內按`win+r`，輸入`services.msc`並執行
         2. 找出`Looking Glass (host)`
-        3. 如其未開始運行，選擇它，然後右鍵功能表按啟動
+        3. 如其未開始運行，選擇它，然後滑鼠右鍵功能表按啟動
 
 7. 於宿主機上開啟終端程式：
     - 執行`nano $HOME/.looking-glass-client.ini`並輸入以下內容，然後儲存：
@@ -404,13 +417,40 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：純粹是把虛擬機
         ```ini
         [app]
         shmFile=/dev/kvmfr0
+
+        ; 容許Windows使用你的麥克風；可設做`deny`並禁止Windows使用你的麥克風
+        ; 如不設這項，每次Windows要用麥克風的時候，Looking Glass都會彈出對話框問你是否同意使用
+        [audio]
+        micDefault=allow
         ```
 
         （可於[此處](https://looking-glass.io/docs/B7-rc1/usage/#all-command-line-options)查看所有設定項）
 
     - 執行`looking-glass-client`，如看到虛擬機畫面則成功
 
-8. （可選）Looking Glass OBS插件
+{{< notice info "Looking Glass 使用教學" >}}
+
+在Looking Glass窗口內按住*Escape key*（預設是`ScrollLock`鍵）可看到快捷鍵一覽。例如：
+
+1. `ScrollLock`：切換Capture mode：Capture mode下滑鼠及鍵盤會被鎖定在Looking Glass內
+2. `ScrollLock+f`：切換全螢幕模式
+3. `ScrollLock+d`：開啟或關閉FPS展示器
+
+可以在`.looking-glass-client.ini`設定*Escape key* ，例如：
+
+```ini
+; 設鍵盤右邊的alt鍵為Escape key
+[input]
+escapeKey=KEY_RIGHTALT
+```
+
+執行`looking-glass-client input:escapeKey=help`以查看可設做*Escape key* 的所有鍵。
+
+[Looking Glass官方使用教學](https://looking-glass.io/docs/B7-rc1/usage/)
+
+{{< /notice >}}
+
+8. **（可選）** Looking Glass OBS插件
 
     **Looking Glass**有個OBS插件可讓你將整個虛擬機的畫面投射到OBS上。
 
@@ -421,9 +461,9 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：純粹是把虛擬機
     3. 執行`cmake -DUSER_INSTALL=1 ../`
     4. 執行`make`
     5. 執行`make install`
-    6. 啟動OBS，於`來源`加入`Looking Glass Client`
+    6. 啟動OBS，於`Sources`加入`Looking Glass Client`
         - `SHM File`填`/dev/kvmfr0`
-        - 選擇`Use DMABUF import (requires kvmfr device)`
+        - 勾選`Use DMABUF import (requires kvmfr device)`
 
 {{< figure src="./OBS.jpg" caption="效果圖" >}}
 
@@ -435,27 +475,27 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：純粹是把虛擬機
 
 如果想經網絡連接虛擬機的話，有兩個方法：
 
-{{< underline "橋接網絡" >}}
+{{< underline "橋接網絡 (Network Bridge)" >}}
 
 注意：此方法要求宿主機以有線乙太網絡連接上網。如果你只能用WiFi，請轉用通訊埠轉發方法
 
 1. 於Linux設定中開啟網絡設定
 2. 將原本的有線乙太網絡連接刪除
 3. 添加Bridge：
-    - `介面名稱`填`br0`
-    - `橋接連線`新增`乙太網絡`
-      - `限制裝置`選擇原來的乙太網絡
-      - `一般設定`選擇`優先考慮自動連線`
-      - `連線名稱`可隨意改，但不要和原來的乙太網絡的名稱相同
-    - 取消STP
-    - （可選）`一般設定`中`防火牆區`選擇`FedoraWorkstation`，以容許網絡上其他電腦連接宿主機1025至65535連接埠
+    - `Interface name`填`br0`
+    - `Bridged connections`新增`Ethernet`
+      - `Restrict to device:`選擇原來的乙太網絡
+      - `General configuration`內勾選`Connect automatically with priority`
+      - `Connection name`可隨意改，但不要和原來的乙太網絡的名稱相同
+    - 取消勾選`Enable STP (Spanning Tree Protocol)`
+    - （可選）`General configuration`中`Firewall zone`選擇`FedoraWorkstation`，以容許網絡上其他電腦連接宿主機的1025至65535連接埠
 4. 重啟電腦
 5. 開啟**VFIO**虛擬機設定介面並選擇虛擬機的虛擬網卡
 6. `Network source`選`Bridge device...`，`Device name`填`br0`
 
-啟動**VFIO**虛擬機，應看到它的IP在宿主機的同一子網路內。
+啟動**VFIO**虛擬機並查找它的IP，應看到IP在宿主機的同一子網路內。
 
-{{< underline "通訊埠轉發" >}}
+{{< underline "通訊埠轉發 (Port Forwarding)" >}}
 
 1. 找一個空白文件夾，入內開啟終端程式
 2. 執行`git clone https://github.com/saschpe/libvirt-hook-qemu.git`
@@ -463,11 +503,11 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：純粹是把虛擬機
 4. 根據說明自行修改`hooks.json`。可於`hooks.schema.json`查看`hooks.json`的格式
 5. 執行`sudo make install`
 
-安裝後應可透過宿主機的指定連接埠去連接虛擬機的指定連接埠。
+安裝後，可透過宿主機的指定連接埠去連接虛擬機的指定連接埠。
 
-#### 虛擬機節省電量
+#### 降低虛擬機卡耗電
 
-根據[VFIO Discord](https://discord.com/invite/f63cXwH)的大神的研究，*虛擬機卡* 單靠*vfio-pci* 的內建休眠功能不能真正達致低耗電，需要綁定官方驅動程式才能做到低耗電。
+[VFIO Discord](https://discord.com/invite/f63cXwH)的大神發現*虛擬機卡* 單靠*vfio-pci* 的內建休眠功能不能真正達致低耗電，需要綁定官方驅動程式才能做到低耗電。
 
 你可以選擇常時啟動**VFIO**虛擬機以綁定官方驅動程式，但這樣做可能會佔用很多資源（例如佔用大量RAM）。
 
@@ -478,14 +518,18 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：純粹是把虛擬機
 3. 創造Debian虛擬機：
     - 提供極少資源（我只提供兩線程和1024MB RAM）
     - 傳入**VFIO**虛擬機使用的*虛擬機卡*
-    - 於`Boot Options`設定`Start virtual machine on host boot up`
+    - 於`Boot Options`勾選`Start virtual machine on host boot up`
     - 不安裝任何桌面環境
 4. 在這虛擬機上安裝*虛擬機卡* 的官方驅動程式（[Debian安裝Nvidia驅動教學](https://wiki.debian.org/NvidiaGraphicsDrivers)），然後重啟
 
-這樣做的缺點是麻煩：你想玩遊戲時要將它關機，玩完後又要手動啟動它。因此我寫了一個小程式將這步驟自動化。安裝教學如下：
+這樣做不但可以降低耗電，你還可以在這虛擬機內做顯示卡相關的工作（例如跑AI）。
+
+缺點是麻煩：你想玩遊戲時要將它關機（否則不能啟動**VFIO**虛擬機），**VFIO**虛擬機關機後又要手動啟動它。
+
+因此，我特意寫了一個[程式](https://github.com/regunakyle/vfio-vm-rotation-service)將這步驟自動化。安裝教學如下：
 
 1. 找一個空白文件夾，入內開啟終端程式
-2. 執行`sudo dnf install libvirt-devel make`
+2. 執行`sudo dnf install libvirt-devel make gcc`
 3. 執行`git clone https://github.com/regunakyle/vfio-vm-rotation-service.git`
 4. 開啟`vfio-vm-rotation.service`並於`[Service]`下方加入以下內容：
 
@@ -510,4 +554,4 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：純粹是把虛擬機
 {{< figure src="./BareMetal.jpg" caption="實機Windows下的3DMark跑分" >}}
 
 \
-{{< figure src="./Cover.jpg" caption="Looking Glass B7-rc1下的跑分，顯示卡損耗比B6少" >}}
+{{< figure src="./Cover.jpg" caption="Looking Glass B7-rc1下的跑分，可看到顯示卡性能損耗比B6少" >}}

@@ -20,7 +20,7 @@ date = "2024-05-31"
 
 1. Fedora推出了第40版，同時也為桌面環境KDE帶來了大更新
 2. 我要把原本用作安裝Windows 10虛擬機的SSD轉讓給家人
-3. Looking Glass推出了B7版（現時仍是Release Candidate版），據說性能上升不少
+3. Looking Glass推出了B7-rc1版，據說性能上升不少
 
 藉此機會把自己安裝**VFIO**虛擬機的步驟記下來，希望能幫助其他有興趣的人。
 
@@ -91,9 +91,9 @@ for g in $(find /sys/kernel/iommu_groups/* -maxdepth 0 -type d | sort -V); do
 done
 ```
 
-5. 按`ctrl+x` => `y` => `enter`以儲存並退出nano
-6. 執行`chmod u+x iommu.sh`
-7. 執行`./iommu.sh | less`，可看到IOMMU組分佈及硬件有無[Reset功能](#reset-bug)（按上下鍵移動，按`q`退出）
+1. 按`ctrl+x => y => enter`以儲存並退出nano
+2. 執行`chmod u+x iommu.sh`
+3. 執行`./iommu.sh | less`，可看到IOMMU組分佈及硬件有無[Reset功能](#reset-bug)（按上下鍵移動，按`q`退出）
 
 如果你主機板的IOMMU組分佈不理想（例如兩張顯卡在同一個IOMMU組內），可以嘗試：
 
@@ -111,7 +111,7 @@ done
 
 所謂"Reset bug"即是硬件沒有Reset功能，無法在虛擬機關機時正確地重置，使其處於一個"假死"狀態。在這個狀態下的硬件會令你不能重新啟動**VFIO**虛擬機，必須將整個宿主機重啟才能再次啟動它。
 
-上部分檢查IOMMU組的腳本可同時檢查硬件有沒有Reset功能。如果你的AMD顯示卡沒有Reset功能，可以看看[Vendor Reset](https://github.com/gnif/vendor-reset)。
+上部分檢查IOMMU組的腳本可同時檢查硬件有沒有Reset功能。如果你的AMD顯示卡沒有Reset功能，可以看看[Vendor Reset](https://github.com/gnif/vendor-reset)支不支持你的顯示卡，它可為部分AMD顯示卡添加Reset功能。
 
 （AMD連企業用的AI運算顯示卡都沒有Reset功能，令一眾企業客戶大呼中伏。不過據說情況[正在改善](https://www.reddit.com/r/Amd/comments/1bsjm5a/letter_to_amd_ongoing_amd/)）
 
@@ -121,7 +121,7 @@ done
 
 *宿主機卡* 推薦Intel或AMD（CPU內顯或獨立顯示卡），因為這兩個牌子的顯示卡在Linux有開源的驅動程式，此外它們支持*DMABUF* 功能，這對Looking Glass的性能有大幫助。
 
-如果打算用Looking Glass，開發者建議兩張獨立顯示卡。CPU內顯也能用，但Looking Glass的幀數會較低。我建議先安裝Looking Glass，看看能不能接受其幀數，不能接受再買第二張獨立顯示卡。
+如果打算用Looking Glass，開發者建議兩張獨立顯示卡。CPU內顯也當*宿主機卡* 用，但Looking Glass的幀數會較低。我建議先安裝Looking Glass，看看能不能接受其幀數，實在太慢的話再買第二張獨立顯示卡。
 
 如果想買第二張顯示卡，我推薦Intel Arc系列（如A380），不但便宜、耗電低，更有極強編碼/解碼能力，非常適合OBS用家。
 
