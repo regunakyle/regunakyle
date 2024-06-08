@@ -1,7 +1,7 @@
 +++
-title = "如何實現VFIO及Looking Glass（二）"
+title = "如何實現VFIO及Looking Glass（安裝篇）"
 author = "Eric Leung"
-description = "Guide for setting up VFIO and Looking Glass:2"
+description = "Guide for setting up VFIO and Looking Glass (Setup)"
 categories = ["VFIO/Looking Glass系列"]
 date = "2024-06-02"
 +++
@@ -18,7 +18,7 @@ date = "2024-06-02"
 
 我用的是[KDE版本](https://fedoraproject.org/spins/kde/download)，但本教學應同時適用於[GNOME版本](https://fedoraproject.org/workstation/)（即*Workstation* ）。注意**不要安裝不可變（Immutable）版本**（Fedora稱之為*Atomic Desktop* ），例如[Silverblue](https://fedoraproject.org/atomic-desktops/silverblue/)和[Kinoite](https://fedoraproject.org/atomic-desktops/kinoite/)。
 
-強烈建議以下內容配合[Arch Wiki上的教學](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)一並服用，可以相互參照。
+強烈建議以下內容配合[Arch Wiki上的教學](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF)一並閱讀，可以相互參照。
 
 我的設定可能和Arch Wiki上的有出入，因為我另外參考了[VFIO Discord](https://discord.com/invite/f63cXwH)內的Linux高手們較新的建議。我推薦加入這群組，因為群組內的`wiki-and-psa`頻道有必讀的虛擬機優化教學，此外也能請教群內Linux高手。
 
@@ -34,7 +34,7 @@ Intel平台上IOMMU需要以下步驟才能啟動：
 
 #### 綁定vfio-pci/pci-stub驅動程式
 
-*vfio-pci* 是一個VFIO專用驅動程式。綁定*vfio-pci* 的硬件不會使用正常的驅動程式（比如顯示卡的官方驅動），因此宿主無法使用這些硬件。這樣能最大程度上保證**VFIO**虛擬機傳入硬件的穩定性。
+*vfio-pci* 是一個VFIO專用驅動程式。綁定*vfio-pci* 的硬件不會使用正常的驅動程式（比如顯示卡的官方驅動），因此宿主不會使用這些硬件。這樣能最大程度上保證**VFIO**虛擬機傳入硬件的穩定性。
 
 在執行以下步驟前，先保證你**兩張顯示卡都已連接電腦螢幕**。綁定了*vfio-pci* 的顯示卡不會顯示宿主機的畫面。如果沒接駁第二張顯示卡，你就只會看到黑屏。（CPU內顯須用主機板後方面板上的HDMI/DP插口）
 
@@ -52,7 +52,7 @@ force_drivers+=" vfio_pci "
 
 有些硬件不能用以上方法綁定*vfio-pci* ，例如USB控制器和SATA控制器。因為這兩種硬件的驅動程式（USB是*xhci_hcd* 、SATA是*ahci* ）綁定優先度更高，*vfio-pci* 來不及綁定硬件。
 
-這時候可以轉用*pci-stub* ：它是*vfio-pci* 的前身，功能和*vfio-pci* 相近，但綁定優先度比*xhci_hcd* 和*ahci* 更高。它的缺點是它沒有*vfio-pci* 的一些功能（例如*vfio-pci* 可以把你的硬件設置成耗電較低的休眠狀態）。
+這時候可以轉用*pci-stub* ：它是*vfio-pci* 的前身，功能和*vfio-pci* 相近，但綁定優先度比*xhci_hcd* 和*ahci* 更高。它的缺點是沒有*vfio-pci* 的一些功能（例如*vfio-pci* 可以把你的硬件設置成耗電較低的休眠狀態）。
 
 1. 執行`sudo nano /etc/sysconfig/grub`，並於`GRUB_CMDLINE_LINUX`引號內的最後添加`pci-stub.ids=abcd:efgh,1234:5678`（請自行代入設備ID），然後儲存
 2. 執行`sudo grub2-mkconfig -o /etc/grub2-efi.cfg`，然後重啟電腦
@@ -71,7 +71,7 @@ GRUB_CMDLINE_LINUX="rhgb quiet vfio_pci.ids=10de:2489,10de:228b pci-stub.ids=1b2
 #### 創建VFIO虛擬機
 
 1. 執行`sudo dnf install -y @virtualization`
-2. 下載Windows 10的ISO檔和[此處](https://github.com/virtio-win/virtio-win-pkg-scripts?tab=readme-ov-file#downloads)的`Latest virtio-win ISO`，並將它們移至`/var/lib/libvirt/images`（提示：`sudo mv *.iso /var/lib/libvirt/images`）
+2. 下載Windows 10的ISO檔和[此處下載](https://github.com/virtio-win/virtio-win-pkg-scripts?tab=readme-ov-file#downloads)的`Latest virtio-win ISO`，並將它們移至`/var/lib/libvirt/images`（提示：`sudo mv *.iso /var/lib/libvirt/images`）
 3. 啟動*virt-manager* ，並啟用設定：`Edit => Preferences => Enable XML editing`
 4. 創建新的虛擬機（左上角按鍵）
 5. 第一頁選擇`Local install media (ISO image or CDROM)`
@@ -106,9 +106,9 @@ GRUB_CMDLINE_LINUX="rhgb quiet vfio_pci.ids=10de:2489,10de:228b pci-stub.ids=1b2
 
 ##### CPU Pinning
 
-此部分請配合[Arch Wiki上的條目](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#CPU_pinning)一并服用。
+此部分請配合[Arch Wiki上的條目](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#CPU_pinning)一并閱讀。
 
-CPU Pinning可使虛擬機的CPU工作全部放在你指定的CPU線程上。沒有CPU Pinning的時候，Linux會把虛擬機的CPU工作隨意分配在不同CPU上，這可能導致CPU性能較差或出現延遲。
+CPU Pinning可使虛擬機的CPU工作全部放在你指定的CPU線程上。沒有CPU Pinning的時候，Linux會把虛擬機的CPU工作隨意分配在不同CPU線程上，這可能導致虛擬機CPU性能較差或出現延遲。
 
 開啟終端程式（如Konsole），輸入`lspcu -e`，應看到類似以下內容：
 
@@ -141,11 +141,11 @@ CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE    MAXMHZ    MINMHZ       MHZ
  23    0      0   11 13:13:13:1       yes 4950.1948 2200.0000 4768.5542
 ```
 
-`CPU`一欄其實是線程（Thread），`CORE`一欄是這線程實際所屬的CPU核。我們要把同一個CPU核的兩個線程做Pinning，以保證最高效能。
+`CPU`一欄其實是線程（Thread），`CORE`一欄是這線程實際所屬的CPU核。我們要把同一個`CORE`的兩個`CPU`做Pinning，以保證最高效能。
 
-此外，`L1d:L1i:L2:L3`一欄最後的數字（即`L3`快取）也值得注意：Arch Wiki建議Pin`L3`組別相同的CPU。如果你和我一樣有兩個或以上的`L3`組別，我建議先Pin同一組別的全部CPU，CPU不夠用再去Pin其他組別。
+此外，`L1d:L1i:L2:L3`一欄最後的數字（即`L3`快取）也值得注意：Arch Wiki建議Pin`L3`組別相同的`CPU`。如果你和我一樣有兩個或以上的`L3`組別，我建議先Pin同一組別的全部`CPU`，如不夠用再Pin其他組別的`CPU`。
 
-在`<vcpu>`項下方添加`<cputune>`內容。下方是我的設定（我Pin了20個線程）：
+在`<vcpu>`項下方添加`<cputune>`內容。下方是我的設定（我Pin了20個`CPU`）：
 
 ```xml
 <cputune>
@@ -173,16 +173,18 @@ CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE    MAXMHZ    MINMHZ       MHZ
 </cputune>
 ```
 
-上方`<vcpupin>`內的`vcpu`是虛擬機的CPU次序，由0開始，按次序遞增即可。`cpuset`則對應你`lspcu -e`列出的`CPU`一欄的數字（即線程），同CPU核的兩個線程最好連續在一起。
+上方`<vcpupin>`內的`vcpu`是虛擬機的CPU次序，由0開始，按次序遞增即可。`cpuset`則對應你`lspcu -e`列出的`CPU`一欄的數字（即線程），同`CORE`的兩個`CPU`最好連續在一起。
 
-`<emulatorpin>`則是將宿主機處理虛擬工作的CPU工作放在指定的CPU線程內。我建議將全部沒Pin的CPU線程都加進這項的`cpuset`內。
+`<emulatorpin>`則是將宿主機處理虛擬工作的CPU工作放在指定的`CPU`內。我建議將全部未Pin的`CPU`都加進這項的`cpuset`內。
 
-注意`<vcpupin>`要避免Pin第0個CPU核（`lscpu -e`的`CORE`一欄）的線程。
+注意`<vcpupin>`要避免Pin第0個`CORE`的線程。
 
-CPU Pinning不是把CPU核限制只能由虛擬機使用：它純粹是把虛擬機的CPU工作指派給你指定的CPU核去做，宿主機仍能使用這些Pin了的核。不過有方法把CPU獨立出來供虛擬機使用，可看看[Arch Wiki](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Dynamically_isolating_CPUs)的說明。
+CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛擬機的CPU工作全部指派給你指定的CPU線程去做，宿主機仍能使用這些Pin了的CPU線程。
 
-{{< notice warning "Intel大小核 CPU 用家注意" >}}
-我自己沒用過大小核結構的Intel CPU，不過我看網上的討論都建議只用（除Core 0外的）P-core做`vcpupin`，E-core則做`emulatorpin`及`iothreadpin`。
+不過有方法把CPU線程完全獨立出來供虛擬機使用，可看看[Arch Wiki](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Dynamically_isolating_CPUs)的說明。
+
+{{< notice warning "Intel 大小核 CPU 用家注意" >}}
+我自己沒用過大小核結構的Intel CPU，不過我看過網上的討論，很多都建議只用（除`CORE` 0外的）P-core做`vcpupin`，E-core則只做`emulatorpin`及`iothreadpin`。
 
 如果`vcpupin`混合了P-core和E-core的話可能會產生問題，具體請自己研究。
 
@@ -192,7 +194,7 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：它純粹是把虛擬
 
 注意：**這部分只適用於虛擬硬碟用家**。如你選擇直接安裝Windows到HDD/SSD上，請[跳過本節](#其他雜項優化)！
 
-此部分請配合[Arch Wiki上的條目](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Virtio_disk)一并服用。
+此部分請配合[Arch Wiki上的條目](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Virtio_disk)一并閱讀。
 
 設定IOThread可提高虛擬硬碟的讀寫性能：
 
@@ -216,7 +218,7 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：它純粹是把虛擬
 
 ##### 其他雜項優化
 
-1. 如果你用AMD的CPU，請在`<cpu>`項內加`<feature policy='require' name='topoext'/>`及`<cache mode='passthrough'/>`。添加後應如此：
+- **如果你用AMD的CPU**，請在`<cpu>`項內加`<feature policy='require' name='topoext'/>`及`<cache mode='passthrough'/>`。添加後應如此：
 
 ```xml
 <cpu mode="host-passthrough">
@@ -226,7 +228,7 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：它純粹是把虛擬
 </cpu>
 ```
 
-2. 將`<features>`項內的`<hyperv>`項替換做以下內容：
+- 將`<features>`項內的`<hyperv>`項替換做以下內容：
 
 ```xml
     <hyperv mode='custom'>
@@ -247,7 +249,7 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：它純粹是把虛擬
     </kvm>
 ```
 
-3. 將`<clock>`項替換做以下內容：
+- 將`<clock>`項替換做以下內容：
 
 ```xml
 <clock offset="localtime">
@@ -260,7 +262,7 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：它純粹是把虛擬
 
 ### 安裝Windows
 
-按左上方`Begin Installation`。照常安裝Windows，這處不作說明。
+按左上方`Begin Installation`，然後照常安裝Windows。
 
 如果你選擇用虛擬硬碟，Windows因為沒驅動程式，所以不能將它辨認出來：
 
@@ -281,11 +283,11 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：它純粹是把虛擬
 
 到此**VFIO**虛擬機安裝已完成。如果你不打算安裝**Looking Glass**，可直接[跳過下一部分](#雜項)。
 
-純**VFIO**應有其他設定要做（例如[設定evdev](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Passing_keyboard/mouse_via_Evdev)），請自己做功課，在此不作說明。
+純**VFIO**應該還有其他設定要做（例如[設定evdev](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Passing_keyboard/mouse_via_Evdev)），請自己做功課，在此不作說明。
 
 ### Looking Glass設定
 
-本部分請配合[Looking Glass官方安裝文檔（B7-rc1）](https://looking-glass.io/docs/B7-rc1/install_libvirt/)一并服用。
+本部分請配合[Looking Glass官方安裝文檔（B7-rc1）](https://looking-glass.io/docs/B7-rc1/install_libvirt/)一并閱讀。
 
 官方文檔簡潔易明（至少比**VFIO**的教學更容易理解），所以我只提供較簡要的教學。一切以官方教學為準。
 
@@ -414,7 +416,7 @@ CPU Pinning不是把CPU核限制只能由虛擬機使用：它純粹是把虛擬
         3. 如其未開始運行，選擇它，然後滑鼠右鍵功能表按啟動
 
 7. 於宿主機上開啟終端程式：
-    - 執行`nano $HOME/.looking-glass-client.ini`並輸入以下內容，然後儲存：
+    - 執行`nano ~/.looking-glass-client.ini`並輸入以下內容，然後儲存：
 
         ```ini
         [app]
@@ -458,12 +460,22 @@ escapeKey=KEY_RIGHTALT
 
     安裝很簡單（[官方OBS插件安裝教學](https://looking-glass.io/docs/B7-rc1/obs/)）：
 
-    1. 安裝編譯依賴：`sudo dnf install obs-studio-devel`
-    2. 於`obs`文件夾內創建`build`文件夾並入內開啟終端程式
-    3. 執行`cmake -DUSER_INSTALL=1 ../`
-    4. 執行`make`
-    5. 執行`make install`
-    6. 啟動OBS，於`Sources`加入`Looking Glass Client`
+    1. 安裝OBS（建議安裝[Flatpak版](https://flathub.org/apps/com.obsproject.Studio)）
+    2. 安裝編譯依賴：`sudo dnf install obs-studio-devel`
+    3. 於`obs`文件夾內創建`build`文件夾並入內開啟終端程式
+    4. 執行`cmake -DUSER_INSTALL=1 ../`
+    5. 執行`make`
+    6. 安裝插件：
+        - Flatpak版OBS：執行以下指令
+
+            ```bash
+            LG_OBS_PLUGIN_DIR=~/.var/app/com.obsproject.Studio/config/obs-studio/plugins/looking-glass-obs/bin/64bit
+            mkdir -p "$LG_OBS_PLUGIN_DIR"
+            mv liblooking-glass-obs.so "$LG_OBS_PLUGIN_DIR"
+            ```
+
+        - Fedora版OBS：執行`make install`
+    7. 啟動OBS，於`Sources`加入`Looking Glass Client`
         - `SHM File`填`/dev/kvmfr0`
         - 勾選`Use DMABUF import (requires kvmfr device)`
 
@@ -549,11 +561,11 @@ escapeKey=KEY_RIGHTALT
 
 ### 結語
 
-以上就是**VFIO**及**Looking Glass**的安裝教學。雖然安裝麻煩，但只要安裝成功就不需要後續管理。
+以上就是**VFIO**及**Looking Glass**的安裝教學。希望能幫助對**VFIO**有興趣的朋友。
 
 最後附上我重裝Linux時特意去跑的3DMark分數：
 
 {{< figure src="./BareMetal.jpg" caption="實機Windows下的3DMark跑分" >}}
 
 \
-{{< figure src="./Cover.jpg" caption="Looking Glass B7-rc1下的跑分，可看到顯示卡性能損耗比B6少" >}}
+{{< figure src="./Cover.jpg" caption="Looking Glass B7-rc1下的跑分（比實機少兩核/四線程）：可看到顯示卡性能損耗比B6少" >}}

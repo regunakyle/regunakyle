@@ -45,6 +45,7 @@
         <nvram template="/usr/share/edk2/ovmf/OVMF_VARS_4M.secboot.qcow2" format="qcow2">
             /var/lib/libvirt/qemu/nvram/vfio-win10_VARS.qcow2</nvram>
         <boot dev="cdrom" />
+        <smbios mode="host" />
     </os>
     <features>
         <acpi />

@@ -38,8 +38,6 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 如果識野/想學野既話，可以考慮自組。
 
-[延伸閱讀：Synology NAS選擇器](https://www.synology.com/zh-tw/support/nas_selector)
-
 ## QNAP好似經常出事（如勒索軟件），係咪唔買得？
 
 **唔係**。只要唔將部NAS放出街，咩牌子既NAS其實都差唔多咁安全。
@@ -92,6 +90,8 @@ DS723+及DS923+冇Hardware encode/decoder，但可以加購10G卡，配合NVMe S
 DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上面兩款更適合做轉碼。
 
 我個人覺得如果你冇10G需求既話，買DS224+或DS423+較好。
+
+[延伸閱讀：Synology NAS購買選擇器](https://www.synology.com/zh-tw/support/nas_selector)
 
 ## Synology NAS想加RAM，要買咩型號既RAM？
 

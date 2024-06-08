@@ -1,7 +1,7 @@
 +++
-title = "如何實現VFIO及Looking Glass（一）"
+title = "如何實現VFIO及Looking Glass（硬件篇）"
 author = "Eric Leung"
-description = "Guide for setting up VFIO and Looking Glass:1"
+description = "Guide for setting up VFIO and Looking Glass (Hardware)"
 categories = ["VFIO/Looking Glass系列"]
 date = "2024-06-01"
 +++
@@ -19,7 +19,7 @@ date = "2024-06-01"
 最近發生了三件事，令我決定重裝Linux：
 
 1. Fedora推出了第40版，同時也為桌面環境KDE帶來了大更新
-2. 我要把原本用作安裝Windows 10虛擬機的SSD轉讓給家人
+2. 我把原本用作安裝Windows 10虛擬機的SSD轉讓給家人
 3. Looking Glass推出了B7-rc1版，據說性能上升不少
 
 藉此機會把自己安裝**VFIO**虛擬機的步驟記下來，希望能幫助其他有興趣的人。
@@ -30,11 +30,12 @@ date = "2024-06-01"
 
 在讀以下內容前，要注意以下事項：
 
-1. 先去找找自己最常玩的遊戲是否支持虛擬機或Linux：例如最近英雄聯盟（League of Legends）就宣佈不再支持Linux及虛擬機。如果兩者都不支持，你就只能透過Dual boot玩這些遊戲
-2. 本文的安裝步驟只在Fedora 40 KDE上執行過，不一定適用於其他Linux發行版（Distribution）
-3. 本文假設你的電腦**有至少兩張顯示卡**（CPU內顯或獨立顯示卡都可），不考慮只有單一顯示卡的情況
+1. 先去找找自己最常玩的遊戲是否支持Linux：如果能直接在Linux上玩的話就不用特意搞VFIO
+2. 一些線上競技遊戲的反作弊系統可能禁止玩家用虛擬機或Linux，例如[Riot Games](https://www.riotgames.com)的英雄聯盟（League of Legends）及特戰英豪（Valorant）。**你只能透過Dual boot玩這些遊戲**
+3. 本文的安裝步驟只在Fedora 40 KDE上執行過，不一定適用於其他Linux發行版（Distribution）
+4. 本文假設你的電腦**有至少兩張顯示卡**（CPU內顯或獨立顯示卡都可），不考慮只有單一顯示卡的情況
 
-線上競技遊戲的反作弊系統通常會偵測虛擬機並懲罰虛擬機玩家，但有些禁止虛擬機的遊戲可以直接在Linux上玩。你可以去[Are We Anti Cheat Yet](https://areweanticheatyet.com/)和[ProtonDB](https://www.protondb.com/)找找你玩的遊戲可不可以在Linux上直接玩。
+你可以去[Are We Anti Cheat Yet](https://areweanticheatyet.com/)和[ProtonDB](https://www.protondb.com/)找找你玩的遊戲可不可以在Linux上直接玩。
 
 下文以「虛擬機卡」代指傳入虛擬機的顯示卡，「宿主機卡」代指宿主機使用的顯示卡。
 
@@ -67,7 +68,7 @@ date = "2024-06-01"
 
 要檢查現有主機板的IOMMU組（不需安裝Linux）：
 
-1. 先在BIOS啟用IOMMU。這選項有很多不同稱呼（例如IOMMU/VT-d/AMD-V/SVM等），請自己找找看
+1. 先在BIOS啟用IOMMU。這選項沒有固定名稱，可能是*IOMMU* 、*VT-d* 、*AMD-V* 、*SVM* 等
 2. 找個USB寫入[Fedora](https://fedoraproject.org/spins/kde/download)的映像，然後插入電腦，開機進入BIOS並啟動它
 {{< notice warning "Intel用家注意" >}}
 剛啟動Fedora時應看到這[畫面](./Grub.png)。選擇有`Test this media`的一項並按`E`，然後進入這[畫面](./GrubConfig1.png)。
@@ -107,9 +108,9 @@ done
 
 #### Reset功能
 
-如果你未買*虛擬機卡* ，我建議你買Nvidia的顯示卡，因為Intel和AMD的顯示卡可能有"Reset bug"。
+如果你未買*虛擬機卡* ，我建議你買Nvidia的顯示卡，因為Intel和AMD的顯示卡可能有*Reset bug* 。
 
-所謂"Reset bug"即是硬件沒有Reset功能，無法在虛擬機關機時正確地重置，使其處於一個"假死"狀態。在這個狀態下的硬件會令你不能重新啟動**VFIO**虛擬機，必須將整個宿主機重啟才能再次啟動它。
+所謂*Reset bug* 即是硬件沒有Reset功能，無法在虛擬機關機時正確地重置，使其處於一個"假死"狀態。在這個狀態下的硬件會令你不能重新啟動**VFIO**虛擬機，必須將整個宿主機重啟才能再次啟動它。
 
 上部分檢查IOMMU組的腳本可同時檢查硬件有沒有Reset功能。如果你的AMD顯示卡沒有Reset功能，可以看看[Vendor Reset](https://github.com/gnif/vendor-reset)支不支持你的顯示卡，它可為部分AMD顯示卡添加Reset功能。
 
@@ -125,7 +126,7 @@ done
 
 如果想買第二張顯示卡，我推薦Intel Arc系列（如A380），不但便宜、耗電低，更有極強編碼/解碼能力，非常適合OBS用家。
 
-此外，你的**螢幕要有至少兩個插口**，每個顯示卡分別插一個。要注意插口的規格，例如你螢幕只有VGA插口，但顯示卡又只有HDMI/DP插口的話，你就只能換螢幕了。
+此外，你的**螢幕要有至少兩個插口**，每張顯示卡分別插一個插口。要注意插口的規格，例如你螢幕只有VGA插口，但顯示卡又只有HDMI/DP插口的話，你就只能換螢幕了。
 
 #### CPU
 
@@ -159,7 +160,7 @@ done
 
 選擇前者的好處是不需要買額外的存儲裝置，此外可以直接將整個虛擬硬碟做快照及備份。
 
-選擇後者的好處是**可以Dual boot**（進入BIOS選擇安裝Windows的存儲裝置並啟動即可）。此外，如果你傳入的是NVMe SSD，其理論讀寫性能上限會比同樣在NVMe SSD上的虛擬硬碟高。（但對遊戲玩家而言虛擬硬碟的性能已足夠）
+選擇後者的好處是**可以Dual boot**（進入BIOS選擇安裝Windows的存儲裝置並啟動即可）。此外，如果你傳入的是NVMe SSD，其理論讀寫性能會比同樣在NVMe SSD上的虛擬硬碟高。（但對遊戲玩家而言，虛擬硬碟的性能已足夠）
 
 如果你選擇後者，你要把對應的NVMe控制器（如使用NVMe SSD）或SATA控制器（如使用SATA SSD/HDD）傳入虛擬機。注意**一個SATA控制器通常控制多於一個SATA插口**，NVMe就通常是一個控制器對一個SSD。
 
