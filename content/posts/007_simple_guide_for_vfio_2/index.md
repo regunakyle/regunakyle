@@ -304,18 +304,18 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛
         ```bash
         sudo dnf install -y \
             cmake gcc gcc-c++ libglvnd-devel fontconfig-devel spice-protocol make nettle-devel \
-            pkgconf-pkg-config binutils-devel libXi-devel libXinerama-devel libXcursor-devel \
-            libXpresent-devel libxkbcommon-x11-devel wayland-devel wayland-protocols-devel \
-            libXScrnSaver-devel libXrandr-devel dejavu-sans-mono-fonts \
-            libdecor-devel pipewire-devel libsamplerate-devel
+            pkgconf-pkg-config binutils-devel libxkbcommon-x11-devel wayland-devel wayland-protocols-devel \
+            dejavu-sans-mono-fonts libdecor-devel pipewire-devel libsamplerate-devel
         ```
 
     - 於`client`文件夾內創建`build`文件夾並入內開啟終端程式
-    - 執行`cmake -DENABLE_X11=no -DENABLE_PULSEAUDIO=no -DENABLE_WAYLAND=on ../`
-    - 執行`make`
-    - 執行`sudo make install`
+    - 執行以下指令：
 
-    注意：如果你的桌面環境是GNOME，請於上方`cmake`步驟添加`-DENABLE_LIBDECOR=on`（[原因](https://looking-glass.io/docs/B7-rc1/faq/#gnome-wayland-decorations)）。
+        ```bash
+        cmake -DENABLE_WAYLAND=1 -DENABLE_X11=0 -DENABLE_PULSEAUDIO=0 -DENABLE_PIPEWIRE=1 ../
+        make
+        sudo make install
+        ```
 
 4. 官方教學之[IVSHMEM with the KVMFR module](https://looking-glass.io/docs/B7-rc1/ivshmem_kvmfr/)：
     - 安裝[編譯依賴](https://looking-glass.io/wiki/Installation_on_other_distributions#Installing_Additional_Dependencies_for_Kernel_Module_Build)：
@@ -386,7 +386,6 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛
             ```
 
 5. SELinux容許QEMU使用`kvmfr0`：
-    - 執行`sudo dnf install -y selinux-policy-devel make`
     - 創造一個空白文件夾，入內並創造`kvmfr0.te`檔案，修改內容如下：
 
         ```bash
@@ -402,8 +401,14 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛
         allow svirt_t device_t:chr_file { map open read write };
         ```
 
-    - 於文件夾開啟終端程式，執行`make -f /usr/share/selinux/devel/Makefile kvmfr0.pp`
-    - 執行`sudo semodule -X 300 -i kvmfr0.pp`
+    - 於文件夾開啟終端程式，執行以下指令：
+
+        ```bash
+        checkmodule -M -m -o kvmfr0.mod kvmfr0.te
+        semodule_package -o kvmfr0.pp -m kvmfr0.mod
+        sudo semodule -i kvmfr0.pp
+        ```
+
     - 重啟電腦
 
 6. 啟動**VFIO**虛擬機：
@@ -422,10 +427,10 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛
         [app]
         shmFile=/dev/kvmfr0
 
-        ; 容許Windows使用你的麥克風；可設做`deny`並禁止Windows使用你的麥克風
+        ; 禁止Windows使用你的麥克風；或可設做`allow`並容許Windows使用你的麥克風
         ; 如不設這項，每次Windows要用麥克風的時候，Looking Glass都會彈出對話框問你是否同意使用
         [audio]
-        micDefault=allow
+        micDefault=deny
         ```
 
         （可於[此處](https://looking-glass.io/docs/B7-rc1/usage/#all-command-line-options)查看所有設定項）
@@ -463,19 +468,24 @@ escapeKey=KEY_RIGHTALT
     1. 安裝OBS（建議安裝[Flatpak版](https://flathub.org/apps/com.obsproject.Studio)）
     2. 安裝編譯依賴：`sudo dnf install obs-studio-devel`
     3. 於`obs`文件夾內創建`build`文件夾並入內開啟終端程式
-    4. 執行`cmake -DUSER_INSTALL=1 ../`
-    5. 執行`make`
-    6. 安裝插件：
+    4. 執行以下指令：
+
+        ```bash
+        cmake -DUSER_INSTALL=1 ../
+        make
+        ```
+
+    5. 安裝插件：
         - Flatpak版OBS：執行以下指令
 
             ```bash
-            LG_OBS_PLUGIN_DIR=~/.var/app/com.obsproject.Studio/config/obs-studio/plugins/looking-glass-obs/bin/64bit
+            LG_OBS_PLUGIN_DIR="$HOME/.var/app/com.obsproject.Studio/config/obs-studio/plugins/looking-glass-obs/bin/64bit"
             mkdir -p "$LG_OBS_PLUGIN_DIR"
             mv liblooking-glass-obs.so "$LG_OBS_PLUGIN_DIR"
             ```
 
         - Fedora版OBS：執行`make install`
-    7. 啟動OBS，於`Sources`加入`Looking Glass Client`
+    6. 啟動OBS，於`Sources`加入`Looking Glass Client`
         - `SHM File`填`/dev/kvmfr0`
         - 勾選`Use DMABUF import (requires kvmfr device)`
 
