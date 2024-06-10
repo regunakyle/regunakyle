@@ -71,7 +71,7 @@ GRUB_CMDLINE_LINUX="rhgb quiet vfio_pci.ids=10de:2489,10de:228b pci-stub.ids=1b2
 #### 創建VFIO虛擬機
 
 1. 執行`sudo dnf install -y @virtualization`
-2. 下載Windows 10的ISO檔和[此處下載](https://github.com/virtio-win/virtio-win-pkg-scripts?tab=readme-ov-file#downloads)的`Latest virtio-win ISO`，並將它們移至`/var/lib/libvirt/images`（提示：`sudo mv *.iso /var/lib/libvirt/images`）
+2. 下載[Windows 10 ISO檔](https://www.microsoft.com/zh-hk/software-download/windows10)及[此處下載](https://github.com/virtio-win/virtio-win-pkg-scripts?tab=readme-ov-file#downloads)的`Latest virtio-win ISO`，並將它們移至`/var/lib/libvirt/images`（提示：`sudo mv *.iso /var/lib/libvirt/images`）
 3. 啟動*virt-manager* ，並啟用設定：`Edit => Preferences => Enable XML editing`
 4. 創建新的虛擬機（左上角按鍵）
 5. 第一頁選擇`Local install media (ISO image or CDROM)`
@@ -91,7 +91,7 @@ GRUB_CMDLINE_LINUX="rhgb quiet vfio_pci.ids=10de:2489,10de:228b pci-stub.ids=1b2
 2. 在`CPU`頁，`Topology`下勾選`Manually set CPU Topology`：
     - `Sockets`設定為1
     - `Cores`設定為你想傳入的CPU核數
-    - `Threads`設定為你CPU單核的線程數（通常是2）
+    - `Threads`設定為你CPU單核的線程數（如你的CPU支持[SMT](https://en.wikipedia.org/wiki/Simultaneous_multithreading)/[Hyper-threading](https://en.wikipedia.org/wiki/Hyper-threading)，此處應填**2**）
 
 3. 按左下角`Add Hardware`，並加入以下內容：
     - 加入`PCI Host Device`：加入所有你想傳入虛擬機的硬件（例如*虛擬機卡* ）
@@ -141,9 +141,9 @@ CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE    MAXMHZ    MINMHZ       MHZ
  23    0      0   11 13:13:13:1       yes 4950.1948 2200.0000 4768.5542
 ```
 
-`CPU`一欄其實是線程（Thread），`CORE`一欄是這線程實際所屬的CPU核。我們要把同一個`CORE`的兩個`CPU`做Pinning，以保證最高效能。
+`CPU`一欄其實是線程（Thread），`CORE`一欄是這線程實際所屬的CPU核。我們要將屬同一個`CORE`的全部`CPU`做Pinning，以保證最高效能。
 
-此外，`L1d:L1i:L2:L3`一欄最後的數字（即`L3`快取）也值得注意：Arch Wiki建議Pin`L3`組別相同的`CPU`。如果你和我一樣有兩個或以上的`L3`組別，我建議先Pin同一組別的全部`CPU`，如不夠用再Pin其他組別的`CPU`。
+此外，`L1d:L1i:L2:L3`一欄最後的數字（即`L3`快取）也值得注意：Arch Wiki建議Pin`L3`組別相同的`CPU`。如果你和我一樣有兩個或以上的`L3`組別，我建議先Pin同一組別的全部`CPU`，性能不夠的話再去Pin其他組別的`CPU`。
 
 在`<vcpu>`項下方添加`<cputune>`內容。下方是我的設定（我Pin了20個`CPU`）：
 
@@ -173,7 +173,7 @@ CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE    MAXMHZ    MINMHZ       MHZ
 </cputune>
 ```
 
-上方`<vcpupin>`內的`vcpu`是虛擬機的CPU次序，由0開始，按次序遞增即可。`cpuset`則對應你`lspcu -e`列出的`CPU`一欄的數字（即線程），同`CORE`的兩個`CPU`最好連續在一起。
+上方`<vcpupin>`內的`vcpu`是虛擬機的CPU次序，由0開始，按次序遞增即可。`cpuset`則對應你`lspcu -e`列出的`CPU`一欄的數字（即線程），同`CORE`的全部`CPU`最好連續在一起。
 
 `<emulatorpin>`則是將宿主機處理虛擬工作的CPU工作放在指定的`CPU`內。我建議將全部未Pin的`CPU`都加進這項的`cpuset`內。
 
@@ -181,7 +181,7 @@ CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE    MAXMHZ    MINMHZ       MHZ
 
 CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛擬機的CPU工作全部指派給你指定的CPU線程去做，宿主機仍能使用這些Pin了的CPU線程。
 
-不過有方法把CPU線程完全獨立出來供虛擬機使用，可看看[Arch Wiki](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Dynamically_isolating_CPUs)的說明。
+（有方法把CPU線程完全獨立出來供虛擬機使用，可看看[Arch Wiki](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Dynamically_isolating_CPUs)的說明）
 
 {{< notice warning "Intel 大小核 CPU 用家注意" >}}
 我自己沒用過大小核結構的Intel CPU，不過我看過網上的討論，很多都建議只用（除`CORE` 0外的）P-core做`vcpupin`，E-core則只做`emulatorpin`及`iothreadpin`。
@@ -270,7 +270,7 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛
 
 這時按`Load driver`，再於出現的驅動程式中選擇`w10`一項即可：
 
-{{< figure src="./Windows_SCSI_2.png" caption="要有`virtio-win`作為CDROM，`Load driver`才能找到驅動程式" >}}
+{{< figure src="./Windows_SCSI_2.png" caption="要有`virtio-win`作為CDROM，Windows才能找到驅動程式" >}}
 
 因為Windows沒有`virtio`虛擬網卡的驅動，所以整個安裝過程都是離線進行。
 
@@ -295,9 +295,8 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛
     - 根據[Determining memory](https://looking-glass.io/docs/B7-rc1/install_libvirt/#determining-memory)一節去計算所需RAM量並記下
     - 根據以下部分內容修改虛擬機XML：
         1. [Keyboard/mouse/display/audio](https://looking-glass.io/docs/B7-rc1/install_libvirt/#keyboard-mouse-display-audio)
-        2. [Clipboard synchronization](https://looking-glass.io/docs/B7-rc1/install_libvirt/#clipboard-synchronization)
-    - 可讀讀[Additional tuning](https://looking-glass.io/docs/B7-rc1/install_libvirt/#additional-tuning)
-2. 於[此處](https://looking-glass.io/downloads)下載B7-rc1的*Source* 並解壓縮
+        2. [Clipboard synchronization](https://looking-glass.io/docs/B7-rc1/install_libvirt/#clipboard-synchronization)（如XML中已有文檔提及的部分，則可跳過此步）
+2. 於[此處](https://looking-glass.io/downloads)下載B7-rc1的*Source* 並解壓縮（下稱*LG文件夾* ）
 3. 官方教學之[Building](https://looking-glass.io/docs/B7-rc1/build/):
     - 安裝[編譯依賴](https://looking-glass.io/wiki/Installation_on_other_distributions#Fedora_35.2B)：
 
@@ -308,7 +307,7 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛
             dejavu-sans-mono-fonts libdecor-devel pipewire-devel libsamplerate-devel
         ```
 
-    - 於`client`文件夾內創建`build`文件夾並入內開啟終端程式
+    - 於*LG文件夾* 內的`client`文件夾內創建`build`文件夾並入內開啟終端程式
     - 執行以下指令：
 
         ```bash
@@ -324,8 +323,8 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛
         sudo dnf install -y dkms kernel-devel kernel-headers
         ```
 
-    - 於`module`文件夾內開啟終端程式
-    - 執行`sudo dkms install "."`
+    - 於*LG文件夾* 內的`module`文件夾內開啟終端程式
+    - 執行`sudo dkms install "."`以安裝
     - 執行`sudo nano /etc/modprobe.d/kvmfr.conf`並輸入以下內容，然後儲存：
 
         ```bash
@@ -415,13 +414,13 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛
     - 如果*virt-manager* 顯示虛擬機黑屏，請先把螢幕輸出轉至*虛擬機卡* 插螢幕的插口，再繼續操作
     - 於[此處](https://looking-glass.io/downloads)下載B7-rc1的*Windows Host Binary* 並安裝
     - 於[此處](https://www.spice-space.org/download.html#windows-binaries)下載*spice-guest-tools* 並安裝（安裝後虛擬機和宿主機可共享剪貼簿）
-    - 確保**Looking Glass**正在運行：
+    - 確保**Looking Glass**服務正在運行：
         1. 於虛擬機內按`WIN+R`，輸入`services.msc`並執行
         2. 找出`Looking Glass (host)`
         3. 如其未開始運行，選擇它，然後滑鼠右鍵功能表按啟動
 
 7. 於宿主機上開啟終端程式：
-    - 執行`nano ~/.looking-glass-client.ini`並輸入以下內容，然後儲存：
+    - 執行`nano $HOME/.looking-glass-client.ini`並輸入以下內容，然後儲存：
 
         ```ini
         [app]
@@ -441,7 +440,7 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛
 
 在Looking Glass窗口內按住*Escape key*（預設是`ScrollLock`鍵）可看到快捷鍵一覽。例如：
 
-1. `ScrollLock`：切換Capture mode：Capture mode下滑鼠及鍵盤會被鎖定在Looking Glass內
+1. `ScrollLock`：切換*Capture mode* ：*Capture mode* 下滑鼠及鍵盤會被鎖定在Looking Glass內
 2. `ScrollLock+F`：切換全螢幕模式
 3. `ScrollLock+D`：開啟或關閉FPS展示器
 
@@ -465,9 +464,15 @@ escapeKey=KEY_RIGHTALT
 
     安裝很簡單（[官方OBS插件安裝教學](https://looking-glass.io/docs/B7-rc1/obs/)）：
 
-    1. 安裝OBS（建議安裝[Flatpak版](https://flathub.org/apps/com.obsproject.Studio)）
+    1. 安裝OBS；建議安裝[Flatpak版](https://flathub.org/apps/com.obsproject.Studio)：
+
+        ```bash
+        flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+        flatpak install -y flathub com.obsproject.Studio
+        ```
+
     2. 安裝編譯依賴：`sudo dnf install obs-studio-devel`
-    3. 於`obs`文件夾內創建`build`文件夾並入內開啟終端程式
+    3. 於*LG文件夾* 內的`obs`文件夾內創建`build`文件夾並入內開啟終端程式
     4. 執行以下指令：
 
         ```bash
