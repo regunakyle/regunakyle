@@ -8,7 +8,7 @@ date = "2024-06-01"
 
 {{< css "/css/chinese.css" >}}
 
-（本文最後更新時間：2024年6月2日）
+（本文最後更新時間：2024年6月11日）
 
 ## 前言
 
@@ -31,7 +31,7 @@ date = "2024-06-01"
 在讀以下內容前，要注意以下事項：
 
 1. 先去找找自己最常玩的遊戲是否支持Linux：如果能直接在Linux上玩的話就不用特意搞VFIO
-2. 一些線上競技遊戲的反作弊系統可能禁止玩家用虛擬機或Linux，例如[Riot Games](https://www.riotgames.com)的英雄聯盟（League of Legends）及特戰英豪（Valorant）。**你只能透過Dual boot玩這些遊戲**
+2. 一些線上競技遊戲的反作弊系統可能禁止玩家用虛擬機或Linux，例如Riot Games的英雄聯盟（League of Legends）及特戰英豪（Valorant）；**你只能透過Dual boot玩這些遊戲**
 3. 本文的安裝步驟只在Fedora 40 KDE上執行過，不一定適用於其他Linux發行版（Distribution）
 4. 本文假設你的電腦**有至少兩張顯示卡**（CPU內顯或獨立顯示卡都可），不考慮只有單一顯示卡的情況
 
@@ -99,7 +99,7 @@ done
 如果你主機板的IOMMU組分佈不理想（例如兩張顯卡在同一個IOMMU組內），可以嘗試：
 
 1. 更新BIOS（有機會影響IOMMU組分佈）
-2. 將硬件轉插主機板上另一個PCIe/M.2插槽
+2. 將硬件轉插主機板上其他相容的插槽
 3. 使用[ACS override patch](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Bypassing_the_IOMMU_groups_(ACS_override_patch))：這個Patch可令全部硬件都有自己一個獨佔既IOMMU組，但用它會帶來安全性風險。請自己斟酌利弊，本文亦不提供安裝教學
 
 如果買新主機板的話，我建議買AMD的X570系。VFIO社群內不少人都說X570系主機板有非常好的IOMMU組分佈，而且不少X570主機板支持PCIe Bifurcation，非常適合**Looking Glass**。買X570系的壞處是不能戰未來：AM4平台不會再有新產品；它們用的DDR4記憶體同樣是夕陽產品。
@@ -120,7 +120,7 @@ done
 
 上面提及*虛擬機卡* 推薦使用Nvidia：Windows驅動程式穩定、有Reset功能；缺點只有貴:money_with_wings:
 
-*宿主機卡* 推薦Intel或AMD（CPU內顯或獨立顯示卡），因為這兩個牌子的顯示卡在Linux有開源的驅動程式，此外它們支持*DMABUF* 功能，這對Looking Glass的性能有大幫助。
+*宿主機卡* 推薦Intel或AMD（CPU內顯或獨立顯示卡），因為這兩個牌子的顯示卡在Linux有開源及穩定的驅動程式，此外它們支持*DMABUF* 功能，這對Looking Glass的性能有大幫助。Nvidia在Linux上的開源驅動程式性能較差，而官方閉源的驅動程式可能不支持*DMABUF* 。
 
 如果打算用Looking Glass，開發者建議兩張獨立顯示卡。CPU內顯也當*宿主機卡* 用，但Looking Glass的幀數會較低。我建議先安裝Looking Glass，看看能不能接受其幀數，實在太慢的話再買第二張獨立顯示卡。
 

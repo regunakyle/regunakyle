@@ -10,7 +10,7 @@ date = "2024-06-02"
 
 [按我返回上一篇文章](../006_simple_guide_for_vfio_1/)
 
-（本文最後更新時間：2024年6月2日）
+（本文最後更新時間：2024年6月11日）
 
 ### VFIO虛擬機及Looking Glass設定
 
@@ -34,7 +34,7 @@ Intel平台上IOMMU需要以下步驟才能啟動：
 
 #### 綁定vfio-pci/pci-stub驅動程式
 
-*vfio-pci* 是一個VFIO專用驅動程式。綁定*vfio-pci* 的硬件不會使用正常的驅動程式（比如顯示卡的官方驅動），因此宿主不會使用這些硬件。這樣能最大程度上保證**VFIO**虛擬機傳入硬件的穩定性。
+*vfio-pci* 是一個VFIO專用驅動程式。綁定*vfio-pci* 的硬件不會使用正常的驅動程式（比如顯示卡的官方驅動），因此宿主不會使用這些硬件。這樣能保證**VFIO**虛擬機傳入硬件的穩定性。
 
 在執行以下步驟前，先保證你**兩張顯示卡都已連接電腦螢幕**。綁定了*vfio-pci* 的顯示卡不會顯示宿主機的畫面。如果沒接駁第二張顯示卡，你就只會看到黑屏。（CPU內顯須用主機板後方面板上的HDMI/DP插口）
 
@@ -179,7 +179,7 @@ CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE    MAXMHZ    MINMHZ       MHZ
 
 注意`<vcpupin>`要避免Pin第0個`CORE`的線程。
 
-CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛擬機的CPU工作全部指派給你指定的CPU線程去做，宿主機仍能使用這些Pin了的CPU線程。
+CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把虛擬機的CPU工作全部指派給你指定的CPU線程去做，宿主機仍能使用這些Pin了的CPU線程。
 
 （有方法把CPU線程完全獨立出來供虛擬機使用，可看看[Arch Wiki](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Dynamically_isolating_CPUs)的說明）
 
@@ -228,7 +228,7 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛
 </cpu>
 ```
 
-- 將`<features>`項內的`<hyperv>`項替換做以下內容：
+- 將`<features>`項內的`<hyperv>`項替換做以下內容（[Hyper-V Enlightenments](https://www.qemu.org/docs/master/system/i386/hyperv.html)）：
 
 ```xml
     <hyperv mode='custom'>
@@ -303,8 +303,10 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛
         ```bash
         sudo dnf install -y \
             cmake gcc gcc-c++ libglvnd-devel fontconfig-devel spice-protocol make nettle-devel \
-            pkgconf-pkg-config binutils-devel libxkbcommon-x11-devel wayland-devel wayland-protocols-devel \
-            dejavu-sans-mono-fonts libdecor-devel pipewire-devel libsamplerate-devel
+            pkgconf-pkg-config binutils-devel libXi-devel libXinerama-devel libXcursor-devel \
+            libXpresent-devel libxkbcommon-x11-devel wayland-devel wayland-protocols-devel \
+            libXScrnSaver-devel libXrandr-devel dejavu-sans-mono-fonts \
+            libdecor-devel pipewire-devel libsamplerate-devel
         ```
 
     - 於*LG文件夾* 內的`client`文件夾內創建`build`文件夾並入內開啟終端程式
@@ -316,7 +318,18 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它是把虛
         sudo make install
         ```
 
+{{< notice warning "注意" >}}
+如果你的*宿主機卡* 是Nvidia，而又選擇用官方閉源的驅動程式的話，可能用不了KVMFR module。
+
+可以試試照常執行下方步驟。但如果行不通，請改用[IVSHMEM with standard shared memory](https://looking-glass.io/docs/B7-rc1/ivshmem_shm/)。
+
+用這方法的話，**請跳過下方步驟**，並根據官方教學自行安裝。(這方法應比安裝KVMFR簡單一點)
+
+（用開源的驅動程式的話應可用KVMFR module）
+{{< /notice >}}
+
 4. 官方教學之[IVSHMEM with the KVMFR module](https://looking-glass.io/docs/B7-rc1/ivshmem_kvmfr/)：
+
     - 安裝[編譯依賴](https://looking-glass.io/wiki/Installation_on_other_distributions#Installing_Additional_Dependencies_for_Kernel_Module_Build)：
 
         ```bash
@@ -533,6 +546,18 @@ escapeKey=KEY_RIGHTALT
 5. 執行`sudo make install`
 
 安裝後，可透過宿主機的指定連接埠去連接虛擬機的指定連接埠。
+
+#### 反制虛擬機偵測
+
+線上遊戲的反作弊系統有強有弱，較弱的可以透過修改模擬器XML反制它們偵測虛擬機。
+
+例如Reddit上就有突破[Elden Ring](https://store.steampowered.com/agecheck/app/1245620/)反作弊系統的[教學](https://www.reddit.com/r/VFIO/comments/xf8mno/comment/iome5j5/)，親測可用。
+
+有趣的是，[VRChat](https://store.steampowered.com/app/438100/VRChat/)雖然有反作弊系統，但官方提供了反制虛擬機偵測的[教學](https://docs.vrchat.com/docs/using-vrchat-in-a-virtual-machine)。我覺得可以試試這教學中*Libvirt* 下的`<sysinfo>`項的步驟。
+
+因為我基本上不玩線上遊戲，所以我沒有深入研究反制虛擬機偵測方法。如果只是偶爾玩玩，可以另外[買多個SSD，並把VFIO虛擬機直接安裝在上面](../006_simple_guide_for_vfio_1/#nvme-ssdsata控制器)，想玩線上遊戲時再Dual boot即可。
+
+如果你主玩的遊戲不能在Linux和虛擬機上玩，*VFIO* 可能不適合你。
 
 #### 降低虛擬機卡耗電
 

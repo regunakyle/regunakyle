@@ -50,6 +50,7 @@ Proton現時已支持[相當多數目](https://www.protondb.com/)的遊戲。可
 以下列出一些已知反虛擬機的遊戲﹕
 
 - 特戰英豪（Valorant）
+- 英雄聯盟（League of Legends）
 - 虹彩六號：圍攻行動（Tom Clancy's Rainbow Six Siege）
 - 逃離塔科夫（Escape from Tarkov）
 - 原神（Genshin Impact）
