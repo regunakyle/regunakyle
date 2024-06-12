@@ -511,6 +511,16 @@ escapeKey=KEY_RIGHTALT
 
 ### 雜項
 
+#### 反制虛擬機偵測
+
+線上遊戲的反作弊系統有強有弱，可以透過修改模擬器XML去反制較弱的反作弊系統：
+
+在虛擬機XML中的`<os>`項內添加`<smbios mode="host" />`。已知這方法可突破[Elden Ring](https://store.steampowered.com/agecheck/app/1245620/)和[VRChat](https://store.steampowered.com/app/438100/VRChat/)的反作弊系統。
+
+因為我基本上不玩線上遊戲，所以我沒有深入研究反制虛擬機偵測方法。如果只是偶爾玩玩，可以另外[買多個SSD，並把VFIO虛擬機直接安裝在上面](../006_simple_guide_for_vfio_1/#nvme-ssdsata控制器)，想玩線上遊戲時再Dual boot即可。
+
+如果你主玩的遊戲不能在Linux和虛擬機上玩，**VFIO**可能不適合你。
+
 #### 經網絡連接虛擬機
 
 正常情況下虛擬機會在虛擬網絡內。虛擬機可經網絡連接外界，但宿主機及宿主機網絡上其他電腦卻不能經網絡連接虛擬機。
@@ -546,18 +556,6 @@ escapeKey=KEY_RIGHTALT
 5. 執行`sudo make install`
 
 安裝後，可透過宿主機的指定連接埠去連接虛擬機的指定連接埠。
-
-#### 反制虛擬機偵測
-
-線上遊戲的反作弊系統有強有弱，較弱的可以透過修改模擬器XML反制它們偵測虛擬機。
-
-例如Reddit上就有突破[Elden Ring](https://store.steampowered.com/agecheck/app/1245620/)反作弊系統的[教學](https://www.reddit.com/r/VFIO/comments/xf8mno/comment/iome5j5/)，親測可用。
-
-有趣的是，[VRChat](https://store.steampowered.com/app/438100/VRChat/)雖然有反作弊系統，但官方提供了反制虛擬機偵測的[教學](https://docs.vrchat.com/docs/using-vrchat-in-a-virtual-machine)。我覺得可以試試這教學中*Libvirt* 下的`<sysinfo>`項的步驟。
-
-因為我基本上不玩線上遊戲，所以我沒有深入研究反制虛擬機偵測方法。如果只是偶爾玩玩，可以另外[買多個SSD，並把VFIO虛擬機直接安裝在上面](../006_simple_guide_for_vfio_1/#nvme-ssdsata控制器)，想玩線上遊戲時再Dual boot即可。
-
-如果你主玩的遊戲不能在Linux和虛擬機上玩，**VFIO**可能不適合你。
 
 #### 降低虛擬機卡耗電
 
