@@ -237,7 +237,7 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
         <spinlocks state='on' retries='8191'/>
         <vpindex state='on'/>
         <runtime state='on'/>
-        <synic state='on'/>s
+        <synic state='on'/>
         <stimer state="on"/>
         <vendor_id state='on' value='randomid'/>
         <frequencies state='on'/>
@@ -557,7 +557,7 @@ escapeKey=KEY_RIGHTALT
 
 因為我基本上不玩線上遊戲，所以我沒有深入研究反制虛擬機偵測方法。如果只是偶爾玩玩，可以另外[買多個SSD，並把VFIO虛擬機直接安裝在上面](../006_simple_guide_for_vfio_1/#nvme-ssdsata控制器)，想玩線上遊戲時再Dual boot即可。
 
-如果你主玩的遊戲不能在Linux和虛擬機上玩，*VFIO* 可能不適合你。
+如果你主玩的遊戲不能在Linux和虛擬機上玩，**VFIO**可能不適合你。
 
 #### 降低虛擬機卡耗電
 
