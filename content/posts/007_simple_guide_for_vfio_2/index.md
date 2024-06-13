@@ -36,7 +36,7 @@ Intel平台上IOMMU需要以下步驟才能啟動：
 
 *vfio-pci* 是一個VFIO專用驅動程式。綁定*vfio-pci* 的硬件不會使用正常的驅動程式（比如顯示卡的官方驅動），因此宿主不會使用這些硬件。這樣能保證**VFIO**虛擬機傳入硬件的穩定性。
 
-在執行以下步驟前，先保證你**兩張顯示卡都已連接電腦螢幕**。綁定了*vfio-pci* 的顯示卡不會顯示宿主機的畫面。如果沒接駁第二張顯示卡，你就只會看到黑屏。（CPU內顯須用主機板後方面板上的HDMI/DP插口）
+在執行以下步驟前，先確保你**兩張顯示卡都已連接電腦螢幕**。綁定了*vfio-pci* 的顯示卡不會顯示宿主機的畫面。如果沒接駁第二張顯示卡，你就只會看到黑屏。（CPU內顯須用主機板後方面板上的HDMI/DP插口）
 
 1. 執行[這節](../006_simple_guide_for_vfio_1/#%e4%b8%bb%e6%a9%9f%e6%9d%bfiommu)第4步檢查IOMMU組的腳本，記下你想傳入虛擬機的設備ID（應是`xxxx:xxxx`格式，例如我的3060 Ti的ID是`10de:2489`）
 2. 執行`sudo nano /etc/sysconfig/grub`，並於`GRUB_CMDLINE_LINUX`引號內的最後添加`vfio_pci.ids=abcd:efgh,1234:5678`（請自行代入設備ID），然後儲存
@@ -177,7 +177,7 @@ CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE    MAXMHZ    MINMHZ       MHZ
 
 `<emulatorpin>`則是將宿主機處理虛擬工作的CPU工作放在指定的`CPU`內。我建議將全部未Pin的`CPU`都加進這項的`cpuset`內。
 
-注意`<vcpupin>`要避免Pin第0個`CORE`的線程。
+注意`<vcpupin>`要避免Pin第0個`CORE`的`CPU`。
 
 CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把虛擬機的CPU工作全部指派給你指定的CPU線程去做，宿主機仍能使用這些Pin了的CPU線程。
 
@@ -499,7 +499,7 @@ escapeKey=KEY_RIGHTALT
             ```bash
             LG_OBS_PLUGIN_DIR="$HOME/.var/app/com.obsproject.Studio/config/obs-studio/plugins/looking-glass-obs/bin/64bit"
             mkdir -p "$LG_OBS_PLUGIN_DIR"
-            mv liblooking-glass-obs.so "$LG_OBS_PLUGIN_DIR"
+            cp liblooking-glass-obs.so "$LG_OBS_PLUGIN_DIR"
             ```
 
         - Fedora版OBS：執行`make install`
@@ -519,7 +519,20 @@ escapeKey=KEY_RIGHTALT
 
 因為我基本上不玩線上遊戲，所以我沒有深入研究反制虛擬機偵測方法。如果只是偶爾玩玩，可以另外[買多個SSD，並把VFIO虛擬機直接安裝在上面](../006_simple_guide_for_vfio_1/#nvme-ssdsata控制器)，想玩線上遊戲時再Dual boot即可。
 
-如果你主玩的遊戲不能在Linux和虛擬機上玩，**VFIO**可能不適合你。
+如選擇Dual boot，建議先添加上方`<smbios>`項，然後將虛擬機的UUID值修改成主機板的UUID值，否則Dual boot後可能要重新認證Windows：
+
+1. 執行`sudo dmidecode -s system-uuid`並記錄所得的UUID值
+2. 找一個空白文件夾，入內開啟終端程式
+3. 執行`sudo virsh dumpxml vfio-win10 > vfio.xml`（將`vfio-win10`改成你VFIO虛擬機的名稱）
+4. 開啟`vfio.xml`，將`<uuid>`的值改成第一步獲得的UUID值
+5. 執行以下指令：
+
+```bash
+sudo virsh undefine --keep-nvram vfio-win10
+sudo virsh define vfio.xml
+```
+
+（將`vfio-win10`改成你VFIO虛擬機的名稱）
 
 #### 經網絡連接虛擬機
 

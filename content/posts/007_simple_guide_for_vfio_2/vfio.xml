@@ -1,6 +1,6 @@
 <domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
     <name>vfio-win10</name>
-    <uuid>4ba46553-4042-46d6-ac9a-636334476f85</uuid>
+    <uuid>035e02d8-04d3-0504-3106-870700080009</uuid>
     <metadata>
         <libosinfo:libosinfo xmlns:libosinfo="http://libosinfo.org/xmlns/libvirt/domain/1.0">
             <libosinfo:os id="http://microsoft.com/win/10" />
