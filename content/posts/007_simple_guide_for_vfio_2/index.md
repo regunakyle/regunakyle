@@ -100,7 +100,7 @@ GRUB_CMDLINE_LINUX="rhgb quiet vfio_pci.ids=10de:2489,10de:228b pci-stub.ids=1b2
     - 如果你想將[Windows直接安裝於SSD/HDD上](../006_simple_guide_for_vfio_1/#nvme-ssdsata控制器)，加入`PCI Host Device`並選擇對應的控制器即可
     - 如果你選擇用虛擬硬碟：
         1. 加入`Storage`：設定虛擬硬碟容量，然後`Bus Type`選擇`SCSI`
-        2. 加入`Controller`：`Type`選擇`SCSI`
+        2. 加入`Controller`：`Type`選擇`SCSI`，`Model`選`VirtIO SCSI`
 
 4. 最後返回`Overview`頁，然後按`XML`，進入下部分
 
@@ -511,13 +511,11 @@ escapeKey=KEY_RIGHTALT
 
 ### 雜項
 
-#### 反制虛擬機偵測
+#### 繞過虛擬機偵測
 
-線上遊戲的反作弊系統有強有弱，可以透過修改模擬器XML去反制較弱的反作弊系統：
+在虛擬機XML中的`<os>`項內添加`<smbios mode="host" />`項，可以繞過部分遊戲的虛擬機偵測（例如[Elden Ring](https://store.steampowered.com/agecheck/app/1245620/)和[VRChat](https://store.steampowered.com/app/438100/VRChat/)）。
 
-在虛擬機XML中的`<os>`項內添加`<smbios mode="host" />`。已知這方法可突破[Elden Ring](https://store.steampowered.com/agecheck/app/1245620/)和[VRChat](https://store.steampowered.com/app/438100/VRChat/)的反作弊系統。
-
-因為我基本上不玩線上遊戲，所以我沒有深入研究反制虛擬機偵測方法。如果只是偶爾玩玩，可以另外[買多個SSD，並把VFIO虛擬機直接安裝在上面](../006_simple_guide_for_vfio_1/#nvme-ssdsata控制器)，想玩線上遊戲時再Dual boot即可。
+因為我不怎玩線上遊戲，所以沒有深入研究過反制虛擬機偵測方法。如果只是偶爾玩玩，可以另外[買多個SSD，並把VFIO虛擬機直接安裝在上面](../006_simple_guide_for_vfio_1/#nvme-ssdsata控制器)，想玩線上遊戲時再Dual boot即可。
 
 如選擇Dual boot，建議先添加上方`<smbios>`項，然後將虛擬機的UUID值修改成主機板的UUID值，否則Dual boot後可能要重新認證Windows：
 
