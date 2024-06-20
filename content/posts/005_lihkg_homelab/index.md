@@ -16,11 +16,11 @@ date = "2024-01-22"
 
 {{< figure src="./Cover.jpg" caption="IKEA LackRack - 廉價DIY機櫃" >}}
 
-## 點解要自組NAS？自組有咩好/壞處？
+## 點解要自組？自組有咩好/壞處？
 
 優點：
 
-- :moneybag: 硬件性價比可以大幅拋離任意大牌子NAS（講緊係同性能下可以平40%或以上）
+- :moneybag: 硬件性價比可以大幅拋離任意大牌子機種（講緊係同性能下可以平40%或以上）
 - 硬件選擇自由（例如可以用舊機既料砌，或可根據自己需求購買各類零件；[M.2 10G網卡](https://www.innodisk.com/tw/products/embedded-peripheral/communication/egpl-t101)聽過未）
 - 可以學野（Sysadmin及Networking功夫，市場對呢啲技術有需求）
 
@@ -30,7 +30,7 @@ date = "2024-01-22"
 - 安裝麻煩，要花時間讀文檔，必須識英文
 - 維護靠自己（不過通常係安裝完後就唔洗點理）
 
-## 硬件邊到黎？
+## Server硬件邊到黎？
 
 舊電腦/Laptop、各式迷你電腦（如J4125/N100機）、[Raspberry Pi](https://classroomeshop.com/collections/raspberry-pi)或其他單板機（SBC）、各式二手Server硬件/洋垃圾等。
 
@@ -63,6 +63,8 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 另外：Intel T字尾CPU待機時耗電同普通版差唔多。普通版CPU係BIOS設定功耗牆之後可以做到類似T字尾CPU既效果。
 
 [延伸閱讀：Intel T processors power consumption tests](https://www.reddit.com/r/homelab/comments/189vkss/intel_t_processors_power_consumption_tests/)
+
+[延伸閱讀：Balancing Power Consumption and Cost: The True Price of Efficiency](https://static.xtremeownage.com/blog/2024/balancing-power-consumption-and-cost-the-true-price-of-efficiency)
 
 ### ECC RAM
 
@@ -103,7 +105,7 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 值得一提既係，有方法強行令全部硬件都有自己一個獨佔既IOMMU組（關鍵字：ACS override patch）。Proxmox跟呢個[教學](https://pve.proxmox.com/wiki/PCI_Passthrough#Verify_IOMMU_isolation)就可以用到呢個Patch。注意用呢個Patch有安全性風險（可以自己Google下）。
 
-[延伸閱讀：Steps for enabling and checking IOMMU group（Arch Wiki）](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Enabling_IOMMU)
+[延伸閱讀：檢查主機板IOMMU組方法](../006_simple_guide_for_vfio_1/#主機板iommu)
 
 {{< notice tip "主機板 DMI" >}}
 主機板Chipset同CPU之間係用一條PCIe link連接住（Intel稱之為DMI），Chipset所有硬件會共用DMI既頻寬（Bandwidth）同CPU做資料傳輸。

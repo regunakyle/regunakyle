@@ -18,7 +18,7 @@ date = "2024-01-21"
 
 ## Docker係咩黎？有咩咁勁？
 
-[Docker](https://docs.docker.com/get-started/overview/)可以將有用程式及佢所需既野一次過打包做一舊，只需行一條Script就可以用佢，可以當係App Store既App咁。
+[Docker](https://docs.docker.com/get-started/overview/)可以將有用程式及佢所需既野一次過打包做一舊，只需行一條Script就可以用佢，非常方便。
 
 冇Docker時同一部機想行唔同程式可能遇到相容性問題（例如兩個程式要用同一款但唔同版本既Library，又或者Synology DSM個Library版本太舊）。Docker完美解決咗呢個問題，成件打包用就得。
 
@@ -36,11 +36,11 @@ Synology既話Plus系列或較新既非Plus機種都有支持。[呢到](https:/
 
 ## 用Docker要注意啲咩？
 
-### 只用App官方或知名團體提供既既Docker映像
+### 只用軟件官方或知名團體提供既既Docker映像
 
 用網上既Docker映像本質上同用陌生人既EXE檔冇咩分別，所以要用官方或其他可信團體整既版本。
 
-例如[Linuxserver.io](https://www.linuxserver.io/)及[Hotio](https://hotio.dev/)既Docker映像都多人用，App官方冇出Docker版既話可以先睇佢地。
+例如[Linuxserver.io](https://www.linuxserver.io/)及[Hotio](https://hotio.dev/)既Docker映像都多人用，軟件官方冇出Docker版既話可以先睇佢地。
 
 更好既做法係自己撈Source code落黎構建個Docker映像，但可惜唔係人人都識或想自己做。
 
@@ -217,13 +217,13 @@ DNS層過濾廣告，同時亦可做家長監控（即是封鎖你指定既網�
 
 非常適合諗住將啲Service分享比屋企人/朋友用既人。
 
-### 自製筆記App
+### 自製筆記軟件
 
 {{< figure src="./Joplin.png" caption="Joplin介面" >}}
 
 軟件：[Joplin](https://github.com/laurent22/joplin)/[Trilium](https://github.com/zadam/trilium)/[Logseq](https://github.com/logseq/logseq)/[Memos](https://github.com/usememos/memos)
 
-各類筆記App，可以逐個逐個裝黎試下，睇下邊款岩用。
+各類筆記軟件，可以逐個逐個裝黎試下，睇下邊款岩用。
 
 Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/feature/note_station)。
 
@@ -235,11 +235,11 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 軟件：[（打印）CUPS](https://openprinting.github.io/cups/)/[（掃描）Scanservjs](https://github.com/sbs20/scanservjs)
 
-如果你同我一樣有部得USB既陳年多合一打印機，又或者係一定要裝垃圾軟件先用到既打印機，呢兩個App可以幫到你。
+如果你同我一樣有部得USB既陳年多合一打印機，又或者係一定要裝垃圾軟件先用到既打印機，咁呢兩個軟件可以幫到你。
 
-只要連接打印機同裝住呢兩個App既Server，成個屋企網絡既機就可以透過呢兩個App用隻打印機/掃描器，唔洗裝任何其他App。
+只要連接打印機同裝住呢兩個軟件既Server，成個屋企網絡既機就可以透過呢兩個軟件用隻打印機/掃描器，唔洗裝任何其他軟件。
 
-不過視乎你部打印機既型號，有可能要你自己搵部打印機既Linux版驅動程式並安裝後先行到呢兩個App。
+不過視乎你部打印機既型號，有可能要你自己搵部打印機既Linux版驅動程式並安裝後先行到呢兩個軟件。
 
 ### ChatGPT/Midjourney翻版
 
@@ -247,9 +247,9 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 軟件：[（Gen圖）stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)/[（Gen字）text-generation-webui](https://github.com/oobabooga/text-generation-webui)
 
-行AI你先要下載個Model，再係對應既App到載入就可以用。
+行AI你先要下載個Model，再係對應既軟件到載入就可以用。
 
-呢兩個App都有API，識寫程式既話可以睇下。
+呢兩個軟件都有API，識寫程式既話可以睇下。
 
 自己行AI既最大賣點係冇Censorship，你問佢[幾邪惡既野都會答你](https://www.reddit.com/r/LocalLLaMA/comments/149su0a/a_short_conversation_with_falcon/)。此外亦可[保障私隱](https://www.schneier.com/blog/archives/2024/02/microsoft-is-spying-on-users-of-its-ai-tools.html)。
 

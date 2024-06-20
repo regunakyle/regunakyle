@@ -188,7 +188,7 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 **無需做Port forwarding**，靠Synology server做Hole punching，或（如失敗）用Synology中繼Server做中間人連結部NAS同你部手機/電腦。[（QuickConnect原理）](https://kb.synology.com/zh-tw/WP/Synology_QuickConnect_White_Paper/4)
 
-注意用QuickConnect只能掂到DSM及部分Synology App，冇辦法透過佢開NAS上既Plex/Jellyfin等你自己裝既App。
+注意用QuickConnect只能掂到DSM及部分Synology軟件，冇辦法透過佢開NAS上既Plex/Jellyfin等你自己裝既軟件。
 
 ### Cloudflare Tunnel
 
@@ -315,7 +315,7 @@ TV stick：[Google Chromecast](https://store.google.com/tw/product/chromecast_go
 
 呢啲產品通常支持更多檔案格式。買邊隻請自己做功課，或去我地Post討論。
 
-另外：如果你用緊PC/手機/電視瀏覽器睇片唔Work既話，可以試下用Plex/Jellyfin既原生App或[VLC](https://www.videolan.org/)。
+另外：如果你用緊PC/手機/電視瀏覽器睇片唔Work既話，可以試下用Plex/Jellyfin既官方程式或[VLC](https://www.videolan.org/)。
 
 {{< detail "轉碼知多啲" >}}
 你啲片既格式（MP4/MKV/WebM等）其實係Container格式黎，佢地入面裝住咗Video/Audio/Subtitle，三者分別有自己獨特既格式。
