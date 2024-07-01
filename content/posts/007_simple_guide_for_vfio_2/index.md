@@ -34,7 +34,7 @@ Intel平台上IOMMU需要以下步驟才能啟動：
 
 #### 綁定vfio-pci/pci-stub驅動程式
 
-*vfio-pci* 是一個VFIO專用驅動程式。綁定*vfio-pci* 的硬件不會使用正常的驅動程式（比如顯示卡的官方驅動），因此宿主不會使用這些硬件。這樣能保證**VFIO**虛擬機傳入硬件的穩定性。
+*vfio-pci* 是一個VFIO專用驅動程式。綁定*vfio-pci* 的硬件不會使用正常的驅動程式（比如顯示卡的官方驅動），因此宿主機不會使用這些硬件。這樣能保證**VFIO**虛擬機傳入硬件的穩定性。
 
 在執行以下步驟前，先確保你**兩張顯示卡都已連接電腦螢幕**。綁定了*vfio-pci* 的顯示卡不會顯示宿主機的畫面。如果沒接駁第二張顯示卡，你就只會看到黑屏。（CPU內顯須用主機板後方面板上的HDMI/DP插口）
 
@@ -97,7 +97,7 @@ GRUB_CMDLINE_LINUX="rhgb quiet vfio_pci.ids=10de:2489,10de:228b pci-stub.ids=1b2
     - 加入`PCI Host Device`：加入所有你想傳入虛擬機的硬件（例如*虛擬機卡* ）
     - 加入`Network`：`Device model`選擇`virtio`。加入後將原本使用`e1000e`的虛擬網卡刪除
     - 加入`Storage`：`Device type`選`CDROM Device`，再按`Manage...`並選擇上一部分第二步下載的`virtio-win`之ISO檔
-    - 如果你想將[Windows直接安裝於SSD/HDD上](../006_simple_guide_for_vfio_1/#nvme-ssdsata控制器)，加入`PCI Host Device`並選擇對應的控制器即可
+    - 如果你想將[Windows安裝於獨立SSD/HDD上](../006_simple_guide_for_vfio_1/#nvme-ssd及sata控制器)，加入`PCI Host Device`並選擇對應的控制器即可
     - 如果你選擇用虛擬硬碟：
         1. 加入`Storage`：設定虛擬硬碟容量，然後`Bus Type`選擇`SCSI`
         2. 加入`Controller`：`Type`選擇`SCSI`，`Model`選`VirtIO SCSI`
@@ -192,8 +192,9 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
 
 ##### IOThread
 
-注意：**這部分只適用於虛擬硬碟用家**。如你選擇直接安裝Windows到HDD/SSD上，請[跳過本節](#其他雜項優化)！
-
+{{< notice error "注意" >}}
+**這部分只適用於虛擬硬碟用家**。如你選擇直接安裝Windows到HDD/SSD上，請[跳過本節](#其他雜項優化)！
+{{< /notice >}}
 此部分請配合[Arch Wiki上的條目](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Virtio_disk)一并閱讀。
 
 設定IOThread可提高虛擬硬碟的讀寫性能：
@@ -318,12 +319,12 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
         sudo make install
         ```
 
-{{< notice warning "注意" >}}
+{{< notice error "注意" >}}
 如果你的*宿主機卡* 是Nvidia，而又選擇用官方閉源的驅動程式的話，可能用不了KVMFR module。
 
 可以試試照常執行下方步驟。但如果行不通，請改用[IVSHMEM with standard shared memory](https://looking-glass.io/docs/B7-rc1/ivshmem_shm/)。
 
-用這方法的話，**請跳過下方步驟**，並根據官方教學自行安裝。(這方法應比安裝KVMFR簡單一點)
+用這方法的話，[請跳過下方步驟](#雜項)，並根據官方教學自行安裝。(這方法應比安裝KVMFR簡單一點)
 
 （用開源的驅動程式的話應可用KVMFR module）
 {{< /notice >}}
@@ -515,7 +516,7 @@ escapeKey=KEY_RIGHTALT
 
 在虛擬機XML中的`<os>`項內添加`<smbios mode="host" />`項，可以繞過部分遊戲的虛擬機偵測（例如[Elden Ring](https://store.steampowered.com/agecheck/app/1245620/)和[VRChat](https://store.steampowered.com/app/438100/VRChat/)）。
 
-因為我不怎玩線上遊戲，所以沒有深入研究過反制虛擬機偵測方法。如果只是偶爾玩玩，可以另外[買多個SSD，並把VFIO虛擬機直接安裝在上面](../006_simple_guide_for_vfio_1/#nvme-ssdsata控制器)，想玩線上遊戲時再Dual boot即可。
+因為我不怎玩線上遊戲，所以沒有深入研究過反制虛擬機偵測方法。如果只是偶爾玩玩，可以另外[買多個SSD/HDD，並把VFIO虛擬機直接安裝在上面](../006_simple_guide_for_vfio_1/#nvme-ssd及sata控制器)，想玩線上遊戲時再Dual boot即可。
 
 如選擇Dual boot，建議先添加上方`<smbios>`項，然後將虛擬機的UUID值修改成主機板的UUID值，否則Dual boot後可能要重新認證Windows：
 

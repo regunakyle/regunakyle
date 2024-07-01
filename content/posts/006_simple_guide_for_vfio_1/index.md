@@ -85,7 +85,9 @@ shopt -s nullglob
 for g in $(find /sys/kernel/iommu_groups/* -maxdepth 0 -type d | sort -V); do
     echo "IOMMU Group ${g##*/}:"
     for d in $g/devices/*; do
-        if [[ -e "$d"/reset ]]; then echo -n "[RESET]"; fi
+        if [[ -e "$d"/reset ]]; then
+            echo -n "[RESET]"
+        fi
         echo -n $'\t'
         echo -e "\t$(lspci -nns ${d##*/})"
     done
@@ -154,13 +156,13 @@ done
 
 **傳入USB控制器要注意IOMMU和Reset問題**。你可以用這[Python腳本](./usb_iommu)在Linux上檢查USB插槽屬於哪個USB控制器，以及該USB控制器屬於哪個IOMMU組。(註：這腳本只能檢測已插入設備的USB插槽)
 
-##### NVMe SSD/SATA控制器
+##### NVMe SSD及SATA控制器
 
-**VFIO**虛擬機可以安裝在虛擬硬碟上，又或者可以直接安裝在其他存儲裝置上（例如NVMe SSD或SATA SSD/HDD）並將之傳入虛擬機：
+**VFIO**虛擬機可以安裝在虛擬硬碟上，又或者可以直接安裝在其他存儲裝置上（例如NVMe SSD或SATA SSD/HDD）並將其控制器傳入虛擬機：
 
 選擇前者的好處是不需要買額外的存儲裝置，此外可以直接將整個虛擬硬碟做快照及備份。
 
-選擇後者的好處是**可以Dual boot**（進入BIOS選擇安裝Windows的存儲裝置並啟動即可）。此外，如果你傳入的是NVMe SSD，其理論讀寫性能會比同樣在NVMe SSD上的虛擬硬碟高。（但對遊戲玩家而言，虛擬硬碟的性能已足夠）
+選擇後者的好處是**可以Dual boot**（進入BIOS選擇安裝Windows的存儲裝置並啟動即可）。如果你有兩個（控制器不相同）的SSD/HDD，而Windows安裝在其中之一，可將Linux安裝在另一儲存裝置上，然後把安裝了Windows的SSD/HDD之控制器傳入虛擬機。這樣虛擬機就可直接使用此Windows上的內容。
 
 如果你選擇後者，你要把對應的NVMe控制器（如使用NVMe SSD）或SATA控制器（如使用SATA SSD/HDD）傳入虛擬機。注意**一個SATA控制器通常控制多於一個SATA插口**，NVMe就通常是一個控制器對一個SSD。
 
