@@ -239,7 +239,7 @@ VPN將安全性放第一，只要設定得當就非常難以攻破，而且有�
 {{< notice tip "Port forwarding 小知識" >}}
 Port forwarding本身並無任何風險，所有風險都來自你Forward出去既Service本身既安全性強弱。
 
-例如放VPN係十分安全，但你放QNAP NAS個網頁介面出去可能好快就出事。
+例如設定得當既VPN/SSH係十分安全；相反放QNAP NAS個網頁介面出去可能好快就出事。
 
 同樣道理，如果你完全信任某個Service既安全性，咁我唔會反對你直接做Port forwarding放佢出街。
 
