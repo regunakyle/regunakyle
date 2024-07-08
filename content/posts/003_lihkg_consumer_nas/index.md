@@ -225,7 +225,7 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 1. 定時將外置硬碟接駁NAS做備份，做好後斷開外置硬碟連接（即離線備份）
 2. 由備份Server主動從NAS撈數據做備份（而唔係NAS主動倒數據落備份Server），且禁止網絡其他機主動存取備份Server
-3. 備份Server只接受上傳備份，禁止刪除或更改舊既備份
+3. 單寫多讀（又稱WORM）：即備份Server只接受上傳備份，並禁止**所有人**刪除或更改舊既備份。可以睇下[Synology](https://kb.synology.com/en-global/WP/WriteOnce_White_Paper/1)既介紹
 
 如果黑客攻到入黎，又掂到曬你啲備份，咁佢直接剷曬或加密曬咪得。咁樣你既備份形同虛設。
 {{< /detail >}}
