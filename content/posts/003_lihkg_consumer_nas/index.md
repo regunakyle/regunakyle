@@ -48,7 +48,7 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 優質備份軟件係保留多版本既同時亦會將重複資料刪除（即Deduplication）以節省空間，例如[Synology Hyper Backup](https://www.synology.com/zh-hk/dsm/feature/hyper_backup)、[BorgBackup](https://github.com/borgbackup/borg)、[Restic](https://github.com/restic/restic)等等都做到。
 
-**做咗備份仲要定時檢查備份Work唔Work**，例如試下還原去其他地方睇下讀唔讀到啲資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。
+**做咗備份仲要定時檢查備份完整性**，例如試下還原去其他地方睇下讀唔讀到啲資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。
 
 **3-2-1備份法則**：3份數據、2種儲存媒介、1份存於異地。可以先從雲端存儲或外置硬碟入手。
 
@@ -103,7 +103,7 @@ DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上�
 
 買之前**最好上網Google下你個NAS型號其他人加咩型號既RAM**，咁起碼成功率大啲。
 
-買Synology既RAM就肯定Work，但性價比超級低：同樣價錢夠你買幾條容量大好多既第三方RAM去試。
+買Synology既RAM就肯定得，但性價比超級低：同樣價錢夠你買幾條容量大好多既第三方RAM去試。
 
 ## 硬碟買邊隻？
 
@@ -225,7 +225,7 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 1. 定時將外置硬碟接駁NAS做備份，做好後斷開外置硬碟連接（即離線備份）
 2. 由備份Server主動從NAS撈數據做備份（而唔係NAS主動倒數據落備份Server），且禁止網絡其他機主動存取備份Server
-3. 單寫多讀（又稱WORM）：即備份Server只接受上傳備份，並禁止**所有人**刪除或更改舊既備份。可以睇下[Synology](https://kb.synology.com/en-global/WP/WriteOnce_White_Paper/1)既介紹
+3. 單寫多讀（又稱WORM）：即備份Server只接受上傳備份，並禁止**所有人**刪除或更改舊既備份。可以睇下[Synology](https://kb.synology.com/en-global/WP/WriteOnce_White_Paper/1)既介紹；此外好多雲端存儲支援類似功能，例如[Backblaze B2](https://www.backblaze.com/docs/cloud-storage-object-lock)
 
 如果黑客攻到入黎，又掂到曬你啲備份，咁佢直接剷曬或加密曬咪得。咁樣你既備份形同虛設。
 {{< /detail >}}
@@ -315,7 +315,7 @@ TV stick：[Google Chromecast](https://store.google.com/tw/product/chromecast_go
 
 呢啲產品通常支持更多檔案格式。買邊隻請自己做功課，或去我地Post討論。
 
-另外：如果你用緊PC/手機/電視瀏覽器睇片唔Work既話，可以試下用Plex/Jellyfin既官方程式或[VLC](https://www.videolan.org/)。
+另外：如果你用PC/手機/電視瀏覽器睇唔到片既話，可以試下用Plex/Jellyfin既官方程式或[VLC](https://www.videolan.org/)。
 
 {{< detail "轉碼知多啲" >}}
 你啲片既格式（MP4/MKV/WebM等）其實係Container格式黎，佢地入面裝住咗Video/Audio/Subtitle，三者分別有自己獨特既格式。
