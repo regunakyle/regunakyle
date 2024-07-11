@@ -30,9 +30,9 @@ date = "2024-01-22"
 - 安裝麻煩，要花時間讀文檔，必須識英文
 - 維護靠自己（不過通常係安裝完後就唔洗點理）
 
-## Server硬件邊到黎？
+## 伺服器硬件邊到黎？
 
-舊電腦/Laptop、各式迷你電腦（如J4125/N100機）、[Raspberry Pi](https://classroomeshop.com/collections/raspberry-pi)或其他單板機（SBC）、各式二手Server硬件/洋垃圾等。
+舊電腦/Laptop、各式迷你電腦（如J4125/N100機）、[Raspberry Pi](https://classroomeshop.com/collections/raspberry-pi)或其他單板機（SBC）、各式二手伺服器硬件/洋垃圾等。
 
 部分硬件只可能搵到淘寶或國產貨（或外國只有高價代替品），如各式軟路由工控機及細NAS機箱等。
 
@@ -52,9 +52,9 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 ## 買硬件有咩要注意？
 
-### 預計Server負載買CPU
+### 預計伺服器負載買CPU
 
-大部分人個Server**其實絕大部分時間都係待機**，咁樣既話你買CPU唔應該睇滿載耗電量，而要睇**待機耗電量**。
+大部分人既伺服器**絕大部分時間都係待機**，咁樣既話你買CPU唔應該睇滿載耗電量，而要睇**待機耗電量**。
 
 就我所知：Intel及AMD G系列CPU既待機耗電較低，而AMD非G系列就待機耗電較高。
 
@@ -70,13 +70,13 @@ NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-des
 
 ECC既用途係偵測RAM有否發生Bit flip，如有就嘗試修正。[（運作原理）](https://youtu.be/zzeuOecdgAI)
 
-如果冇ECC，咁你RAM發生Bit flip時可能咩事都冇，可能令Server死機，最嚴重既情況係造成偵測唔到既資料損毀。
+如果冇ECC，咁你RAM發生Bit flip時可能咩事都冇，可能令伺服器死機，最嚴重既情況係造成偵測唔到既資料損毀。
 
-但Bit flip發生機率極低。除非玩到Data center級數，或者Server放係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)，否則可能廿年都遇唔到一次因Bit flip造成既資料損毀。
+但Bit flip發生機率極低。除非玩到Data center級數，或者伺服器放係[高輻射地區](https://youtu.be/o3Cx2wmFyQQ)，否則可能廿年都遇唔到一次因Bit flip造成既資料損毀。
 
-雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，家用級主機板Chipset全部唔支持ECC，要上到Workstation或Server級Chipset先有，呢啲主機板一手價超級高。
+雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，家用級主機板晶片組（Chipset）全部唔支持ECC，要上到工作站或伺服器級主機板先有，呢啲主機板一手價超級高。
 
-AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](https://www.amd.com/en/products/apu/amd-ryzen-5-pro-5650g)配X570板，低能耗+多核+有內顯+支持ECC+靚IOMMU）。另一個選擇係執二手Server件/洋垃圾（Xeon/Epyc之類），淘寶一堆平價野。
+AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](https://www.amd.com/en/products/apu/amd-ryzen-5-pro-5650g)配X570板，低能耗+多核+有內顯+支持ECC+靚IOMMU）。另一個選擇係執二手伺服器硬件/洋垃圾（Xeon/Epyc之類），淘寶一堆平價野。
 
 我既諗法係，你要儲存既數據愈多/愈重要，用既RAM量愈大，就愈值得買ECC件。（當買個心安都好）
 
@@ -108,11 +108,11 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 [延伸閱讀：檢查主機板IOMMU組方法](../006_simple_guide_for_vfio_1/#主機板iommu)
 
 {{< notice tip "主機板 DMI" >}}
-主機板Chipset同CPU之間係用一條PCIe link連接住（Intel稱之為DMI），Chipset所有硬件會共用DMI既頻寬（Bandwidth）同CPU做資料傳輸。
+主機板晶片組同CPU之間係用一條PCIe link連接住（Intel稱之為DMI），晶片組上所有硬件會共用DMI既頻寬（Bandwidth）同CPU做資料傳輸。
 
-唔同Chipset既DMI頻寬可能唔同，例如Intel 5xx/6xx系、AMD 6xx系Chipset既頻寬係PCIe 4.0 x8（約16GB/s），AMD 5xx系就只得PCIe 4.0 x4（約8GB/s）。
+唔同晶片組既DMI頻寬可能唔同，例如Intel 5xx/6xx系、AMD 6xx系晶片組既頻寬係PCIe 4.0 x8（約16GB/s），AMD 5xx系就只得PCIe 4.0 x4（約8GB/s）。
 
-係Chipset做大量資料傳輸（例如同時存取多隻Chipset上既NVMe SSD）既最快速度受DMI頻寬限制。
+係晶片組做大量資料傳輸（例如同時存取晶片組上多隻NVMe SSD）既最快速度受DMI頻寬限制。
 {{< /notice >}}
 
 ### 宿主機及虛擬機共享Intel CPU內顯
@@ -128,7 +128,7 @@ Intel CPU既內顯可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）�
 [延伸閱讀：12代及以後Intel CPU之SR-IOV方法](https://github.com/strongtz/i915-sriov-dkms)
 
 {{< notice tip "Nvidia 顯示卡" >}}
-有方法使宿主機同虛擬機共享某啲型號既Nvidia顯示卡。
+有方法使宿主機同虛擬機共享某啲型號既NVIDIA顯示卡。
 
 [呢到](https://gitlab.com/polloloco/vgpu-proxmox)有適用於Proxmox既安裝教學。注意30系及以上既顯示卡型號用唔到呢個方法。
 {{< /notice >}}
@@ -163,11 +163,11 @@ Docker係軟件級Container：一個Image專行一個軟件 ；LXC係OS級Contai
 
 [TrueNAS](https://www.truenas.com/truenas-community-editions/)[（建議選Scale）](https://www.theregister.com/2024/03/18/truenas_abandons_freebsd/)、[Xpenology（黑群輝）](https://xpenology.com/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)、[Unraid（付費）](https://unraid.net/)、[OpenMediaVault](https://www.openmediavault.org/)
 
-{{< underline "Server OS" >}}
+{{< underline "伺服器OS" >}}
 
-**[Debian](https://www.debian.org/)** :thumbsup:、[Ubuntu Server](https://ubuntu.com/server)、[CentOS Stream](https://www.centos.org/centos-stream/)、[RHEL（有No-cost subscription）](https://developers.redhat.com/articles/faqs-no-cost-red-hat-enterprise-linux)
+**[Debian](https://www.debian.org/)** :thumbsup:、[Ubuntu Server](https://ubuntu.com/server)、[CentOS Stream](https://www.centos.org/centos-stream/)、[RHEL（16個免費）](https://developers.redhat.com/articles/faqs-no-cost-red-hat-enterprise-linux)、[Windows Server（付費）](https://www.microsoft.com/en/windows-server)
 
-{{< underline "Router/Firewall OS" >}}
+{{< underline "路由器/防火牆OS" >}}
 
 [OpenWrt](https://openwrt.org/) :thumbsup:（家用路由器推薦）、[pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)
 
@@ -185,28 +185,28 @@ Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、AdGuardHom
 
 ## 咩係Hypervisor？點解要用佢？
 
-[Hypervisor](https://en.wikipedia.org/wiki/Hypervisor)即專用黎行虛擬機既軟件。上一項提及既Hypervisor OS用既全部都係用Type 1 hypervisor（例如Proxmox用既係[QEMU+KVM](https://zhuanlan.zhihu.com/p/48664113)），虛擬機性能損耗極低，接近原生性能。
+[Hypervisor](https://en.wikipedia.org/wiki/Hypervisor)即專用黎行虛擬機既軟件。上一項提及既Hypervisor OS用既全部都係用Type 1 hypervisor（例如Proxmox用既係KVM+QEMU），虛擬機可繞過宿主OS直接使用伺服器硬件，藉此獲得接近無損性能。
 
 用Hypervisor既好處：
 
 - 虛擬機快照及備份（非常實用）
 - 可以匯入虛擬機，或匯出虛擬機去另一部Hypervisor
-- 容許將來擴展規模，例如Server硬件升級後可以開多幾隻虛擬機
+- 容許將來擴展規模，例如伺服器硬件升級後可以開多幾隻虛擬機
 - 視乎你既硬件，重啟虛擬機可能比重啟實機快勁多
 
 就算你只會用一個虛擬機，都可以考慮下用Hypervisor：淨係快照及備份通常都值回票價。
 
 {{< notice note "題外話：係Linux 整個 Windows 虛擬機打機" >}}
-QEMU+KVM任何Linux機都用到。有一個特別玩法係Desktop Linux上面整個Windows虛擬機打機。
+KVM+QEMU任何Linux機都用到。有一個特別玩法係Desktop Linux上面整個Windows虛擬機打機。
 
 我自己部PC就係用[Fedora Linux](https://fedoraproject.org/)做主OS，並用Windows 10虛擬機打機。詳情可以睇我[呢個Post](../002_windows_to_linux/)。
 {{< /notice >}}
 
 ## 咩係IPMI？有冇代替品？
 
-IPMI係遠端管理Server既工具。同普通Remote desktop工具唔同既係佢可以係**最底層控制個Server**。
+IPMI係遠端管理伺服器既工具。同普通Remote desktop工具唔同既係佢可以係**最底層控制個伺服器**。
 
-不但可以遠端睇到Server既螢幕輸出同埋操控佢，仲可以開/關機、改BIOS設定、重裝OS等等。非常適合Server係屋企外或難搬地方既人。
+不但可以遠端睇到伺服器既螢幕輸出同埋操控佢，仲可以開/關機、改BIOS設定、重裝OS等等。非常適合伺服器放屋企外或難搬地方既人。
 
 Intel有個類似工具叫**VPro**，好多商用Intel機都有支持，配合[MeshCentral](https://github.com/Ylianst/MeshCentral)可做到中央控制。
 
@@ -220,19 +220,19 @@ PiKVM甚至可以配合[特定](https://docs.pikvm.org/multiport/#list-of-tested
 
 Intel既獨立顯示卡:thumbsup: 入門級型號（1000蚊樓下買到）就已經有同高階卡一樣既超強轉碼性能。
 
-支持好多媒體格式（包括AV1 encoding），低能耗，有啲型號甚至係半高/單插槽闊，非常適合Server用。
+支持好多媒體格式（包括AV1 encoding），低能耗，有啲型號甚至係半高/單插槽闊，非常適合伺服器用。
 
-此外Nvidia Quadro系列都唔錯，可以搵下有冇二手貨。
+此外NVIDIA Quadro系列都唔錯，可以搵下有冇二手貨。
 
 想買轉碼卡既話建議睇下呢啲參考資料再買：
 
 [Media Capabilities Supported by Intel Hardware](https://www.intel.com/content/www/us/en/docs/onevpl/developer-reference-media-intel-hardware/)
 
-[Nvidia Video Encode and Decode GPU Support Matrix](https://developer.nvidia.com/video-encode-and-decode-gpu-support-matrix-new)
+[NVIDIA Video Encode and Decode GPU Support Matrix](https://developer.nvidia.com/video-encode-and-decode-gpu-support-matrix-new)
 
 [Plex Media Server Hardware Transcoding Cheat Sheet](https://www.elpamsoft.com/?p=Plex-Hardware-Transcoding)
 
-[延伸閱讀：Nvidia-patch（移除Nvidia顯示卡既同時間轉碼數上限）](https://github.com/keylase/nvidia-patch)
+[延伸閱讀：nvidia-patch（移除NVIDIA顯示卡既同時間轉碼數上限）](https://github.com/keylase/nvidia-patch)
 
 ## 更多討論區/資源
 

@@ -57,15 +57,15 @@ Docker本身會提供一定保護，例如你冇Mount volume既話容器（Conta
 
 ### Docker既安全貼士
 
-Docker預設係以Root身份行。咁既話出現*容器逃逸*時隻容器就可以對你部機為所欲為。
+Docker預設係以Root身份行。咁既話出現*容器逃逸* 時隻容器就可以對你部機為所欲為。
 
-雖然咁講，但只要唔用`--privileged`行既話，Docker本身既保護都強，*容器逃逸*唔係咁易發生。
+雖然咁講，但只要唔用`--privileged`行既話，Docker本身既保護都強，*容器逃逸* 唔係咁易發生。
 
 但為咗減低風險，**最好起一個User專用黎行Docker野**，並起個文件夾比呢個User專用，其他檔案有需要先比權限佢掂。
 
 然後Docker加兩個Flag行：`--user <新User UID>:<新User GID>` `--security-opt=no-new-privileges`
 
-Synology用家可以睇[呢個教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)，有整Docker專用User及整Docker版Media server既步驟。
+Synology用家可以睇[呢個教學](https://trash-guides.info/Hardlinks/How-to-setup-for/Synology/)，有整Docker專用User及整Docker版家庭影院既步驟。
 
 {{< notice warning "注意" >}}
 有啲Docker映像只支持用Root行。
@@ -191,12 +191,12 @@ PT唔係直接就入到會，可能要你課金（中國大陸/台灣個啲）�
 
 DNS層過濾廣告，同時亦可做家長監控（即是封鎖你指定既網頁）。
 
-安裝後再係路由器到設定個DNS server做佢，咁成個屋企網絡既機器都會過濾到廣告。
+安裝後再係路由器到設定個DNS伺服器做佢，咁成個屋企網絡既機器都會過濾到廣告。
 
-有興趣既話可以研究埋[Unbound](https://unbound.docs.nlnetlabs.nl/en/latest/)（Recursive DNS）或者DNS-over-HTTPS/DNS-over-TLS（Encrypted DNS）。前者可以[增強私隱](https://docs.pi-hole.net/guides/dns/unbound/#what-does-this-guide-provide)，後者可保證你寬頻供應商無法篡改你既DNS query。
+有興趣既話可以研究埋[Unbound](https://unbound.docs.nlnetlabs.nl/en/latest/)（Recursive DNS）或者DNS-over-HTTPS/DNS-over-TLS（Encrypted DNS）。前者可以[增強私隱](https://docs.pi-hole.net/guides/dns/unbound/#what-does-this-guide-provide)，後者可保證你寬頻供應商無法篡改你既DNS請求。
 
 {{< notice tip "檢查寬頻供應商有冇篡改你 DNS 請求" >}}
-先去路由器設定DNS server做[1.1.1.1](https://1.1.1.1/)，再去[呢到](https://www.dnsleaktest.com)做測試。
+先去路由器設定DNS伺服器做[1.1.1.1](https://1.1.1.1/)，再去[呢到](https://www.dnsleaktest.com)做測試。
 
 如顯示既ISP唔係Cloudflare，即可斷定你既DNS請求比你個寬頻供應商攔截及篡改咗。
 
@@ -205,7 +205,7 @@ DNS層過濾廣告，同時亦可做家長監控（即是封鎖你指定既網�
 寬頻供應商仍然可以用其他方法干預你既網絡，例如直接封鎖你要去既網站既IP。
 {{< /notice >}}
 
-### Server儀表板 :thumbsup:
+### 伺服器儀表板 :thumbsup:
 
 {{< figure src="./Dashy.png" caption="Dashy介面" >}}
 
@@ -237,7 +237,7 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 如果你同我一樣有部得USB既陳年多合一打印機，又或者係一定要裝垃圾軟件先用到既打印機，咁呢兩個軟件可以幫到你。
 
-只要連接打印機同裝住呢兩個軟件既Server，成個屋企網絡既機就可以透過呢兩個軟件用隻打印機/掃描器，唔洗裝任何其他軟件。
+只要連接打印機同裝住呢兩個軟件既伺服器，成個屋企網絡既機就可以透過呢兩個軟件用隻打印機/掃描器，唔洗裝任何其他軟件。
 
 不過視乎你部打印機既型號，有可能要你自己搵部打印機既Linux版驅動程式並安裝後先行到呢兩個軟件。
 
@@ -253,7 +253,7 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 自己行AI既最大賣點係冇Censorship，你問佢[幾邪惡既野都會答你](https://www.reddit.com/r/LocalLLaMA/comments/149su0a/a_short_conversation_with_falcon/)。此外亦可[保障私隱](https://www.schneier.com/blog/archives/2024/02/microsoft-is-spying-on-users-of-its-ai-tools.html)。
 
-你部品牌NAS行AI應該有困難。如果有興趣既話，可以考慮下自組Server行。
+你部品牌NAS行AI應該有困難。如果有興趣既話，可以考慮下自組伺服器玩。
 
 [延伸閱讀：CivitAI（Gen圖Model下載）](https://civitai.com/)
 
@@ -275,7 +275,7 @@ Google Photo翻版（[Immich](https://github.com/immich-app/immich)/[Photoprism]
 
 偵測特定網頁更新（[Changedetection.io](https://github.com/dgtlmoon/changedetection.io)）
 
-[Game Server](https://github.com/GameServerManagers/docker-gameserver)（ARK/Barotrauma/CS2/Factorio/Minecraft/Palworld/Terraria/TF2等等，太多不能盡錄）
+[多人遊戲伺服器](https://github.com/GameServerManagers/docker-gameserver)（ARK/Barotrauma/CS2/Factorio/Minecraft/Palworld/Terraria/TF2等等，太多不能盡錄）
 
 各類Discord/Telegram bot（例如[Discord播歌Bot](https://github.com/SudhanPlayz/Discord-MusicBot)/[Telegram加密貨幣交易Bot](https://github.com/freqtrade/freqtrade)）
 

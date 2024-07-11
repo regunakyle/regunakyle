@@ -85,9 +85,9 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 現時最新出咗[DS224+](https://www.synology.com/zh-tw/products/DS224+)、[DS423+](https://www.synology.com/zh-tw/products/DS423+)、[DS723+](https://www.synology.com/zh-tw/products/DS723+)、[DS923+](https://www.synology.com/zh-tw/products/DS923+)。
 
-DS723+及DS923+冇Hardware encode/decoder，但可以加購10G卡，配合NVMe SSD使用可以做到高速大量傳輸。（另外呢兩部Support ECC RAM）
+DS723+及DS923+冇硬件解碼器/編碼器，但可以加購10G卡，配合NVMe SSD使用可以做到高速大量傳輸。（另外呢兩部Support ECC RAM）
 
-DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上面兩款更適合做轉碼。
+DS224+及DS423+冇得升10G，但有內顯及硬件解碼器/編碼器，比上面兩款更適合做轉碼。
 
 我個人覺得如果你冇10G需求既話，買DS224+或DS423+較好。
 
@@ -123,7 +123,7 @@ DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上�
 
 緊記：**硬碟遲早會壞，做好備份先係最實際**。
 
-[延伸閱讀：BackBlaze企業用硬碟損壞率調查](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
+[延伸閱讀：Backblaze企業用硬碟損壞率調查](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
 
 ## 點樣係街外存取屋企部NAS？
 
@@ -140,7 +140,7 @@ DS224+及DS423+冇得升10G，但有內顯及Hardware encoder/decoder，比上�
 如果選擇用Wireguard/OpenVPN（要做Port forwarding），我建議你**只放VPN一個Port出街**，屋企其他Service全部透過VPN使用。
 
 {{< notice tip "Tailscale直連" >}}
-Tailscale有兩種連接方法：直連或用佢地既中繼Server（DERP）。Tailscale會做Hole punching並藉此令你部機同屋企部NAS可以直連，失敗既話先會用DERP：直連速度快，DERP就非常慢。
+Tailscale有兩種連接方法：直連或用佢地既中繼伺服器（DERP）。Tailscale會做Hole punching並藉此令你部機同屋企部NAS可以直連，失敗既話先會用DERP：直連速度快，DERP就非常慢。
 
 理想情況係唔洗做野就可以直連。要測試既話可以用手機流量係NAS下載大檔案睇速度（我用4G LTE行到35Mbps），或者SSH入部NAS打`tailscale status`（睇下佢顯示`relay`還是`direct`）。
 
@@ -182,11 +182,11 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 ### QuickConnect/MyQnapCloud
 
-部分NAS牌子提供免費中繼Server，例如Synology既[QuickConnect](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_quickconnect)同QNAP既[MyQnapCloud](https://www.qnap.com/zh-hk/software/myqnapcloud)。
+部分NAS牌子提供免費中繼伺服器，例如Synology既[QuickConnect](https://kb.synology.com/zh-tw/DSM/help/DSM/AdminCenter/connection_quickconnect)同QNAP既[MyQnapCloud](https://www.qnap.com/zh-hk/software/myqnapcloud)。
 
 因為我得Synology，呢到只講QuickConnect：
 
-**無需做Port forwarding**，靠Synology server做Hole punching，或（如失敗）用Synology中繼Server做中間人連結部NAS同你部手機/電腦。[（QuickConnect原理）](https://kb.synology.com/zh-tw/WP/Synology_QuickConnect_White_Paper/4)
+**無需做Port forwarding**，靠Synology伺服器做Hole punching，或（如失敗）用Synology既中繼伺服器做中間人連結部NAS同你部手機/電腦。[（QuickConnect原理）](https://kb.synology.com/zh-tw/WP/Synology_QuickConnect_White_Paper/4)
 
 注意用QuickConnect只能掂到DSM及部分Synology軟件，冇辦法透過佢開NAS上既Plex/Jellyfin等你自己裝既軟件。
 
@@ -224,8 +224,8 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 必須有至少一份**即使被Hack黑客都掂唔到**既備份。例子：
 
 1. 定時將外置硬碟接駁NAS做備份，做好後斷開外置硬碟連接（即離線備份）
-2. 由備份Server主動從NAS撈數據做備份（而唔係NAS主動倒數據落備份Server），且禁止網絡其他機主動存取備份Server
-3. 單寫多讀（又稱WORM）：即備份Server只接受上傳備份，並禁止**所有人**刪除或更改舊既備份。可以睇下[Synology](https://kb.synology.com/en-global/WP/WriteOnce_White_Paper/1)既介紹；此外好多雲端存儲支援類似功能，例如[Backblaze B2](https://www.backblaze.com/docs/cloud-storage-object-lock)
+2. 由備份伺服器主動從NAS撈數據做備份（而唔係NAS主動倒數據落備份伺服器），且禁止網絡其他機主動存取備份伺服器
+3. 單寫多讀（又稱WORM）：即備份伺服器只接受上傳備份，並禁止**所有人**刪除或更改舊既備份。可以睇下[Synology](https://kb.synology.com/en-global/WP/WriteOnce_White_Paper/1)既介紹；此外好多雲端存儲支援類似功能，例如[Backblaze B2](https://www.backblaze.com/docs/cloud-storage-object-lock)
 
 如果黑客攻到入黎，又掂到曬你啲備份，咁佢直接剷曬或加密曬咪得。咁樣你既備份形同虛設。
 {{< /detail >}}
@@ -250,7 +250,7 @@ Port forwarding本身並無任何風險，所有風險都來自你Forward出去�
 
 ## 點樣獲得免費既SSL憑證？
 
-[Let's Encrypt](https://letsencrypt.org/)係一間免費提供SSL憑證既既非牟利機構，好多家用Server玩家都用佢地既憑證。
+[Let's Encrypt](https://letsencrypt.org/)係一間免費提供SSL憑證既既非牟利機構，好多家用伺服器玩家都用佢地既憑證。
 
 佢地提供[幾種方法](https://letsencrypt.org/docs/challenge-types/)比你證明你擁有個域名。我推薦**DNS-01**方法，因為：
 
@@ -293,11 +293,11 @@ SSL憑證有兩個檔案，其中一個係密鑰。你要保護密鑰不被外�
 
 你部NAS要將條片先轉碼做合適既格式，再傳輸比播放器。咁樣會燒部NAS隻CPU。
 
-如果你隻NAS有Hardware encoder+decoder既話，部NAS就會將轉碼工作掉比佢地去做。
+如果你隻NAS有硬件解碼器及編碼器既話，部NAS就會將轉碼工作掉比佢地去做。
 
-咁樣NAS隻CPU既負荷（相比起冇Encoder+decoder既情況）會大大降低，唔會因為播片而卡死部NAS。
+咁樣NAS隻CPU既負荷（相比起冇硬件解碼器及編碼器既情況）會大大降低，唔會因為播片而卡死部NAS。
 
-通常大牌子NAS既Intel CPU有內顯（有啲型號甚至有獨立顯示卡），內有Hardware encoder+decoder。
+通常大牌子NAS既Intel CPU有內顯（有啲型號甚至有獨立顯示卡），內有硬件解碼器及編碼器。
 
 {{< notice tip "轉換影片解析度" >}}
 將片轉做唔同解析度（例如4K轉去1080p）都係轉碼既一種，想係街用流量睇屋企4K片既話有用。
@@ -309,9 +309,9 @@ SSL憑證有兩個檔案，其中一個係密鑰。你要保護密鑰不被外�
 
 例如買隻機頂盒或TV stick插上電視轉輸入源，用佢地做播放器。
 
-機頂盒：[Nvidia Shield](https://www.nvidia.com/zh-tw/shield/) :thumbsup:、[Apple TV](https://www.apple.com/hk/tv-home/)、各類Android TV Box等
+機頂盒：[NVIDIA Shield](https://www.nvidia.com/zh-tw/shield/) :thumbsup:、[Apple TV](https://www.apple.com/hk/tv-home/)、各類Android TV Box等
 
-TV stick：[Google Chromecast](https://store.google.com/tw/product/chromecast_google_tv)、[Roku](https://www.roku.com/products/players)、[Amazon Fire TV](https://www.amazon.com/s?bbn=8521791011&rh=n%3A16333372011%2Cn%3A2102313011%2Cn%3A8521791011%2Cn%3A21579967011&dc&rnid=8521791011)等
+TV stick：[Google Chromecast](https://store.google.com/tw/product/chromecast_google_tv) :thumbsup:、[Roku](https://www.roku.com/products/players)、[Amazon Fire TV](https://www.amazon.com/s?bbn=8521791011&rh=n%3A16333372011%2Cn%3A2102313011%2Cn%3A8521791011%2Cn%3A21579967011&dc&rnid=8521791011)等
 
 呢啲產品通常支持更多檔案格式。買邊隻請自己做功課，或去我地Post討論。
 
@@ -320,9 +320,9 @@ TV stick：[Google Chromecast](https://store.google.com/tw/product/chromecast_go
 {{< detail "轉碼知多啲" >}}
 你啲片既格式（MP4/MKV/WebM等）其實係Container格式黎，佢地入面裝住咗Video/Audio/Subtitle，三者分別有自己獨特既格式。
 
-轉碼其實就係將你條原片既Video/Audio/Subtitle **Decode（解碼）** 去Raw，再**Encode（編碼）** 去你媒體播放器播放到既格式，最後再將成品經網絡傳輸比個媒體播放器。
+轉碼其實就係將你條原片既Video/Audio/Subtitle**解碼（Decode）** 去Raw，再**編碼（Encode）** 去你媒體播放器播放到既格式，最後再將成品經網絡傳輸比個媒體播放器。
 
-所以你NAS/轉碼器要有你**原片格式既Decoder**及**媒體播放器可播放格式既Encoder**。
+所以你隻NAS/影音伺服器要有你**原片格式既解碼器**及**媒體播放器可播放格式既編碼器**。
 
 [延伸閱讀：Jellyfin Codec Support及介紹](https://jellyfin.org/docs/general/clients/codec-support/)
 {{< /detail >}}
