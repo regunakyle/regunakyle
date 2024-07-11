@@ -42,7 +42,7 @@ date = "2024-06-01"
 {{< notice warning "單顯示卡" >}}
 單顯示卡仍可設定**VFIO**虛擬機，不過設定上更麻煩，我也沒做過，所以不作說明。
 
-如堅持要做，請先讀完[這個](https://madgpt.wipf.nl/FAQ/)再決定。注意**Looking Glass**要求至少兩張顯示卡。
+如堅持要做，請先讀完[這個](https://madgpt.wipf.nl/FAQ/)再決定。注意**Looking Glass**要有至少兩張顯示卡才能運作。
 
  {{< /notice >}}
 
@@ -62,11 +62,11 @@ date = "2024-06-01"
 
 任何插在主機板上PCIe設備都被分配在一個IOMMU組，如果有多個設備被分配到一個IOMMU組裡，你就只能把它們一起送入虛擬機。
 
-由於**送入虛擬機的設備不能在Linux上使用**，主機板有較好的IOMMU組是很重要的（你總不能把安裝了Linux的NVMe SSD一起送進去吧）。
+由於**送入虛擬機的設備不能在宿主機上使用**，主機板有較好的IOMMU組是很重要的（你總不能把安裝了宿主機OS的NVMe SSD一起送進去吧）。
 
 我的主機板（[技嘉X570S AERO G](https://www.gigabyte.com/tw/Motherboard/X570S-AERO-G-rev-1x)）的IOMMU組接近完美，幾乎所有設備都在不同的IOMMU組別，而且支持PCIe Bifurcation (x8/x8)，十分適合做**Looking Glass**。
 
-要檢查現有主機板的IOMMU組（不需安裝Linux）：
+要檢查現有主機板的IOMMU組（不需刪除Windows）：
 
 1. 先在BIOS啟用IOMMU。這選項沒有固定名稱，可能是*IOMMU* 、*VT-d* 、*AMD-V* 、*SVM* 等
 2. 找個USB寫入[Fedora](https://fedoraproject.org/spins/kde/download)的映像，然後插入電腦，開機進入BIOS並啟動它
@@ -110,7 +110,7 @@ done
 
 #### Reset功能
 
-如果你未買*虛擬機卡* ，我建議你買Nvidia的顯示卡，因為Intel和AMD的顯示卡可能有*Reset bug* 。
+如果你未買*虛擬機卡* ，我建議你買NVIDIA的顯示卡，因為Intel和AMD的顯示卡可能有*Reset bug* 。
 
 所謂*Reset bug* 即是硬件沒有Reset功能，無法在虛擬機關機時正確地重置，使其處於一個"假死"狀態。在這個狀態下的硬件會令你不能重新啟動**VFIO**虛擬機，必須將整個宿主機重啟才能再次啟動它。
 
@@ -120,9 +120,9 @@ done
 
 #### 顯示卡選擇
 
-上面提及*虛擬機卡* 推薦使用Nvidia：Windows驅動程式穩定、有Reset功能；缺點只有貴:money_with_wings:
+上面提及*虛擬機卡* 推薦使用NVIDIA：Windows驅動程式穩定、有Reset功能；缺點只有貴:money_with_wings:
 
-*宿主機卡* 推薦Intel或AMD（CPU內顯或獨立顯示卡），因為這兩個牌子的顯示卡在Linux有開源及穩定的驅動程式，此外它們支持*DMABUF* 功能，這對Looking Glass的性能有大幫助。Nvidia在Linux上的開源驅動程式性能較差，而官方閉源的驅動程式可能不支持*DMABUF* 。
+*宿主機卡* 推薦Intel或AMD（CPU內顯或獨立顯示卡），因為這兩個牌子的顯示卡在Linux有開源及穩定的驅動程式，此外它們支持*DMABUF* 功能，這對Looking Glass的性能有大幫助。NVIDIA在Linux上的開源驅動程式性能較差，而官方閉源的驅動程式可能不支持*DMABUF* 。
 
 如果打算用Looking Glass，開發者建議兩張獨立顯示卡。CPU內顯也當*宿主機卡* 用，但Looking Glass的幀數會較低。我建議先安裝Looking Glass，看看能不能接受其幀數，實在太慢的話再買第二張獨立顯示卡。
 

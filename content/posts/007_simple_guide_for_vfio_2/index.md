@@ -320,7 +320,7 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
         ```
 
 {{< notice error "注意" >}}
-如果你的*宿主機卡* 是Nvidia，而又選擇用官方閉源的驅動程式的話，可能用不了KVMFR module。
+如果你的*宿主機卡* 是NVIDIA，而又選擇用官方閉源的驅動程式的話，可能用不了KVMFR module。
 
 可以試試照常執行下方步驟。但如果行不通，請改用[IVSHMEM with standard shared memory](https://looking-glass.io/docs/B7-rc1/ivshmem_shm/)。
 
@@ -552,7 +552,6 @@ sudo virsh define vfio.xml
       - `General configuration`內勾選`Connect automatically with priority`
       - `Connection name`可隨意改，但不要和原來的乙太網絡的名稱相同
     - 取消勾選`Enable STP (Spanning Tree Protocol)`
-    - **（可選）**`General configuration`中`Firewall zone`選擇`FedoraWorkstation`，以容許網絡上其他電腦連接宿主機的1025至65535連接埠
 4. 重啟電腦
 5. 開啟**VFIO**虛擬機設定介面並選擇虛擬機的虛擬網卡
 6. `Network source`選`Bridge device...`，`Device name`填`br0`
@@ -566,6 +565,8 @@ sudo virsh define vfio.xml
 3. 開啟`hooks.json`並將第59行的逗號刪除（如有）
 4. 根據[說明](https://github.com/saschpe/libvirt-hook-qemu/blob/master/hooks.json)自行修改`hooks.json`。可於`hooks.schema.json`查看`hooks.json`的格式
 5. 執行`sudo make install`
+6. 於Linux設定中開啟網絡設定，並選擇正在使用的網絡連接
+7. 於`General configuration`中之`Firewall zone`選擇`FedoraWorkstation`，以容許網絡上其他電腦連接宿主機的1025至65535連接埠
 
 安裝後，可透過宿主機的指定連接埠去連接虛擬機的指定連接埠。
 
@@ -584,7 +585,7 @@ sudo virsh define vfio.xml
     - 傳入**VFIO**虛擬機使用的*虛擬機卡*
     - 於`Boot Options`勾選`Start virtual machine on host boot up`
     - 不安裝任何桌面環境
-4. 在這虛擬機上安裝*虛擬機卡* 的官方驅動程式（[Debian安裝Nvidia驅動教學](https://wiki.debian.org/NvidiaGraphicsDrivers)），然後重啟
+4. 在這虛擬機上安裝*虛擬機卡* 的官方驅動程式（[Debian安裝NVIDIA驅動教學](https://wiki.debian.org/NvidiaGraphicsDrivers)），然後重啟
 
 這樣做不但可以降低耗電，你還可以在這虛擬機內做顯示卡相關的工作（例如跑AI）。
 
