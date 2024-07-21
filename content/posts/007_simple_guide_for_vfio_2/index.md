@@ -541,7 +541,7 @@ sudo virsh define vfio.xml
 
 {{< underline "橋接網絡 (Network Bridge)" >}}
 
-注意：此方法要求宿主機以有線乙太網絡連接上網。如果你只能用WiFi，請轉用通訊埠轉發方法
+注意：此方法要求宿主機以有線乙太網絡連接上網。如果你只能用WiFi，請轉用通訊埠轉發方法（[原因](https://superuser.com/questions/1847193/why-can-ethernet-nics-bridge-to-virtualbox-and-most-wi-fi-nics-dont)）
 
 1. 於Linux設定中開啟網絡設定
 2. 將原本的有線乙太網絡連接刪除
@@ -585,7 +585,7 @@ sudo virsh define vfio.xml
     - 傳入**VFIO**虛擬機使用的*虛擬機卡*
     - 於`Boot Options`勾選`Start virtual machine on host boot up`
     - 不安裝任何桌面環境
-4. 在這虛擬機上安裝*虛擬機卡* 的官方驅動程式（[Debian安裝NVIDIA驅動教學](https://wiki.debian.org/NvidiaGraphicsDrivers)），然後重啟
+4. 在這虛擬機上安裝*虛擬機卡* 的官方驅動程式（[Debian安裝NVIDIA驅動教學](https://wiki.debian.org/NvidiaGraphicsDrivers)），然後重啟虛擬機
 
 這樣做不但可以降低耗電，你還可以在這虛擬機內做顯示卡相關的工作（例如跑AI）。
 

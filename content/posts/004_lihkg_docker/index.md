@@ -227,7 +227,7 @@ DNS層過濾廣告，同時亦可做家長監控（即是封鎖你指定既網�
 
 Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/feature/note_station)。
 
-如果你用[Obsidian](https://obsidian.md/)既話，可以自己起個CouchDB做[Live sync](https://github.com/vrtmrz/obsidian-livesync/)。
+如果你用[Obsidian](https://obsidian.md/)既話，可以用[remotely-save](https://github.com/remotely-save/remotely-save)或[obsidian-livesync](https://github.com/vrtmrz/obsidian-livesync/)（後者要自己起個CouchDB）。
 
 ### 將得USB連接既打印機/掃描器變成屋企網絡可用
 
