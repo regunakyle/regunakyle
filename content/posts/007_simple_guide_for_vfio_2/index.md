@@ -72,13 +72,18 @@ GRUB_CMDLINE_LINUX="rhgb quiet vfio_pci.ids=10de:2489,10de:228b pci-stub.ids=1b2
 
 1. 執行`sudo dnf install -y @virtualization`
 2. 下載[Windows 10 ISO檔](https://www.microsoft.com/zh-hk/software-download/windows10)及[此處下載](https://github.com/virtio-win/virtio-win-pkg-scripts?tab=readme-ov-file#downloads)的`Latest virtio-win ISO`，並將它們移至`/var/lib/libvirt/images`（提示：`sudo mv *.iso /var/lib/libvirt/images`）
-3. 啟動*virt-manager* ，並啟用設定：`Edit => Preferences => Enable XML editing`
-4. 創建新的虛擬機（左上角按鍵）
-5. 第一頁選擇`Local install media (ISO image or CDROM)`
-6. 第二頁選擇Windows 10 ISO檔作安裝ISO，選擇後於下方`Choose the operation system you are installing`中選`Microsoft Windows 10`
-7. 第三頁設定CPU及RAM
-8. 第四頁取消勾選`Enable storage for this virtual machine`
-9. 最後一頁勾選`Customize configuration before install`，然後按`Finish`
+3. 啟動*virt-manager*
+4. 啟用設定：`Edit => Preferences => Enable XML editing`
+5. 創建新的虛擬機（左上角按鍵）
+6. 選擇安裝媒介
+    - 如你想安裝Windows：
+      1. 第一頁選擇`Local install media (ISO image or CDROM)`
+      2. 第二頁選擇Windows 10 ISO檔作安裝ISO
+    - 如你想使用已安裝Windows的儲存裝置，第一頁則選擇`Manual install`
+7. 於`Choose the operation system you are installing`中選`Microsoft Windows 10`
+8. 第三頁設定CPU及RAM
+9. 第四頁取消勾選`Enable storage for this virtual machine`
+10. 最後一頁勾選`Customize configuration before install`，然後按`Finish`
 
 {{< figure src="./VirtManagerUI.png" caption="這時應出現這個介面" >}}
 
@@ -97,10 +102,11 @@ GRUB_CMDLINE_LINUX="rhgb quiet vfio_pci.ids=10de:2489,10de:228b pci-stub.ids=1b2
     - 加入`PCI Host Device`：加入所有你想傳入虛擬機的硬件（例如*虛擬機卡* ）
     - 加入`Network`：`Device model`選擇`virtio`。加入後將原本使用`e1000e`的虛擬網卡刪除
     - 加入`Storage`：`Device type`選`CDROM Device`，再按`Manage...`並選擇上一部分第二步下載的`virtio-win`之ISO檔
-    - 如果你想將[Windows安裝於獨立SSD/HDD上](../006_simple_guide_for_vfio_1/#nvme-ssd及sata控制器)，加入`PCI Host Device`並選擇對應的控制器即可
-    - 如果你選擇用虛擬硬碟：
-        1. 加入`Storage`：設定虛擬硬碟容量，然後`Bus Type`選擇`SCSI`
-        2. 加入`Controller`：`Type`選擇`SCSI`，`Model`選`VirtIO SCSI`
+    - 加入Windows儲存
+      - 如果你選擇用虛擬硬碟：
+          1. 加入`Storage`：設定虛擬硬碟容量，然後`Bus Type`選擇`SCSI`
+          2. 加入`Controller`：`Type`選擇`SCSI`，`Model`選`VirtIO SCSI`
+      - 如果你想將[Windows安裝於儲存裝置上](../006_simple_guide_for_vfio_1/#nvme-ssd及sata控制器)，加入`PCI Host Device`並選擇這儲存裝置的控制器
 
 4. 最後返回`Overview`頁，然後按`XML`，進入下部分
 
@@ -193,7 +199,7 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
 ##### IOThread
 
 {{< notice error "注意" >}}
-**這部分只適用於虛擬硬碟用家**。如你選擇直接安裝Windows到HDD/SSD上，請[跳過本節](#其他雜項優化)！
+**這部分只適用於虛擬硬碟用家**。如你選擇直接安裝Windows於儲存裝置上，請[跳過本節](#其他雜項優化)！
 {{< /notice >}}
 此部分請配合[Arch Wiki上的條目](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Virtio_disk)一并閱讀。
 
@@ -516,7 +522,7 @@ escapeKey=KEY_RIGHTALT
 
 在虛擬機XML中的`<os>`項內添加`<smbios mode="host" />`項，可以繞過部分遊戲的虛擬機偵測（例如[Elden Ring](https://store.steampowered.com/agecheck/app/1245620/)和[VRChat](https://store.steampowered.com/app/438100/VRChat/)）。
 
-因為我不怎玩線上遊戲，所以沒有深入研究過反制虛擬機偵測方法。如果只是偶爾玩玩，可以另外[買多個SSD/HDD，並把VFIO虛擬機直接安裝在上面](../006_simple_guide_for_vfio_1/#nvme-ssd及sata控制器)，想玩線上遊戲時再Dual boot即可。
+因為我不怎玩線上遊戲，所以沒有深入研究過反制虛擬機偵測方法。如果只是偶爾玩玩，可以另外[買個SSD，並把VFIO虛擬機直接安裝在上面](../006_simple_guide_for_vfio_1/#nvme-ssd及sata控制器)，想玩線上遊戲時再Dual boot即可。
 
 如選擇Dual boot，建議先添加上方`<smbios>`項，然後將虛擬機的UUID值修改成主機板的UUID值，否則Dual boot後可能要重新認證Windows：
 
