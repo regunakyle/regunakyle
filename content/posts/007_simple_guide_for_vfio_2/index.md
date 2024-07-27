@@ -1,7 +1,7 @@
 +++
 title = "如何實現VFIO及Looking Glass（安裝篇）"
 author = "Eric Leung"
-description = "Guide for setting up VFIO and Looking Glass (Setup)"
+description = "Guide to setting up VFIO and Looking Glass (Setup)"
 categories = ["VFIO/Looking Glass系列"]
 date = "2024-06-02"
 +++
@@ -102,7 +102,7 @@ GRUB_CMDLINE_LINUX="rhgb quiet vfio_pci.ids=10de:2489,10de:228b pci-stub.ids=1b2
     - 加入`PCI Host Device`：加入所有你想傳入虛擬機的硬件（例如*虛擬機卡* ）
     - 加入`Network`：`Device model`選擇`virtio`。加入後將原本使用`e1000e`的虛擬網卡刪除
     - 加入`Storage`：`Device type`選`CDROM Device`，再按`Manage...`並選擇上一部分第二步下載的`virtio-win`之ISO檔
-    - 加入Windows儲存
+    - 加入Windows存儲
       - 如果你選擇用虛擬硬碟：
           1. 加入`Storage`：設定虛擬硬碟容量，然後`Bus Type`選擇`SCSI`
           2. 加入`Controller`：`Type`選擇`SCSI`，`Model`選`VirtIO SCSI`
@@ -484,7 +484,7 @@ escapeKey=KEY_RIGHTALT
 
     安裝很簡單（[官方OBS插件安裝教學](https://looking-glass.io/docs/B7-rc1/obs/)）：
 
-    1. 安裝OBS；建議安裝[Flatpak版](https://flathub.org/apps/com.obsproject.Studio)：
+    1. 安裝OBS；例如安裝[Flatpak版](https://flathub.org/apps/com.obsproject.Studio)：
 
         ```bash
         flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
@@ -504,9 +504,9 @@ escapeKey=KEY_RIGHTALT
         - Flatpak版OBS：執行以下指令
 
             ```bash
-            LG_OBS_PLUGIN_DIR="$HOME/.var/app/com.obsproject.Studio/config/obs-studio/plugins/looking-glass-obs/bin/64bit"
-            mkdir -p "$LG_OBS_PLUGIN_DIR"
-            cp liblooking-glass-obs.so "$LG_OBS_PLUGIN_DIR"
+            FLATPAK_OBS_PLUGIN_DIR="$HOME/.var/app/com.obsproject.Studio/config/obs-studio/plugins/looking-glass-obs/bin/64bit"
+            mkdir -p "$FLATPAK_OBS_PLUGIN_DIR"
+            cp liblooking-glass-obs.so "$FLATPAK_OBS_PLUGIN_DIR"
             ```
 
         - Fedora版OBS：執行`make install`
@@ -569,7 +569,7 @@ sudo virsh define vfio.xml
 1. 找一個空白文件夾，入內開啟終端程式
 2. 執行`git clone https://github.com/saschpe/libvirt-hook-qemu.git`
 3. 開啟`hooks.json`並將第59行的逗號刪除（如有）
-4. 根據[說明](https://github.com/saschpe/libvirt-hook-qemu/blob/master/hooks.json)自行修改`hooks.json`。可於`hooks.schema.json`查看`hooks.json`的格式
+4. 根據[說明](https://github.com/saschpe/libvirt-hook-qemu/blob/master/hooks.json)自行修改`hooks.json`。可於[hooks.schema.json](https://github.com/saschpe/libvirt-hook-qemu/blob/master/hooks.schema.json)查看`hooks.json`的格式
 5. 執行`sudo make install`
 6. 於Linux設定中開啟網絡設定，並選擇正在使用的網絡連接
 7. 於`General configuration`中之`Firewall zone`選擇`FedoraWorkstation`，以容許網絡上其他電腦連接宿主機的1025至65535連接埠

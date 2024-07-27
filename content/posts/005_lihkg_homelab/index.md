@@ -1,7 +1,7 @@
 +++
 title = "連登Homelab系列（三）：Homelab常見問題"
 author = "Eric Leung"
-description = "LIHKG Homelab Post series: FAQ for homelab"
+description = "LIHKG Homelab Post series: FAQ on homelab"
 categories = ["連登Homelab系列"]
 date = "2024-01-22"
 +++

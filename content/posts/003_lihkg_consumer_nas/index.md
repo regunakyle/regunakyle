@@ -1,7 +1,7 @@
 +++
 title = "連登Homelab系列（一）：普通家用NAS常見問題"
 author = "Eric Leung"
-description = "LIHKG Homelab Post series: FAQ for consumer NAS"
+description = "LIHKG Homelab Post series: FAQ on consumer NAS"
 categories = ["連登Homelab系列"]
 date = "2024-01-20"
 +++

@@ -1,7 +1,7 @@
 +++
 title = "如何實現VFIO及Looking Glass（硬件篇）"
 author = "Eric Leung"
-description = "Guide for setting up VFIO and Looking Glass (Hardware)"
+description = "Guide to setting up VFIO and Looking Glass (Hardware)"
 categories = ["VFIO/Looking Glass系列"]
 date = "2024-06-01"
 +++
@@ -158,11 +158,11 @@ done
 
 ##### NVMe SSD及SATA控制器
 
-**VFIO**虛擬機可以安裝在虛擬硬碟上，又或者可以直接安裝在其他存儲裝置上（例如NVMe SSD或SATA SSD/HDD）並將其控制器傳入虛擬機：
+**VFIO**虛擬機可以安裝在虛擬硬碟上，又或者可以直接安裝在其他儲存裝置上（例如NVMe SSD或SATA SSD/HDD）並將其控制器傳入虛擬機：
 
-選擇前者的好處是不需要買額外的存儲裝置，此外可以直接將整個虛擬硬碟做快照及備份。
+選擇前者的好處是不需要買額外的儲存裝置，此外可以直接將整個虛擬硬碟做快照及備份。
 
-選擇後者的好處是**可以Dual boot**（進入BIOS選擇安裝Windows的存儲裝置並啟動即可）。如果你有兩個（控制器不相同）的儲存裝置，而其中之一本來就安裝了Windows，那就可以將Linux安裝在另一儲存裝置上，然後把安裝了Windows的儲存裝置之控制器傳入虛擬機。這樣虛擬機就可直接使用此儲存裝置上的Windows，不需花時間重新安裝。
+選擇後者的好處是**可以Dual boot**（進入BIOS選擇安裝Windows的儲存裝置並啟動即可）。如果你有兩個（控制器不相同）的儲存裝置，而其中之一本來就安裝了Windows，那就可以將Linux安裝在另一儲存裝置上，然後把安裝了Windows的儲存裝置之控制器傳入虛擬機。這樣虛擬機就可直接使用此儲存裝置上的Windows，不需花時間重新安裝。
 
 如果你選擇後者，你要把對應的NVMe控制器（如使用NVMe SSD）或SATA控制器（如使用SATA SSD/HDD）傳入虛擬機。注意**一個SATA控制器通常控制多於一個SATA插口**，NVMe就通常是一個控制器對一個SSD。
 
