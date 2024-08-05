@@ -131,7 +131,7 @@ DS224+及DS423+冇得升10G，但有內顯及硬件解碼器/編碼器，比上�
 
 {{< figure src="./VPN.jpg" >}}
 
-[Tailscale](https://tailscale.com/)對新手黎講係最好選擇：**無需做Port forwarding**，安裝極簡單（[Synology](https://tailscale.com/kb/1131/synology)/[QNAP](https://tailscale.com/kb/1273/qnap)教學），裝完就用得。新手唔知揀咩/唔想研究既話可以先試Tailscale。
+**[Tailscale](https://tailscale.com/)對新手黎講係最好選擇：無需做Port forwarding，安裝超級簡單（[Synology](https://tailscale.com/kb/1131/synology#install-using-synology-package-center)/[QNAP](https://tailscale.com/kb/1273/qnap)教學），而且安裝步驟唔繁複，可以好快完成。新手唔知揀咩/唔想研究既話可以先試Tailscale。**
 
 追求性能既話可選擇[Wireguard](https://www.wireguard.com/)。Wireguard比OpenVPN[快勁多](https://www.wireguard.com/performance/)，但要較新既家用路由器先有支持。
 

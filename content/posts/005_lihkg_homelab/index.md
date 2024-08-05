@@ -151,6 +151,8 @@ Docker同LXC唔同既係Docker一個Image淨係會行一隻軟件，但LXC你可
 
 Docker係軟件級Container：一個Image專行一個軟件 ；LXC係OS級Container：同虛擬機一樣，佢提供咗個OS比你做平台，你係上面玩咩都得。
 
+[延伸閱讀：About Containers and VMs](https://linuxcontainers.org/incus/docs/main/explanation/containers_and_vms/)
+
 ## 用咩OS？
 
 {{< underline "Hypervisor OS" >}}
