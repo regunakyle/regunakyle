@@ -46,8 +46,6 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 **備份要有多版本**，例如每個月尾做一次備份，然後保留最多12份（一年），之後先從最舊開始剷。
 
-優質備份軟件係保留多版本既同時亦會將重複資料刪除（即Deduplication）以節省空間，例如[Synology Hyper Backup](https://www.synology.com/zh-hk/dsm/feature/hyper_backup)、[BorgBackup](https://github.com/borgbackup/borg)、[Restic](https://github.com/restic/restic)等等都做到。
-
 **做咗備份仲要定時檢查備份完整性**，例如試下還原去其他地方睇下讀唔讀到啲資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。
 
 **3-2-1備份法則**：3份數據、2種儲存媒介、1份存於異地。可以先從雲端存儲或外置硬碟入手。
@@ -61,6 +59,15 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 可以想像一下：如果你某啲數據一夜冇曬，你會有咩感覺？如果覺得心痛，咁個啲數據你就要做備份；唔心痛既話，個啲數據既備份優先度就比較低。
 {{< /notice >}}
+
+## 點樣存取NAS上既檔案？
+
+用SMB（[Synology教學](https://youtu.be/4d7ib4lEDJ4?si=9m6uCF0Scu3GJaDF)/[QNAP教學](https://youtu.be/SyOzZxRs6qU)）。
+
+手機既話可以用：
+
+- （Synology）DS File（[iOS](https://apps.apple.com/us/app/ds-file/id416751772)/[Android](https://play.google.com/store/apps/details?id=com.synology.DSfile)）或Synology Drive（[iOS](https://play.google.com/store/apps/details?id=com.synology.dsdrive)/[Android](https://apps.apple.com/us/app/synology-drive/id1267275421)）
+- （QNAP）QFile Pro（[iOS](https://apps.apple.com/us/app/qfile-pro/id526330408)/[Android](https://play.google.com/store/apps/details?id=com.qnap.qfile)）
 
 ## 點確保部NAS冇放出街？
 

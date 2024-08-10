@@ -303,17 +303,23 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
     - 根據以下部分內容修改虛擬機XML：
         1. [Keyboard/mouse/display/audio](https://looking-glass.io/docs/B7-rc1/install_libvirt/#keyboard-mouse-display-audio)
         2. [Clipboard synchronization](https://looking-glass.io/docs/B7-rc1/install_libvirt/#clipboard-synchronization)（如XML中已有文檔提及的部分，則可跳過此步）
-2. 於[此處](https://looking-glass.io/downloads)下載B7-rc1的*Source* 並解壓縮（下稱*LG文件夾* ）
+
+2. 安裝[編譯依賴](https://looking-glass.io/wiki/Installation_on_other_distributions#Fedora_35.2B)：
+
+    ```bash
+    sudo dnf install -y \
+        cmake gcc gcc-c++ libglvnd-devel fontconfig-devel spice-protocol make nettle-devel \
+        pkgconf-pkg-config binutils-devel libXi-devel libXinerama-devel libXcursor-devel \
+        libXpresent-devel libxkbcommon-x11-devel wayland-devel wayland-protocols-devel \
+        libXScrnSaver-devel libXrandr-devel dejavu-sans-mono-fonts \
+        libdecor-devel pipewire-devel libsamplerate-devel git
+    ```
+
 3. 官方教學之[Building](https://looking-glass.io/docs/B7-rc1/build/):
-    - 安裝[編譯依賴](https://looking-glass.io/wiki/Installation_on_other_distributions#Fedora_35.2B)：
+    - 找一個空白文件夾，入內開啟終端程式並用Git下載**Looking Glass**源代碼（下稱*LG文件夾* ）：
 
         ```bash
-        sudo dnf install -y \
-            cmake gcc gcc-c++ libglvnd-devel fontconfig-devel spice-protocol make nettle-devel \
-            pkgconf-pkg-config binutils-devel libXi-devel libXinerama-devel libXcursor-devel \
-            libXpresent-devel libxkbcommon-x11-devel wayland-devel wayland-protocols-devel \
-            libXScrnSaver-devel libXrandr-devel dejavu-sans-mono-fonts \
-            libdecor-devel pipewire-devel libsamplerate-devel
+        git clone --recurse-submodules https://github.com/gnif/LookingGlass.git
         ```
 
     - 於*LG文件夾* 內的`client`文件夾內創建`build`文件夾並入內開啟終端程式
@@ -432,7 +438,7 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
 
 6. 啟動**VFIO**虛擬機：
     - 如果*virt-manager* 顯示虛擬機黑屏，請先把螢幕輸出轉至*虛擬機卡* 插螢幕的插口，再繼續操作
-    - 於[此處](https://looking-glass.io/downloads)下載B7-rc1的*Windows Host Binary* 並安裝
+    - 於[此處](https://looking-glass.io/downloads)下載**Bleeding Edge**的*Windows Host Binary* 並安裝
     - 於[此處](https://www.spice-space.org/download.html#windows-binaries)下載*spice-guest-tools* 並安裝（安裝後虛擬機和宿主機可共享剪貼簿）
     - 確保**Looking Glass**服務正在運行：
         1. 於虛擬機內按`WIN+R`，輸入`services.msc`並執行
@@ -576,6 +582,53 @@ sudo virsh define vfio.xml
 
 安裝後，可透過宿主機的指定連接埠去連接虛擬機的指定連接埠。
 
+#### 更新Looking Glass
+
+如果**Looking Glass**使用正常，那麼不需要特意去更新它。
+
+但遇到問題時，可試試更新**Looking Glass**，步驟如下：
+
+1. 於*LG文件夾* 內開啟終端程式
+2. 更新源代碼：
+
+    ```bash
+    git pull --recurse-submodules
+    ```
+
+3. 進入`client`內的`build`文件夾，執行以下指令：
+
+    ```bash
+    cmake -DENABLE_WAYLAND=1 -DENABLE_X11=0 -DENABLE_PULSEAUDIO=0 -DENABLE_PIPEWIRE=1 ../
+    make
+    sudo make install
+    ```
+
+4. 如使用KVMFR，進入`module`文件夾：
+
+   - 執行`dkms status`並記下顯示的`kvmfr/<版本數字>`
+   - 執行`sudo dkms remove kvmfr/<版本數字> --all`
+   - 再次執行`dkms status`
+   - 如仍有*kvmfr* 項，執行`sudo rm -rf /var/lib/dkms/kvmfr`
+   - 執行`sudo dkms install "."`
+
+5. 啟動**VFIO**虛擬機，於[此處](https://looking-glass.io/downloads)下載**Bleeding Edge**的*Windows Host Binary* 並安裝
+
+6. 如安裝了OBS插件，進入`obs`內的`build`文件夾，執行以下指令：
+
+    ```bash
+    cmake -DUSER_INSTALL=1 ../
+    make
+
+    # 以下二選一以安裝OBS插件
+    # Flatpak版OBS：
+    FLATPAK_OBS_PLUGIN_DIR="$HOME/.var/app/com.obsproject.Studio/config/obs-studio/plugins/looking-glass-obs/bin/64bit"
+    mkdir -p "$FLATPAK_OBS_PLUGIN_DIR"
+    cp liblooking-glass-obs.so "$FLATPAK_OBS_PLUGIN_DIR"
+
+    # Fedora版OBS：
+    make install
+    ```
+
 #### 降低虛擬機卡耗電
 
 [VFIO Discord](https://discord.com/invite/f63cXwH)的大神發現*虛擬機卡* 單靠*vfio-pci* 的內建休眠功能不能真正達致低耗電，需要綁定官方驅動程式才能做到低耗電。
@@ -587,10 +640,12 @@ sudo virsh define vfio.xml
 1. 下載[Debian](https://www.debian.org/)安裝檔並將其移至`/var/lib/libvirt/images`
 2. 開啟終端程式並執行`sudo systemctl enable libvirtd`
 3. 創造Debian虛擬機：
-    - 提供極少資源（我只提供單核/兩線程和512MB RAM）
-    - 傳入**VFIO**虛擬機使用的*虛擬機卡*
-    - 於`Boot Options`勾選`Start virtual machine on host boot up`
-    - 不安裝任何桌面環境
+
+   - 提供極少資源（我只提供單核/兩線程和512MB RAM）
+   - 傳入**VFIO**虛擬機使用的*虛擬機卡*
+   - 於`Boot Options`勾選`Start virtual machine on host boot up`
+   - 不安裝任何桌面環境
+
 4. 在這虛擬機上安裝*虛擬機卡* 的官方驅動程式（[Debian安裝NVIDIA驅動教學](https://wiki.debian.org/NvidiaGraphicsDrivers)），然後重啟虛擬機
 
 這樣做不但可以降低耗電，你還可以在這虛擬機內做顯示卡相關的工作（例如跑AI）。

@@ -51,7 +51,7 @@ Docker本身會提供一定保護，例如你冇Mount volume既話容器（Conta
 
 **容器（Container）** 係實際行緊既程式，由映像產生出黎。一個映像可以生成多個同一樣既容器。
 
-可以類比：映像係印鈔機，容器係實際印出黎既鈔票。
+可以類比：Docker係印鈔機，映像係鈔票模板，容器係實際印出黎既鈔票。
 
 {{< /notice >}}
 
@@ -265,11 +265,13 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 :thumbsup: 電子書下載及管理（[LazyLibrarian](https://lazylibrarian.gitlab.io/)，[Calibre](https://docs.linuxserver.io/images/docker-calibre/)，[Calibre-web](https://github.com/janeczku/calibre-web)）
 
-翻牆工具（[V2Ray](https://www.v2ray.com/)/[XRay](https://xtls.github.io/)）
-
 自製Onedrive（[Nextcloud](https://nextcloud.com/athome/)/[Syncthing](https://github.com/syncthing/syncthing)）
 
 Google Photo翻版（[Immich](https://github.com/immich-app/immich)/[Photoprism](https://github.com/photoprism/photoprism)/[Photoview](https://github.com/photoview/photoview)）
+
+RSS訂閱聚合（[FreshRSS](https://freshrss.org/)/[Tiny Tiny RSS](https://tt-rss.org/wiki/InstallationNotes/)）
+
+翻牆工具（[V2Ray](https://www.v2ray.com/)/[XRay](https://xtls.github.io/)）
 
 自製記帳App（[Firefly III](https://github.com/firefly-iii/firefly-iii)/[Actual Budget](https://github.com/actualbudget/actual)）
 
