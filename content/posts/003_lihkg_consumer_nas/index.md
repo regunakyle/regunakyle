@@ -1,7 +1,7 @@
 +++
-title = "連登Homelab系列（一）：普通家用NAS常見問題"
+title = "連登Homelab系列（一）：家用NAS常見問題"
 author = "Eric Leung"
-description = "LIHKG Homelab Post series: FAQ on consumer NAS"
+description = "買邊隻NAS好、買咩RAM/HDD、點樣安全地放部NAS出街"
 categories = ["連登Homelab系列"]
 date = "2024-01-20"
 +++
@@ -10,7 +10,7 @@ date = "2024-01-20"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年4月18日）
+（本文最後更新時間：2024年8月11日）
 
 {{< figure src="./Cover.jpg" caption="圖片來源：Synology官網" >}}
 
@@ -132,6 +132,22 @@ DS224+及DS423+冇得升10G，但有內顯及硬件解碼器/編碼器，比上�
 
 [延伸閱讀：Backblaze企業用硬碟損壞率調查](https://www.backblaze.com/cloud-storage/resources/hard-drive-test-data)
 
+{{< notice note "電腦儲存容量單位：Byte 及Bit" >}}
+
+電腦儲存容量既單位有分兩種：Byte（字節）及Bit（位元）。**注意1 Byte等於8 Bit。**
+
+容量單位前可加Kilo/Mega/Giga/Tera，分別代表1000/1000^2/1000^3/1000^4個對應單位。
+
+網絡速度通常係用Bit做單位，例如你個1000M家居寬頻其實係**每秒1000 Megabit（即1000Mb/s）**。
+
+Byte既簡寫係大階B（例如KB/MB/GB/TB），Bit既簡寫係細階b（例如Kb/Mb/Gb/Tb），唔好搞錯。
+
+仲有款單位叫Kibibyte/Mebibyte/Gibibyte/Tebibyte，分別代表1024/1024^2/1024^3/1024^4個Byte。
+
+Windows及Linux顯示既Megabyte/Gigabyte其實係Mebibyte/Gibibyte，但硬碟廠標示既Megabyte/Gigabyte就真係1000個隻，所以會出現1TB硬碟係電腦顯示容量細過1TB既情況。
+
+{{< /notice >}}
+
 ## 點樣係街外存取屋企部NAS？
 
 ### VPN（推薦）:thumbsup:
@@ -149,7 +165,7 @@ DS224+及DS423+冇得升10G，但有內顯及硬件解碼器/編碼器，比上�
 {{< notice tip "Tailscale直連" >}}
 Tailscale有兩種連接方法：直連或用佢地既中繼伺服器（DERP）。Tailscale會做Hole punching並藉此令你部機同屋企部NAS可以直連，失敗既話先會用DERP：直連速度快，DERP就非常慢。
 
-理想情況係唔洗做野就可以直連。要測試既話可以用手機流量係NAS下載大檔案睇速度（我用4G LTE行到35Mbps），或者SSH入部NAS打`tailscale status`（睇下佢顯示`relay`還是`direct`）。
+理想情況係唔洗做野就可以直連。要測試既話可以用手機流量係NAS下載大檔案睇速度（我用4G LTE行到35Mb/s），或者SSH入部NAS打`tailscale status`（睇下佢顯示`relay`還是`direct`）。
 
 如果做唔到直連既話，可以嘗試做Port forwarding（路由器`41641/udp`放NAS既`41641/udp`）。
 

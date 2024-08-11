@@ -1,8 +1,8 @@
 +++
-title = "Hugo：如何"
+title = "如何不花一分錢在Github打造屬於自己的Blog"
 author = "Eric Leung"
-description = "Guide for setting up your own blog in Github easily and without spending any money"
-date = "2025-07-27"
+description = "用Hugo及Github Page簡單地創造一個Blog"
+date = "2099-07-27"
 +++
 
 {{< css "/css/chinese.css" >}}

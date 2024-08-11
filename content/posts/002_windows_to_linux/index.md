@@ -1,7 +1,7 @@
 +++
 title = "從Windows到Linux：VFIO及Looking Glass介紹"
 author = "Eric Leung"
-description = "Better than dual boot, really"
+description = "比Dual Boot更優勝的解決方案"
 categories = ["VFIO/Looking Glass系列"]
 date = "2023-06-11"
 +++

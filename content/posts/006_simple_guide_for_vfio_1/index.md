@@ -1,14 +1,14 @@
 +++
 title = "如何實現VFIO及Looking Glass（硬件篇）"
 author = "Eric Leung"
-description = "Guide to setting up VFIO and Looking Glass (Hardware)"
+description = "VFIO硬件選擇教學"
 categories = ["VFIO/Looking Glass系列"]
 date = "2024-06-01"
 +++
 
 {{< css "/css/chinese.css" >}}
 
-（本文最後更新時間：2024年6月11日）
+（本文最後更新時間：2024年8月11日）
 
 ## 前言
 
@@ -64,7 +64,7 @@ date = "2024-06-01"
 
 我之前說把顯示卡送進虛擬機裡，其實是把顯示卡所在IOMMU組的全部PCIe設備都送進去。
 
-由於**送入虛擬機的設備不能在宿主機或其他虛擬機上使用**，主機板有較好的IOMMU組是很重要的（你總不能把安裝了宿主機OS的NVMe SSD一起送進去吧）。
+由於**送入虛擬機的設備不能在宿主機或其他虛擬機上使用**，主機板有較好的IOMMU組是很重要的（例如你總不能把安裝了宿主機OS的NVMe SSD一起送進去吧）。
 
 我的主機板（[技嘉X570S AERO G](https://www.gigabyte.com/tw/Motherboard/X570S-AERO-G-rev-1x)）的IOMMU組接近完美，幾乎所有設備都在不同的IOMMU組別，而且支持PCIe Bifurcation (x8/x8)，十分適合做**Looking Glass**。
 
@@ -100,7 +100,7 @@ done
 2. 執行`chmod u+x iommu.sh`
 3. 執行`./iommu.sh | less`，可看到IOMMU組分佈及硬件有無[Reset功能](#reset-bug)（按上下鍵移動，按`Q`退出）
 
-如果你主機板的IOMMU組分佈不理想（例如兩張顯卡在同一個IOMMU組內），可以嘗試：
+如果你主機板的IOMMU組分佈不理想（例如兩張顯示卡在同一個IOMMU組內），可以嘗試：
 
 1. 更新BIOS（有機會影響IOMMU組分佈）
 2. 將硬件轉插主機板上其他相容的插槽
@@ -114,7 +114,7 @@ done
 
 如果你未買*虛擬機卡* ，我建議你買NVIDIA的顯示卡，因為Intel和AMD的顯示卡可能有*Reset bug* 。
 
-所謂*Reset bug* 即是硬件沒有Reset功能，無法在虛擬機關機時正確地重置，使其處於一個"假死"狀態。在這個狀態下的硬件會令你不能重新啟動**VFIO**虛擬機，必須將整個宿主機重啟才能再次啟動它。
+所謂*Reset bug* 即是硬件沒有Reset功能，**無法在虛擬機關機時正確地重置**，使其處於一個"假死"狀態。在這個狀態下的硬件會令你不能重新啟動**VFIO**虛擬機，必須將整個宿主機重啟才能再次啟動它。
 
 上部分檢查IOMMU組的腳本可同時檢查硬件有沒有Reset功能。如果你的AMD顯示卡沒有Reset功能，可以看看[Vendor Reset](https://github.com/gnif/vendor-reset)支不支持你的顯示卡，它可為部分AMD顯示卡添加Reset功能。
 
@@ -164,7 +164,7 @@ done
 
 選擇前者的好處是不需要買額外的儲存裝置，此外可以直接將整個虛擬硬碟做快照及備份。
 
-選擇後者的好處是**可以Dual boot**（進入BIOS選擇安裝Windows的儲存裝置並啟動即可）。如果你有兩個（控制器不相同）的儲存裝置，而其中之一本來就安裝了Windows，那就可以將Linux安裝在另一儲存裝置上，然後把安裝了Windows的儲存裝置之控制器傳入虛擬機。這樣虛擬機就可直接使用此儲存裝置上的Windows，不需花時間重新安裝。
+選擇後者的好處是**可以Dual boot**（進入BIOS選擇安裝Windows的儲存裝置並啟動即可）。如果你有兩個（控制器不相同）的儲存裝置，而其中之一本來就安裝了Windows，那就可以將Linux安裝在另一儲存裝置上，然後把安裝了Windows的儲存裝置之控制器傳入虛擬機。這樣虛擬機就可**直接使用此儲存裝置上的Windows**，不需花時間重新安裝。
 
 如果你選擇後者，你要把對應的NVMe控制器（如使用NVMe SSD）或SATA控制器（如使用SATA SSD/HDD）傳入虛擬機。注意**一個SATA控制器通常控制多於一個SATA插口**，NVMe就通常是一個控制器對一個SSD。
 

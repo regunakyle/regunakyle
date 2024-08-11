@@ -1,7 +1,7 @@
 +++
 title = "如何實現VFIO及Looking Glass（安裝篇）"
 author = "Eric Leung"
-description = "Guide to setting up VFIO and Looking Glass (Setup)"
+description = "VFIO虛擬機及Looking Glass安裝教學"
 categories = ["VFIO/Looking Glass系列"]
 date = "2024-06-02"
 +++
@@ -10,7 +10,7 @@ date = "2024-06-02"
 
 [按我返回上一篇文章](../006_simple_guide_for_vfio_1/)
 
-（本文最後更新時間：2024年6月11日）
+（本文最後更新時間：2024年8月11日）
 
 ### VFIO虛擬機及Looking Glass設定
 
@@ -381,7 +381,7 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
             <domain xmlns:qemu="http://libvirt.org/schemas/domain/qemu/1.0" type="kvm">
             ```
 
-            （修改後先別儲存）
+            **（修改後先別儲存）**
 
         2. 於XML最後（即`</domain>`前）添加以下內容：
 
@@ -411,10 +411,10 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
             ```
 
 5. SELinux容許QEMU使用`kvmfr0`：
-    - 創造一個空白文件夾，入內並創造`kvmfr0.te`檔案，修改內容如下：
+    - 創造一個空白文件夾，入內並創造`kvmfr.te`檔案，修改內容如下：
 
         ```bash
-        module kvmfr0 1.0;
+        module kvmfr 1.0;
 
         require {
             type svirt_t;
@@ -429,9 +429,9 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
     - 於文件夾開啟終端程式，執行以下指令：
 
         ```bash
-        checkmodule -M -m -o kvmfr0.mod kvmfr0.te
-        semodule_package -o kvmfr0.pp -m kvmfr0.mod
-        sudo semodule -i kvmfr0.pp
+        checkmodule -M -m -o kvmfr.mod kvmfr.te
+        semodule_package -o kvmfr.pp -m kvmfr.mod
+        sudo semodule -i kvmfr.pp
         ```
 
     - 重啟電腦
@@ -534,7 +534,7 @@ escapeKey=KEY_RIGHTALT
 
 1. 執行`sudo dmidecode -s system-uuid`並記錄所得的UUID值
 2. 找一個空白文件夾，入內開啟終端程式
-3. 執行`sudo virsh dumpxml vfio-win10 > vfio.xml`（將`vfio-win10`改成你VFIO虛擬機的名稱）
+3. 執行`sudo virsh dumpxml vfio-win10 > vfio.xml`
 4. 開啟`vfio.xml`，將`<uuid>`的值改成第一步獲得的UUID值
 5. 執行以下指令：
 
@@ -543,7 +543,7 @@ sudo virsh undefine --keep-nvram vfio-win10
 sudo virsh define vfio.xml
 ```
 
-（將`vfio-win10`改成你VFIO虛擬機的名稱）
+（將第3及第5步的`vfio-win10`改成你VFIO虛擬機的名稱）
 
 #### 經網絡連接虛擬機
 

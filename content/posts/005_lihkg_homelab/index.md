@@ -1,7 +1,7 @@
 +++
 title = "連登Homelab系列（三）：Homelab常見問題"
 author = "Eric Leung"
-description = "LIHKG Homelab Post series: FAQ on homelab"
+description = "自組伺服器硬件討論、伺服器OS/Hypervisor介紹"
 categories = ["連登Homelab系列"]
 date = "2024-01-22"
 +++
@@ -12,7 +12,7 @@ date = "2024-01-22"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年3月9日）
+（本文最後更新時間：2024年8月11日）
 
 {{< figure src="./Cover.jpg" caption="IKEA LackRack - 廉價DIY機櫃" >}}
 
