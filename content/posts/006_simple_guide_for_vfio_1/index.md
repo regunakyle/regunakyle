@@ -56,13 +56,15 @@ date = "2024-06-01"
 
 #### 主機板IOMMU
 
-**VFIO**最看重的是主機板的IOMMU組：一個IOMMU組是可以傳入虛擬機的**最小物理設備集合**。
+**VFIO**最看重的是主機板的IOMMU組：IOMMU組是可以傳入虛擬機的**最小硬件集合**。
 
-我之前說把顯示卡送進虛擬機裡，其實是把顯示卡所在IOMMU組的全部PCIe設備都送進去。
+（「將硬件傳入虛擬機」的正確術語是**PCIe Passthrough**）
 
 任何插在主機板上PCIe設備都被分配在一個IOMMU組，如果有多個設備被分配到一個IOMMU組裡，你就只能把它們一起送入虛擬機。
 
-由於**送入虛擬機的設備不能在宿主機上使用**，主機板有較好的IOMMU組是很重要的（你總不能把安裝了宿主機OS的NVMe SSD一起送進去吧）。
+我之前說把顯示卡送進虛擬機裡，其實是把顯示卡所在IOMMU組的全部PCIe設備都送進去。
+
+由於**送入虛擬機的設備不能在宿主機或其他虛擬機上使用**，主機板有較好的IOMMU組是很重要的（你總不能把安裝了宿主機OS的NVMe SSD一起送進去吧）。
 
 我的主機板（[技嘉X570S AERO G](https://www.gigabyte.com/tw/Motherboard/X570S-AERO-G-rev-1x)）的IOMMU組接近完美，幾乎所有設備都在不同的IOMMU組別，而且支持PCIe Bifurcation (x8/x8)，十分適合做**Looking Glass**。
 
