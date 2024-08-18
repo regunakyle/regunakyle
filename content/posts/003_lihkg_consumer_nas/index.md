@@ -142,9 +142,9 @@ DS224+及DS423+冇得升10G，但有內顯及硬件解碼器/編碼器，比上�
 
 Byte既簡寫係大階B（例如KB/MB/GB/TB），Bit既簡寫係細階b（例如Kb/Mb/Gb/Tb），唔好搞錯。
 
-仲有款單位叫Kibibyte/Mebibyte/Gibibyte/Tebibyte，分別代表1024/1024^2/1024^3/1024^4個Byte。
+仲有款單位叫Kibibyte/Mebibyte/Gibibyte/Tebibyte（簡寫為KiB/MiB/GiB/TiB），分別代表1024/1024^2/1024^3/1024^4個Byte。
 
-Windows及Linux顯示既Megabyte/Gigabyte其實係Mebibyte/Gibibyte，但硬碟廠標示既Megabyte/Gigabyte就真係1000個隻，所以會出現1TB硬碟係電腦顯示容量細過1TB既情況。
+Windows及Linux顯示既MB/GB/TB其實係MiB/GiB/TiB，但硬碟廠標示既就真係1000個隻MB/GB/TB，所以會出現1TB硬碟係電腦顯示容量細過1TB既情況。
 
 {{< /notice >}}
 
@@ -180,7 +180,7 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 其他可行方案：係NAS裝Linux虛擬機、係家用路由器裝OpenWrt、買部細機仔（如Raspberry Pi或淘寶軟路由機）裝Linux或pfSense/OPNSense等等。裝好後再係上面安裝Wireguard行。
 {{< /notice >}}
 
-### Port Forwarding（通訊埠轉發/「放Port」）
+### Port Forwarding（端口轉發/「放Port」）
 
 要係路由器到做，詳情請參閱你部路由器既說明書。
 

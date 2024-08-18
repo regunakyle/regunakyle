@@ -271,7 +271,9 @@ Google Photo翻版（[Immich](https://github.com/immich-app/immich)/[Photoprism]
 
 RSS訂閱聚合（[FreshRSS](https://freshrss.org/)/[Tiny Tiny RSS](https://tt-rss.org/wiki/InstallationNotes/)）
 
-翻牆工具（[V2Ray](https://www.v2ray.com/)/[XRay](https://xtls.github.io/)）
+翻牆工具（[V2Ray](https://www.v2ray.com/)/[XRay](https://xtls.github.io/)/[sing-box](https://sing-box.sagernet.org/installation/docker/)）
+
+各類Discord/Telegram bot（例如[Discord播歌Bot](https://github.com/SudhanPlayz/Discord-MusicBot)/[Telegram加密貨幣交易Bot](https://github.com/freqtrade/freqtrade)）
 
 自製記帳App（[Firefly III](https://github.com/firefly-iii/firefly-iii)/[Actual Budget](https://github.com/actualbudget/actual)）
 
@@ -279,7 +281,7 @@ RSS訂閱聚合（[FreshRSS](https://freshrss.org/)/[Tiny Tiny RSS](https://tt-r
 
 [多人遊戲伺服器](https://github.com/GameServerManagers/docker-gameserver)（ARK/Barotrauma/CS2/Factorio/Minecraft/Palworld/Terraria/TF2等等，太多不能盡錄）
 
-各類Discord/Telegram bot（例如[Discord播歌Bot](https://github.com/SudhanPlayz/Discord-MusicBot)/[Telegram加密貨幣交易Bot](https://github.com/freqtrade/freqtrade)）
+自製Cloud Gaming Server（[Wolf](https://games-on-whales.github.io/wolf/stable/index.html)）
 
 自動Steam掛卡（[Archisteamfarm](https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Docker)）
 

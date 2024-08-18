@@ -553,7 +553,7 @@ sudo virsh define vfio.xml
 
 {{< underline "橋接網絡 (Network Bridge)" >}}
 
-注意：此方法要求宿主機以有線乙太網絡連接上網。如果你只能用WiFi，請轉用通訊埠轉發方法（[原因](https://superuser.com/questions/1847193/why-can-ethernet-nics-bridge-to-virtualbox-and-most-wi-fi-nics-dont)）
+注意：此方法要求宿主機以有線乙太網絡連接上網。如果你只能用WiFi，請轉用端口轉發方法（[原因](https://superuser.com/questions/1847193/why-can-ethernet-nics-bridge-to-virtualbox-and-most-wi-fi-nics-dont)）
 
 1. 於Linux設定中開啟網絡設定
 2. 將原本的有線乙太網絡連接刪除
@@ -570,7 +570,7 @@ sudo virsh define vfio.xml
 
 最後啟動**VFIO**虛擬機並查找它的IP，應看到IP是在宿主機的同一子網路內。
 
-{{< underline "通訊埠轉發 (Port Forwarding)" >}}
+{{< underline "端口轉發 (Port Forwarding)" >}}
 
 1. 找一個空白文件夾，入內開啟終端程式
 2. 執行`git clone https://github.com/saschpe/libvirt-hook-qemu.git`
@@ -578,9 +578,9 @@ sudo virsh define vfio.xml
 4. 根據[說明](https://github.com/saschpe/libvirt-hook-qemu/blob/master/hooks.json)自行修改`hooks.json`。可於[hooks.schema.json](https://github.com/saschpe/libvirt-hook-qemu/blob/master/hooks.schema.json)查看`hooks.json`的格式
 5. 執行`sudo make install`
 6. 於Linux設定中開啟網絡設定，並選擇正在使用的網絡連接
-7. 於`General configuration`中之`Firewall zone`選擇`FedoraWorkstation`，以容許網絡上其他電腦連接宿主機的1025至65535連接埠
+7. 於`General configuration`中之`Firewall zone`選擇`FedoraWorkstation`，以容許網絡上其他電腦連接宿主機的1025至65535端口
 
-安裝後，可透過宿主機的指定連接埠去連接虛擬機的指定連接埠。
+安裝後，可透過宿主機的指定端口去連接虛擬機的指定端口。
 
 #### 更新Looking Glass
 
