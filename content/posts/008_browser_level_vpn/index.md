@@ -9,11 +9,18 @@ date = "2024-08-18"
 
 {{< figure src="./Mullvad_Wireguard.png"  >}}
 
+## 目錄
+
+1. [序](#序)
+2. [設定步驟](#設定步驟)
+3. [手機端做法](#手機端做法)
+4. [其他可行方案](#其他可行方案)
+
 ## 序
 
 本文旨在講解如何用Wireguard設定一個瀏覽特定域名（如chatgpt.com）時才生效的VPN。
 
-## 為甚麼？
+### 為甚麼？
 
 我公司正開發一個使用OpenAI API的網頁程式。作為主要開發者，我一手包辦開發及測試環境設定、前端後端架構及開發。
 
@@ -29,7 +36,7 @@ date = "2024-08-18"
 
 ~~公司出錢的話其實選哪個VPN都沒所謂，只是我想支持Mullvad，所以才選它:rofl:~~
 
-## 問題
+### 問題
 
 正常預設所有流量都會走VPN，這樣不但較慢，而且經常遇到因使用VPN才會有的Captcha測試，很麻煩。
 
@@ -39,7 +46,7 @@ Wireguard有一個`AllowedIPs`設定，可加入不同IP地址。Wireguard只會
 
 如果有根據域名去決定用不用VPN的方法就好了:thinking:
 
-## 解決方案：Wireproxy + Proxy Auto-Configuration（PAC）檔
+### 解決方案：Wireproxy + Proxy Auto-Configuration（PAC）檔
 
 經過一輪搜尋，我找到了解決方案：Wireproxy + Proxy Auto-Configuration（PAC）檔。
 
@@ -177,7 +184,7 @@ function FindProxyForURL(url, host) {
 
     最後`return`一定要返回`DIRECT`（代表直連，不走代理）或格式為`<代理協議名> <代理地址>:<端口>`的字串。代理協議名可以是`PROXY`/`SOCKS`/`HTTP`/`HTTPS`/`SOCKS4`/`SOCKS5`，我們只用`SOCKS5`。
 
-    你可以將不同代理用分號組合，例如`"SOCKS5 127.0.0.1:25344; HTTP 27.0.0.1:25345; DIRECT"`。系統會優先用最左的一項，如失敗才用下一個，如此類推。
+    你可以將不同代理用分號組合，例如`"SOCKS5 127.0.0.1:25344; HTTP 127.0.0.1:25345; DIRECT"`。系統會優先用最左的一項，如失敗才用下一個，如此類推。
 
 請根據自己需要更改PAC檔。[PAC檔詳細文檔](https://developer.mozilla.org/en-US/docs/Web/HTTP/Proxy_servers_and_tunneling/Proxy_Auto-Configuration_PAC_file)內有除`dnsDomainIs`以外的函數可供使用，例如有日期相關函數，可以用它們設定特定日子才走代理，本文不作解釋。
 
@@ -255,6 +262,8 @@ client = OpenAI(
 ```
 
 ## 手機端做法
+
+{{< figure src="./Mobile.png"  >}}
 
 以上是電腦端的做法。手機想做到同樣效果比較麻煩，因為iOS和Android只有在連給Wifi的時候才能設定代理，使用流量時不能用代理，變相廢了一半武功。
 
