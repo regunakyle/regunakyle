@@ -129,6 +129,8 @@ wireproxy -c <Wireguard設定檔名稱>
 
 PAC檔則沒有這個問題，所以測試HTTP代理成功後就可以將Wireguard設定檔中`[http]`一項刪除，然後重啟Wireproxy。
 
+注意：HTTP及SOCKS5都是無加密，千萬不要在公共網絡上使用Wireproxy！
+
 {{< /notice >}}
 
 ### 創造PAC檔
@@ -160,7 +162,7 @@ function FindProxyForURL(url, host) {
 
 1. `FindProxyForURL`
 
-    `FindProxyForURL`是一個Javascript函數，根據你指定條件決定流量走代理還是直連。我們想要的效果是特定網頁(OpenAI及Anthropic)走代理，其他全部直連。
+    `FindProxyForURL(url, host)`是一個Javascript函數，根據你指定條件決定流量走代理還是直連。我們想要的效果是特定網頁(OpenAI及Anthropic)走代理，其他全部直連。
 
     函數內的`url`和`host`分別代表「整個網址」和「域名」，例子：
 
@@ -265,7 +267,7 @@ client = OpenAI(
 
 {{< figure src="./Mobile.png"  >}}
 
-以上是電腦端的做法。手機想做到同樣效果比較麻煩，因為iOS和Android只有在連給Wifi的時候才能設定代理，使用流量時不能用代理，變相廢了一半武功。
+以上是電腦端的做法。手機想做到同樣效果比較麻煩，因為iOS和Android只有在連接Wifi的時候才能設定代理，使用流量時不能用代理，變相廢了一半武功。
 
 不過我找到了代替品：Shadowrocket（iOS）和v2rayNG（Android）。
 
