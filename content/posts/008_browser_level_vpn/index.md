@@ -141,17 +141,14 @@ PAC檔則沒有這個問題，所以測試HTTP代理成功後就可以將Wiregua
 
 ```javascript
 function FindProxyForURL(url, host) {
-  if (
-    host === "chatgpt.com" ||
-    dnsDomainIs(host, ".chatgpt.com") ||
-    host === "openai.com" ||
-    dnsDomainIs(host, ".openai.com") ||
-    host === "claude.ai" ||
-    dnsDomainIs(host, ".claude.ai") ||
-    host === "anthropic.com" ||
-    dnsDomainIs(host, ".anthropic.com")
-  ) {
-    return "SOCKS5 127.0.0.1:25344";
+  // 於此處自訂需要走Wireproxy的域名
+  var domain_list = ["chatgpt.com", "openai.com", "claude.ai", "anthropic.com"];
+
+  // 我不知道是不是所有OS都支援最新的Javascript格式，所以這裡用了最原始的Javascript寫法
+  for (var i = 0; i < domain_list.length; i++) {
+    if (host == domain_list[i] || dnsDomainIs(host, "." + domain_list[i])) {
+      return "SOCKS5 127.0.0.1:25344";
+    }
   }
 
   return "DIRECT";
@@ -178,9 +175,7 @@ function FindProxyForURL(url, host) {
     3. `dnsDomainIs("https://openai.com", ".openai.com")`：返回`false`（注意！）
     4. `dnsDomainIs("https://clopenai.com", "openai.com")`：返回`true`（注意！）
 
-    第三/四點就是我說它純粹是子字串檢查的原因。為了解決第三點的同時又避免第四點的情況發生，我在判斷式中另外加了`host === <域名>`項。
-
-    如果你不認為第四點是問題，可以刪去全部`host === <域名>`項，然後將`dnsDomainIs`中的`domain`項前的`.`刪除即可。
+    第三/四點就是我說它純粹是子字串檢查的原因。為了解決第三點的同時又避免第四點的情況發生，我在判斷式中另外加了`host == <域名>`項。
 
 3. 返回值（`return`）
 
