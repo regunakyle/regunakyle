@@ -14,7 +14,7 @@ date = "2024-06-01"
 
 自從上次寫有關**VFIO**的文章已差不多有一年時間，這段時間內我使用**VFIO**虛擬機玩遊戲沒有遇到過問題，十分穩定，我對此非常滿意。
 
-（不知道甚麼是VFIO/Looking Glass的讀者可讀我[介紹VFIO的文章](../002_windows_to_linux/)）
+（不知道甚麼是VFIO/Looking Glass的讀者可讀我[介紹VFIO的文章](../002_vfio_primer/)）
 
 最近發生了三件事，令我決定重裝Linux：
 

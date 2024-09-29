@@ -201,7 +201,7 @@ Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、AdGuardHom
 {{< notice note "題外話：係Linux 整個 Windows 虛擬機打機" >}}
 KVM+QEMU任何Linux機都用到。有一個特別玩法係Desktop Linux上面整個Windows虛擬機打機。
 
-我自己部PC就係用[Fedora Linux](https://fedoraproject.org/)做主OS，並用Windows 10虛擬機打機。詳情可以睇我[呢個Post](../002_windows_to_linux/)。
+我自己部PC就係用[Fedora Linux](https://fedoraproject.org/)做主OS，並用Windows 10虛擬機打機。詳情可以睇我[呢個Post](../002_vfio_primer/)。
 {{< /notice >}}
 
 ## 咩係IPMI？有冇代替品？
