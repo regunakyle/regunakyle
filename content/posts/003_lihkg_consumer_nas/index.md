@@ -110,6 +110,8 @@ DS224+及DS423+冇得升10G，但有內顯及硬件解碼器/編碼器，比上�
 
 買之前**最好上網Google下你個NAS型號其他人加咩型號既RAM**，咁起碼成功率大啲。
 
+此外亦可以選擇去淘寶搵下「群輝內存條」，有巴打話係Work（利申我冇買過）。
+
 買Synology既RAM就肯定得，但性價比超級低：同樣價錢夠你買幾條容量大好多既第三方RAM去試。
 
 ## 硬碟買邊隻？
@@ -332,7 +334,7 @@ SSL憑證有兩個檔案，其中一個係密鑰。你要保護密鑰不被外�
 
 例如買隻機頂盒或TV stick插上電視轉輸入源，用佢地做播放器。
 
-機頂盒：[NVIDIA Shield](https://www.nvidia.com/zh-tw/shield/) :thumbsup:、[Apple TV](https://www.apple.com/hk/tv-home/)、各類Android TV Box等
+機頂盒：[NVIDIA Shield](https://www.nvidia.com/zh-tw/shield/) :thumbsup:、[Apple TV](https://www.apple.com/hk/tv-home/)、[Google TV Streamer](https://store.google.com/us/product/google_tv_streamer)、各類Android TV Box等
 
 TV stick：[Google Chromecast](https://store.google.com/tw/product/chromecast_google_tv) :thumbsup:、[Roku](https://www.roku.com/products/players)、[Amazon Fire TV](https://www.amazon.com/s?bbn=8521791011&rh=n%3A16333372011%2Cn%3A2102313011%2Cn%3A8521791011%2Cn%3A21579967011&dc&rnid=8521791011)等
 

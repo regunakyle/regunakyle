@@ -165,6 +165,15 @@ Docker係軟件級Container：一個Image專行一個軟件 ；LXC係OS級Contai
 
 [TrueNAS](https://www.truenas.com/truenas-community-editions/)[（建議選Scale）](https://www.theregister.com/2024/03/18/truenas_abandons_freebsd/)、[Xpenology（黑群輝）](https://xpenology.com/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)、[Unraid（付費）](https://unraid.net/)、[OpenMediaVault](https://www.openmediavault.org/)
 
+{{< notice info "注意事項" >}}
+
+1. TrueNAS (Scale/Core) 會食曬成隻HDD/SSD/USB做Boot disk
+2. Unraid要求用USB做Boot disk（而且隻USB要有Unique GUID）
+3. Xpenology亦要求用USB做Boot disk
+
+我建議做法係去淘寶搵「USB引導盤」，例如[呢個](https://item.taobao.com/item.htm?id=616480100892)，用佢地安裝方便好多。
+{{< /notice >}}
+
 {{< underline "伺服器OS" >}}
 
 **[Debian](https://www.debian.org/)** :thumbsup:、[Ubuntu Server](https://ubuntu.com/server)、[CentOS Stream](https://www.centos.org/centos-stream/)、[RHEL（16個免費）](https://developers.redhat.com/articles/faqs-no-cost-red-hat-enterprise-linux)、[Windows Server（付費）](https://www.microsoft.com/en/windows-server)
@@ -176,7 +185,7 @@ Docker係軟件級Container：一個Image專行一個軟件 ；LXC係OS級Contai
 {{< notice info "Openwrt ：小型 Homelab 神器" >}}
 一部裝咗OpenWrt既家用路由器可以做曬防火牆、路由器、VLAN交換機同無線存取點既工作。
 
-而且唔洗買好貴既機，例如[GL.iNet MT6000](https://openwrt.org/toh/gl.inet/gl-mt6000)非常適合OpenWrt，現時[淘寶](https://m.tb.cn/h.gWg9jMU)都係700蚊人仔左右。
+而且唔洗買好貴既機，例如[GL.iNet MT6000](https://openwrt.org/toh/gl.inet/gl-mt6000)非常適合OpenWrt，現時[淘寶](https://detail.tmall.com/item.htm?id=743831055254)都係700蚊人仔左右。
 
 Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、AdGuardHome、NGINX、[SQM](https://openwrt.org/docs/guide-user/network/traffic-shaping/sqm)等等。你甚至可以用幾部OpenWrt機行[802.11s Mesh Networking](https://openwrt.org/docs/guide-user/network/wifi/mesh/80211s)同[802.11k/v/r 快速漫遊](https://vicfree.com/2022/11/openwrt-wpa3-802.11kvr-ap-setup/)。
 
