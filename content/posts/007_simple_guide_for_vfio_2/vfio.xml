@@ -172,7 +172,7 @@
             <address type="pci" domain="0x0000" bus="0x00" slot="0x03" function="0x5" />
         </controller>
         <controller type="scsi" index="0" model="virtio-scsi">
-            <driver queues="4" iothread="1" />
+            <driver queues="20" iothread="1" />
             <address type="pci" domain="0x0000" bus="0x04" slot="0x00" function="0x0" />
         </controller>
         <controller type="sata" index="0">

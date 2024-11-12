@@ -1,38 +1,73 @@
 +++
-title = "（無需淘寶）我如何在香港訂閱OpenAI"
+title = "如何在香港訂閱ChatGPT"
 author = "Eric Leung"
-description = ""
-date = "2099-07-27"
+description = "無需淘寶，無需sms-activate"
+date = "2099-11-04"
 +++
 
 {{< css "/css/chinese.css" >}}
 
-Image: HSBC + IBKR + OpenWrt + Giffgaff + Wireguard
+TODO: Image: HSBC + IBKR + OpenWrt + Giffgaff + Wireguard
 
 ## 前言
 
-China and USA sanctions.
-Currently buying OpenAI/Claude in HK has three issues:
+相信大家都知道在中美貿易戰背景下，OpenAI及其他美國AI/LLM相關的服務不對中國及香港用戶開放。
 
-1. Payment method
-2. Mobile number for registration
-3. GeoIP block
+現時香港人若想訂閱OpenAI，就要先解決以下問題：
 
-You can resolve (1) with Taobao, (2) with services like sms-activate. This blog shows you how to solve the first two issues without either of these. Then I use OpenWrt to do policy based routing.
+1. 支付方式
+2. 外國電話號碼
+3. 地域IP封鎖
+
+就我理解，以上問題的對應主流解決辦法是：
+
+1. 在淘寶或其他網店付費代充值OpenAI
+2. 使用 [sms-activate](https://sms-activate.guru/)或類似服務接收OpenAI的驗證碼
+3. 使用付費VPN繞過地域封鎖
+
+(1)及(2)雖簡單直接，但我個人不喜歡使用這種第三方服務，畢竟控制權並非完全在自己手中。於是我花了點時間研究其他解決方案，前前後後搞了一個月，總算完成了。
+
+本文將記錄我整個申請過程。不過請注意，即使你完全按著以下步驟做，我也不能保證你能順利申請成功。
+
+此外，我還會講講如何用OpenWrt路由器讓你家中往ChatGPT等網站的流量自動走VPN。
 
 ## 支付方法
 
-HSBC UK, debit card (VISA)
+想繞過地域限制，當然要有一個外地的支付方式。我選擇在英國匯豐銀行開戶口，原因如下：
 
-1. Requires a HSBC HK account, but have no asset requirement AFAIK
-2. Completely free
-3. apply at <https://internationalservices.hsbc.com/zh-hk/services/ico/ntb/where-to-open/>
-4. HSBC staff will call you and explain details (in Chinese)
-5. Debit card will be send to you in weeks time
-6. Transfer GBP to this account, I use IBKR (best forex pricing, no wiring fee, free withdrawal once per month)
-7. Pay with the debit card when subscribing to openai
+1. 申請英國匯豐戶口**沒有資產要求**
+2. 無需外國地址證明
+3. 申請過程免費
+
+申請成功後，英國匯豐會寄一張VISA扣帳卡到你府上，你用這張卡就可以在OpenAI上付費了。
+
+### 申請流程
+
+{{< notice warning "要有香港匯豐銀行戶口" >}}
+以下假設你已有香港匯豐銀行戶口，並已開通網上銀行服務。
+
+如果沒有，雖然好像可以直接申請英國匯豐銀行戶口，但流程應該不一樣，本文亦不作說明。
+
+{{< /notice >}}
+
+先往[此網站](https://internationalservices.hsbc.com/zh-hk/services/ico/ntb/where-to-open/)
+
+提交申請後約一星期，我就收到來自英國匯豐的電郵，內含我的英
+
+1. HSBC staff will call you and explain details (in Chinese)
+2. Debit card will be send to you in weeks time
+3. Transfer GBP to this account, I use IBKR (best forex pricing, no wiring fee, free withdrawal once per month)
+4. Pay with the debit card when subscribing to openai
 
 ## 外國手機號碼
+
+我選擇英國Giffgaff電話卡。Giffgaff提供全球免費寄送Sim卡服務，而且養卡號簡單（就我理解每半年發一次短訊即可）。
+
+你可以到[Giffgaff 官網](https://www.giffgaff.com/freesim-international)免費申請一張Sim卡。我申請過兩次，第一次申請後三星期都沒收到Sim卡，第二次申請後約兩星期才收到。
+
+如果你
+
+1.
 
 Go to giffgaff and ask for a free sim.
 The sim card will be send to you in weeks time.

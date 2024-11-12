@@ -334,20 +334,22 @@ SSL憑證有兩個檔案，其中一個係密鑰。你要保護密鑰不被外�
 
 例如買隻機頂盒或TV stick插上電視轉輸入源，用佢地做播放器。
 
-機頂盒：[NVIDIA Shield](https://www.nvidia.com/zh-tw/shield/) :thumbsup:、[Apple TV](https://www.apple.com/hk/tv-home/)、[Google TV Streamer](https://store.google.com/us/product/google_tv_streamer)、各類Android TV Box等
+機頂盒：[NVIDIA Shield](https://www.nvidia.com/zh-tw/shield/)、[Apple TV](https://www.apple.com/hk/tv-home/)、[Google TV Streamer](https://store.google.com/us/product/google_tv_streamer)、各類Android TV Box等
 
-TV stick：[Google Chromecast](https://store.google.com/tw/product/chromecast_google_tv) :thumbsup:、[Roku](https://www.roku.com/products/players)、[Amazon Fire TV](https://www.amazon.com/s?bbn=8521791011&rh=n%3A16333372011%2Cn%3A2102313011%2Cn%3A8521791011%2Cn%3A21579967011&dc&rnid=8521791011)等
+TV stick：[Google Chromecast](https://store.google.com/tw/product/chromecast_google_tv)、[Roku](https://www.roku.com/products/players)、[Amazon Fire TV](https://www.amazon.com/s?bbn=8521791011&rh=n%3A16333372011%2Cn%3A2102313011%2Cn%3A8521791011%2Cn%3A21579967011&dc&rnid=8521791011)等
 
 呢啲產品通常支持更多檔案格式。買邊隻請自己做功課，或去我地Post討論。
 
 另外：如果你用PC/手機/電視瀏覽器睇唔到片既話，可以試下用Plex/Jellyfin既官方程式或[VLC](https://www.videolan.org/)。
+
+[延伸閱讀：Best Kodi Media Player Options 2024](https://forum.kodi.tv/showthread.php?tid=376035)
 
 {{< detail "轉碼知多啲" >}}
 你啲片既格式（MP4/MKV/WebM等）其實係Container格式黎，佢地入面裝住咗Video/Audio/Subtitle，三者分別有自己獨特既格式。
 
 轉碼其實就係將你條原片既Video/Audio/Subtitle**解碼（Decode）** 去Raw，再**編碼（Encode）** 去你媒體播放器播放到既格式，最後再將成品經網絡傳輸比個媒體播放器。
 
-所以你隻NAS/影音伺服器要有你**原片格式既解碼器**及**媒體播放器可播放格式既編碼器**。
+所以你隻NAS/影音伺服器要有你**原片格式既解碼器**及**媒體播放器可播放格式（通常係H.264）既編碼器**。
 
 [延伸閱讀：Jellyfin Codec Support及介紹](https://jellyfin.org/docs/general/clients/codec-support/)
 {{< /detail >}}

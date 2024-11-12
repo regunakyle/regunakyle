@@ -209,8 +209,8 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
 
     ```xml
     <controller type="scsi" model="virtio-scsi">
-        <!--注：queues的值可隨意設定，但不可多於虛擬機總線程數-->
-        <driver iothread='1' queues='4'/>
+        <!--注：queues的值請設為虛擬機總線程數-->
+        <driver iothread='1' queues='20'/>
     </controller>
     ```
 
@@ -555,18 +555,22 @@ sudo virsh define vfio.xml
 
 注意：此方法要求宿主機以有線乙太網絡連接上網。如果你只能用WiFi，請轉用端口轉發方法（[原因](https://superuser.com/questions/1847193/why-can-ethernet-nics-bridge-to-virtualbox-and-most-wi-fi-nics-dont)）
 
-1. 於Linux設定中開啟網絡設定
-2. 將原本的有線乙太網絡連接刪除
-3. 添加Bridge：
-    - `Interface name`填`br0`
-    - `Bridged connections`新增`Ethernet`
-      - `Restrict to device:`選擇原來的乙太網絡
-      - `General configuration`內勾選`Connect automatically with priority`
-      - `Connection name`可隨意改，但不要和原來的乙太網絡的名稱相同
-    - 取消勾選`Enable STP (Spanning Tree Protocol)`
-4. 重啟電腦
-5. 開啟**VFIO**虛擬機設定介面並選擇虛擬機的虛擬網卡
-6. `Network source`選`Bridge device...`，`Device name`填`br0`
+1. 開啟終端程式並執行`nmcli con`，記下你有線乙太網絡的名稱（例如`eth0`或`enp1s0`等）
+2. 執行以下指令：
+
+```bash
+nmcli con add type bridge autoconnect yes con-name br0 ifname br0 stp no
+# 以DHCP方式連接br0
+# 如有需要，可改成`ipv4.method manual`並手動設定（請自行Google設定方法）
+nmcli con modify br0 ipv4.method auto
+# 將下兩行的eth0改成你的有線乙太網絡的名稱
+nmcli con del eth0
+nmcli con add type bridge-slave autoconnect yes con-name eth0 ifname eth0 master br0
+```
+
+3. 重啟電腦
+4. 開啟**VFIO**虛擬機設定介面並選擇虛擬機的虛擬網卡
+5. `Network source`選`Bridge device...`，`Device name`填`br0`
 
 最後啟動**VFIO**虛擬機並查找它的IP，應看到IP是在宿主機的同一子網路內。
 
@@ -646,7 +650,9 @@ sudo virsh define vfio.xml
    - 於`Boot Options`勾選`Start virtual machine on host boot up`
    - 不安裝任何桌面環境
 
-4. 在這虛擬機上安裝*虛擬機卡* 的官方驅動程式（[Debian安裝NVIDIA驅動教學](https://wiki.debian.org/NvidiaGraphicsDrivers)），然後重啟虛擬機
+4. 安裝後，在啟動時的Grub畫面中按`UEFI Firmware Settings`，然後將`Device Manager`=>`Secure Boot Configuration`=>`Attempt Secure Boot`取消掉，然後按幾次`ESC`返回首頁，再按`Reset`
+5. 在這虛擬機上安裝*虛擬機卡* 的官方驅動程式（[Debian安裝NVIDIA驅動教學](https://wiki.debian.org/NvidiaGraphicsDrivers)），然後重啟虛擬機
+6. 執行`nvidia-smi`，如看到顯示卡資訊則成功
 
 這樣做不但可以降低耗電，你還可以在這虛擬機內做顯示卡相關的工作（例如跑AI）。
 
