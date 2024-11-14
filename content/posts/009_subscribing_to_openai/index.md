@@ -52,7 +52,7 @@ TODO: Image: HSBC + IBKR + OpenWrt + Giffgaff + Wireguard
 
 先往[此網站](https://internationalservices.hsbc.com/zh-hk/services/ico/ntb/where-to-open/)
 
-提交申請後約一星期，我就收到來自英國匯豐的電郵，內含我的英
+提交申請後約一星期，我就收到來自英國匯豐的電郵，內含我的英國戶口編號及銀行地址。
 
 1. HSBC staff will call you and explain details (in Chinese)
 2. Debit card will be send to you in weeks time
@@ -63,18 +63,14 @@ TODO: Image: HSBC + IBKR + OpenWrt + Giffgaff + Wireguard
 
 我選擇英國Giffgaff電話卡。Giffgaff提供全球免費寄送Sim卡服務，而且養卡號簡單（就我理解每半年發一次短訊即可）。
 
-你可以到[Giffgaff 官網](https://www.giffgaff.com/freesim-international)免費申請一張Sim卡。我申請過兩次，第一次申請後三星期都沒收到Sim卡，第二次申請後約兩星期才收到。
+你可以到[Giffgaff 官網](https://www.giffgaff.com/freesim-international)免費申請一張Sim卡。我申請過兩次，第一次申請後三星期都沒收到Sim卡，第二次申請後約兩星期才收到。另外一個做法是去二手買賣平台（如Carousell）買一張二手的Giffgaff Sim卡，這樣可以省下等待時間。
 
-如果你
-
-1.
+獲得Sim卡後，你需要激活它，然後選擇Pay as you go的付款方式。這樣你就可以用這個號碼接收SMS了。
 
 Go to giffgaff and ask for a free sim.
 The sim card will be send to you in weeks time.
 Activate the sim card, then choose pay as you go options.
 Use this number to receive SMS.
-
-PS: I plan to use USB GSM modem to manage the sim card in Home Assitant, the modem can be bought in Taobao, though the setup is not covered here
 
 ## VPN
 

@@ -42,7 +42,7 @@ Synology既話Plus系列或較新既非Plus機種都有支持。[呢到](https:/
 
 例如[Linuxserver.io](https://www.linuxserver.io/)及[Hotio](https://hotio.dev/)既Docker映像都多人用，軟件官方冇出Docker版既話可以先睇佢地。
 
-更好既做法係自己撈Source code落黎構建個Docker映像，但可惜唔係人人都識或想自己做。
+更好既做法係自己去Github撈原始碼落黎砌個Docker映像，但可惜唔係人人都識或想自己做。
 
 Docker本身會提供一定保護，例如你冇Mount volume既話容器（Container）係存取唔到個宿主機既檔案，但有惡意既容器仲可以用其他方法攻擊你，例如行掘礦程式，又或者嘗試破解屋企網絡入面既其他Service。
 
@@ -51,7 +51,7 @@ Docker本身會提供一定保護，例如你冇Mount volume既話容器（Conta
 
 **容器（Container）** 係實際行緊既程式，由映像產生出黎。一個映像可以生成多個同一樣既容器。
 
-可以類比：Docker係印鈔機，映像係鈔票模板，容器係實際印出黎既鈔票。
+可以類比：Docker係印鈔機，映像係鈔票模板，容器係實際印出黎比你用既鈔票。
 
 {{< /notice >}}
 
@@ -152,6 +152,15 @@ networks:
 
 最後，如果將來唔再需要用SSH，可以去NAS介面將SSH服務停咗佢。
 
+{{< notice tip "Synocommunity（第三方管理工具）" >}}
+如果你熟Linux指令行既話，SSH入Synology DSM時會發現好多常用既工具都冇，例如`iperf3`、`tmux`、`nano`、`less`全部冇 :joy:
+
+呢個時候可以用[Synocommunity](https://https://synocommunity.com/)既套件：呢個軟件庫係一眾熱心人士整既，已經有至少10年歷史；入面除咗指令行工具外亦有其他如Jellyfin、Borg、Cloudflared等套件，可以睇下。
+
+如果你信唔過第三方軟件庫既話，可以自己直接撈原始碼落黎做Static build，再上載去部NAS到用。
+
+{{< /notice >}}
+
 ## Docker有咩好玩?
 
 ### 自製Netflix :thumbsup:
@@ -245,7 +254,7 @@ Synology自己都有[Note Station](https://www.synology.com/en-global/dsm/featur
 
 {{< figure src="./Oobabooga.png" caption="Text-generation-webui介面" >}}
 
-軟件：[（Gen圖）stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui)/[（Gen字）text-generation-webui](https://github.com/oobabooga/text-generation-webui)
+軟件：[（Gen圖）ComfyUI](https://github.com/comfyanonymous/ComfyUI)/[（Gen字）text-generation-webui](https://github.com/oobabooga/text-generation-webui)
 
 行AI你先要下載個Model，再係對應既軟件到載入就可以用。
 
