@@ -46,7 +46,7 @@ TODO: Image: HSBC + IBKR + OpenWrt + Giffgaff + Wireguard
 {{< notice warning "要有香港匯豐銀行戶口" >}}
 以下假設你已有香港匯豐銀行戶口，並已開通網上銀行服務。
 
-如果沒有，雖然好像可以直接申請英國匯豐銀行戶口，但流程應該不一樣，本文亦不作說明。
+如果沒有，雖然好像還是可以直接申請英國匯豐銀行戶口，但流程應該不一樣，本文亦不作說明。
 
 {{< /notice >}}
 
@@ -63,14 +63,11 @@ TODO: Image: HSBC + IBKR + OpenWrt + Giffgaff + Wireguard
 
 我選擇英國Giffgaff電話卡。Giffgaff提供全球免費寄送Sim卡服務，而且養卡號簡單（就我理解每半年發一次短訊即可）。
 
-你可以到[Giffgaff 官網](https://www.giffgaff.com/freesim-international)免費申請一張Sim卡。我申請過兩次，第一次申請後三星期都沒收到Sim卡，第二次申請後約兩星期才收到。另外一個做法是去二手買賣平台（如Carousell）買一張二手的Giffgaff Sim卡，這樣可以省下等待時間。
+你可以到[Giffgaff 官網](https://www.giffgaff.com/freesim-international)免費申請一張Sim卡。我申請過兩次，第一次申請後三星期都沒收到Sim卡，第二次申請後約兩星期才收到。
+
+另外一個做法是去二手買賣平台（如Carousell）。有不少人願意免費寄送Giffgaff Sim卡（因為可以收到回贈），你只需支付郵費即可幾日內獲取Sim卡。我個人建議這個方法，因為比官方寄送快非常多。
 
 獲得Sim卡後，你需要激活它，然後選擇Pay as you go的付款方式。這樣你就可以用這個號碼接收SMS了。
-
-Go to giffgaff and ask for a free sim.
-The sim card will be send to you in weeks time.
-Activate the sim card, then choose pay as you go options.
-Use this number to receive SMS.
 
 ## VPN
 
@@ -84,6 +81,8 @@ The following assume you already have a OpenWrt router. If not, I recommend buyi
 2. Install packages
 3. Generate VPN config file, create a Wireguard interface
 4. Setup policy based routing
+
+ai.com chat.com chatgpt.com oaistatic.com oaiusercontent.com openai.com openai.com.cdn.cloudflare.net anthropic.com claude.ai claudeusercontent.com
 
 <https://www.youtube.com/watch?v=FN2qfxNIs2g&t=90s>
 
