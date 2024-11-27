@@ -6,3 +6,8 @@ date = "2099-07-27"
 +++
 
 {{< css "/css/chinese.css" >}}
+
+<https://github.com/Nonary/documentation/wiki/DummyPlugs>
+<https://github.com/LizardByte/Sunshine>
+<https://github.com/moonlight-stream/moonlight-qt>
+<https://github.com/games-on-whales/wolf>

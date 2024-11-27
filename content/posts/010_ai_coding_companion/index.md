@@ -6,3 +6,5 @@ date = "2099-07-27"
 +++
 
 {{< css "/css/chinese.css" >}}
+
+<https://lih.kg/3826500>

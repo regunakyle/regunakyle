@@ -1,19 +1,19 @@
 +++
-title = "如何在香港訂閱ChatGPT"
+title = "如何不靠淘寶在香港訂閱ChatGPT/Claude"
 author = "Eric Leung"
 description = "無需淘寶，無需sms-activate"
-date = "2099-11-04"
+date = "2099-11-27"
 +++
 
 {{< css "/css/chinese.css" >}}
 
-TODO: Image: HSBC + IBKR + OpenWrt + Giffgaff + Wireguard
+{{< figure src="./Cover.png"  >}}
 
 ## 前言
 
 相信大家都知道在中美貿易戰背景下，OpenAI及其他美國AI/LLM相關的服務不對中國及香港用戶開放。
 
-現時香港人若想訂閱OpenAI，就要先解決以下問題：
+現時香港人若想訂閱ChatGPT Plus，就要先解決以下問題：
 
 1. 支付方式
 2. 外國電話號碼
@@ -39,7 +39,7 @@ TODO: Image: HSBC + IBKR + OpenWrt + Giffgaff + Wireguard
 2. 無需外國地址證明
 3. 申請過程免費
 
-申請成功後，英國匯豐會寄一張VISA扣帳卡到你府上，你用這張卡就可以在OpenAI上付費了。
+除英國匯豐外，我聽說Wise和Revolut都是香港人可申請的支付方式，但我沒深入研究過，按下不表。
 
 ### 申請流程
 
@@ -50,41 +50,89 @@ TODO: Image: HSBC + IBKR + OpenWrt + Giffgaff + Wireguard
 
 {{< /notice >}}
 
-先往[此網站](https://internationalservices.hsbc.com/zh-hk/services/ico/ntb/where-to-open/)
+先往[此網站](https://internationalservices.hsbc.com/zh-hk/services/ico/ntb/where-to-open/)，並回答問題：
 
-提交申請後約一星期，我就收到來自英國匯豐的電郵，內含我的英國戶口編號及銀行地址。
+1. `您是否持有滙豐戶口？`：是
+2. `您現時所在地是？`：香港特別行政區
+3. `您想在哪裡開立海外戶口？`：英國
+4. `您是否將於7日內前往目的地？`：否
 
-1. HSBC staff will call you and explain details (in Chinese)
-2. Debit card will be send to you in weeks time
-3. Transfer GBP to this account, I use IBKR (best forex pricing, no wiring fee, free withdrawal once per month)
-4. Pay with the debit card when subscribing to openai
+再按繼續，然後應出現`登入申請開戶`按鈕，按下即可前往申請頁面。
+
+在申請頁面登入，然後按指示填寫個人資料，然後提交申請。
+
+提交申請一日後，我就收到來自英國匯豐的電郵，內含我的英國戶口編號及銀行地址。不久後亦有匯豐銀行職員致電，用粵語向我解釋英國戶口的使用方式、條款等，亦要設定手機銀行登入密碼、安保問題等資料。（全程不需講英文！）
+
+再等約兩星期，我就收到來自英國匯豐的信件，內有一張VISA扣帳卡。用這張扣帳卡就可以在OpenAI付款了。
+
+以下是一條申請英國匯豐戶口的教學影片，可作參考：
+
+{{< youtube rUy6Le54BZE >}}
+
+### 轉帳去英國匯豐戶口方法
+
+我選擇用Interactive Broker（下稱IB）轉帳去英國匯豐戶口。IB的外匯匯率**接近市價**，此外還可以每月免費出金一次。
+
+不過要注意的是IB本質是證劵商，如只用來做外幣兌換而不買賣股票的話，有可能會被IB封禁。我自己本來就有用IB買賣股票，而且兌換英鎊的金額只佔我戶口總值的一小部分，所以才沒問題。
+
+如果你沒有IB戶口的話，可以選擇直接用香港匯豐戶口網上轉帳：匯豐會在轉帳前自動將你的港幣兌換成英鎊。當然匯率會比IB差一點。
 
 ## 外國手機號碼
 
-我選擇英國Giffgaff電話卡。Giffgaff提供全球免費寄送Sim卡服務，而且養卡號簡單（就我理解每半年發一次短訊即可）。
+我選擇英國Giffgaff電話卡。Giffgaff提供全球免費寄送SIM卡服務，而且養卡號簡單（就我理解每半年發一次短訊即可）。
 
-你可以到[Giffgaff 官網](https://www.giffgaff.com/freesim-international)免費申請一張Sim卡。我申請過兩次，第一次申請後三星期都沒收到Sim卡，第二次申請後約兩星期才收到。
+你可以到[Giffgaff 官網](https://www.giffgaff.com/freesim-international)免費申請一張SIM卡。我申請過兩次，第一次申請後三星期都沒收到SIM卡，第二次申請後約兩星期才收到。
 
-另外一個做法是去二手買賣平台（如Carousell）。有不少人願意免費寄送Giffgaff Sim卡（因為可以收到回贈），你只需支付郵費即可幾日內獲取Sim卡。我個人建議這個方法，因為比官方寄送快非常多。
+另外一個做法是去二手買賣平台（如Carousell）。有不少人願意免費寄送Giffgaff SIM卡（因為可以收到回贈），你只需支付郵費即可於幾日內獲取SIM卡。我個人建議用這方法，因為比官方寄送快非常多。
 
-獲得Sim卡後，你需要激活它，然後選擇Pay as you go的付款方式。這樣你就可以用這個號碼接收SMS了。
+獲得SIM卡後，你需要在Giffgaff官網激活它，然後**不選擇任何月費計劃**，選擇Pay as you go的付款方式，然後增值（我用香港的VISA信用卡）。這樣你就可以用這個號碼接收SMS了。
 
-## VPN
+{{< figure src="./Cards.jpg" caption="英國匯豐扣帳卡及Giffgaff SIM卡" >}}
 
-- If you are lazy, just buy a popular VPN service and use it, done.
-- I use OpenWrt at home so I want to share the VPN with my family.
-- OpenWrt can handle this: we can combine wireguard and policy-based routing.
+{{< notice info "大功告成" >}}
+去到這一步，你已經可以不靠淘寶和sms-activate就能自己訂閱ChatGPT Plus了。你使用任意VPN就能訂閱及使用外國的AI服務。
 
-The following assume you already have a OpenWrt router. If not, I recommend buying one from Taobao (e.g. GL MT6000)
+如果你對OpenWrt設定不感興趣，可直接跳過下一部分。
+{{< /notice >}}
 
-1. Subscribe a VPN service that support Wireguard (e.g. NordVPN, Surfshark, Mullvad, AirVPN), I picked AirVPN
-2. Install packages
-3. Generate VPN config file, create a Wireguard interface
-4. Setup policy based routing
+## OpenWrt
 
-ai.com chat.com chatgpt.com oaistatic.com oaiusercontent.com openai.com openai.com.cdn.cloudflare.net anthropic.com claude.ai claudeusercontent.com
+我自己有用OpenWrt軟路由：OpenWrt支持Policy-based Routing（下稱PBR），即根據條件決定流量走向（例如特定域名走VPN）。
 
-<https://www.youtube.com/watch?v=FN2qfxNIs2g&t=90s>
+透過PBR，我可以令我家中全部往chatgpt.com的流量都走VPN，不需要每一部手機都安裝VPN程式，十分方便。
+
+以下我將講講設定方法。
+
+{{< notice note "手機行動網路設定方法" >}}
+我[上一篇文章](../008_browser_level_vpn/#手機端做法)有講如何在使用行動網路時將特定網頁的流量走VPN，其他流量照常走行動網路。
+
+有興趣可以看看。
+
+{{< /notice >}}
+
+### 前置條件
+
+1. 你要有一部OpenWrt路由器
+
+    GL MT6000，N100/J4125 mini PC
+
+2. 你要訂閱一個支持Wireguard的VPN
+
+    Mullvad/AirVPN/ProtonVPN/Surfshark/NordVPN
+
+### 安裝OpenWrt插件
+
+dnsmasq-full/luci-app-pbr/luci-proto-wireguard, reboot
+
+### 設定Wireguard
+
+Generate Japan VPN config file, create a Wireguard interface
+
+### 設定PBR
+
+ai.com chat.com chatgpt.com oaistatic.com oaiusercontent.com openai.com openai.com.cdn.cloudflare.net anthropic.com claude.ai claudeusercontent.com niconico.jp
+
+Note: Flush DNS cache
 
 ## 結語
 

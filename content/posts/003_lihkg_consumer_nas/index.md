@@ -288,18 +288,6 @@ Let's Encrypt既SSL憑證**有效期只有90日**，佢地建議每60日更新�
 
 有唔少[工具](https://letsencrypt.org/docs/client-options/)可以幫你管理及更新Let's Encrypt既SSL憑證；[OpenWrt](https://openwrt.org/docs/guide-user/services/tls/acmesh/)/[pfSense](https://docs.netgate.com/pfsense/en/latest/packages/acme/index.html)等OS有插件幫你做；用Docker既玩家可以睇下[Nginx Proxy Manager](https://github.com/NginxProxyManager/nginx-proxy-manager)/[Caddy](https://github.com/caddyserver/caddy/)。
 
-{{< notice tip "Let's Encrypt 妙用" >}}
-有啲Service一定要HTTPS先運作到（如[Vaultwarden](https://github.com/dani-garcia/vaultwarden)），咁樣就算你只係屋企或純經VPN用，都係要搞SSL憑證。
-
-一個可行方案係自己整自我簽署憑證(Self-signed Certificate)。自我簽署憑證[原則上係不可信](https://security.stackexchange.com/questions/112768/why-are-self-signed-certificates-not-trusted-and-is-there-a-way-to-make-them-tru)（所以Vaultwarden唔會認），你要係每部會用呢個Service既電腦/手機到載入個SSL憑證先可以正常用到。
-
-更佳做法係用Let's Encrypt：Let's Encrypt係受國際信任既憑證頒發機構（Certificate Authority），正常電腦/手機出廠已預設會信佢地既SSL憑證，唔洗上面咁自己載入憑證先用到個Service。
-
-只要用佢地既DNS-01方法就可以唔開Port都申請到SSL憑證，攞到後係反向代理設定好就得。
-
-[延伸閱讀：Run a private vaultwarden with Let's Encrypt certs](https://github.com/dani-garcia/vaultwarden/wiki/Running-a-private-vaultwarden-instance-with-Let%27s-Encrypt-certs)（唔用Vaultwarden都值得一睇）
-{{< /notice >}}
-
 {{< notice warning "必須保護 SSL 憑證密鑰" >}}
 SSL憑證有兩個檔案，其中一個係密鑰。你要保護密鑰不被外人得到，唔可以將密鑰分享比陌生人。
 

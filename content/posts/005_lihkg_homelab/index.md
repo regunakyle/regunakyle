@@ -95,7 +95,7 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 要做PCIe passthrough既話，主機板要支持IOMMU，此外亦要注意IOMMU組分佈。
 
-每個硬件都屬於一個IOMMU組，但一個IOMMU組可以有多過一個硬件。**PCIe passthrough係以一個IOMMU組為最小單位**，想送某個硬件就要連同佢IOMMU組既其他硬件一齊送入去。
+每個硬件都屬於一個IOMMU組，但一個IOMMU組可以包含多過一個硬件。**PCIe passthrough係以一個IOMMU組為最小單位**，想送某個硬件就要連同佢IOMMU組既其他硬件一齊送入去。
 
 假設你主機板PCIe 1槽、SATA控制器及網卡係同一IOMMU組，咁你想送個插咗係PCIe 1槽既硬件（如顯示卡）入虛擬機，就要將SATA控制器（連帶硬碟）同網卡都送埋入去。
 
@@ -103,7 +103,7 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 要自己做功課，搵下咩主機板IOMMU組靚。唔一定要追求最完美（即每一個硬件都獨佔一個IOMMU組），可根據你既需求去查（例如想整NAS虛擬機既話，隻SATA控制器最好獨佔一個IOMMU組）。
 
-值得一提既係，有方法強行令全部硬件都有自己一個獨佔既IOMMU組（關鍵字：ACS override patch）。Proxmox跟呢個[教學](https://pve.proxmox.com/wiki/PCI_Passthrough#Verify_IOMMU_isolation)就可以用到呢個Patch。注意用呢個Patch有安全性風險（可以自己Google下）。
+值得一提既係，有方法強行令全部硬件都有自己一個獨佔既IOMMU組（關鍵字：ACS override patch）。Proxmox跟呢個[教學](https://pve.proxmox.com/wiki/PCI_Passthrough#Verify_IOMMU_isolation)就可以用到呢個Patch。注意用呢個Patch有安全性風險（詳情請自己Google）。
 
 [延伸閱讀：檢查主機板IOMMU組方法](../006_simple_guide_for_vfio_1/#主機板iommu)
 
@@ -171,7 +171,7 @@ Docker係軟件級Container：一個Image專行一個軟件 ；LXC係OS級Contai
 2. Unraid要求用USB做Boot disk（而且隻USB要有Unique GUID）
 3. Xpenology亦要求用USB做Boot disk
 
-我建議做法係去淘寶搵「USB引導盤」，例如[呢個](https://item.taobao.com/item.htm?id=616480100892)，用佢地安裝方便好多。
+我建議去淘寶搵「USB引導盤」，例如[呢個](https://item.taobao.com/item.htm?id=616480100892)，用佢地安裝方便好多。
 {{< /notice >}}
 
 {{< underline "伺服器OS" >}}
