@@ -1,8 +1,8 @@
 +++
-title = "如何不靠淘寶在香港訂閱ChatGPT/Claude"
+title = "如何不靠淘寶在香港訂閱美國的AI/LLM服務"
 author = "Eric Leung"
-description = "無需淘寶，無需sms-activate"
-date = "2099-11-27"
+description = "無需淘寶，無需sms-activate（另有OpenWrt Policy Routing教學）"
+date = "2024-12-16"
 +++
 
 {{< css "/css/chinese.css" >}}
@@ -11,9 +11,9 @@ date = "2099-11-27"
 
 ## 前言
 
-相信大家都知道在中美貿易戰背景下，OpenAI及其他美國AI/LLM相關的服務不對中國及香港用戶開放。
+相信大家都知道在中美貿易戰背景下，美國的AI/LLM相關服務不對中國及香港用戶開放。
 
-現時香港人若想訂閱ChatGPT Plus，就要先解決以下問題：
+現時香港人若想訂閱外國AI服務，就要先解決以下問題：
 
 1. 支付方式
 2. 外國電話號碼
@@ -21,8 +21,8 @@ date = "2099-11-27"
 
 就我理解，以上問題的對應主流解決辦法是：
 
-1. 在淘寶或其他網店付費代充值OpenAI
-2. 使用 [sms-activate](https://sms-activate.guru/)或類似服務接收OpenAI的驗證碼
+1. 在淘寶或其他網店付費代充值
+2. 使用 [sms-activate](https://sms-activate.guru/)或類似服務接收手機驗證碼
 3. 使用付費VPN繞過地域封鎖
 
 (1)及(2)雖簡單直接，但我個人不喜歡使用這種第三方服務，畢竟控制權並非完全在自己手中。於是我花了點時間研究其他解決方案，前前後後搞了一個月，總算完成了。
@@ -93,11 +93,26 @@ IB的外匯匯率**接近市價**，此外還可以每月免費出金一次。
 
 {{< figure src="./Cards.jpg" caption="英國匯豐扣帳卡及Giffgaff SIM卡" >}}
 
-{{< notice info "大功告成" >}}
-去到這一步，你已經可以不靠淘寶和sms-activate就能自己訂閱ChatGPT Plus了。
+## 訂閱AI/LLM服務
 
-如果你對OpenWrt設定不感興趣，可直接跳過下一部分。
-{{< /notice >}}
+最後就是前往OpenAI/Claude網頁訂閱AI服務了。我用以上支付方法及電話號碼成功申請這兩間公司的Pro chat計劃，也能增值API。
+
+付費時的注意事項：
+
+1. **你要全程啟動VPN**
+2. 要輸入正確的地址和郵政編碼（提示：去相應國家的地產中介網頁找找看）
+
+我測試過可以用非英國的VPN和地址。用英國地址的話要另外交VAT（即增值稅），建議用美國地址。
+
+以下附上我訂閱證明：
+
+{{< figure src="./ChatGPT_Plus.png" caption="ChatGPT Plus" >}}
+
+{{< figure src="./OpenAI_API.png" caption="OpenAI API" >}}
+
+{{< figure src="./Claude.png" caption="Claude" >}}
+
+{{< figure src="./Claude_API.png" caption="Claude API" >}}
 
 ## OpenWrt
 
@@ -239,7 +254,7 @@ reboot
 3. `Name`填任意值（如`AI`），然後`Remote addresses / domains`填以下：
 
 ```bash
-anthropic.com claude.ai claudeusercontent.com servd-anthropic-website.b-cdn.net ai.com chatgpt.com chat.com oaistatic.com oaiusercontent.com openai.com openai.com.cdn.cloudflare.net openaiapi-site.azureedge.net openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net openaicomproductionae4b.blob.core.windows.net production-openaicom-storage.azureedge.net
+anthropic.com claude.ai claudeusercontent.com servd-anthropic-website.b-cdn.net ai.com chatgpt.com chat.com oaistatic.com oaiusercontent.com openai.com openai.com.cdn.cloudflare.net openaiapi-site.azureedge.net openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net openaicomproductionae4b.blob.core.windows.net production-openaicom-storage.azureedge.net sora.com
 ```
 
 4. `Interface`選擇你的Wireguard介面
@@ -261,10 +276,6 @@ ipconfig /flushdns
 ```
 
 請自行查找其他OS的清除電腦DNS緩存方法（通常重啟就可以了）。
-
-最後附上我成功訂閱ChatGPT及Claude的證明：
-
-{{< figure src="./Claude.png" caption="Claude" >}}
 
 ## 有用連結
 
