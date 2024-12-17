@@ -39,7 +39,7 @@ date = "2024-12-16"
 2. 無需外國地址證明
 3. 申請過程免費
 
-除英國匯豐外，我聽說Wise和Revolut都是香港人可申請的支付方式，但我沒深入研究過，按下不表。
+除英國匯豐外，我聽說[Wise](https://wise.com/)和[Revolut](https://www.revolut.com/)都是香港人可申請的支付方式，但我沒深入研究過，按下不表。
 
 ### 申請流程
 
@@ -63,7 +63,7 @@ date = "2024-12-16"
 
 提交申請一日後，我就收到來自英國匯豐的電郵，內含我的英國戶口編號及銀行地址。不久後亦有匯豐銀行職員致電，用粵語向我解釋英國戶口的使用方式、條款等，亦要設定手機銀行登入密碼、安保問題等資料。（全程不需講英文！）
 
-再等約兩星期，我就收到來自英國匯豐的信件，內有一張VISA扣帳卡。用這張扣帳卡就可以在OpenAI付款了。
+再等約兩星期，我就收到來自英國匯豐的信件，內有一張VISA扣帳卡。用這張扣帳卡就可以訂閱美國的AI/LLM服務了。
 
 以下是一條申請英國匯豐戶口的教學影片，可作參考：
 
@@ -87,19 +87,19 @@ IB的外匯匯率**接近市價**，此外還可以每月免費出金一次。
 
 你可以到[Giffgaff 官網](https://www.giffgaff.com/freesim-international)免費申請一張SIM卡。我申請過兩次，第一次申請後三星期都沒收到SIM卡，第二次申請後約兩星期才收到。
 
-另外一個做法是去二手買賣平台（如Carousell）。有不少人願意免費寄送Giffgaff SIM卡（因為有回贈），你只需支付郵費即可於幾日內獲取SIM卡。我個人建議用這方法，因為比官方寄送快非常多。
+另外一個做法是去二手買賣平台（如Carousell）：有不少人願意免費寄送Giffgaff SIM卡（因為有回贈），你只需支付郵費即可於幾日內獲取SIM卡。我個人建議用這方法，因為比官方寄送快非常多。
 
-獲得SIM卡後，你需要在Giffgaff官網激活它，然後**不選擇任何月費計劃**，選擇Pay as you go的付款方式，然後增值（我用香港的VISA信用卡）。這樣你就可以用這個號碼接收SMS了。
+獲得SIM卡後，你需要在Giffgaff官網激活它，然後**不選擇任何月費計劃**，選擇**Pay as you go**，然後增值（我用香港的VISA信用卡）。這樣你就可以用這個號碼接收手機驗證碼了。
 
 {{< figure src="./Cards.jpg" caption="英國匯豐扣帳卡及Giffgaff SIM卡" >}}
 
 ## 訂閱AI/LLM服務
 
-最後就是前往OpenAI/Claude網頁訂閱AI服務了。我用以上支付方法及電話號碼成功申請這兩間公司的Pro chat計劃，也能增值API。
+最後就是前往OpenAI/Claude網頁訂閱AI服務了。我用以上支付方法及電話號碼成功討閱這兩間公司的Pro計劃，同時也能增值API。
 
 付費時的注意事項：
 
-1. **你要全程啟動VPN**
+1. 你要全程啟動VPN
 2. 要輸入正確的地址和郵政編碼（提示：去相應國家的地產中介網頁找找看）
 
 我測試過可以用非英國的VPN和地址。用英國地址的話要另外交VAT（即增值稅），建議用美國地址。
@@ -108,10 +108,13 @@ IB的外匯匯率**接近市價**，此外還可以每月免費出金一次。
 
 {{< figure src="./ChatGPT_Plus.png" caption="ChatGPT Plus" >}}
 
+\
 {{< figure src="./OpenAI_API.png" caption="OpenAI API" >}}
 
+\
 {{< figure src="./Claude.png" caption="Claude" >}}
 
+\
 {{< figure src="./Claude_API.png" caption="Claude API" >}}
 
 ## OpenWrt
@@ -139,7 +142,7 @@ IB的外匯匯率**接近市價**，此外還可以每月免費出金一次。
 
     （請於這個[表格](https://openwrt.org/toh/views/toh_available_16128)中搜索）
 
-    如要買新路由器，我推薦去淘寶買[GL-iNET GL-MT6000](https://detail.tmall.com/item.htm?id=743831055254)（約700人民幣），它是現時OpenWrt社群最推薦的路由器型號之一：有四核CPU（Wireguard能跑到至少900Mbps），1GB RAM（可以跑Docker），有2.5Gbps網口及Wifi 6，而且安裝OpenWrt步驟很簡單，非常適合新手。
+    如要買新路由器，我推薦去淘寶買[GL-iNET GL-MT6000](https://detail.tmall.com/item.htm?id=743831055254)（約700人民幣），它是現時OpenWrt社群最推薦的路由器型號之一：有四核CPU和1GB RAM，有2.5Gbps網口及Wifi 6，而且安裝OpenWrt步驟很簡單，非常適合新手。
 
     你亦可以選擇買一部軟路由小電腦（例如淘寶上的N100小主機）安裝OpenWrt，再將現有的路由器設置為AP模式（或稱無線存取點模式）。軟路由機的性能通常較強，非常適合想深入研究OpenWrt的玩家。
 
@@ -263,11 +266,22 @@ anthropic.com claude.ai claudeusercontent.com servd-anthropic-website.b-cdn.net 
 
 {{< figure src="./OpenWrt_PBR.png" caption="我的PBR設定" >}}
 
+{{< notice info "原理" >}}
+使用`Dnsmasq nft set`時（需要`dnsmasq-full`才能使用），PBR能夠將所有前往**指定域名及其所有子域名**的流量都走VPN。
+
+例如在`Remote addresses / domains`加入`openai.com`時，所有前往`openai.com`及其所有子域名（如`api.openai.com`及`platform.openai.com`）的流量都會走VPN。
+
+就我理解，pfSense/OPNsense這兩個防火牆系統不能做到覆蓋所有子域名，必須盡可能將所有子域名紀錄下來，非常麻煩；OpenWrt的PBR就方便得多了。
+
+另外，上方的域名清單是從v2ray的Github抓來的：[v2fly: domain-list-community](https://github.com/v2fly/domain-list-community/tree/master/data)。如將來OpenAI/Anthropic有了新的域名，你只需將它手動加入PBR的域名清單，然後重啟PBR服務即可。
+
+{{< /notice >}}
+
 ### 測試
 
 開啟瀏覽器並前往[chatgpt.com](https://chatgpt.com)，如看到ChatGPT界面，則大功告成！
 
-如果還是看到封鎖頁面，請先清除電腦的DNS緩存（[PBR已知問題](https://docs.openwrt.melmac.net/pbr/#footnote5)）。
+如果還是看到封鎖頁面，**請先清除電腦的DNS緩存**（這是[PBR已知問題](https://docs.openwrt.melmac.net/pbr/#footnote5)）。
 
 Windows用家可開啟Powershell並執行以下指令：
 
@@ -277,6 +291,4 @@ ipconfig /flushdns
 
 請自行查找其他OS的清除電腦DNS緩存方法（通常重啟就可以了）。
 
-## 有用連結
-
-[v2fly: domain-list](https://github.com/v2fly/domain-list-community/tree/master/data)
+清除DNS緩存後就可正常使用ChatGPT了。
