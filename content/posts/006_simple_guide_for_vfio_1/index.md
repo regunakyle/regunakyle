@@ -8,7 +8,7 @@ date = "2024-06-01"
 
 {{< css "/css/chinese.css" >}}
 
-（本文最後更新時間：2024年8月11日）
+（本文最後更新時間：2025年1月2日）
 
 ## 前言
 
@@ -104,7 +104,7 @@ done
 
 1. 更新BIOS（有機會影響IOMMU組分佈）
 2. 將硬件轉插主機板上其他相容的插槽
-3. 使用[ACS override patch](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Bypassing_the_IOMMU_groups_(ACS_override_patch))：這個Patch可令全部硬件都有自己一個獨佔既IOMMU組，但用它會帶來安全性風險。請自己斟酌利弊，本文亦不提供安裝教學
+3. 使用ACS override patch(例如[這個](https://github.com/some-natalie/fedora-acs-override))：這個Patch可令全部硬件都有自己一個獨佔既IOMMU組，但用它會帶來安全性風險。請自己斟酌利弊，本文亦不提供安裝教學
 
 如果買新主機板的話，我建議買AMD的X570系。VFIO社群內不少人都說X570系主機板有非常好的IOMMU組分佈，而且不少X570主機板支持PCIe Bifurcation，非常適合**Looking Glass**。買X570系的壞處是不能戰未來：AM4平台不會再有新產品；它們用的DDR4記憶體同樣是夕陽產品。
 
@@ -126,19 +126,32 @@ done
 
 *宿主機卡* 推薦Intel或AMD（CPU內顯或獨立顯示卡），因為這兩個牌子的顯示卡在Linux有開源及穩定的驅動程式，此外它們支持*DMABUF* 功能，這對Looking Glass的性能有大幫助。NVIDIA在Linux上的開源驅動程式性能較差，而官方閉源的驅動程式可能不支持*DMABUF* 。
 
-如果打算用Looking Glass，開發者建議兩張獨立顯示卡。CPU內顯也可作*宿主機卡* 使用，但Looking Glass的幀數會較低。我建議先安裝Looking Glass，看看能不能接受其幀數，實在太慢的話再買第二張獨立顯示卡。
+如果打算用**Looking Glass**，開發者建議兩張獨立顯示卡。CPU內顯也可作*宿主機卡* 使用，但**Looking Glass**的幀數會較低。我建議先安裝**Looking Glass**，看看能不能接受其幀數，實在太慢的話再買第二張獨立顯示卡。
 
 如果想買*宿主機卡*，我推薦Intel Arc系列（如A310或A380），不但便宜、耗電低，更有極強編碼/解碼能力，非常適合OBS用家。
 
-此外，你的**螢幕要有至少兩個插口**，每張顯示卡分別插一個插口。要注意插口的規格，例如你螢幕只有VGA插口，但顯示卡又只有HDMI/DP插口的話，那你就要換螢幕或顯示卡其中一個了。
+此外，你的**螢幕要有至少兩個插口**，*虛擬機卡* 及*宿主機卡* 分別插一個插口。要注意插口的規格，例如你螢幕只有VGA插口，但顯示卡又只有HDMI/DP插口的話，那你就要換螢幕或顯示卡其中一個了。
+
+{{< notice warning "注意" >}}
+Windows有個怪問題：顯示卡要接上螢幕才有畫面輸出。如果你*虛擬機卡* 沒有接上螢幕，Windows就不會輸出畫面，這樣情況下**Looking Glass**就不能捕捉到你遊戲畫面。
+
+正常情況下*宿主機卡* 接上螢幕後，Windows就能正常輸出畫面。但有些螢幕不接受多重輸入，只接受當前你選擇的輸入源，這樣的螢幕即使接上了*宿主機卡* 也不能輸出Windows（我現在用的Acer NITRO XV275K就有這問題）。
+
+如你螢幕有這問題，那你就要去買一個EDID模擬器（或稱*顯卡欺騙器* ），藉此讓Windows認為成功接上了螢幕並輸出畫面。
+
+我自己買了一個[4K/60Hz的HDMI EDID模擬器](https://detail.tmall.com/item.htm?id=733555832782)，然後安裝[Custom Resolution Utility（CRU）](https://www.monitortests.com/forum/Thread-Custom-Resolution-Utility-CRU)，並於[此處](https://github.com/Nonary/documentation/blob/main/dummy.bin?raw=true)下載EDID檔，然後在CRU套用。最後開啟Nvidia Control Panel，選擇自訂解像度為4K/120Hz。
+
+如不想用EDID模擬器，可看看[虛擬EDID模擬器](https://github.com/VirtualDisplay/Virtual-Display-Driver)。我自己沒用過，**Looking Glass**官方亦不鼓勵使用它（**Looking Glass**將於下一版本寫一個高性能的虛擬EDID模擬器，但短期內應不會推出）。
+
+ {{< /notice >}}
 
 #### CPU
 
-因為要至少預留一核/兩線程給宿主機（用Looking Glass的話要留至少兩核/四線程），所以CPU不能太弱。
+因為要至少預留一核/兩線程給宿主機（用**Looking Glass**的話要留至少兩核/四線程），所以CPU不能太弱。
 
-如果單純VFIO，我建議至少六核/十二線程起步，例如Intel i5-12400/AMD 5600X。
+如果單純**VFIO**，我建議至少六核/十二線程起步，例如Intel i5-12400/AMD 5600X。
 
-如果要用Looking Glass，我建議至少八核/十六線程起步，例如AMD 5700X。（我個人使用AMD 5900X）
+如果要用**Looking Glass**，我建議至少八核/十六線程起步，例如AMD 5700X。（我個人使用AMD 5900X）
 
 以上的建議都是假設買全大核CPU。如果你的CPU是大小核設計（例如近年Intel的P-core/E-core設計），VFIO設定上可能較麻煩。
 
