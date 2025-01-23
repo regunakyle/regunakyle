@@ -578,11 +578,10 @@ nmcli con add type bridge-slave autoconnect yes con-name eth0 ifname eth0 master
 
 1. 找一個空白文件夾，入內開啟終端程式
 2. 執行`git clone https://github.com/saschpe/libvirt-hook-qemu.git`
-3. 開啟`hooks.json`並將第59行的逗號刪除（如有）
-4. 根據[說明](https://github.com/saschpe/libvirt-hook-qemu/blob/master/hooks.json)自行修改`hooks.json`。可於[hooks.schema.json](https://github.com/saschpe/libvirt-hook-qemu/blob/master/hooks.schema.json)查看`hooks.json`的格式
-5. 執行`sudo make install`
-6. 於Linux設定中開啟網絡設定，並選擇正在使用的網絡連接
-7. 於`General configuration`中之`Firewall zone`選擇`FedoraWorkstation`，以容許網絡上其他電腦連接宿主機的1025至65535端口
+3. 根據[說明](https://github.com/saschpe/libvirt-hook-qemu/blob/master/hooks.json)自行修改`hooks.json`。可於[hooks.schema.json](https://github.com/saschpe/libvirt-hook-qemu/blob/master/hooks.schema.json)查看`hooks.json`的格式
+4. 執行`sudo make install`
+5. 於Linux設定中開啟網絡設定，並選擇正在使用的網絡連接
+6. 於`General configuration`中之`Firewall zone`選擇`FedoraWorkstation`，以容許網絡上其他電腦連接宿主機的1025至65535端口
 
 安裝後，可透過宿主機的指定端口去連接虛擬機的指定端口。
 

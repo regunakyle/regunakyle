@@ -32,13 +32,29 @@ date = "2024-01-22"
 
 ## 伺服器硬件邊到黎？
 
-舊電腦/Laptop、各式迷你電腦（如J4125/N100機）、[Raspberry Pi](https://classroomeshop.com/collections/raspberry-pi)或其他單板機（SBC）、各式二手伺服器硬件/洋垃圾等。
+舊電腦/Laptop、各式迷你電腦（如N100機/Mac Mini）、[Raspberry Pi](https://classroomeshop.com/collections/raspberry-pi)或其他單板機（SBC）、各式半成品/成品NAS（買黎自己刷OS）、各式二手伺服器硬件/洋垃圾等。
 
 部分硬件只可能搵到淘寶或國產貨（或外國只有高價代替品），如各式軟路由工控機及細NAS機箱等。
 
 NAS機箱有外國貨（如Fractal Design既[Node系列](https://www.fractal-design.com/products/cases/node/)），不過通常偏大部/貴，想要細部或平啲就要淘寶。
 
 [延伸閱讀：Small Form Factor PC Master List](https://docs.google.com/spreadsheets/d/1AddRvGWJ_f4B6UC7_IftDiVudVc8CJ8sxLUqlxVsCz4/)
+
+{{< notice tip "單板機 VS 迷你電腦" >}}
+x86迷你電腦於絕大部分情況下比Raspberry Pi等單板機更適合做伺服器。
+
+x86機通常性能較強、可擴展性更高，同時又有更佳性價比。此外，幾乎所有OS/軟件都支持x86，反觀ARM/RISC-V單板機可能連驅動程式都唔齊。
+
+除非你有以下需求（或其他特別原因），否則我唔建議你買單板機做伺服器：
+
+1. 你需要用單板機上既針腳（GPIO）
+2. 你需要ARM/RISC-V架構既CPU（ARM既話可以考慮Mac Mini，部分機種甚至可以[裝Linux](https://asahilinux.org/fedora/#device-support)）
+3. 你有PoE交換器，並打算用佢為多部伺服器供電
+4. 你想用一隻多插口GaN充電器為多部伺服器供電
+
+[延伸閱讀：GaN Chargers that renegotiates power without disconnecting ANY existing devices](https://www.reddit.com/r/UsbCHardware/comments/1c0ljdm/datapoints_welcome_list_of_usbc_gan_chargers_that/)
+
+{{< /notice >}}
 
 ## 用咩硬件去增加主機板SATA插口數？
 
@@ -171,7 +187,7 @@ Docker係軟件級Container：一個Image專行一個軟件 ；LXC係OS級Contai
 2. Unraid要求用USB做Boot disk（而且隻USB要有Unique GUID）
 3. Xpenology亦要求用USB做Boot disk
 
-我建議去淘寶搵「USB引導盤」，例如[呢個](https://item.taobao.com/item.htm?id=616480100892)，用佢地安裝方便好多。
+淘寶有唔少人賣所謂「USB引導盤」，例如[呢個](https://item.taobao.com/item.htm?id=616480100892)，可能對你有用。
 {{< /notice >}}
 
 {{< underline "伺服器OS" >}}
