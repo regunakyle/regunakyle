@@ -12,7 +12,7 @@ date = "2024-01-22"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年8月11日）
+（本文最後更新時間：2025年1月26日）
 
 {{< figure src="./Cover.jpg" caption="IKEA LackRack - 廉價DIY機櫃" >}}
 
@@ -49,8 +49,10 @@ x86機通常性能較強、可擴展性更高，同時又有更佳性價比。�
 
 1. 你需要用單板機上既針腳（GPIO）
 2. 你需要ARM/RISC-V架構既CPU（ARM既話可以考慮Mac Mini，部分機種甚至可以[裝Linux](https://asahilinux.org/fedora/#device-support)）
-3. 你有PoE交換器，並打算用佢為多部伺服器供電
-4. 你想用一隻多插口GaN充電器為多部伺服器供電
+3. 你有PoE交換機，並打算用佢為多部單板機供電
+4. 你想用一隻多插口GaN充電器為多部單板機供電
+
+通常（3）同（4）係為咗整伺服器集群（Cluster）：我自己個[Kubernetes](https://kubernetes.io/)集群八成都係單板機，配合PoE交換機就可以用少好多插頭。
 
 [延伸閱讀：GaN Chargers that renegotiates power without disconnecting ANY existing devices](https://www.reddit.com/r/UsbCHardware/comments/1c0ljdm/datapoints_welcome_list_of_usbc_gan_chargers_that/)
 
@@ -92,7 +94,7 @@ ECC既用途係偵測RAM有否發生Bit flip，如有就嘗試修正。[（運�
 
 雖然ECC RAM本身唔係貴好多，但可以用ECC RAM既主機板/CPU可以貴勁多。尤其是Intel，家用級主機板晶片組（Chipset）全部唔支持ECC，要上到工作站或伺服器級主機板先有，呢啲主機板一手價超級高。
 
-AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](https://www.amd.com/en/products/apu/amd-ryzen-5-pro-5650g)配X570板，低能耗+多核+有內顯+支持ECC+靚IOMMU）。另一個選擇係執二手伺服器硬件/洋垃圾（Xeon/Epyc之類），淘寶一堆平價野。
+AMD反而係家用級已經有，所以想要ECC可以先睇AMD。另一個選擇係執二手伺服器硬件/洋垃圾（Xeon/Epyc之類），淘寶一堆平價野。
 
 我既諗法係，你要儲存既數據愈多/愈重要，用既RAM量愈大，就愈值得買ECC件。（當買個心安都好）
 
@@ -102,7 +104,6 @@ AMD反而係家用級已經有，所以想要ECC可以先睇AMD（例如[5650G](
 
 1. ECC RAM有分RDIMM/LRDIMM/UDIMM，要睇清楚塊板支持邊款先好買。
 2. DDR5所謂既內置ECC並非真ECC，且不能取代真ECC。
-3. ECC唔係靈丹妙藥，如果條RAM本身係壞既話照樣會狂出Error。
 {{< /notice >}}
 
 ### 主機板IOMMU組分佈
@@ -179,11 +180,11 @@ Docker係軟件級Container：一個Image專行一個軟件 ；LXC係OS級Contai
 
 {{< underline "NAS OS" >}}
 
-[TrueNAS](https://www.truenas.com/truenas-community-editions/)[（建議選Scale）](https://www.theregister.com/2024/03/18/truenas_abandons_freebsd/)、[Xpenology（黑群輝）](https://xpenology.com/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)、[Unraid（付費）](https://unraid.net/)、[OpenMediaVault](https://www.openmediavault.org/)
+[TrueNAS Scale](https://www.truenas.com/truenas-community-editions/)、[Xpenology（黑群輝）](https://xpenology.com/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)、[Unraid（付費）](https://unraid.net/)、[OpenMediaVault](https://www.openmediavault.org/)
 
 {{< notice info "注意事項" >}}
 
-1. TrueNAS (Scale/Core) 會食曬成隻HDD/SSD/USB做Boot disk
+1. TrueNAS會食曬成隻HDD/SSD/USB做Boot disk
 2. Unraid要求用USB做Boot disk（而且隻USB要有Unique GUID）
 3. Xpenology亦要求用USB做Boot disk
 
@@ -196,7 +197,7 @@ Docker係軟件級Container：一個Image專行一個軟件 ；LXC係OS級Contai
 
 {{< underline "路由器/防火牆OS" >}}
 
-[OpenWrt](https://openwrt.org/) :thumbsup:（家用路由器推薦）、[pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)
+[OpenWrt](https://openwrt.org/) :thumbsup:、[pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)
 
 {{< notice info "Openwrt ：小型 Homelab 神器" >}}
 一部裝咗OpenWrt既家用路由器可以做曬防火牆、路由器、VLAN交換機同無線存取點既工作。
@@ -247,7 +248,7 @@ PiKVM甚至可以配合[特定](https://docs.pikvm.org/multiport/#list-of-tested
 
 Intel既獨立顯示卡:thumbsup: 入門級型號（1000蚊樓下買到）就已經有同高階卡一樣既超強轉碼性能。
 
-支持好多媒體格式（包括AV1 encoding），低能耗，有啲型號甚至係半高/單插槽闊，非常適合伺服器用。
+Intel卡支持相當多媒體格式，低能耗，有啲型號甚至係半高/單插槽闊，非常適合伺服器用。
 
 此外NVIDIA Quadro系列都唔錯，可以搵下有冇二手貨。
 
@@ -256,6 +257,8 @@ Intel既獨立顯示卡:thumbsup: 入門級型號（1000蚊樓下買到）就已
 [Media Capabilities Supported by Intel Hardware](https://www.intel.com/content/www/us/en/docs/onevpl/developer-reference-media-intel-hardware/)
 
 [NVIDIA Video Encode and Decode GPU Support Matrix](https://developer.nvidia.com/video-encode-and-decode-gpu-support-matrix-new)
+
+[Jellyfin GPU Selection Guide](https://jellyfin.org/docs/general/administration/hardware-selection#graphics-cards-gpus)
 
 [Plex Media Server Hardware Transcoding Cheat Sheet](https://www.elpamsoft.com/?p=Plex-Hardware-Transcoding)
 
@@ -270,6 +273,8 @@ Intel既獨立顯示卡:thumbsup: 入門級型號（1000蚊樓下買到）就已
 [ServeTheHome（Homelab新聞/硬件評測網頁）](https://www.servethehome.com/)
 
 [Youtube：司波圖](https://www.youtube.com/@SpotoTsui)
+
+[Youtube：錢韋德](https://www.youtube.com/@qianweide)
 
 [Youtube：TechnoTim](https://www.youtube.com/@TechnoTim)
 

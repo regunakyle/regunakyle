@@ -10,7 +10,7 @@ date = "2024-01-20"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年8月11日）
+（本文最後更新時間：2025年1月26日）
 
 {{< figure src="./Cover.jpg" caption="圖片來源：Synology官網" >}}
 
@@ -48,7 +48,7 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 **做咗備份仲要定時檢查備份完整性**，例如試下還原去其他地方睇下讀唔讀到啲資料。咪去到真係出事然後備份又死埋，個時就只能怪自己。
 
-**3-2-1備份法則**：3份數據、2種儲存媒介、1份存於異地。可以先從雲端存儲或外置硬碟入手。
+**3-2-1備份法則**：3份數據、2種儲存媒介、1份存於異地。新手可以先從雲端存儲或外置硬碟入手。
 
 **注意RAID並非備份，且不能取代備份。重要數據一定要做好備份。**
 
@@ -146,7 +146,7 @@ Byte既簡寫係大階B（例如KB/MB/GB/TB），Bit既簡寫係細階b（例如
 
 仲有款單位叫Kibibyte/Mebibyte/Gibibyte/Tebibyte（簡寫為KiB/MiB/GiB/TiB），分別代表1024/1024^2/1024^3/1024^4個Byte。
 
-Windows及Linux顯示既MB/GB/TB其實係MiB/GiB/TiB，但硬碟廠標示既就真係1000個隻MB/GB/TB，所以會出現1TB硬碟係電腦顯示容量細過1TB既情況。
+Windows及Linux顯示既MB/GB/TB其實係MiB/GiB/TiB，但硬碟廠標示既就真係1000個隻MB/GB/TB，所以會出現「1TB」硬碟係電腦顯示容量細過1TB既情況。
 
 {{< /notice >}}
 
@@ -156,7 +156,7 @@ Windows及Linux顯示既MB/GB/TB其實係MiB/GiB/TiB，但硬碟廠標示既就�
 
 {{< figure src="./VPN.jpg" >}}
 
-**[Tailscale](https://tailscale.com/)對新手黎講係最好選擇：無需做Port forwarding，安裝超級簡單（[Synology](https://tailscale.com/kb/1131/synology#install-using-synology-package-center)/[QNAP](https://tailscale.com/kb/1273/qnap)教學），而且安裝步驟唔繁複，可以好快完成。新手唔知揀咩/唔想研究既話可以先試Tailscale。**
+**[Tailscale](https://tailscale.com/)對新手黎講係最好選擇：無需做Port forwarding，安裝超級簡單（[Synology](https://tailscale.com/kb/1131/synology#install-using-synology-package-center)/[QNAP](https://tailscale.com/kb/1273/qnap)教學）。新手唔知揀咩/唔想研究既話可以先試Tailscale。**
 
 追求性能既話可選擇[Wireguard](https://www.wireguard.com/)。Wireguard比OpenVPN[快勁多](https://www.wireguard.com/performance/)，但要較新既家用路由器先有支持。
 
@@ -330,7 +330,7 @@ TV stick：[Google Chromecast](https://store.google.com/tw/product/chromecast_go
 
 另外：如果你用PC/手機/電視瀏覽器睇唔到片既話，可以試下用Plex/Jellyfin既官方程式或[VLC](https://www.videolan.org/)。
 
-[延伸閱讀：Best Kodi Media Player Options 2024](https://forum.kodi.tv/showthread.php?tid=376035)
+[延伸閱讀：Best Kodi Media Player Options 2025](https://forum.kodi.tv/showthread.php?tid=376035)
 
 {{< detail "轉碼知多啲" >}}
 你啲片既格式（MP4/MKV/WebM等）其實係Container格式黎，佢地入面裝住咗Video/Audio/Subtitle，三者分別有自己獨特既格式。

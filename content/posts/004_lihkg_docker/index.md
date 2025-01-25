@@ -12,7 +12,7 @@ date = "2024-01-21"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2024年8月11日）
+（本文最後更新時間：2025年1月26日）
 
 {{< figure src="./Cover.webp" >}}
 
@@ -51,7 +51,7 @@ Docker本身會提供一定保護，例如你冇Mount volume既話容器（Conta
 
 **容器（Container）** 係實際行緊既程式，由映像產生出黎。一個映像可以生成多個同一樣既容器。
 
-可以類比：Docker係印鈔機，映像係鈔票模板，容器係實際印出黎比你用既鈔票。
+可以類比：Docker係印鈔機，映像係鈔票模板，容器係實際印出黎既鈔票。
 
 {{< /notice >}}
 
@@ -155,7 +155,7 @@ networks:
 {{< notice tip "Synocommunity（第三方管理工具）" >}}
 如果你熟Linux指令行既話，SSH入Synology DSM時會發現好多常用既工具都冇，例如`iperf3`、`tmux`、`nano`、`less`全部冇 :joy:
 
-呢個時候可以用[Synocommunity](https://https://synocommunity.com/)既套件：呢個軟件庫係一眾熱心人士整既，已經有至少10年歷史；入面除咗指令行工具外亦有其他如Jellyfin、Borg、Cloudflared等套件，可以睇下。
+呢個時候可以用[Synocommunity](https://synocommunity.com/)既套件：呢個軟件庫係一眾熱心人士整既，已經有至少10年歷史；入面除咗指令行工具外亦有其他如Jellyfin、Borg、Cloudflared等套件，可以睇下。
 
 如果你信唔過第三方軟件庫既話，可以自己直接撈原始碼落黎做Static build，再上載去部NAS到用。
 
@@ -179,7 +179,7 @@ Selfhost圈子入面最熱門既內容。
 
 用家先係Sonarr/Radarr指定想睇咩劇集/電影，然後Sonarr/Radarr去唔同網站撈種（Prowlarr做種子整合），再叫qBittorrent去下載，下載完就可以係Plex/Jellyfin到睇。
 
-[延伸閱讀：Sonarr/Radarr官方文檔](https://lih.kg/2447243)
+[延伸閱讀：Sonarr/Radarr官方文檔](https://wiki.servarr.com/)
 
 {{< notice tip "Private tracker" >}}
 最新既電影/劇集等比較容易係公海撈到種，而較舊或冷門既資源可能好難搵。
@@ -290,7 +290,7 @@ RSS訂閱聚合（[FreshRSS](https://freshrss.org/)/[Tiny Tiny RSS](https://tt-r
 
 [多人遊戲伺服器](https://github.com/GameServerManagers/docker-gameserver)（ARK/Barotrauma/CS2/Factorio/Minecraft/Palworld/Terraria/TF2等等，太多不能盡錄）
 
-自製Cloud Gaming Server（[Wolf](https://games-on-whales.github.io/wolf/stable/index.html)）
+自製Cloud Gaming Server（[Wolf](https://games-on-whales.github.io/wolf/stable/index.html)/[Sunshine](https://app.lizardbyte.dev/Sunshine/)）
 
 自動Steam掛卡（[Archisteamfarm](https://github.com/JustArchiNET/ArchiSteamFarm/wiki/Docker)）
 
@@ -301,8 +301,6 @@ Grammarly翻版（[Languagetool](https://github.com/languagetool-org/languagetoo
 [Reddit：r/Selfhosted](https://www.reddit.com/r/selfhosted/)
 
 [Github：Awesome Selfhosted](https://github.com/awesome-selfhosted/awesome-selfhosted)
-
-[This Week in Self-Hosted](https://selfh.st/)（Self host軟件新聞）
 
 ## [按我進入下一章](../005_lihkg_homelab/)
 
