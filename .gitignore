@@ -14,3 +14,4 @@ hugo.linux
 
 # General
 /.vscode/
+.continuerc.json

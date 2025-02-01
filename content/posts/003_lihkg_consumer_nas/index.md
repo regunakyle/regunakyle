@@ -38,6 +38,12 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 如果識野/想學野既話，可以考慮自組。
 
+[Synology NAS選擇器](https://www.synology.com/zh-hk/support/nas_selector)
+
+[QNAP NAS選擇器](https://www.qnap.com/zh-hk/selector/nas-selector)
+
+[ASUSTOR NAS選擇器](https://www.asustor.com/zh-tw/services/nas_selector)
+
 ## QNAP好似經常出事（如勒索軟件），係咪唔買得？
 
 **唔係**。只要唔將部NAS放出街，咩牌子既NAS其實都差唔多咁安全。
