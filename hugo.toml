@@ -36,6 +36,21 @@ hidecolorschemetoggle = true
 
 customCSS = ["detail.css"]
 
+[params.giscus] # https://giscus.app
+repo = "regunakyle/regunakyle"
+repoID = "R_kgDOJKgcVA"
+category = "Giscus"
+categoryID = "DIC_kwDOJKgcVM4Cmp3c"
+mapping = "og:title"
+term = ""
+strict = "1"
+reactionsEnabled = "0"
+emitMetadata = "0"
+inputPosition = "top"
+theme = "preferred_color_scheme"
+lang = "en"
+loading = "lazy"
+
 [taxonomies]
 category = "categories"
 series = "series"
