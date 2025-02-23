@@ -15,9 +15,9 @@ date = "2099-01-31"
 
 半年過去，ChatGPT/GPT-4打起了名堂，成為了全球熱話。與此同時，Meta發佈了自己的LLM：LLaMA（*Large Language Model Meta AI* ）。Meta要求用戶填表才能下載LLaMA，但有好事之人[直接將BitTorrent連結放上LLaMA的Github上](https://github.com/meta-llama/llama/pull/73)，令人捧腹大笑的同時更是開創了Self-host LLM的熱潮。
 
-作為Self-host愛好者，我緊跟著LLaMA的新聞，也試過自行編譯[llama.cpp](https://github.com/ggerganov/llama.cpp)去運行LLM。那時LLaMA的 自然沒有之後我就開始關注Self-hosted AI，不過。
+[llama.cpp](https://github.com/ggerganov/llama.cpp)的推出使Self-hosted LLaMA的熱潮爆發，幾乎每一星期就有一個基於LLaMA的新模型推出。作為Self-host愛好者，我馬上緊跟LLaMA的新聞，也試過自行編譯`llama.cpp`去運行LLM。
 
-當時熱情過頭，於是去二手市場買了一張3090，然後試玩了text-generation-webui，但由於沒有更好的Frontend工具，所以放置成為了Cloud gaming sunshine server。直至後來Continue dev和tabbyAPI推出後，我才重新開始用GPU跑LLM，現在每天使用這些工具確實提升了我的生產力。
+當時熱情過頭，於是去二手市場買了一張3090，然後試玩了[text-generation-webui](https://github.com/oobabooga/text-generation-webui)。但由於沒有更好的Frontend工具，所以將3090放置成為了[Sunshine](https://app.lizardbyte.dev/Sunshine/)雲端遊戲伺服器。直至後來[Continue](https://www.continue.dev/)和[tabbyAPI](https://github.com/theroyallab/tabbyAPI)推出後，我才重新開始用GPU跑LLM，現在每天使用這些工具確實提升了我的生產力。
 
 ## 為甚麼要Self-host LLM？用付費LLM服務不是更方便嗎？
 
@@ -26,8 +26,8 @@ date = "2099-01-31"
 我能想到Self-host LLM的原因有以下：
 
 1. 你對Self-host有熱誠/想學習（這是我的原因）
-2. 你希望用一個沒有censorship的model (例子)
-3. 你/你公司的資料機密，同時不信任第三方AI服務安全性
+2. 你希望用一個沒有自我審查的模型 ([例子](https://www.reddit.com/r/LocalLLaMA/comments/149su0a/a_short_conversation_with_falcon/))
+3. 你需要機密資料作查詢，同時又不信任第三方AI服務安全性
 
 如果你選擇用第三方LLM服務（即OpenAI/Claude/Deepseek/OpenRouter等），你可直接跳去本文討論[Frontend](#frontend)項：我所提及的工具全部都可以選擇用第三方LLM服務，不一定要用Self-hosted LLM。
 
@@ -122,6 +122,7 @@ networks:
     name: ollama-network
 ```
 
+<https://mistral.ai/news/codestral-2501/>
 subset of my vscode config
 
 ```json

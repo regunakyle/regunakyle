@@ -290,7 +290,7 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
 
 到此**VFIO**虛擬機安裝已完成。如果你不打算安裝**Looking Glass**，可直接[跳過下一部分](#雜項)。
 
-純**VFIO**應該還有其他設定要做（例如[設定evdev](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Passing_keyboard/mouse_via_Evdev)），請自己做功課，在此不作說明。
+純**VFIO**應該還有其他設定要做（例如[設定evdev](https://wiki.archlinux.org/title/PCI_passthrough_via_OVMF#Passing_keyboard/mouse_via_Evdev)和[ddcutil](https://www.ddcutil.com/)快速切換螢幕輸出），請自己做功課，在此不作說明。
 
 ### Looking Glass設定
 
