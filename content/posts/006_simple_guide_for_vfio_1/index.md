@@ -8,7 +8,7 @@ date = "2024-06-01"
 
 {{< css "/css/chinese.css" >}}
 
-（本文最後更新時間：2025年1月2日）
+（本文最後更新時間：2025年5月6日）
 
 ## 前言
 
@@ -50,7 +50,7 @@ date = "2024-06-01"
 
 ### 硬件選擇
 
-[Looking Glass硬件要求](https://looking-glass.io/docs/B7-rc1/requirements/)
+[Looking Glass硬件要求](https://looking-glass.io/docs/B7/requirements/)
 
 [我的電腦配置](https://pcpartpicker.com/list/MBgG4M)
 
@@ -116,6 +116,8 @@ done
 
 所謂*Reset bug* 即是硬件沒有Reset功能，**無法在虛擬機關機時正確地重置**，使其處於一個"假死"狀態。在這個狀態下的硬件會令你不能重新啟動**VFIO**虛擬機，必須將整個宿主機重啟才能再次啟動它。
 
+有時*Reset bug* 甚至會令整個宿主機卡死（我試過），只能強行關掉電腦解決。
+
 上部分檢查IOMMU組的腳本可同時檢查硬件有沒有Reset功能。如果你的AMD顯示卡沒有Reset功能，可以看看[Vendor Reset](https://github.com/gnif/vendor-reset)支不支持你的顯示卡，它可為部分AMD顯示卡添加Reset功能。
 
 （AMD連企業用的AI運算顯示卡都沒有Reset功能，令一眾企業客戶大呼中伏。但據說情況[正在](https://www.reddit.com/r/Amd/comments/1bsjm5a/letter_to_amd_ongoing_amd/)[改善](https://forum.level1techs.com/t/the-state-of-amd-rx-7000-series-vfio-passthrough-april-2024/210242)）
@@ -135,11 +137,11 @@ done
 {{< notice warning "注意" >}}
 Windows有個怪問題：顯示卡要接上螢幕才有畫面輸出。如果你*虛擬機卡* 沒有接上螢幕，Windows就不會輸出畫面，這樣情況下**Looking Glass**就不能捕捉到你遊戲畫面。
 
-正常情況下*宿主機卡* 接上螢幕後，Windows就能正常輸出畫面。但有些螢幕不接受多重輸入，只接受當前你選擇的輸入源，這樣的螢幕即使接上了*宿主機卡* 也不能輸出Windows（我現在用的Acer NITRO XV275K就有這問題）。
+正常情況下*宿主機卡* 接上螢幕後，Windows就能正常輸出畫面。但有些螢幕不接受多重輸入，只接受當前你選擇的輸入源，*宿主機卡* 即使接上了這樣的螢幕也不能輸出Windows（我現在用的Acer NITRO XV275K P3就有這問題）。
 
 如你螢幕有這問題，那你就要去買一個EDID模擬器（或稱*顯卡欺騙器* ），藉此讓Windows認為成功接上了螢幕並輸出畫面。
 
-我自己買了一個[4K/60Hz的HDMI EDID模擬器](https://detail.tmall.com/item.htm?id=733555832782)，然後安裝[Custom Resolution Utility（CRU）](https://www.monitortests.com/forum/Thread-Custom-Resolution-Utility-CRU)，並於[此處](https://github.com/Nonary/documentation/blob/main/dummy.bin?raw=true)下載EDID檔，然後在CRU套用。最後開啟Nvidia Control Panel，選擇自訂解像度為4K/120Hz。
+我自己買了一個[4K/60Hz的HDMI EDID模擬器](https://detail.tmall.com/item.htm?id=733555832782)，然後安裝[Custom Resolution Utility（CRU）](https://www.monitortests.com/forum/Thread-Custom-Resolution-Utility-CRU)，並於[此處](https://github.com/Nonary/documentation/blob/main/dummy.bin?raw=true)下載EDID檔，然後在CRU套用。如你需要高於4K/60Hz的分辨/刷新率，那你要買DisplayPort的EDID模擬器（淘寶約150人民幣）。
 
 如不想用EDID模擬器，可看看[虛擬EDID模擬器](https://github.com/VirtualDisplay/Virtual-Display-Driver)。我自己沒用過，**Looking Glass**官方亦不鼓勵使用它（**Looking Glass**將於下一版本寫一個高性能的虛擬EDID模擬器，但短期內應不會推出）。
 

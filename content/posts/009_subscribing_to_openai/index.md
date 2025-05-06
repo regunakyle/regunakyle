@@ -257,7 +257,10 @@ reboot
 3. `Name`填任意值（如`AI`），然後`Remote addresses / domains`填以下：
 
 ```bash
-anthropic.com claude.ai claudeusercontent.com servd-anthropic-website.b-cdn.net ai.com chatgpt.com chat.com oaistatic.com oaiusercontent.com openai.com openai.com.cdn.cloudflare.net openaiapi-site.azureedge.net openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net openaicomproductionae4b.blob.core.windows.net production-openaicom-storage.azureedge.net sora.com
+anthropic.com claude.ai claudeusercontent.com servd-anthropic-website.b-cdn.net ai.com 
+chatgpt.com chat.com oaistatic.com oaiusercontent.com openai.com openai.com.cdn.cloudflare.net 
+openaiapi-site.azureedge.net openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net 
+openaicomproductionae4b.blob.core.windows.net production-openaicom-storage.azureedge.net sora.com
 ```
 
 4. `Interface`選擇你的Wireguard介面

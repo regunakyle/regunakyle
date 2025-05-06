@@ -280,12 +280,4 @@ Intel卡支持相當多媒體格式，低能耗，有啲型號甚至係半高/�
 
 [Youtube：Lawrence Systems](https://www.youtube.com/@LAWRENCESYSTEMS)
 
-## 鳴謝
-
-多謝你睇到最後！
-
-特別鳴謝連登Homelab post既一眾巴打，大家既討論令我學到好多野。
-
-如果你冇睇連登Homelab post，歡迎你入黎一齊吹下水，交流下技術 :men_wrestling: 。
-
 ## [返回主目錄](../../categories/連登homelab系列/)

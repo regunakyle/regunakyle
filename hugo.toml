@@ -5,11 +5,12 @@ defaultcontentlanguage = "en"
 
 enableRobotsTXT = true
 
-paginate = 20
-
 enableEmoji = true
 
 pluralizelisttitles = false
+
+[pagination]
+pagerSize = 20
 
 [services]
 [services.googleAnalytics]
@@ -20,7 +21,7 @@ style = "github-dark"
 
 [params]
 author = "Eric Leung"
-info = "Aspiring Full Stack Developer"
+info = "Aspiring Full Stack Developer & Hacker"
 description = "Eric Leung's personal website"
 keywords = "blog,developer,personal"
 avatarurl = "https://github.com/regunakyle.png"

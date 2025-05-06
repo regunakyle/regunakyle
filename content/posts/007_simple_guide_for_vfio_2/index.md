@@ -10,11 +10,11 @@ date = "2024-06-02"
 
 [按我返回上一篇文章](../006_simple_guide_for_vfio_1/)
 
-（本文最後更新時間：2024年8月11日）
+（本文最後更新時間：2025年5月6日）
 
 ### VFIO虛擬機及Looking Glass設定
 
-**本文假設你的電腦已經安裝最新版本的Fedora**（現時是40）。
+**本文假設你的電腦已經安裝最新版本的Fedora**（現時是42）。
 
 我用的是[KDE版本](https://fedoraproject.org/spins/kde/download)，但本教學應同時適用於[GNOME版本](https://fedoraproject.org/workstation/)（即*Workstation* ）。注意**不要安裝不可變（Immutable）版本**（Fedora稱之為*Atomic Desktop* ），例如[Silverblue](https://fedoraproject.org/atomic-desktops/silverblue/)和[Kinoite](https://fedoraproject.org/atomic-desktops/kinoite/)。
 
@@ -294,15 +294,15 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
 
 ### Looking Glass設定
 
-本部分請配合[Looking Glass官方安裝文檔（B7-rc1）](https://looking-glass.io/docs/B7-rc1/install_libvirt/)一并閱讀。
+本部分請配合[Looking Glass官方安裝文檔（B7）](https://looking-glass.io/docs/B7/install_libvirt/)一并閱讀。
 
 官方文檔簡潔易明（至少比**VFIO**的教學更容易理解），所以我只提供較簡要的教學。一切以官方教學為準。
 
-1. 官方教學之[Install Libvirt](https://looking-glass.io/docs/B7-rc1/install_libvirt/)：
-    - 根據[Determining memory](https://looking-glass.io/docs/B7-rc1/install_libvirt/#determining-memory)一節去計算所需RAM量並記下
+1. 官方教學之[Install Libvirt](https://looking-glass.io/docs/B7/install_libvirt/)：
+    - 根據[Determining memory](https://looking-glass.io/docs/B7/install_libvirt/#determining-memory)一節去計算所需RAM量並記下
     - 根據以下部分內容修改虛擬機XML：
-        1. [Keyboard/mouse/display/audio](https://looking-glass.io/docs/B7-rc1/install_libvirt/#keyboard-mouse-display-audio)
-        2. [Clipboard synchronization](https://looking-glass.io/docs/B7-rc1/install_libvirt/#clipboard-synchronization)（如XML中已有文檔提及的部分，則可跳過此步）
+        1. [Keyboard/mouse/display/audio](https://looking-glass.io/docs/B7/install_libvirt/#keyboard-mouse-display-audio)
+        2. [Clipboard synchronization](https://looking-glass.io/docs/B7/install_libvirt/#clipboard-synchronization)（如XML中已有文檔提及的部分，則可跳過此步）
 
 2. 安裝[編譯依賴](https://looking-glass.io/wiki/Installation_on_other_distributions#Fedora_35.2B)：
 
@@ -315,11 +315,14 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
         libdecor-devel pipewire-devel libsamplerate-devel git
     ```
 
-3. 官方教學之[Building](https://looking-glass.io/docs/B7-rc1/build/):
+3. 官方教學之[Building](https://looking-glass.io/docs/B7/build/):
     - 找一個空白文件夾，入內開啟終端程式並用Git下載**Looking Glass**源代碼（下稱*LG文件夾* ）：
 
         ```bash
         git clone --recurse-submodules https://github.com/gnif/LookingGlass.git
+        # 切換到B7分支。如你需要最新版本，可跳過此步
+        cd LookingGlass
+        git checkout B7
         ```
 
     - 於*LG文件夾* 內的`client`文件夾內創建`build`文件夾並入內開啟終端程式
@@ -334,14 +337,14 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
 {{< notice error "注意" >}}
 如果你的*宿主機卡* 是NVIDIA，而又選擇用官方閉源的驅動程式的話，可能用不了KVMFR module。
 
-可以試試照常執行下方步驟。但如果行不通，請改用[IVSHMEM with standard shared memory](https://looking-glass.io/docs/B7-rc1/ivshmem_shm/)。
+可以試試照常執行下方步驟。但如果行不通，請改用[IVSHMEM with standard shared memory](https://looking-glass.io/docs/B7/ivshmem_shm/)。
 
 用這方法的話，[請跳過下方步驟](#雜項)，並根據官方教學自行安裝。(這方法應比安裝KVMFR簡單一點)
 
 （用開源的驅動程式的話應可用KVMFR module）
 {{< /notice >}}
 
-4. 官方教學之[IVSHMEM with the KVMFR module](https://looking-glass.io/docs/B7-rc1/ivshmem_kvmfr/)：
+4. 官方教學之[IVSHMEM with the KVMFR module](https://looking-glass.io/docs/B7/ivshmem_kvmfr/)：
 
     - 安裝[編譯依賴](https://looking-glass.io/wiki/Installation_on_other_distributions#Installing_Additional_Dependencies_for_Kernel_Module_Build)：
 
@@ -383,7 +386,7 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
 
             **（修改後先別儲存）**
 
-        2. 於XML最後（即`</domain>`前）添加以下內容：
+        2. 於XML最後（即`</domain>`前）添加以下內容，然後儲存：
 
             ```xml
             <qemu:commandline>
@@ -438,7 +441,7 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
 
 6. 啟動**VFIO**虛擬機：
     - 如果*virt-manager* 顯示虛擬機黑屏，請先把螢幕輸出轉至*虛擬機卡* 插螢幕的插口，再繼續操作
-    - 於[此處](https://looking-glass.io/downloads)下載**Bleeding Edge**的*Windows Host Binary* 並安裝
+    - 於[此處](https://looking-glass.io/downloads)下載合適版本的的*Windows Host Binary* 並安裝
     - 於[此處](https://www.spice-space.org/download.html#windows-binaries)下載*spice-guest-tools* 並安裝（安裝後虛擬機和宿主機可共享剪貼簿）
     - 確保**Looking Glass**服務正在運行：
         1. 於虛擬機內按`WIN+R`，輸入`services.msc`並執行
@@ -458,7 +461,7 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
         micDefault=deny
         ```
 
-        （可於[此處](https://looking-glass.io/docs/B7-rc1/usage/#all-command-line-options)查看所有設定項）
+        （可於[此處](https://looking-glass.io/docs/B7/usage/#all-command-line-options)查看所有設定項）
 
     - 執行`looking-glass-client`，如能看到虛擬機畫面及操作它，則大功告成
 
@@ -480,7 +483,7 @@ escapeKey=KEY_RIGHTALT
 
 執行`looking-glass-client input:escapeKey=help`以查看可設做*Escape key* 的所有鍵。
 
-[Looking Glass客戶端官方使用教學](https://looking-glass.io/docs/B7-rc1/usage/)
+[Looking Glass客戶端官方使用教學](https://looking-glass.io/docs/B7/usage/)
 
 {{< /notice >}}
 
@@ -488,7 +491,7 @@ escapeKey=KEY_RIGHTALT
 
     **Looking Glass**有個OBS插件可讓你將整個虛擬機的畫面投射到OBS上。
 
-    安裝很簡單（[官方OBS插件安裝教學](https://looking-glass.io/docs/B7-rc1/obs/)）：
+    安裝很簡單（[官方OBS插件安裝教學](https://looking-glass.io/docs/B7/obs/)）：
 
     1. 安裝OBS；例如安裝[Flatpak版](https://flathub.org/apps/com.obsproject.Studio)：
 
@@ -614,7 +617,7 @@ nmcli con add type bridge-slave autoconnect yes con-name eth0 ifname eth0 master
    - 如仍有*kvmfr* 項，執行`sudo rm -rf /var/lib/dkms/kvmfr`
    - 執行`sudo dkms install "."`
 
-5. 啟動**VFIO**虛擬機，於[此處](https://looking-glass.io/downloads)下載**Bleeding Edge**的*Windows Host Binary* 並安裝
+5. 啟動**VFIO**虛擬機，於[此處](https://looking-glass.io/downloads)下載合適版本的*Windows Host Binary* 並安裝
 
 6. 如安裝了OBS插件，進入`obs`內的`build`文件夾，執行以下指令：
 
@@ -649,7 +652,7 @@ nmcli con add type bridge-slave autoconnect yes con-name eth0 ifname eth0 master
    - 於`Boot Options`勾選`Start virtual machine on host boot up`
    - 不安裝任何桌面環境
 
-4. 安裝後，在啟動時的Grub畫面中按`UEFI Firmware Settings`，然後將`Device Manager`=>`Secure Boot Configuration`=>`Attempt Secure Boot`取消掉，然後按幾次`ESC`返回首頁，再按`Reset`
+4. （如你選擇用UEFI）安裝後，在啟動時的Grub畫面中按`UEFI Firmware Settings`，然後將`Device Manager`=>`Secure Boot Configuration`=>`Attempt Secure Boot`取消掉，然後按幾次`ESC`返回首頁，再按`Reset`
 5. 在這虛擬機上安裝*虛擬機卡* 的官方驅動程式（[Debian安裝NVIDIA驅動教學](https://wiki.debian.org/NvidiaGraphicsDrivers)），然後重啟虛擬機
 6. 執行`nvidia-smi`，如看到顯示卡資訊則成功
 

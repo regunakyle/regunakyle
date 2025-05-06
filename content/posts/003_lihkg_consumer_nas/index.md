@@ -162,18 +162,20 @@ Windows及Linux顯示既MB/GB/TB其實係MiB/GiB/TiB，但硬碟廠標示既就�
 
 {{< figure src="./VPN.jpg" >}}
 
-**[Tailscale](https://tailscale.com/)對新手黎講係最好選擇：無需做Port forwarding，安裝超級簡單（[Synology](https://tailscale.com/kb/1131/synology#install-using-synology-package-center)/[QNAP](https://tailscale.com/kb/1273/qnap)教學）。新手唔知揀咩/唔想研究既話可以先試Tailscale。**
+**[Tailscale](https://tailscale.com/)對新手黎講係最好選擇：無需做Port forwarding，安裝超級簡單（[Synology](https://tailscale.com/kb/1131/synology#install-using-synology-package-center)/[QNAP](https://tailscale.com/kb/1273/qnap)教學）。**
+
+**新手唔知揀咩/唔想研究既話，建議直接選用Tailscale。**
 
 追求性能既話可選擇[Wireguard](https://www.wireguard.com/)。Wireguard比OpenVPN[快勁多](https://www.wireguard.com/performance/)，但要較新既家用路由器先有支持。
 
 再唔係就OpenVPN，好多較舊既家用路由器都有支持。
 
-如果選擇用Wireguard/OpenVPN（要做Port forwarding），我建議你**只放VPN一個Port出街**，屋企其他Service全部透過VPN使用。
+如果選擇用Wireguard/OpenVPN，就要做Port forwarding。我建議你**只放VPN一個Port出街**，屋企其他Service全部透過VPN使用。
 
 {{< notice tip "Tailscale直連" >}}
 Tailscale有兩種連接方法：直連或用佢地既中繼伺服器（DERP）。Tailscale會做Hole punching並藉此令你部機同屋企部NAS可以直連，失敗既話先會用DERP：直連速度快，DERP就非常慢。
 
-理想情況係唔洗做野就可以直連。要測試既話可以用手機流量係NAS下載大檔案睇速度（我用4G LTE行到35Mb/s），或者SSH入部NAS打`tailscale status`（睇下佢顯示`relay`還是`direct`）。
+理想情況係乜都唔做就可以直連。要測試既話可以用手機流量係NAS下載大檔案睇速度（我用4G LTE行到35Mb/s），或者SSH入部NAS打`tailscale status`（睇下佢顯示`relay`還是`direct`）。
 
 如果做唔到直連既話，可以嘗試做Port forwarding（路由器`41641/udp`放NAS既`41641/udp`）。
 
