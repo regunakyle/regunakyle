@@ -1,6 +1,6 @@
 # Welcome to my Github repository
 
-Check [my blog](https://regunakyle.github.io/regunakyle/) for information about me and my technical writings.
+Check [my blog](https://www.ericleung.dev/) for information about me and my technical writings.
 
 Other ways to contact me:
 
@@ -8,4 +8,4 @@ Other ways to contact me:
 
 [Telegram](https://t.me/regunakyle)
 
-Email me at `yatkinleung [at] hotmail [dot] com`.
+Email me at `contact [at] ericleung [dot] dev`.
