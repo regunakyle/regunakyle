@@ -203,7 +203,7 @@ S牌DSM個Linux底太舊，用唔到Wireguard。你可以嘗試自己[裝Wiregua
 
 香港唔少寬頻供應商都會派Public IP，但通常係浮動IP（即自己會轉；通常係重啟光纖盒先會轉）。
 
-先去路由器搵下自己WAN/Public IP係咩，再去[呢到](https://www.whatismyip.com/)顯示既IP做比較。如果兩者一樣，咁呢個就係你既Public IP；但唔一樣就代表你冇Public IP。有兩個可能性：
+先去路由器搵下自己WAN/Public IP係咩，再去[呢到](https://radar.cloudflare.com/ip)顯示既IP做比較。如果兩者一樣，咁呢個就係你既Public IP；但唔一樣就代表你冇Public IP。有兩個可能性：
 
 1. 你部Modem係Modem+Router一體機，行緊Router mode。解決方法係轉做橋接模式（Bridge mode），可以打電話去寬頻供應商搵師傅搞
 2. 你寬頻行緊[CGNAT](https://en.wikipedia.org/wiki/Carrier-grade_NAT)（如果你路由器顯示IP係`100.x.y.z`既話就極有可能係）。CGNAT係國外較常見；就我理解，香港駁網線或光纖既寬頻唔會行CGNAT

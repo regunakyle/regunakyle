@@ -564,11 +564,11 @@ sudo virsh define vfio.xml
 ```bash
 nmcli con add type bridge autoconnect yes con-name br0 ifname br0 stp no
 # 以DHCP方式連接br0
-# 如有需要，可改成`ipv4.method manual`並手動設定（請自行Google設定方法）
+# 如有需要，可手動設定IP/DNS/Gateway（請自行Google設定方法）
 nmcli con modify br0 ipv4.method auto
-# 將下兩行的eth0改成你的有線乙太網絡的名稱
-nmcli con del eth0
-nmcli con add type bridge-slave autoconnect yes con-name eth0 ifname eth0 master br0
+# 將下兩行的<eth0>改成你的有線乙太網絡的名稱
+nmcli con del <eth0>
+nmcli con add type bridge-slave autoconnect yes con-name <eth0> ifname <eth0> master br0
 ```
 
 3. 重啟電腦
@@ -649,10 +649,14 @@ nmcli con add type bridge-slave autoconnect yes con-name eth0 ifname eth0 master
 
    - 提供極少資源（我只提供單核/兩線程和512MB RAM）
    - 傳入**VFIO**虛擬機使用的*虛擬機卡*
+   - Firmware選擇*UEFI* 以增加*虛擬機卡* 的穩定性
    - 於`Boot Options`勾選`Start virtual machine on host boot up`
    - 不安裝任何桌面環境
 
 4. （如你選擇用UEFI）安裝後，在啟動時的Grub畫面中按`UEFI Firmware Settings`，然後將`Device Manager`=>`Secure Boot Configuration`=>`Attempt Secure Boot`取消掉，然後按幾次`ESC`返回首頁，再按`Reset`
+
+    （有時你要在安裝**前**就將Secure Boot取消掉，不然無法順利安裝）
+
 5. 在這虛擬機上安裝*虛擬機卡* 的官方驅動程式（[Debian安裝NVIDIA驅動教學](https://wiki.debian.org/NvidiaGraphicsDrivers)），然後重啟虛擬機
 6. 執行`nvidia-smi`，如看到顯示卡資訊則成功
 
