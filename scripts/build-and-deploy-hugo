@@ -1,0 +1,56 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+    echo "Error: No domain name was provided."
+    exit 1
+fi
+
+REGEX_DOMAIN="^([a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9]\.)+[a-zA-Z]{2,}$"
+
+if [[ ! "$1" =~ $REGEX_DOMAIN ]]; then
+    echo "Error: The provided domain name \"$1\" is not valid."
+    exit 1
+fi
+
+if [ -z "$2" ]; then
+    echo "Error: Hugo version was not provided."
+    exit 1
+fi
+
+REGEX_HUGO_VERSION="^v([0-9]+\.){2,2}[0-9]+$"
+
+if [[ ! "$2" =~ $REGEX_HUGO_VERSION ]]; then
+    echo "Error: The provided Hugo version \"$2\" is not valid. Example: v0.142.0."
+    exit 1
+fi
+
+echo "You are building for the website \"$1\" with Hugo version \"$2\"."
+
+touch /opt/hugo_workspace/build.log
+
+CURRENT_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+echo "$CURRENT_TIME - Build started for domain \"$1\" with Hugo version \"$2\"." >>/opt/hugo_workspace/build.log
+
+set -euxo pipefail
+
+mkdir -p /opt/hugo_workspace
+
+# Pull early to raise early in case there's an issue with podman.
+podman pull "ghcr.io/gohugoio/hugo:$2"
+
+rm -rf "/opt/hugo_workspace/$1" || true
+
+git clone --recurse-submodules --shallow-submodules --depth 1 https://github.com/regunakyle/regunakyle.git "/opt/hugo_workspace/$1"
+
+podman run --rm -v "/opt/hugo_workspace/$1:/project" -u=0 "hugo:$2" --gc --minify --baseURL "https://$1"
+
+rm -rf "/var/www/$1" || true
+
+mv -T "/opt/hugo_workspace/$1/public" "/var/www/$1"
+
+set +x
+
+echo "Deployment completed successfully for domain \"$1\"."
+
+CURRENT_TIME=$(date +"%Y-%m-%d %H:%M:%S")
+echo "$CURRENT_TIME - Build completed successfully for domain \"$1\" with Hugo version \"$2\"." >>/opt/hugo_workspace/build.log

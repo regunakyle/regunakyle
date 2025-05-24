@@ -12,16 +12,12 @@ pluralizelisttitles = false
 [pagination]
 pagerSize = 20
 
-[services]
-[services.googleAnalytics]
-ID = 'G-7G8KK1FRKB'
-
 [markup.highlight]
 style = "github-dark"
 
 [params]
 author = "Eric Leung"
-info = "Aspiring Full Stack Developer & Hacker"
+info = "Aspiring Full Stack Developer"
 description = "Eric Leung's personal website"
 keywords = "blog,developer,personal"
 avatarurl = "https://github.com/regunakyle.png"
@@ -71,10 +67,10 @@ icon = "fa-2x fa-brands fa-discord"
 weight = 20
 url = "https://discordapp.com/users/263243377821089792"
 [[params.social]]
-name = "Telegram"
-icon = "fa-2x fa-brands fa-telegram"
+name = "Email"
+icon = "fa-2x fa-solid fa-envelope"
 weight = 30
-url = "https://t.me/regunakyle"
+url = "mailto:contact@ericleung.dev"
 [[params.social]]
 name = "RSS"
 icon = "fa-2x fa-solid fa-square-rss"
