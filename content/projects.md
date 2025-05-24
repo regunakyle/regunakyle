@@ -2,7 +2,7 @@
 title = "My Projects"
 author = "Eric Leung"
 description = "Introducing my side projects"
-date = "2023-04-09"
+date = "2025-05-24"
 +++
 
 ## Completed
@@ -19,16 +19,26 @@ It is a fun game, and demands strategic planning rather than luck. I recommend y
 
 A Discord bot written in Python using [Discord.py](https://discordpy.readthedocs.io/en/stable/). Docker version available [here](https://hub.docker.com/r/regunakyle/my-discord-bot).
 
-It can send you notification about free game giveaways and also play Youtube music in voice chats :musical_note:.
+It can send you notification about free game giveaways and also play Youtube music in voice chats.
 
-There are plans to integrate a self-hosted :llama: *LLaMA* model with it, but I need to buy better hardware for my home server first.
+It is also a LLM chat client: currently users can interact with my self-hosted Qwen2.5-Coder instance with the Discord bot.
 
 ## In Development
 
-### VTuber Discovery Channel
+### Domain Waitlist Web
 
-A clone of [vtuber.hk](https://vtuber.hk/), the so-called *DD-site*. Written with React and Spring Boot.
+A simple webapp that query domain information with the new RDAP protocol.
 
-The idea did not come from me: someone wanted to create their own *DD-site* because she thought the site was hostile to new VTubers, and her friend asked me for help.
+If the domain is unavailable, user can put it on a waitlist. The server will query the domain periodically, and notify the user if the domain becomes available.
 
-Personally I do not watch VTubers, but I found the idea interesting enough for me to work on it.
+Written in Java with Spring Boot. Frontend is written with React Router v7.
+
+### Android Hant-to-Hans Translation Context Menu
+
+A simple Android app that add an button in the context menu that shows up when highlighting a piece of text.
+
+When triggered, the app replace all Traditional Chinese characters with their Simplified Chinese variant (one-to-one mapping).
+
+This is actually a built-in feature of iOS. So far I am unable to find an equivalent in the Android ecosystem, so I am going to write it myself.
+
+Written with React Native (Expo).

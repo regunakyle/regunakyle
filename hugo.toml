@@ -26,6 +26,7 @@ description = "Eric Leung's personal website"
 keywords = "blog,developer,personal"
 avatarurl = "https://github.com/regunakyle.png"
 
+faviconSVG = "favicon.svg"
 favicon_32 = "favicon-32x32.png"
 favicon_16 = "favicon-16x16.png"
 touchIcon = "apple-touch-icon.png"
