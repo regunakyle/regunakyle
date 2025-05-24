@@ -19,4 +19,4 @@ People working with me says I am a fast learner, and they are not wrong: I enjoy
 
 As of now I am self-studying AWS management, system design and networking. Ideally I would see myself become a tech lead in a major company in the future.
 
-You can contact me via [Discord](https://discordapp.com/users/263243377821089792), [Telegram](https://t.me/regunakyle) or at `contact [at] ericleung [dot] dev`.
+You can contact me via [Discord](https://discordapp.com/users/263243377821089792) or at `contact [at] ericleung [dot] dev`.
