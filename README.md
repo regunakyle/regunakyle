@@ -6,4 +6,4 @@ Other ways to contact me:
 
 [Discord](https://discordapp.com/users/263243377821089792)
 
-Email (`contact [at] ericleung [dot] dev`)
+[Email](mailto:contact@ericleung.dev)
