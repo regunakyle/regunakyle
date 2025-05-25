@@ -2,6 +2,7 @@
 title = "如何不靠淘寶在香港訂閱美國的AI/LLM服務"
 author = "Eric Leung"
 description = "無需淘寶，無需sms-activate（另有OpenWrt Policy Routing教學）"
+isCJKLanguage = true
 date = "2024-12-16"
 +++
 

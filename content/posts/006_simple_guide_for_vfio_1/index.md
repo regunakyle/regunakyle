@@ -3,6 +3,7 @@ title = "如何實現VFIO及Looking Glass（硬件篇）"
 author = "Eric Leung"
 description = "VFIO硬件選擇教學"
 categories = ["VFIO/Looking Glass系列"]
+isCJKLanguage = true
 date = "2024-06-01"
 +++
 

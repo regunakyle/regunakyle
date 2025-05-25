@@ -2,6 +2,7 @@
 title = "用Wireguard做一個瀏覽特定域名才生效的VPN"
 author = "Eric Leung"
 description = "如何用Wireproxy及PAC檔設定一個在瀏覽特定域名（如chatgpt.com）時才生效的VPN"
+isCJKLanguage = true
 date = "2024-08-18"
 +++
 

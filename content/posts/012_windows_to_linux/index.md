@@ -2,6 +2,7 @@
 title = "從今天開始轉用Linux：Fedora安裝教學"
 author = "Eric Leung"
 description = ""
+isCJKLanguage = true
 date = "2099-07-27"
 +++
 

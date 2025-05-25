@@ -3,6 +3,7 @@ title = "連登Homelab系列（二）：Docker常見問題"
 author = "Eric Leung"
 description = "Docker介紹，Portainer安裝教學，Docker實用程式介紹"
 categories = ["連登Homelab系列"]
+isCJKLanguage = true
 date = "2024-01-21"
 +++
 

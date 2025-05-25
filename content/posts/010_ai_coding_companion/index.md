@@ -2,6 +2,7 @@
 title = "AI與編程：如何打造自己的AI編程助手"
 author = "Eric Leung"
 description = "講講"
+isCJKLanguage = true
 date = "2099-01-31"
 +++
 

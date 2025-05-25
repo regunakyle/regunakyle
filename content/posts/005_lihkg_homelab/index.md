@@ -3,6 +3,7 @@ title = "連登Homelab系列（三）：Homelab常見問題"
 author = "Eric Leung"
 description = "自組伺服器硬件討論、伺服器OS/Hypervisor介紹"
 categories = ["連登Homelab系列"]
+isCJKLanguage = true
 date = "2024-01-22"
 +++
 

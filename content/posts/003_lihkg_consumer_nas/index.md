@@ -3,6 +3,7 @@ title = "連登Homelab系列（一）：家用NAS常見問題"
 author = "Eric Leung"
 description = "買邊隻NAS好、買咩RAM/HDD、點樣安全地放部NAS出街"
 categories = ["連登Homelab系列"]
+isCJKLanguage = true
 date = "2024-01-20"
 +++
 
@@ -124,7 +125,7 @@ DS224+及DS423+冇得升10G，但有內顯及硬件解碼器/編碼器，比上�
 
 名牌廠商（如Seagate、WD/HGST、Toshiba）既CMR NAS Drive。
 
-**注意唔好買SMR硬碟。** 買硬碟之前要睇下個型號係CMR定SMR（尤其是[WD硬碟](https://www.hkepc.com/20555/RED_%E7%A1%AC%E7%A2%9F%E5%81%B7%E6%8F%9B_SMR_%E4%BA%8B%E4%BB%B6%E9%99%B7%E9%9B%86%E9%AB%94%E8%A8%B4%E8%A8%9F_WD_%E5%92%8C%E8%A7%A3%E8%B3%A0_270_%E8%90%AC%E7%BE%8E%E5%85%83%E7%94%A8%E5%AE%B6%E5%8F%AF%E7%B6%B2%E4%B8%8A%E7%94%B3%E8%AB%8B)）。
+**注意唔好買SMR硬碟。** 買硬碟之前要睇下個型號係CMR定SMR（尤其是[WD硬碟](https://www.servethehome.com/wd-red-smr-vs-cmr-tested-avoid-red-smr/)）。
 
 可以買唔同牌子但容量相同既硬碟溝埋用，咁做理論上係安全過全買單一型號。
 

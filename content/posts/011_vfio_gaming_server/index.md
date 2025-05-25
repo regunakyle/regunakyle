@@ -2,6 +2,7 @@
 title = "自己打造一個VFIO雲遊戲伺服器"
 author = "Eric Leung"
 description = ""
+isCJKLanguage = true
 date = "2099-07-27"
 +++
 

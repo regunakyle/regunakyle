@@ -3,6 +3,7 @@ title = "從Windows到Linux：VFIO及Looking Glass介紹"
 author = "Eric Leung"
 description = "比Dual Boot更優勝的解決方案"
 categories = ["VFIO/Looking Glass系列"]
+isCJKLanguage = true
 date = "2023-06-11"
 +++
 
