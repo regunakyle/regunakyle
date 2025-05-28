@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Note: Put this into path first
+# TODO: Automatically put into path
+
 if [ -z "$1" ]; then
     echo "Error: No domain name was provided."
     exit 1
@@ -26,14 +29,13 @@ fi
 
 echo "You are building for the website \"$1\" with Hugo version \"$2\"."
 
+mkdir -p /opt/hugo_workspace
 touch /opt/hugo_workspace/build.log
 
 CURRENT_TIME=$(date +"%Y-%m-%d %H:%M:%S")
 echo "$CURRENT_TIME - Build started for domain \"$1\" with Hugo version \"$2\"." >>/opt/hugo_workspace/build.log
 
 set -euxo pipefail
-
-mkdir -p /opt/hugo_workspace
 
 # Pull early to raise early in case there's an issue with podman.
 podman pull "ghcr.io/gohugoio/hugo:$2"
