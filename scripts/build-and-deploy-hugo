@@ -1,6 +1,8 @@
 #!/bin/bash
 
 # Note: Put this into path first
+# Update action-runner/.path as needed (PATH variable of the runner)
+
 # TODO: Automatically put into path
 
 if [ -z "$1" ]; then
