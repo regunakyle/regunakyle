@@ -1,4 +1,4 @@
-name: Deploy Hugo site to Raspberry Pi
+name: Deploy Hugo site to J4125
 
 on:
   # Runs on pushes targeting the default branch
@@ -22,7 +22,7 @@ defaults:
 
 jobs:
   build:
-    runs-on: [self-hosted, linux, ARM64]
+    runs-on: [self-hosted, linux, X64]
     env:
       HUGO_VERSION: v0.142.0
     steps:
