@@ -183,7 +183,7 @@ Docker係軟件級Container：一個Image專行一個軟件 ；LXC係OS級Contai
 
 {{< underline "NAS OS" >}}
 
-[TrueNAS Scale](https://www.truenas.com/truenas-community-editions/)、[Xpenology（黑群輝）](https://xpenology.com/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)、[Unraid（付費）](https://unraid.net/)、[OpenMediaVault](https://www.openmediavault.org/)
+[TrueNAS Community Edition](https://www.truenas.com/software-status/)、[Xpenology（黑群輝）](https://xpenology.com/forum/topic/62221-tutorial-installmigrate-to-dsm-7x-with-tinycore-redpill-tcrp-loader/)、[Unraid（付費）](https://unraid.net/)、[OpenMediaVault](https://www.openmediavault.org/)
 
 {{< notice info "注意事項" >}}
 
