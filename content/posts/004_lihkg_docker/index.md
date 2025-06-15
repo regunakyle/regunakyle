@@ -174,7 +174,7 @@ networks:
 - 影音搜索/下載管理：[Sonarr](https://hotio.dev/containers/sonarr/)/[Radarr](https://hotio.dev/containers/radarr/)
 - 種子來源整合器：[Prowlarr](https://hotio.dev/containers/prowlarr/)
 - 下載器：[（BitTorrent）qBittorrent](https://hotio.dev/containers/qbittorrent/)/[（Usenet）Sabnzbd](https://hub.docker.com/r/linuxserver/sabnzbd/)
-- 字幕下載器：[ChineseSubFinder](https://hub.docker.com/r/allanpk716/chinesesubfinder)/[Bazarr](https://hotio.dev/containers/bazarr/)
+- 字幕下載器：[Bazarr](https://hotio.dev/containers/bazarr/)
 
 Selfhost圈子入面最熱門既內容。
 

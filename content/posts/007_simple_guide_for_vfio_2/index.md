@@ -654,9 +654,9 @@ nmcli con add type bridge-slave autoconnect yes con-name <eth0> ifname <eth0> ma
    - 於`Boot Options`勾選`Start virtual machine on host boot up`
    - 不安裝任何桌面環境
 
-4. （如你選擇用UEFI）安裝後，在啟動時的Grub畫面中按`UEFI Firmware Settings`，然後將`Device Manager`=>`Secure Boot Configuration`=>`Attempt Secure Boot`取消掉，然後按幾次`ESC`返回首頁，再按`Reset`
+4. 安裝後，在啟動時的Grub畫面中按`UEFI Firmware Settings`，然後將`Device Manager`=>`Secure Boot Configuration`=>`Attempt Secure Boot`取消掉，然後按幾次`ESC`返回首頁，再按`Reset`
 
-    （有時你要在安裝**前**就將Secure Boot取消掉，不然無法順利安裝）
+    （有時你要在**安裝前**就將Secure Boot取消掉，不然無法順利安裝）
 
 5. 在這虛擬機上安裝*虛擬機卡* 的官方驅動程式（[Debian安裝NVIDIA驅動教學](https://wiki.debian.org/NvidiaGraphicsDrivers)），然後重啟虛擬機
 6. 執行`nvidia-smi`，如看到顯示卡資訊則成功

@@ -55,7 +55,7 @@ x86機通常性能較強、可擴展性更高，同時又有更佳性價比。�
 3. 你有PoE交換機，並打算用佢為多部單板機供電
 4. 你想用一隻多插口GaN充電器為多部單板機供電
 
-通常（3）同（4）係為咗整伺服器集群（Cluster）：我自己個[Kubernetes](https://kubernetes.io/)集群八成都係單板機，配合PoE交換機就可以用少好多插頭。
+通常（3）同（4）係為咗整伺服器集群（Cluster）：我打算整個[Kubernetes](https://kubernetes.io/)集群，其中八成都係單板機，配合PoE交換機就可以用少好多插頭。
 
 [延伸閱讀：GaN Chargers that renegotiates power without disconnecting ANY existing devices](https://www.reddit.com/r/UsbCHardware/comments/1c0ljdm/datapoints_welcome_list_of_usbc_gan_chargers_that/)
 
@@ -141,7 +141,7 @@ Intel CPU既內顯可以用SR-IOV（12代或以後）或GVT-G（5至10代CPU）�
 
 **唯獨係11代咩都冇**。如果你個宿主機同虛擬機都要用內顯（例如個宿主機靠內顯先顯示到野，但虛擬機行Jellyfin要內顯做轉碼）既話要注意。
 
-如果不幸地用緊11代Intel CPU，或唔想搞以上既野，可以轉用LXC或Docker：只要個宿主機用到個內顯，LXC及Docker就肯定有方法用到。
+如果不幸地用緊11代Intel CPU，或唔想搞以上既野，可以轉用LXC或Docker：只要個宿主機用到個內顯，LXC及Docker就必定有方法用到。
 
 [延伸閱讀：Intel GVT-G setup（Arch Wiki）](https://wiki.archlinux.org/title/Intel_GVT-g)
 
@@ -203,13 +203,16 @@ Docker係軟件級Container：一個Image專行一個軟件 ；LXC係OS級Contai
 [OpenWrt](https://openwrt.org/) :thumbsup:、[pfSense](https://www.pfsense.org/)/[OPNSense](https://opnsense.org/)
 
 {{< notice info "Openwrt ：小型 Homelab 神器" >}}
-一部裝咗OpenWrt既家用路由器可以做曬防火牆、路由器、VLAN交換機同無線存取點既工作。
+一部裝咗OpenWrt既家用路由器可以做曬防火牆、路由器、網管型交換機同無線存取點（即Wifi）。
 
 而且唔洗買好貴既機，例如[GL.iNet MT6000](https://openwrt.org/toh/gl.inet/gl-mt6000)非常適合OpenWrt，現時[淘寶](https://detail.tmall.com/item.htm?id=743831055254)都係700蚊人仔左右。
 
-Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、AdGuardHome、NGINX、[SQM](https://openwrt.org/docs/guide-user/network/traffic-shaping/sqm)等等。你甚至可以用幾部OpenWrt機行[802.11s Mesh Networking](https://openwrt.org/docs/guide-user/network/wifi/mesh/80211s)同[802.11k/v/r 快速漫遊](https://vicfree.com/2022/11/openwrt-wpa3-802.11kvr-ap-setup/)。
+Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard/Tailscale、AdGuardHome等等。你甚至可以用幾部OpenWrt機行[802.11s Mesh Networking](https://openwrt.org/docs/guide-user/network/wifi/mesh/802-11s)同[802.11k/v/r 快速漫遊](https://vicfree.com/2022/11/openwrt-wpa3-802.11kvr-ap-setup/)。
 
 如果你岩岩開始玩Homelab，可以先從支持OpenWrt既家用路由器入手，有需要時再買獨立Networking硬件。
+
+[延伸閱讀：用OpenWrt自動將往特定網頁（如openai.com）既流量走VPN](../009_subscribing_to_openai/#openwrt)
+
 {{< /notice >}}
 
 {{< figure src="./Proxmox.png" caption="Proxmox VE介面" >}}
@@ -230,7 +233,7 @@ Linux底既OpenWrt支持好多軟件，例如LXC/Docker、Wireguard、AdGuardHom
 {{< notice note "題外話：係Linux 整個 Windows 虛擬機打機" >}}
 KVM+QEMU任何Linux機都用到。有一個特別玩法係Desktop Linux上面整個Windows虛擬機打機。
 
-我自己部PC就係用[Fedora Linux](https://fedoraproject.org/)做主OS，並用Windows 10虛擬機打機。詳情可以睇我[呢個Post](../002_vfio_primer/)。
+我自己部PC就係用[Fedora Linux](https://fedoraproject.org/)做主OS，並用Windows 10虛擬機打機，性能接近無損，且使用穩定。詳情可以睇我[呢個Post](../002_vfio_primer/)。
 {{< /notice >}}
 
 ## 咩係IPMI？有冇代替品？

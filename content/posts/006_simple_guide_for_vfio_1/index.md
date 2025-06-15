@@ -33,7 +33,7 @@ date = "2024-06-01"
 
 1. 先去找找自己最常玩的遊戲是否支持Linux：如果能直接在Linux上玩的話就不用特意搞VFIO
 2. 一些線上競技遊戲的反作弊系統可能禁止玩家用虛擬機或Linux，例如Riot Games的英雄聯盟（League of Legends）及特戰英豪（Valorant）；**你只能透過Dual boot玩這些遊戲**
-3. 本文的安裝步驟只在Fedora 40 KDE上執行過，不一定適用於其他Linux發行版（Distribution）
+3. 本文的安裝步驟只在Fedora KDE上執行過，不一定適用於其他Linux發行版（Distribution）
 4. 本文假設你的電腦**有至少兩張顯示卡**（CPU內顯或獨立顯示卡都可），不考慮只有單一顯示卡的情況
 
 你可以去[Are We Anti Cheat Yet](https://areweanticheatyet.com/)和[ProtonDB](https://www.protondb.com/)找找你玩的遊戲可不可以在Linux上直接玩。
