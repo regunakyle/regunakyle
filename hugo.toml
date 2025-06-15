@@ -1,4 +1,4 @@
-title = "Reguna"
+title = "Eric Leung's Blog"
 theme = "hugo-coder"
 languagecode = "en"
 defaultcontentlanguage = "en"
@@ -18,7 +18,7 @@ style = "github-dark"
 [params]
 author = "Eric Leung"
 info = "Aspiring Full Stack Developer"
-description = "Eric Leung's personal website"
+description = "Eric Leung's personal blog"
 keywords = "blog,developer,personal"
 avatarurl = "https://github.com/regunakyle.png"
 images = ["https://github.com/regunakyle.png"]
