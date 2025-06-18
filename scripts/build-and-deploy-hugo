@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Note: Put this into path first
-# Update action-runner/.path as needed (PATH variable of the runner)
+# Update action-runner/.path as needed (i.e. PATH variable of the runner)
 
 # TODO: Automatically put into path
 
@@ -31,30 +31,32 @@ fi
 
 echo "You are building for the website \"$1\" with Hugo version \"$2\"."
 
-mkdir -p /opt/hugo_workspace
-touch /opt/hugo_workspace/build.log
+WORKSPACE=/opt/hugo_workspace
+
+mkdir -p $WORKSPACE
+touch "$WORKSPACE/build.log"
 
 CURRENT_TIME=$(date +"%Y-%m-%d %H:%M:%S")
-echo "$CURRENT_TIME - Build started for domain \"$1\" with Hugo version \"$2\"." >>/opt/hugo_workspace/build.log
+echo "$CURRENT_TIME - Build started for domain \"$1\" with Hugo version \"$2\"." >>"$WORKSPACE/build.log"
 
 set -euxo pipefail
 
 # Pull early to raise early in case there's an issue with podman.
 podman pull "ghcr.io/gohugoio/hugo:$2"
 
-rm -rf "/opt/hugo_workspace/$1" || true
+rm -rf "$WORKSPACE/$1" || true
 
-git clone --recurse-submodules --shallow-submodules --depth 1 https://github.com/regunakyle/regunakyle.git "/opt/hugo_workspace/$1"
+git clone --recurse-submodules --shallow-submodules --depth 1 https://github.com/regunakyle/regunakyle.git "$WORKSPACE/$1"
 
-podman run --rm -v "/opt/hugo_workspace/$1:/project" -u=0 "hugo:$2" --gc --minify --baseURL "https://$1"
+podman run --rm -v "$WORKSPACE/$1:/project" -u=0 "hugo:$2" --gc --minify --baseURL "https://$1"
 
 rm -rf "/var/www/$1" || true
 
-mv -T "/opt/hugo_workspace/$1/public" "/var/www/$1"
+mv -T "$WORKSPACE/$1/public" "/var/www/$1"
 
 set +x
 
 echo "Deployment completed successfully for domain \"$1\"."
 
 CURRENT_TIME=$(date +"%Y-%m-%d %H:%M:%S")
-echo "$CURRENT_TIME - Build completed successfully for domain \"$1\" with Hugo version \"$2\"." >>/opt/hugo_workspace/build.log
+echo "$CURRENT_TIME - Build completed successfully for domain \"$1\" with Hugo version \"$2\"." >>"$WORKSPACE/build.log"

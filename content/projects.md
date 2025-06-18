@@ -25,13 +25,15 @@ It is also a LLM chat client: currently users can interact with my self-hosted Q
 
 ## In Development
 
-### Domain Waitlist Web
+### LIRC Web
 
-A simple webapp that query domain information with the new RDAP protocol.
+A simple webapp that controls an existing [LIRC](https://www.lirc.org/) service.
 
-If the domain is unavailable, user can put it on a waitlist. The server will query the domain periodically, and notify the user if the domain becomes available.
+Features include:
 
-Written in Java with Spring Boot. Frontend is written with Tanstack Router.
+- Blast infrared signals on demand
+- Perform scheduled infrared blasting
+- Import/Export LIRC configuration files
 
 ### Android Hant-to-Hans Translation Context Menu
 
@@ -41,12 +43,14 @@ When triggered, the app replace all Traditional Chinese characters with their Si
 
 This is actually a built-in feature of iOS. So far I am unable to find an equivalent in the Android ecosystem, so I am going to write it myself.
 
-Written with React Native (Expo).
-
 ### Realtime AI Chat Web
 
 A simple webapp that allow users to chat with an AI in voice. Requires TTS, STT and a generic LLM chat model.
 
 Motivated by the urge to prank my friends with a voice-activated AI.
 
-Written in Python with FastAPI. Frontend is written with Tanstack Router.
+### Domain Waitlist Web
+
+A simple webapp that query domain information with the new RDAP protocol.
+
+If the domain is unavailable, user can put it on a waitlist. The server will query the domain periodically, and notify the user if the domain becomes available.
