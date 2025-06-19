@@ -10,7 +10,7 @@ date = "2099-01-31"
 
 ## 歷史回顧
 
-相信大家對AI/LLM都不陌生，我自己亦不例外：事實上，我可能屬於香港[最早接觸ChatGPT](https://lih.kg/3235664)的一批人。
+相信大家對AI/LLM都不陌生，我自己亦不例外：事實上，我可能屬於香港最早接觸ChatGPT的一批人。
 
 記得當時OpenAI還沒有成熟的地域封鎖（不用VPN也能上到網站，同時可以註冊帳號，但用不了ChatGPT），不過當時只是單純覺得挺有趣，沒有深入研究。
 
@@ -22,7 +22,7 @@ date = "2099-01-31"
 
 ## 為甚麼要Self-host LLM？用付費LLM服務不是更方便嗎？
 
-老實說，我相信有90%人都不需要自己在家運行LLM。
+老實說，我相信有95%人都不需要自己在家運行LLM。
 
 我能想到Self-host LLM的原因有以下：
 
@@ -43,6 +43,9 @@ date = "2099-01-31"
 **Frontend（前端）** 則是使用Backend的API去
 
 有些軟件同時擔任多於一個角色：例如text-generation-webui就是Backend + Frontend
+
+<https://github.com/ollama/ollama/issues/5800>
+<https://github.com/turboderp-org/exllamav3>
 
 ### Model
 
