@@ -49,8 +49,8 @@ A simple webapp that allow users to chat with an AI in voice. Requires TTS, STT 
 
 Motivated by the urge to prank my friends with a voice-activated AI.
 
-### Domain Waitlist Web
+### Nexus Mods Downloader
 
-A simple webapp that query domain information with the new RDAP protocol.
+A webapp and a browser extension that allow user to queue mod downloads remotely.
 
-If the domain is unavailable, user can put it on a waitlist. The server will query the domain periodically, and notify the user if the domain becomes available.
+Downloading big mods without premium subscription can be very slow. Host this app in a 24/7 running machine and you can go sleep while the mods are downloading.
