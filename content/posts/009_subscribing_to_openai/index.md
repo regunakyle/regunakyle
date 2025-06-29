@@ -243,7 +243,7 @@ reboot
 1. 左下角按`Add`
 2. `Name`填任意值（如`pbr`），`Input`及`Forward`設為`reject`，`Output`設為`accept`
 3. `Covered networks`加入你剛創造的Wireguard介面
-4. 勾選`Masquerading`
+4. 勾選`Masquerading`及`MSS clamping`
 5. `Allow forward from source zones:`加入`lan`
 6. 按`Save`，然後按`Save & Apply`
 
