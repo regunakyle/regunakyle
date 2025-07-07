@@ -1,4 +1,4 @@
-name: Deploy Hugo site to J4125
+name: Deploy Hugo site
 
 on:
   # Runs on pushes targeting the default branch
@@ -9,20 +9,22 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 # Default to bash
 defaults:
   run:
     shell: bash
 
 jobs:
-  build:
-    runs-on: [self-hosted, linux, X64]
+  deploy_matrix:
+    strategy:
+      matrix:
+        runners: ["X64", "ARM64"]
+    runs-on: ${{matrix.runners}}
+    # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+    # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+    concurrency:
+      group: ${{matrix.runners}}
+      cancel-in-progress: false
     env:
       HUGO_VERSION: v0.142.0
     steps:
