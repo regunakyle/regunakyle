@@ -106,7 +106,7 @@ GRUB_CMDLINE_LINUX="rhgb quiet vfio_pci.ids=10de:2489,10de:228b pci-stub.ids=1b2
     - 加入Windows存儲
       - 如果你選擇用虛擬硬碟：
           1. 加入`Storage`：設定虛擬硬碟容量，然後`Bus Type`選擇`SCSI`
-          2. 加入`Controller`：`Type`選擇`SCSI`，`Model`選`VirtIO SCSI`
+          2. 加入`Controller`：`Type`選擇`SCSI`，`Model`選`VirtIO SCSI`，並將`Advanced options`內的`Discard mode`設為`unmap`
       - 如果你想將[Windows安裝於儲存裝置上](../006_simple_guide_for_vfio_1/#nvme-ssd及sata控制器)，加入`PCI Host Device`並選擇這儲存裝置的控制器
 
 4. 最後返回`Overview`頁，然後按`XML`，進入下部分
@@ -551,7 +551,7 @@ sudo virsh define vfio.xml
 
 #### 經網絡連接虛擬機
 
-正常情況下虛擬機會在虛擬網絡內。虛擬機可經網絡連接外界，但宿主機及宿主機網絡上其他電腦卻不能經網絡連接虛擬機。
+正常情況下虛擬機會在虛擬網絡內。虛擬機可經網絡連接外界，但宿主機網絡上其他電腦卻不能經網絡連接虛擬機。
 
 如果想經網絡連接虛擬機的話，有兩個方法：
 
@@ -644,9 +644,9 @@ nmcli con add type bridge-slave autoconnect yes con-name <eth0> ifname <eth0> ma
 
 另一個做法是創造一個低資源虛擬機並傳入*虛擬機卡* ，並於**VFIO**虛擬機關機時啟動它。我的做法：
 
-1. 下載[Debian](https://www.debian.org/)安裝檔並將其移至`/var/lib/libvirt/images`
+1. 下載[Ubuntu Server](https://ubuntu.com/download/server/)安裝檔並將其移至`/var/lib/libvirt/images`
 2. 開啟終端程式並執行`sudo systemctl enable libvirtd`
-3. 創造Debian虛擬機：
+3. 創造Ubuntu Server虛擬機：
 
    - 提供極少資源（我只提供單核/兩線程和512MB RAM）
    - 傳入**VFIO**虛擬機使用的*虛擬機卡*
@@ -658,7 +658,7 @@ nmcli con add type bridge-slave autoconnect yes con-name <eth0> ifname <eth0> ma
 
     （有時你要在**安裝前**就將Secure Boot取消掉，不然無法順利安裝）
 
-5. 在這虛擬機上安裝*虛擬機卡* 的官方驅動程式（[Debian安裝NVIDIA驅動教學](https://wiki.debian.org/NvidiaGraphicsDrivers)），然後重啟虛擬機
+5. 在這虛擬機上安裝*虛擬機卡* 的官方驅動程式（[Ubuntu安裝NVIDIA驅動教學](https://documentation.ubuntu.com/server/how-to/graphics/install-nvidia-drivers/)），然後重啟虛擬機
 6. 執行`nvidia-smi`，如看到顯示卡資訊則成功
 
 這樣做不但可以降低耗電，你還可以在這虛擬機內做顯示卡相關的工作（例如跑AI）。
