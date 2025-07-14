@@ -105,8 +105,12 @@ GRUB_CMDLINE_LINUX="rhgb quiet vfio_pci.ids=10de:2489,10de:228b pci-stub.ids=1b2
     - 加入`Storage`：`Device type`選`CDROM Device`，再按`Manage...`並選擇上一部分第二步下載的`virtio-win`之ISO檔
     - 加入Windows存儲
       - 如果你選擇用虛擬硬碟：
-          1. 加入`Storage`：設定虛擬硬碟容量，然後`Bus Type`選擇`SCSI`
-          2. 加入`Controller`：`Type`選擇`SCSI`，`Model`選`VirtIO SCSI`，並將`Advanced options`內的`Discard mode`設為`unmap`
+          1. 加入`Controller`：`Type`選擇`SCSI`，`Model`選`VirtIO SCSI`
+          2. 加入`Storage`：設定虛擬硬碟容量，然後`Bus Type`選擇`SCSI`
+
+             如你的儲存裝置是SSD：
+             - 將`Advanced options`內的`Discard mode`設為`unmap`
+             - 按`XML`，於`<target>`標籤內加入`rotation_rate='1'`
       - 如果你想將[Windows安裝於儲存裝置上](../006_simple_guide_for_vfio_1/#nvme-ssd及sata控制器)，加入`PCI Host Device`並選擇這儲存裝置的控制器
 
 4. 最後返回`Overview`頁，然後按`XML`，進入下部分
@@ -150,7 +154,7 @@ CPU NODE SOCKET CORE L1d:L1i:L2:L3 ONLINE    MAXMHZ    MINMHZ       MHZ
 
 `CPU`一欄其實是線程（Thread），`CORE`一欄是這線程實際所屬的CPU核。我們要將屬同一個`CORE`的全部`CPU`做Pinning，以保證最高效能。
 
-此外，`L1d:L1i:L2:L3`一欄最後的數字（即`L3`快取）也值得注意：Arch Wiki建議Pin`L3`組別相同的`CPU`。如果你和我一樣有兩個或以上的`L3`組別，我建議先Pin同一組別的全部`CPU`，性能不夠的話再去Pin其他組別的`CPU`。
+此外，`L1d:L1i:L2:L3`一欄最後的數字（`L3`，即CPU的L3快取）也值得注意：Arch Wiki建議Pin`L3`組別相同的`CPU`。如果你和我一樣有兩個或以上的`L3`組別，我建議先Pin同一組別的全部`CPU`，性能不夠的話再去Pin其他組別的`CPU`。
 
 在`<vcpu>`項下方添加`<cputune>`內容。下方是我的設定（我Pin了20個`CPU`）：
 
@@ -287,7 +291,7 @@ CPU Pinning不是把指定CPU線程限制只能由虛擬機使用：它只是把
 最後將**VFIO**虛擬機關機，然後開啟虛擬機設定介面：
 
 1. 將兩個CDROM刪除
-2. 開啟XML並尋找`<memballoon>`一項，將`type`設定為`none`
+2. 開啟XML並尋找`<memballoon>`一項，將`model`設定為`none`
 
 到此**VFIO**虛擬機安裝已完成。如果你不打算安裝**Looking Glass**，可直接[跳過下一部分](#雜項)。
 
