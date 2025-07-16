@@ -57,7 +57,7 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 我對新手既建議係照買Synology，**但只買25年前既機種**（你有錢可以照買新機 :satisfied:）。當然揀其他牌子或買成品/半成品NAS再刷OS都係可以。
 
-此外，Github上有[方法](https://github.com/007revad/Synology_HDD_db/blob/main/2025_plus_models.md)取消佢既硬碟限制，唔需要先買Synology硬碟都用到呢個方法。不過依賴第三方工具始終有風險。
+此外，Github上有[方法](https://github.com/007revad/Synology_HDD_db/blob/main/2025_plus_models.md)取消佢既硬碟限制，唔需要先安裝Synology硬碟都用到呢個方法。不過依賴第三方工具始終有風險。
 
 希望Synology盡快為更多第三方硬碟提供認證啦，佢地自己既硬碟真係好鬼貴 :money_with_wings:
 

@@ -48,9 +48,3 @@ This is actually a built-in feature of iOS. So far I am unable to find an equiva
 A simple webapp that allow users to chat with an AI in voice. Requires TTS, STT and a generic LLM chat model.
 
 Motivated by the urge to prank my friends with a voice-activated AI.
-
-### Nexus Mods Downloader
-
-A webapp and a browser extension that allow user to queue mod downloads remotely.
-
-Downloading big mods without premium subscription can be very slow. Host this app in a 24/7 running machine and you can go sleep while the mods are downloading.
