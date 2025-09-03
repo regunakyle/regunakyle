@@ -39,7 +39,7 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 如果識野/想學野既話，可以考慮自組。
 
-（2025年打後既Synology型號只接受貴到飛起既Synology硬碟。如你冇錢，我建議買2025年前既型號）
+（2025年打後既Synology型號只認較貴既Synology硬碟。[下方有討論](#synology-plus系列nas買邊隻model好)）
 
 [Synology NAS選擇器](https://www.synology.com/zh-hk/support/nas_selector)
 
@@ -55,11 +55,9 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 不過Synology既軟件始終係領先緊同行，以往佢咁貴都仲跑先既原因係佢軟件做得真係好。
 
-我對新手既建議係照買Synology，**但只買25年前既機種**（你有錢可以照買新機 :satisfied:）。當然揀其他牌子或買成品/半成品NAS再刷OS都係可以。
+我對新手既建議係照買Synology，但要先**確認自己要咩大小既硬碟**，然後去[Price.com.hk](https://www.price.com.hk/category.php?c=100015&gp=20)睇下呢個大小既唔同牌子硬碟既價錢：如果Synology牌硬碟只係貴少少既話，可以照買新款Synology機；如果貴好多既話，你就買**25年前既舊機種**。當然揀其他牌子或買成品/半成品NAS再刷OS都係可以。
 
 此外，Github上有[方法](https://github.com/007revad/Synology_HDD_db/blob/main/2025_plus_models.md)取消佢既硬碟限制，唔需要先安裝Synology硬碟都用到呢個方法。不過依賴第三方工具始終有風險。
-
-希望Synology盡快為更多第三方硬碟提供認證啦，佢地自己既硬碟真係好鬼貴 :money_with_wings:
 
 {{< figure src="./SynologySucks.png" caption="圖片來源：NASCompares文章" >}}
 
@@ -133,7 +131,7 @@ DS224+及DS423+冇得升10G，但有內顯及硬件解碼器/編碼器，比上�
 
 ## 硬碟買邊隻？
 
-名牌廠商（如Seagate、WD/HGST、Toshiba）既CMR NAS Drive。
+名牌廠商（如Seagate、WD/HGST、Toshiba、Synology）既CMR NAS Drive。
 
 **注意唔好買SMR硬碟。** 買硬碟之前要睇下個型號係CMR定SMR（尤其是[WD硬碟](https://www.servethehome.com/wd-red-smr-vs-cmr-tested-avoid-red-smr/)）。
 

@@ -23,6 +23,10 @@ It can send you notification about free game giveaways and also play Youtube mus
 
 It is also a LLM chat client: currently users can interact with my self-hosted Qwen2.5-Coder instance with the Discord bot.
 
+### [Firefox Auto Vertical Tab](https://github.com/regunakyle/firefox-auto-vertical-tab)
+
+A very simple extension that automatically toggles vertical tabs in Firefox based on the width of currently focused window. Written with the [WXT](https://github.com/wxt-dev/wxt) framework.
+
 ## In Development
 
 ### LIRC Web
@@ -42,9 +46,3 @@ A simple Android app that add an button in the context menu that shows up when h
 When triggered, the app replace all Traditional Chinese characters with their Simplified Chinese variant (one-to-one mapping).
 
 This is actually a built-in feature of iOS. So far I am unable to find an equivalent in the Android ecosystem, so I am going to write it myself.
-
-### Realtime AI Chat Web
-
-A simple webapp that allow users to chat with an AI in voice. Requires TTS, STT and a generic LLM chat model.
-
-Motivated by the urge to prank my friends with a voice-activated AI.
