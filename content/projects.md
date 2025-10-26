@@ -21,23 +21,13 @@ A Discord bot written in Python using [Discord.py](https://discordpy.readthedocs
 
 It can send you notification about free game giveaways and also play Youtube music in voice chats.
 
-It is also a LLM chat client: currently users can interact with my self-hosted Qwen2.5-Coder instance with the Discord bot.
+It is also a LLM chat client: currently users can interact with my self-hosted Qwen3-Coder instance with the Discord bot.
 
 ### [Firefox Auto Vertical Tab](https://github.com/regunakyle/firefox-auto-vertical-tab)
 
 A very simple extension that automatically toggles vertical tabs in Firefox based on the width of currently focused window. Written with the [WXT](https://github.com/wxt-dev/wxt) framework.
 
 ## In Development
-
-### LIRC Web
-
-A simple webapp that controls an existing [LIRC](https://www.lirc.org/) service.
-
-Features include:
-
-- Blast infrared signals on demand
-- Perform scheduled infrared blasting
-- Import/Export LIRC configuration files
 
 ### Android Hant-to-Hans Translation Context Menu
 
