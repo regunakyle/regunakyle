@@ -49,17 +49,17 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 
 ## Synology Plus系列NAS買邊隻Model好？
 
-（此部分最後更新於2025年6月）
+（此部分最後更新於2025年11月）
 
-先講講最近Synology新機（如DS225+、DS425+、DS725+、DS925+）鎖硬碟一事：而家佢開始逼你用佢自家出既硬碟，唔認第三方硬碟。
+**Synology已於DSM 7.3版本取消鎖硬碟限制。**
 
-不過Synology既軟件始終係領先緊同行，以往佢咁貴都仲跑先既原因係佢軟件做得真係好。
+如果你係DSM 7.3版本以下，可用呢個[方法](https://github.com/007revad/Synology_HDD_db/blob/main/2025_plus_models.md)取消佢既硬碟限制。
 
-我對新手既建議係照買Synology，但要先**確認自己要咩大小既硬碟**，然後去[Price.com.hk](https://www.price.com.hk/category.php?c=100015&gp=20)睇下呢個大小既唔同牌子硬碟既價錢：如果Synology牌硬碟只係貴少少既話，可以照買新款Synology機；如果貴好多既話，你就買**25年前既舊機種**。當然揀其他牌子或買成品/半成品NAS再刷OS都係可以。
+雖然取消咗個限制，但Synology另外仲閹割咗Intel新機種既GPU轉碼功能。
 
-此外，Github上有[方法](https://github.com/007revad/Synology_HDD_db/blob/main/2025_plus_models.md)取消佢既硬碟限制，唔需要先安裝Synology硬碟都用到呢個方法。不過依賴第三方工具始終有風險。
+如果你需要NAS上轉碼既話，一係自己[裝返驅動程式](https://nascompares.com/2025/09/24/how-to-get-hardware-transcoding-back-on-your-synology-nas/)，一係另外買部迷你電腦做。
 
-{{< figure src="./SynologySucks.png" caption="圖片來源：NASCompares文章" >}}
+不過Synology既軟件始終係領先緊同行，以往佢咁貴都仲跑先既原因係佢軟件做得真係好。如果唔介意冇硬件解碼既話，我推薦照買Synology；當然揀其他牌子或買成品/半成品NAS再刷OS都係可以。
 
 然後講講舊機種：[DS224+](https://www.synology.com/zh-tw/products/DS224+)、[DS423+](https://www.synology.com/zh-tw/products/DS423+)、[DS723+](https://www.synology.com/zh-tw/products/DS723+)、[DS923+](https://www.synology.com/zh-tw/products/DS923+)。
 
