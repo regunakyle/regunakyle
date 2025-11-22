@@ -11,7 +11,7 @@ date = "2024-01-20"
 
 ## [返回主目錄](../../categories/連登homelab系列/)
 
-（本文最後更新時間：2025年6月15日）
+（本文最後更新時間：2025年11月22日）
 
 {{< figure src="./Cover.jpg" caption="圖片來源：Synology官網" >}}
 
@@ -38,8 +38,6 @@ Synology機既缺點係硬件性價比差（2024年了都仲係1Gbps:shit:）。
 其他大牌子硬件性能全部跑贏Synology，但Synology軟件做得最好，可以話係買軟件送硬件。
 
 如果識野/想學野既話，可以考慮自組。
-
-（2025年打後既Synology型號只認較貴既Synology硬碟。[下方有討論](#synology-plus系列nas買邊隻model好)）
 
 [Synology NAS選擇器](https://www.synology.com/zh-hk/support/nas_selector)
 
