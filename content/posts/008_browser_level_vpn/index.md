@@ -14,8 +14,7 @@ date = "2024-08-18"
 
 1. [序](#序)
 2. [設定步驟](#設定步驟)
-3. [手機端做法](#手機端做法)
-4. [其他可行方案](#其他可行方案)
+3. [其他可行方案](#其他可行方案)
 
 ## 序
 
@@ -259,91 +258,8 @@ client = OpenAI(
 
 ```
 
-## 手機端做法
-
-{{< figure src="./Mobile.png"  >}}
-
-以上是電腦端的做法。手機想做到同樣效果比較麻煩，因為iOS和Android只有在連接Wifi的時候才能設定代理，使用流量時不能用代理，變相廢了一半武功。
-
-不過我找到了代替品：Shadowrocket（iOS）和v2rayNG（Android）。
-
-這兩個手機程式都是「翻牆工具」，但我們不是用它來翻牆，也不用搭建翻牆伺服器：我們只需要這些程式中的「按域名決定用VPN」功能。
-
-注意：v2rayNG是免費，但Shadowrocket要付費（一次性2.99美元）。
-
-### Android
-
-於[此處](https://play.google.com/store/apps/details?id=com.v2ray.ang)下載v2rayNG。
-
-下載後，準備好從Mullvad下載的Wireguard設定檔，然後開啟v2rayNG：
-
-1. 添加配置文件（選`手動輸入[Wireguard]`）
-2. 輸入以下，然後儲存：
-
-   - 服務器地址：Wireguard設定檔的`Endpoint`（不包括端口）
-   - 服務器端口：Wireguard設定檔的`Endpoint`的端口
-   - SecretKey：Wireguard設定檔的`PrivateKey`
-   - PublicKey：Wireguard設定檔的`PublicKey`
-   - 本地地址：Wireguard設定檔的`Address`
-
-3. 進入v2rayNG設定：
-
-   - 域名策略：`AsIs`
-   - 預定義規則：`全局直連`
-   - 自定義規則：代理的網址或IP，輸入以下
-
-      ```bash
-      domain:openai.com,domain:chatgpt.com,domain:claude.ai,domain:anthropic.com
-      ```
-
-最後啟動v2rayNG（VPN），同樣去<https://chatgpt.com>和<https://whatismyip.com>驗證即可。
-
-### iOS
-
-於[此處](https://apps.apple.com/us/app/shadowrocket/id932747118)下載Shadowrocket。
-
-下載後，準備好從Mullvad下載的Wireguard設定檔，然後開啟Shadowrocket：
-
-（以下步驟建議接駁家中Wifi做）
-
-1. 右上角新增伺服器，型別選擇Wireguard
-2. 輸入以下，然後儲存：
-
-   - 地址：Wireguard設定檔的`Endpoint`（不包括端口）
-   - 埠：Wireguard設定檔的`Endpoint`的端口
-   - 私鑰：Wireguard設定檔的`PrivateKey`
-   - 公鑰：Wireguard設定檔的`PublicKey`
-   - 子網IP：Wireguard設定檔的`Address`
-   - DNS：Wireguard設定檔的`DNS`
-
-3. 往「配置」頁，按`default.conf`，再按`編輯純文字`。這時會彈出一個界面，上方有一個網址
-
-    （你可以選擇在手機界面繼續，但我建議你用電腦前往這網址，比較方便修改）
-
-4. 修改`default.conf`：
-   - 將`[Rule]`項中除了`# LAN`、`# Final`以外的項全部刪除
-   - 將`# Final`項下方改成`FINAL,DIRECT`
-   - 於`# LAN`上方加上以下內容：
-
-      ```bash
-      # AI
-      DOMAIN-SUFFIX,openai.com,PROXY
-      DOMAIN-SUFFIX,chatgpt.com,PROXY
-      DOMAIN-SUFFIX,claude.ai,PROXY
-      DOMAIN-SUFFIX,anthropic.com,PROXY
-      ```
-
-   - 將最下方的`[URL Rewrite]`項刪除
-   - 按右上角`save`儲存
-
-最後返回首頁並啟動Shadowrocket（VPN），同樣去<https://chatgpt.com>和<https://whatismyip.com>驗證即可。
-
 ## 其他可行方案
 
 如果你家中的路由器是用OpenWrt或pfSense/OPNsense等OS的話，可以設定Policy-based routing。設定後，整個家庭網絡上的全部電腦都能做到特定網域走VPN。
 
-以下是我找到的教學，但我沒實際測試過，不能保證其真確性，只作參考：
-
-[OpenWrt：Don’t VPN Everything! - Split Tunnel Your Traffic - Policy Based Routing](https://youtu.be/FN2qfxNIs2g?t=214)
-
-[OPNsense：WireGuard Selective Routing to External VPN Endpoint](https://docs.opnsense.org/manual/how-tos/wireguard-selective-routing.html)
+我[下一篇文章](../009_subscribing_to_openai/#openwrt)就有講如何用OpenWrt去做Policy-based routing。

@@ -28,9 +28,9 @@ date = "2024-12-16"
 
 (1)及(2)雖簡單直接，但我個人不喜歡使用這種第三方服務，畢竟控制權並非完全在自己手中。於是我花了點時間研究其他解決方案，前前後後搞了一個月，總算完成了。
 
-本文將記錄我整個申請過程。不過請注意，即使你完全按著以下步驟做，我也不能保證你能順利申請成功。
+本文將記錄我整個訂閱過程。不過請注意，即使你完全按著以下步驟做，我也不能保證你能順利訂閱成功。
 
-此外，我還會講講如何用OpenWrt路由器讓你家中往ChatGPT等網站的流量自動走VPN。
+此外，我還會講講如何用OpenWrt路由器將你往ChatGPT等網站的流量自動走VPN。
 
 ## 支付方法
 
@@ -80,13 +80,13 @@ IB的外匯匯率**接近市價**，此外還可以每月免費出金一次。
 
 不過要注意的是IB本質是證劵商，如只用來做大額外幣兌換而不買賣股票的話，**有可能會被IB封禁**（網上討論區不難找到案例）。我自己本來就有用IB買賣股票，而且兌換英鎊的金額只佔我戶口總值的一小部分，所以才沒問題。
 
-如果你沒有IB戶口的話，可以選擇直接用香港匯豐戶口網上轉帳：匯豐會在轉帳前自動將你的港幣兌換成英鎊。（當然匯率會比IB差一點）
+如果你沒有IB戶口的話，可以選擇**直接用香港匯豐戶口網上轉帳**：匯豐會在轉帳前自動將你的港幣兌換成英鎊。（當然匯率會比IB差一點）
 
 ## 外國手機號碼
 
-我選擇英國Giffgaff電話卡。Giffgaff提供全球免費寄送SIM卡服務，而且養卡號簡單（就我理解每半年發一次短訊即可）。
+我選擇英國Giffgaff電話卡。Giffgaff提供~~全球~~免費寄送SIM卡服務，而且養卡號簡單（就我理解每半年發一次短訊即可）。
 
-你可以到[Giffgaff 官網](https://www.giffgaff.com/freesim-international)免費申請一張SIM卡。我申請過兩次，第一次申請後三星期都沒收到SIM卡，第二次申請後約兩星期才收到。
+~~你可以到[Giffgaff 官網](https://www.giffgaff.com/freesim-international)免費申請一張SIM卡。我申請過兩次，第一次申請後三星期都沒收到SIM卡，第二次申請後約兩星期才收到。~~ （現時Giffgaff不再寄送SIM卡到港）
 
 另外一個做法是去二手買賣平台（如Carousell）：有不少人願意免費寄送Giffgaff SIM卡（因為有回贈），你只需支付郵費即可於幾日內獲取SIM卡。我個人建議用這方法，因為比官方寄送快非常多。
 
@@ -101,7 +101,7 @@ IB的外匯匯率**接近市價**，此外還可以每月免費出金一次。
 付費時的注意事項：
 
 1. 你要全程啟動VPN
-2. 要輸入正確的地址和郵政編碼（提示：去相應國家的*地產中介網頁* 找找看）
+2. 要輸入正確的地址和郵政編碼（提示：**去相應國家的*地產中介網頁* 找找看**）
 
 我測試過可以用非英國的VPN和地址。用英國地址的話要另外交VAT（即增值稅），建議用美國地址。
 
@@ -126,16 +126,7 @@ IB的外匯匯率**接近市價**，此外還可以每月免費出金一次。
 
 以下我將講講設定方法。
 
-{{< notice note "手機行動網路設定方法" >}}
-我[上一篇文章](../008_browser_level_vpn/#手機端做法)有講如何在使用行動網路時將特定網頁的流量走VPN，有興趣可以看看。
-
-{{< /notice >}}
-
 ### 前置條件
-
-{{< notice warning "注意" >}}
-以下步驟只在OpenWrt 23.05版本測試過（但應同時適用於下一版本，即24.10）。
-{{< /notice >}}
 
 1. 你要有一部OpenWrt路由器
 
@@ -208,19 +199,14 @@ ssh root@192.168.1.1
 
 ```bash
 # 安裝PBR及Wireguard
-opkg update
-opkg install luci-app-pbr luci-proto-wireguard resolveip ip-full
-
-# 可選：安裝繁中翻譯，安裝後於System -> System -> Language and Style更改語言
-opkg install luci-i18n-base-zh-tw
+apk update
+apk add luci-app-pbr luci-proto-wireguard libnettle8 libnetfilter-conntrack3
 
 # 將dnsmasq替換為dnsmasq-full
 # https://docs.openwrt.melmac.net/pbr/#Howtoinstalldnsmasq-full
-opkg install libnettle8 libnetfilter-conntrack3
-cd /tmp/ && opkg download dnsmasq-full
-opkg remove dnsmasq
-opkg install dnsmasq-full --cache /tmp/
-rm -f /tmp/dnsmasq-full*.ipk
+cd /tmp/ && apk fetch dnsmasq-full
+apk del dnsmasq
+apk add --allow-untrusted ./dnsmasq-full-*.apk
 
 # 重啟OpenWrt
 reboot
@@ -259,28 +245,18 @@ reboot
 
 ```bash
 # Anthropic / Claude
-anthropic.com claude.ai claudeusercontent.com servd-anthropic-website.b-cdn.net
+anthropic.com clau.de claude.ai claude.com servd-anthropic-website.b-cdn.net
 
 # OpenAI
-chatgpt.com chat.com oaistatic.com oaiusercontent.com openai.com sora.com 
-openai.com.cdn.cloudflare.net openaiapi-site.azureedge.net 
-openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net 
-openaicomproductionae4b.blob.core.windows.net
-production-openaicom-storage.azureedge.net o33249.ingest.sentry.io
-openaicom.imgix.net browser-intake-datadoghq.com chatgpt.livekit.cloud 
-host.livekit.cloud turn.livekit.cloud
-
-# Google Deepmind / Gemini
-deepmind.com deepmind.google geller-pa.googleapis.com generativelanguage.googleapis.com
-proactivebackend-pa.googleapis.com ai.google.dev alkalicore-pa.clients6.google.com
-gemini.google.com alkalimakersuite-pa.clients6.google.com 
-webchannel-alkalimakersuite-pa.clients6.google.com generativeai.google
-makersuite.google.com aistudio.google.com bard.google.com gemini.google
+chat.com chatgpt.com crixet.com oaistatic.com openai.com sora.com openai.com.cdn.cloudflare.net
+openaiapi-site.azureedge.net openaicom-api-bdcpf8c6d2e9atf6.z01.azurefd.net openaicom.imgix.net
+openaicomproductionae4b.blob.core.windows.net production-openaicom-storage.azureedge.net
+o33249.ingest.sentry.io browser-intake-datadoghq.com chatgpt.livekit.cloud turn.livekit.cloud
 ```
 
-4. `Interface`選擇你的Wireguard介面
-5. 按`Save`，然後按`Save & Apply`
-6. 在頁面上方`Service Control`按`Enable`以設定為開機啟動，再按`Start`以啟動PBR
+1. `Interface`選擇你的Wireguard介面
+2. 按`Save`，然後按`Save & Apply`
+3. 在頁面上方`Service Control`按`Enable`以設定為開機啟動，再按`Start`以啟動PBR
 
 {{< figure src="./OpenWrt_PBR.png" caption="我的PBR設定" >}}
 
@@ -310,6 +286,20 @@ ipconfig /flushdns
 請自行查找其他OS的清除電腦DNS緩存方法（通常重啟就可以了）。
 
 清除DNS緩存後就可正常使用ChatGPT了。
+
+## （進階）手機流量自動VPN分流
+
+如果你家中有一部閒置的電腦（買一部Raspberry Pi也可），可透過Tailscale達成手機流量自動VPN分流。
+
+首先於手機和閒置電腦上[安裝Tailscale](https://tailscale.com/docs/install)，然後按此[教學](https://avilpage.com/2025/11/tailscale-app-connectors-quick-setup.html)的步驟做即可。
+
+注意：於Tailscale網頁*Add App* 介面之網域清單中，你需要添加同一網域兩次，其中一次用`*.`開頭。
+
+例如你想將`openai.com`做VPN分流，那你就要將`openai.com`及`*.openai.com`都加入網域清單。
+
+此方法要求你Tailscale電腦處於可連接OpenWrt的網絡中（例如要先完成上方OpenWrt PBR之設定），因為此方法本質是將手機流量往指定域名的請求接駁至Tailscale電腦，後者再將此請求正常送出，需要外力（如PBR）將請求放上VPN。
+
+（你亦可使用如[sing-box](https://sing-box.sagernet.org/)等各類翻牆軟件去達成手機流量自動VPN分流，請自行研究設定方法。）
 
 ## 有用連結
 
