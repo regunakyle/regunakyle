@@ -7,14 +7,6 @@ date = "2025-05-24"
 
 ## Completed
 
-### [LIHKG Gwent Guide](https://regunakyle.github.io/lihkg-gwent-guide/)
-
-A guide for [GWENT: The Witcher Card Game](https://www.playgwent.com/) written with [Hugo](https://gohugo.io/).
-
-It has 1,000 visitors per month at it's peak. Unfortunately the game is [effectively discontinued](https://www.ign.com/articles/cd-projekt-red-is-sunsetting-support-for-gwent-the-witcher-card-game).
-
-It is a fun game, and demands strategic planning rather than luck. I recommend you to try it.
-
 ### [My Discord Bot](https://github.com/regunakyle/my-discord-bot)
 
 A Discord bot written in Python using [Discord.py](https://discordpy.readthedocs.io/en/stable/). Docker version available [here](https://hub.docker.com/r/regunakyle/my-discord-bot).
