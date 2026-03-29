@@ -11,6 +11,8 @@ While I am not at work, I enjoy tinkering with my homelab. Having alternatives t
 
 I am an active participant in the homelab discussion thread on LIHKG, and I've written a comprehensive [guide](../posts/003_lihkg_consumer_nas/) to homelabbing (in Cantonese) aimed at newbie homelabbers. I am also one of the admins of a local IT community group: [HKITHub](https://www.facebook.com/groups/hkithub), feel free to join us on our [Discord](https://discord.gg/D45jCfzwhP)!
 
+I am also one of the host of a local tech podcast *[Why Code Always Sucks](https://www.youtube.com/@why_code_always_sucks)*, please subscribe and hop in every Thursday evening to join us!
+
 I excel at Python (+Django) and SQL, have good experience in Java (+Spring Boot) and Javascript/Typescript (+React with Next.js). I also have much more knowledge of computer hardware and Linux than your average developer. I also have hand-on experience on DevOps (I set up the CI/CD pipeline in my company all by myself).
 
 I also daily drive Linux (:tophat:[Fedora KDE](https://fedoraproject.org/spins/kde/) is my favourite distro!), with a Windows 10 virtual machine inside for [high-performance, low-latency gaming](../posts/002_windows_to_linux/).
