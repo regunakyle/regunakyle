@@ -9,9 +9,7 @@ I am an aspiring fullstack developer in Hong Kong. I graduated from HKUST (*BSc*
 
 While I am not at work, I enjoy tinkering with my homelab. Having alternatives to popular services hosted in my own house gives me senses of privacy and accomplishment, and I learned a lot in the process of setting these up. I also like playing video games, particularly the most challenging ARPGs (e.g. Dark Souls series, Monster Hunter series). Hit me up if you need a buddy in Monster Hunter games!
 
-I am an active participant in the homelab discussion thread on LIHKG, and I've written a comprehensive [guide](../posts/003_lihkg_consumer_nas/) to homelabbing (in Cantonese) aimed at newbie homelabbers. I am also one of the admins of a local IT community group: [HKITHub](https://www.facebook.com/groups/hkithub), feel free to join us on our [Discord](https://discord.gg/D45jCfzwhP)!
-
-I am also one of the host of a local tech podcast *[Why Code Always Sucks](https://www.youtube.com/@why_code_always_sucks)*, please subscribe and hop in every Thursday evening to join us!
+I am an active participant in the homelab discussion thread on LIHKG, and I've written a comprehensive [guide](../posts/003_lihkg_consumer_nas/) to homelabbing (in Cantonese) aimed at newbie homelabbers. I am also one of the host of a local tech podcast *[Why Code Always Sucks](https://www.youtube.com/@why_code_always_sucks)*, please subscribe and hop in every Thursday evening! We have a Discord group [here](https://discord.com/invite/5JqzHWbUTy).
 
 I excel at Python (+Django) and SQL, have good experience in Java (+Spring Boot) and Javascript/Typescript (+React with Next.js). I also have much more knowledge of computer hardware and Linux than your average developer. I also have hand-on experience on DevOps (I set up the CI/CD pipeline in my company all by myself).
 
